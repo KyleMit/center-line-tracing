@@ -153,7 +153,36 @@ function thin(src, W, H) {
   return img;
 }
 
-// Trace skeleton pixels into ordered polylines, splitting at junctions.
+// Remove short dead-end spurs (barbs the thinning leaves at junctions).
+// These false branches are what fracture a stroke into junctions; clearing
+// them lets a self-crossing stroke trace through as one line. Real stroke
+// tips are long, so they only lose `maxLen` px — invisible with round caps.
+function pruneSpurs(skel, W, H, maxLen) {
+  const idx = (x, y) => y * W + x;
+  const degAt = (x, y) => {
+    let n = 0;
+    for (let dy = -1; dy <= 1; dy++)
+      for (let dx = -1; dx <= 1; dx++) {
+        if (dx === 0 && dy === 0) continue;
+        const nx = x + dx, ny = y + dy;
+        if (nx >= 0 && ny >= 0 && nx < W && ny < H && skel[idx(nx, ny)]) n++;
+      }
+    return n;
+  };
+  for (let pass = 0; pass < maxLen; pass++) {
+    const drop = [];
+    for (let y = 1; y < H - 1; y++)
+      for (let x = 1; x < W - 1; x++)
+        if (skel[idx(x, y)] && degAt(x, y) <= 1) drop.push(idx(x, y));
+    if (!drop.length) break;
+    for (const i of drop) skel[i] = 0;
+  }
+}
+
+// Trace the skeleton into long polylines. Crucially, it does NOT stop at
+// junctions: when a stroke crosses itself the medial axis branches, and we
+// continue along whichever branch best preserves the current heading, so one
+// continuous pen stroke comes back as one continuous line.
 function traceSkeleton(skel, W, H) {
   const idx = (x, y) => y * W + x;
   const nbrs = (x, y) => {
@@ -168,14 +197,34 @@ function traceSkeleton(skel, W, H) {
     return out;
   };
 
-  // degree map
   const deg = new Uint8Array(W * H);
   const pts = [];
   for (let y = 0; y < H; y++)
     for (let x = 0; x < W; x++)
       if (skel[idx(x, y)]) { deg[idx(x, y)] = nbrs(x, y).length; pts.push([x, y]); }
 
-  // edge-visited set keyed by "min-max"
+  const AHEAD = 6;  // px to peek down a branch to estimate its direction
+  const BACK = 6;   // px of incoming history used as the heading
+  // Direction of the branch leaving (bx,by) away from (ax,ay), peeking ahead
+  // along the locally-straightest path so junction choices are robust.
+  const peekDir = (ax, ay, bx, by) => {
+    const sx0 = bx, sy0 = by;
+    for (let s = 0; s < AHEAD; s++) {
+      let best = null, bestDot = -Infinity;
+      const v1x = bx - ax, v1y = by - ay;
+      for (const [nx, ny] of nbrs(bx, by)) {
+        if (nx === ax && ny === ay) continue;
+        const v2x = nx - bx, v2y = ny - by;
+        const d = (v1x * v2x + v1y * v2y) /
+          ((Math.hypot(v1x, v1y) * Math.hypot(v2x, v2y)) || 1);
+        if (d > bestDot) { bestDot = d; best = [nx, ny]; }
+      }
+      if (!best) break;
+      ax = bx; ay = by; bx = best[0]; by = best[1];
+    }
+    return [bx - sx0, by - sy0];
+  };
+
   const visited = new Set();
   const ekey = (a, b) => a < b ? a + ',' + b : b + ',' + a;
   const polylines = [];
@@ -189,31 +238,32 @@ function traceSkeleton(skel, W, H) {
         ([nx, ny]) => !visited.has(ekey(here, idx(nx, ny)))
       );
       if (cand.length === 0) break;
-      // prefer straightest continuation
       let next = cand[0];
       if (line.length >= 2 && cand.length > 1) {
-        const px = line[line.length - 2][0], py = line[line.length - 2][1];
-        const vx = cx - px, vy = cy - py;
+        // heading over the last BACK pixels (smoother than 1-px direction)
+        const j = Math.max(0, line.length - 1 - BACK);
+        const hx = cx - line[j][0], hy = cy - line[j][1];
+        const hn = Math.hypot(hx, hy) || 1;
         let best = -Infinity;
         for (const c of cand) {
-          const wx = c[0] - cx, wy = c[1] - cy;
-          const dot = (vx * wx + vy * wy) /
-            (Math.hypot(vx, vy) * Math.hypot(wx, wy) || 1);
+          const [dx, dy] = peekDir(cx, cy, c[0], c[1]);
+          const dn = Math.hypot(dx, dy) || 1;
+          const dot = (hx * dx + hy * dy) / (hn * dn);
           if (dot > best) { best = dot; next = c; }
         }
       }
       visited.add(ekey(here, idx(next[0], next[1])));
       cx = next[0]; cy = next[1];
       line.push([cx, cy]);
-      // stop at junctions/endpoints so segments stay simple
-      if (deg[idx(cx, cy)] !== 2) break;
     }
     return line;
   };
 
-  // start from endpoints & junctions first, then any leftover loops
-  const starts = pts.filter(([x, y]) => deg[idx(x, y)] !== 2);
-  for (const [x, y] of starts) {
+  // Start at true stroke ends (degree 1) so whole strokes trace in one go,
+  // then mop up any remaining edges (closed loops / leftover crossings).
+  const order = [...pts].sort((a, b) =>
+    deg[idx(a[0], a[1])] - deg[idx(b[0], b[1])]);
+  for (const [x, y] of order) {
     let progressed = true;
     while (progressed) {
       progressed = false;
@@ -225,16 +275,6 @@ function traceSkeleton(skel, W, H) {
           progressed = true;
           break;
         }
-      }
-    }
-  }
-  // leftover pure loops
-  for (const [x, y] of pts) {
-    const here = idx(x, y);
-    for (const [nx, ny] of nbrs(x, y)) {
-      if (!visited.has(ekey(here, idx(nx, ny)))) {
-        const line = walk(x, y);
-        if (line.length > 1) polylines.push(line);
       }
     }
   }
@@ -270,12 +310,9 @@ async function main() {
     if (area === 0) { console.log(`  path ${p}: empty`); continue; }
     const dt = distanceTransform(mask, W, H);
     const skel = thin(mask, W, H);
-    let polys = traceSkeleton(skel, W, H);
 
-    const len = skelLength(polys) || 1;
-    // Width from the distance transform sampled along the skeleton: each
-    // skeleton pixel sits ~half a stroke-width from the edge, so 2*dt ≈ width.
-    // A high percentile (robust to thin tips) gives the representative width.
+    // Representative stroke width from the distance transform along the raw
+    // skeleton (before pruning): 2 * ~median half-width.
     const dvals = [];
     for (let y = 0; y < H; y++)
       for (let x = 0; x < W; x++)
@@ -283,8 +320,13 @@ async function main() {
     dvals.sort((a, b) => a - b);
     const pct = (q) => dvals.length ? dvals[Math.min(dvals.length - 1,
       Math.floor(q * dvals.length))] : 0;
-    const widthPx = 2 * pct(0.55);            // ~median half-width *2
+    const widthPx = 2 * pct(0.55);
     const strokeW = fmt(widthPx * ((sx + sy) / 2));
+
+    // Prune barbs up to ~half the stroke width, then trace through junctions.
+    pruneSpurs(skel, W, H, Math.max(2, Math.round(widthPx * 0.6)));
+    let polys = traceSkeleton(skel, W, H);
+    const len = skelLength(polys) || 1;
 
     // px -> user coords, simplify, drop tiny
     const segs = [];
