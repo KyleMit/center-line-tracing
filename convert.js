@@ -11,14 +11,15 @@
 //   6. simplify polylines (Ramer-Douglas-Peucker via simplify-js)
 //   7. emit <path fill="none" stroke=color stroke-width=w d=...>
 //
-// Usage: node convert.js [input.svg] [output.svg]
+// Usage: node convert.js [inputs/landscape.svg] [outputs/landscape.svg]
 
 const fs = require('fs');
+const path = require('path');
 const sharp = require('sharp');
 const simplify = require('simplify-js');
 
-const INPUT = process.argv[2] || 'input.svg';
-const OUTPUT = process.argv[3] || 'output.svg';
+const INPUT = process.argv[2] || 'inputs/landscape.svg';
+const OUTPUT = process.argv[3] || 'outputs/landscape.svg';
 
 // Rendering resolution for the mask. Higher = better skeleton, slower.
 const SCALE = Number(process.env.SCALE || 1.0);
@@ -356,6 +357,7 @@ async function main() {
     `<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n` +
     `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" ` +
     `viewBox="${vb.join(' ')}">\n` + outPaths.join('\n') + `\n</svg>\n`;
+  fs.mkdirSync(path.dirname(OUTPUT), { recursive: true });
   fs.writeFileSync(OUTPUT, out);
   console.log(`wrote ${OUTPUT} (${outPaths.length} paths, ${out.length} bytes)`);
 }

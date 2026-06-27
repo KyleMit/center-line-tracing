@@ -6,8 +6,13 @@
  *   npm install sharp pngjs
  *
  * Usage:
- *   node convert-filled-svg-to-stroked-lines.mjs large-image-drawing.svg \
- *     --output large-image-drawing-lines.svg
+ *   # Inputs live in inputs/, outputs are written to outputs/.
+ *   node convert-filled-svg-to-stroked-lines.mjs inputs/landscape.svg
+ *   #   -> writes outputs/landscape.svg
+ *
+ *   # Or set the output path explicitly:
+ *   node convert-filled-svg-to-stroked-lines.mjs inputs/landscape.svg \
+ *     --output outputs/landscape.svg
  */
 
 import fs from 'node:fs/promises';
@@ -33,6 +38,9 @@ function parseArgs(argv) {
     simplifyEpsilon: 2.2,
     minStrokeWidth: 6,
     maxStrokeWidth: 18,
+    joinGap: 3,
+    minPathPixels: 2,
+    mode: 'elements',
   };
 
   for (let i = 2; i < argv.length; i++) {
@@ -46,12 +54,15 @@ function parseArgs(argv) {
     else if (token === '--simplify-epsilon') args.simplifyEpsilon = Number(next());
     else if (token === '--min-stroke-width') args.minStrokeWidth = Number(next());
     else if (token === '--max-stroke-width') args.maxStrokeWidth = Number(next());
+    else if (token === '--join-gap') args.joinGap = Number(next());
+    else if (token === '--min-path-pixels') args.minPathPixels = Number(next());
+    else if (token === '--mode') args.mode = next();
     else if (!args.input) args.input = token;
     else throw new Error(`Unexpected argument: ${token}`);
   }
 
   if (!args.input) {
-    throw new Error('Usage: node convert-filled-svg-to-stroked-lines.mjs input.svg --output output.svg');
+    throw new Error('Usage: node convert-filled-svg-to-stroked-lines.mjs inputs/landscape.svg --output outputs/landscape.svg');
   }
 
   return args;
@@ -100,8 +111,116 @@ function hexToRgb(hex) {
   return [1, 3, 5].map((i) => Number.parseInt(hex.slice(i, i + 2), 16));
 }
 
+function attrValue(attrs, name) {
+  const match = attrs.match(new RegExp(`\\b${name}\\s*=\\s*["']([^"']+)["']`, 'i'));
+  return match ? match[1] : null;
+}
+
+function explicitFill(attrs) {
+  const direct = attrValue(attrs, 'fill');
+
+  if (direct && /^#[0-9a-fA-F]{6}$/.test(direct)) {
+    return direct.toUpperCase();
+  }
+
+  const style = attrValue(attrs, 'style');
+  const styled = style?.match(/(?:^|;)\s*fill\s*:\s*(#[0-9a-fA-F]{6})/i);
+
+  return styled ? styled[1].toUpperCase() : null;
+}
+
+function sanitizeShapeAttrs(attrs) {
+  return attrs
+    .replace(/\s(?:fill|stroke|stroke-width|stroke-linecap|stroke-linejoin|vector-effect)\s*=\s*["'][^"']*["']/gi, '')
+    .replace(/\sstyle\s*=\s*["'][^"']*["']/gi, '')
+    .replace(/\/\s*$/, '')
+    .trim();
+}
+
+function parseFilledElements(svgText) {
+  const elements = [];
+  const fillStack = [null];
+  const regex = /<g\b([^>]*)>|<\/g>|<(path|rect|circle|ellipse)\b([^>]*)\/?>/gi;
+
+  for (const match of svgText.matchAll(regex)) {
+    if (match[0].startsWith('</g')) {
+      if (fillStack.length > 1) fillStack.pop();
+      continue;
+    }
+
+    if (match[0].startsWith('<g')) {
+      const attrs = match[1];
+      const fillAttr = attrValue(attrs, 'fill');
+      const fill = fillAttr?.toLowerCase() === 'none'
+        ? null
+        : explicitFill(attrs) ?? fillStack[fillStack.length - 1];
+
+      fillStack.push(fill);
+      continue;
+    }
+
+    const tag = match[2].toLowerCase();
+    const attrs = match[3];
+    const fillAttr = attrValue(attrs, 'fill');
+    const fill = fillAttr?.toLowerCase() === 'none'
+      ? null
+      : explicitFill(attrs) ?? fillStack[fillStack.length - 1];
+
+    if (!fill) continue;
+
+    const cleanAttrs = sanitizeShapeAttrs(attrs);
+    elements.push({
+      tag,
+      fill,
+      markup: `<${tag} ${cleanAttrs} fill="#fff"/>`,
+      attrs,
+    });
+  }
+
+  return elements;
+}
+
+async function renderElementMask(element, viewBox) {
+  const svg = [
+    `<svg xmlns="${SVG_NS}" version="1.1" viewBox="${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}">`,
+    `<rect x="${viewBox.x}" y="${viewBox.y}" width="${viewBox.width}" height="${viewBox.height}" fill="#000"/>`,
+    element.markup,
+    '</svg>',
+  ].join('');
+  const png = await renderSvgTextToRgba(svg, viewBox.width, viewBox.height);
+  const mask = new Uint8Array(png.width * png.height);
+  let area = 0;
+
+  for (let p = 0; p < mask.length; p++) {
+    const offset = p * 4;
+    const value = png.data[offset];
+
+    if (value > 128) {
+      mask[p] = 1;
+      area++;
+    }
+  }
+
+  return { mask, area };
+}
+
 async function renderSvgToRgba(svgPath, width, height) {
   const pngBuffer = await sharp(svgPath)
+    .resize(width, height, { fit: 'fill' })
+    .png()
+    .toBuffer();
+
+  const png = PNG.sync.read(pngBuffer);
+
+  return {
+    data: png.data,
+    width: png.width,
+    height: png.height,
+  };
+}
+
+async function renderSvgTextToRgba(svgText, width, height) {
+  const pngBuffer = await sharp(Buffer.from(svgText))
     .resize(width, height, { fit: 'fill' })
     .png()
     .toBuffer();
@@ -480,6 +599,129 @@ function traceSkeletonPaths(skeleton, width, height) {
   return paths;
 }
 
+function traceSkeletonContinuous(skeleton, width, height) {
+  const points = [];
+  const degree = new Uint8Array(skeleton.length);
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const p = index(width, y, x);
+
+      if (!skeleton[p]) continue;
+
+      points.push(p);
+      degree[p] = skeletonNeighbors(skeleton, width, height, p).length;
+    }
+  }
+
+  const visitedEdges = new Set();
+  const paths = [];
+  const sortedPoints = [...points].sort((a, b) => degree[a] - degree[b]);
+
+  const peekDirection = (previous, current) => {
+    let a = previous;
+    let b = current;
+    const startX = b % width;
+    const startY = Math.floor(b / width);
+
+    for (let step = 0; step < 6; step++) {
+      const ax = a % width;
+      const ay = Math.floor(a / width);
+      const bx = b % width;
+      const by = Math.floor(b / width);
+      const inX = bx - ax;
+      const inY = by - ay;
+      let best = null;
+      let bestDot = -Infinity;
+
+      for (const q of skeletonNeighbors(skeleton, width, height, b)) {
+        if (q === a) continue;
+
+        const qx = q % width;
+        const qy = Math.floor(q / width);
+        const outX = qx - bx;
+        const outY = qy - by;
+        const dot = (inX * outX + inY * outY) /
+          ((Math.hypot(inX, inY) * Math.hypot(outX, outY)) || 1);
+
+        if (dot > bestDot) {
+          bestDot = dot;
+          best = q;
+        }
+      }
+
+      if (best === null) break;
+
+      a = b;
+      b = best;
+    }
+
+    return [b % width - startX, Math.floor(b / width) - startY];
+  };
+
+  const walk = (start) => {
+    const path = [start];
+    let current = start;
+
+    while (true) {
+      const candidates = skeletonNeighbors(skeleton, width, height, current)
+        .filter((q) => !visitedEdges.has(edgeKey(current, q)));
+
+      if (!candidates.length) break;
+
+      let next = candidates[0];
+
+      if (path.length >= 2 && candidates.length > 1) {
+        const back = path[Math.max(0, path.length - 7)];
+        const hx = current % width - back % width;
+        const hy = Math.floor(current / width) - Math.floor(back / width);
+        const hn = Math.hypot(hx, hy) || 1;
+        let bestDot = -Infinity;
+
+        for (const candidate of candidates) {
+          const [dx, dy] = peekDirection(current, candidate);
+          const dn = Math.hypot(dx, dy) || 1;
+          const dot = (hx * dx + hy * dy) / (hn * dn);
+
+          if (dot > bestDot) {
+            bestDot = dot;
+            next = candidate;
+          }
+        }
+      }
+
+      visitedEdges.add(edgeKey(current, next));
+      current = next;
+      path.push(current);
+    }
+
+    return path;
+  };
+
+  for (const p of sortedPoints) {
+    let progressed = true;
+
+    while (progressed) {
+      progressed = false;
+
+      for (const q of skeletonNeighbors(skeleton, width, height, p)) {
+        if (!visitedEdges.has(edgeKey(p, q))) {
+          const path = walk(p);
+
+          if (path.length > 1) {
+            paths.push(path);
+          }
+
+          progressed = true;
+          break;
+        }
+      }
+    }
+  }
+
+  return paths;
+}
+
 function perpendicularDistance(point, start, end) {
   const [x, y] = point;
   const [x1, y1] = start;
@@ -550,6 +792,115 @@ function pathLength(points) {
   return total;
 }
 
+function endpointDirection(points, atEnd) {
+  if (points.length < 2) return [0, 0];
+
+  const a = atEnd ? points[points.length - 2] : points[1];
+  const b = atEnd ? points[points.length - 1] : points[0];
+  const dx = b[0] - a[0];
+  const dy = b[1] - a[1];
+  const length = Math.hypot(dx, dy) || 1;
+
+  return [dx / length, dy / length];
+}
+
+function endpoint(points, atEnd) {
+  return atEnd ? points[points.length - 1] : points[0];
+}
+
+function reversePath(path) {
+  return {
+    ...path,
+    points: [...path.points].reverse(),
+  };
+}
+
+function joinPointDistance(a, b) {
+  return Math.hypot(a[0] - b[0], a[1] - b[1]);
+}
+
+function joinCandidate(a, b, maxGap) {
+  const cases = [
+    { aEnd: true, bEnd: false, reverseA: false, reverseB: false },
+    { aEnd: true, bEnd: true, reverseA: false, reverseB: true },
+    { aEnd: false, bEnd: false, reverseA: true, reverseB: false },
+    { aEnd: false, bEnd: true, reverseA: true, reverseB: true },
+  ];
+
+  let best = null;
+
+  for (const c of cases) {
+    const pa = endpoint(a.points, c.aEnd);
+    const pb = endpoint(b.points, c.bEnd);
+    const gap = joinPointDistance(pa, pb);
+
+    if (gap > maxGap) continue;
+
+    const da = endpointDirection(a.points, c.aEnd);
+    const db = endpointDirection(b.points, !c.bEnd);
+    const alignment = da[0] * db[0] + da[1] * db[1];
+
+    // Tiny gaps usually come from a skeleton junction pixel and should be
+    // reconnected even when the local direction changes sharply.
+    if (gap > 3 && alignment < 0.15) continue;
+
+    const score = gap + (1 - alignment) * 8;
+
+    if (!best || score < best.score) {
+      best = { ...c, gap, score };
+    }
+  }
+
+  return best;
+}
+
+function mergeTwoPaths(a, b, candidate) {
+  const left = candidate.reverseA ? reversePath(a) : a;
+  const right = candidate.reverseB ? reversePath(b) : b;
+  const [lx, ly] = left.points[left.points.length - 1];
+  const [rx, ry] = right.points[0];
+  const skipRightStart = lx === rx && ly === ry;
+
+  return {
+    ...left,
+    points: left.points.concat(skipRightStart ? right.points.slice(1) : right.points),
+    closed: false,
+  };
+}
+
+function mergeOpenPaths(paths, maxGap) {
+  const open = paths.filter((p) => !p.closed);
+  const closed = paths.filter((p) => p.closed);
+
+  let changed = true;
+
+  while (changed) {
+    changed = false;
+    let best = null;
+
+    for (let i = 0; i < open.length; i++) {
+      for (let j = i + 1; j < open.length; j++) {
+        const candidate = joinCandidate(open[i], open[j], maxGap);
+
+        if (!candidate) continue;
+
+        if (!best || candidate.score < best.candidate.score) {
+          best = { i, j, candidate };
+        }
+      }
+    }
+
+    if (best) {
+      const merged = mergeTwoPaths(open[best.i], open[best.j], best.candidate);
+      open.splice(best.j, 1);
+      open.splice(best.i, 1, merged);
+      changed = true;
+    }
+  }
+
+  return closed.concat(open);
+}
+
 function formatNumber(value) {
   return Number(value.toFixed(1)).toString();
 }
@@ -582,7 +933,132 @@ function median(values) {
     : (values[mid - 1] + values[mid]) / 2;
 }
 
+function ellipseLikeStroke(element, options) {
+  if (element.tag !== 'ellipse' && element.tag !== 'circle') return null;
+
+  const transform = attrValue(element.attrs, 'transform') ?? '';
+  const translate = transform.match(/translate\(([-\d.]+)[,\s]+([-\d.]+)\)/i);
+  const cx = element.tag === 'circle'
+    ? Number(attrValue(element.attrs, 'cx'))
+    : translate
+      ? Number(translate[1])
+      : Number(attrValue(element.attrs, 'cx'));
+  const cy = element.tag === 'circle'
+    ? Number(attrValue(element.attrs, 'cy'))
+    : translate
+      ? Number(translate[2])
+      : Number(attrValue(element.attrs, 'cy'));
+  const rx = element.tag === 'circle'
+    ? Number(attrValue(element.attrs, 'r'))
+    : Number(attrValue(element.attrs, 'rx'));
+  const ry = element.tag === 'circle'
+    ? rx
+    : Number(attrValue(element.attrs, 'ry'));
+
+  if ([cx, cy, rx, ry].some(Number.isNaN)) return null;
+
+  const diameter = Math.min(rx, ry);
+  const strokeWidth = Math.max(
+    options.minStrokeWidth,
+    Math.min(options.maxStrokeWidth, diameter * 0.65),
+  );
+  const radius = Math.max(2, diameter * 0.4);
+
+  return {
+    color: element.fill,
+    strokeWidth,
+    circle: { cx, cy, r: radius },
+  };
+}
+
+async function convertSvgByElements(inputSvg, outputSvg, options) {
+  const svgText = await fs.readFile(inputSvg, 'utf8');
+  const viewBox = readViewBox(svgText);
+  const elements = parseFilledElements(svgText);
+  const outputPaths = [];
+
+  for (const element of elements) {
+    const dotStroke = ellipseLikeStroke(element, options);
+
+    if (dotStroke) {
+      outputPaths.push(dotStroke);
+      continue;
+    }
+
+    const { mask, area } = await renderElementMask(element, viewBox);
+
+    if (area < options.minObjectSize) continue;
+
+    const cleaned = removeSmallObjects(mask, viewBox.width, viewBox.height, options.minObjectSize);
+    const skeleton = skeletonizeZhangSuen(cleaned, viewBox.width, viewBox.height);
+    const distance = distanceTransformChamfer(cleaned, viewBox.width, viewBox.height);
+    const skeletonDistances = [];
+
+    for (let p = 0; p < skeleton.length; p++) {
+      if (skeleton[p]) {
+        skeletonDistances.push(distance[p]);
+      }
+    }
+
+    let strokeWidth = median(skeletonDistances) * 2 || 8;
+    strokeWidth = Math.max(options.minStrokeWidth, Math.min(options.maxStrokeWidth, strokeWidth));
+
+    const colorPaths = [];
+
+    for (const pixelPath of traceSkeletonContinuous(skeleton, viewBox.width, viewBox.height)) {
+      if (pixelPath.length < options.minPathPixels) continue;
+
+      const { points, closed } = simplifyPath(pixelPath, viewBox.width, options.simplifyEpsilon);
+
+      if (points.length < 2 || pathLength(points) < options.minPathLength) continue;
+
+      colorPaths.push({ points, closed });
+    }
+
+    for (const path of mergeOpenPaths(colorPaths, options.joinGap)) {
+      if (path.points.length < 2 || pathLength(path.points) < options.minPathLength) continue;
+
+      outputPaths.push({
+        color: element.fill,
+        strokeWidth,
+        d: svgPathD(path.points, path.closed),
+      });
+    }
+  }
+
+  await writeOutputSvg(outputSvg, viewBox, outputPaths);
+}
+
+async function writeOutputSvg(outputSvg, viewBox, outputPaths) {
+  const lines = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    `<svg xmlns="${SVG_NS}" version="1.1" viewBox="${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}">`,
+    '  <g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke">',
+  ];
+
+  for (const p of outputPaths) {
+    if (p.circle) {
+      lines.push(`    <circle cx="${formatNumber(p.circle.cx)}" cy="${formatNumber(p.circle.cy)}" r="${formatNumber(p.circle.r)}" stroke="${p.color}" stroke-width="${p.strokeWidth.toFixed(1)}"/>`);
+    } else {
+      lines.push(`    <path d="${p.d}" stroke="${p.color}" stroke-width="${p.strokeWidth.toFixed(1)}"/>`);
+    }
+  }
+
+  lines.push('  </g>', '</svg>');
+
+  await fs.writeFile(outputSvg, lines.join('\n'), 'utf8');
+}
+
 async function convertSvg(inputSvg, outputSvg, options) {
+  if (options.mode === 'elements') {
+    await convertSvgByElements(inputSvg, outputSvg, options);
+    return;
+  }
+
+  if (options.mode !== 'colors') {
+    throw new Error(`Unsupported --mode ${options.mode}. Use "elements" or "colors".`);
+  }
+
   const svgText = await fs.readFile(inputSvg, 'utf8');
   const viewBox = readViewBox(svgText);
   const colors = extractFillColors(svgText);
@@ -646,46 +1122,55 @@ async function convertSvg(inputSvg, outputSvg, options) {
     let strokeWidth = median(skeletonDistances) * 2 || 8;
     strokeWidth = Math.max(options.minStrokeWidth, Math.min(options.maxStrokeWidth, strokeWidth));
 
+    const colorPaths = [];
+
     for (const pixelPath of traceSkeletonPaths(skeleton, png.width, png.height)) {
-      if (pixelPath.length < 8) continue;
+      if (pixelPath.length < options.minPathPixels) continue;
 
       const { points, closed } = simplifyPath(pixelPath, png.width, options.simplifyEpsilon);
 
       if (points.length < 2 || pathLength(points) < options.minPathLength) continue;
 
+      colorPaths.push({ points, closed });
+    }
+
+    for (const path of mergeOpenPaths(colorPaths, options.joinGap)) {
+      if (path.points.length < 2 || pathLength(path.points) < options.minPathLength) continue;
+
       outputPaths.push({
         color: colors[colorIndex],
         strokeWidth,
-        d: svgPathD(points, closed),
+        d: svgPathD(path.points, path.closed),
       });
     }
   }
 
-  const lines = [
-    '<?xml version="1.0" encoding="UTF-8"?>',
-    `<svg xmlns="${SVG_NS}" version="1.1" viewBox="${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}">`,
-    '  <g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke">',
-  ];
+  await writeOutputSvg(outputSvg, viewBox, outputPaths);
+}
 
-  for (const p of outputPaths) {
-    lines.push(`    <path d="${p.d}" stroke="${p.color}" stroke-width="${p.strokeWidth.toFixed(1)}"/>`);
+// Pick a default output path: if the input lives in an `inputs/` folder,
+// mirror it into a sibling `outputs/` folder with the same filename;
+// otherwise fall back to a `-lines.svg` sibling of the input.
+function deriveOutputPath(inputSvg) {
+  const dir = path.dirname(inputSvg);
+
+  if (path.basename(dir) === 'inputs') {
+    return path.join(path.dirname(dir), 'outputs', path.basename(inputSvg));
   }
 
-  lines.push('  </g>', '</svg>');
-
-  await fs.writeFile(outputSvg, lines.join('\n'), 'utf8');
+  return path.join(
+    dir,
+    `${path.basename(inputSvg, path.extname(inputSvg))}-lines.svg`,
+  );
 }
 
 try {
   const args = parseArgs(process.argv);
 
   const inputSvg = path.resolve(args.input);
-  const outputSvg = path.resolve(
-    args.output ?? path.join(
-      path.dirname(inputSvg),
-      `${path.basename(inputSvg, path.extname(inputSvg))}-lines.svg`,
-    ),
-  );
+  const outputSvg = path.resolve(args.output ?? deriveOutputPath(inputSvg));
+
+  await fs.mkdir(path.dirname(outputSvg), { recursive: true });
 
   await convertSvg(inputSvg, outputSvg, args);
 
