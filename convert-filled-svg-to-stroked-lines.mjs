@@ -39,8 +39,11 @@ function parseArgs(argv) {
     minStrokeWidth: 6,
     maxStrokeWidth: 30,
     joinGap: 3,
+    joinAlignment: 0.15,
     minPathPixels: 2,
     mode: 'elements',
+    scale: 1,
+    pruneSpurs: 0,
   };
 
   for (let i = 2; i < argv.length; i++) {
@@ -55,8 +58,11 @@ function parseArgs(argv) {
     else if (token === '--min-stroke-width') args.minStrokeWidth = Number(next());
     else if (token === '--max-stroke-width') args.maxStrokeWidth = Number(next());
     else if (token === '--join-gap') args.joinGap = Number(next());
+    else if (token === '--join-alignment') args.joinAlignment = Number(next());
     else if (token === '--min-path-pixels') args.minPathPixels = Number(next());
     else if (token === '--mode') args.mode = next();
+    else if (token === '--scale') args.scale = Number(next());
+    else if (token === '--prune-spurs') args.pruneSpurs = Number(next());
     else if (!args.input) args.input = token;
     else throw new Error(`Unexpected argument: ${token}`);
   }
@@ -180,14 +186,16 @@ function parseFilledElements(svgText) {
   return elements;
 }
 
-async function renderElementMask(element, viewBox) {
+async function renderElementMask(element, viewBox, scale) {
+  const width = Math.round(viewBox.width * scale);
+  const height = Math.round(viewBox.height * scale);
   const svg = [
     `<svg xmlns="${SVG_NS}" version="1.1" viewBox="${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}">`,
     `<rect x="${viewBox.x}" y="${viewBox.y}" width="${viewBox.width}" height="${viewBox.height}" fill="#000"/>`,
     element.markup,
     '</svg>',
   ].join('');
-  const png = await renderSvgTextToRgba(svg, viewBox.width, viewBox.height);
+  const png = await renderSvgTextToRgba(svg, width, height);
   const mask = new Uint8Array(png.width * png.height);
   let area = 0;
 
@@ -722,6 +730,78 @@ function traceSkeletonContinuous(skeleton, width, height) {
   return paths;
 }
 
+function pruneSkeletonSpurs(skeleton, width, height, maxLength) {
+  if (maxLength <= 0) return skeleton;
+
+  const out = new Uint8Array(skeleton);
+  const removed = new Uint8Array(skeleton.length);
+
+  const degreeAt = (p) => {
+    if (!out[p]) return 0;
+    return skeletonNeighbors(out, width, height, p).length;
+  };
+
+  let changed = true;
+
+  while (changed) {
+    changed = false;
+
+    for (let p = 0; p < out.length; p++) {
+      if (!out[p] || removed[p] || degreeAt(p) !== 1) continue;
+
+      const branch = [p];
+      let previous = -1;
+      let current = p;
+      let length = 0;
+      let removable = false;
+
+      while (branch.length <= maxLength) {
+        const neighbors = skeletonNeighbors(out, width, height, current)
+          .filter((q) => q !== previous);
+
+        if (!neighbors.length) break;
+
+        if (neighbors.length > 1) {
+          removable = true;
+          break;
+        }
+
+        const next = neighbors[0];
+        const cx = current % width;
+        const cy = Math.floor(current / width);
+        const nx = next % width;
+        const ny = Math.floor(next / width);
+
+        length += Math.hypot(nx - cx, ny - cy);
+        previous = current;
+        current = next;
+
+        const degree = degreeAt(current);
+
+        if (degree > 2) {
+          removable = true;
+          break;
+        }
+
+        if (degree <= 1 || length > maxLength) break;
+
+        branch.push(current);
+      }
+
+      if (removable && length <= maxLength) {
+        for (const q of branch) {
+          out[q] = 0;
+          removed[q] = 1;
+        }
+
+        changed = true;
+      }
+    }
+  }
+
+  return out;
+}
+
 function perpendicularDistance(point, start, end) {
   const [x, y] = point;
   const [x1, y1] = start;
@@ -762,13 +842,16 @@ function simplifyDouglasPeucker(points, epsilon) {
   return left.slice(0, -1).concat(right);
 }
 
-function simplifyPath(pixelPath, width, epsilon) {
-  let points = pixelPath.map((p) => [p % width, Math.floor(p / width)]);
+function simplifyPath(pixelPath, width, epsilon, scale = 1, viewBox = { x: 0, y: 0 }) {
+  let points = pixelPath.map((p) => [
+    viewBox.x + (p % width) / scale,
+    viewBox.y + Math.floor(p / width) / scale,
+  ]);
 
   const [x0, y0] = points[0];
   const [x1, y1] = points[points.length - 1];
 
-  const closed = points.length > 3 && ((x0 - x1) ** 2 + (y0 - y1) ** 2 <= 4);
+  const closed = points.length > 3 && ((x0 - x1) ** 2 + (y0 - y1) ** 2 <= 4 / scale);
 
   points = simplifyDouglasPeucker(points, epsilon);
 
@@ -819,7 +902,7 @@ function joinPointDistance(a, b) {
   return Math.hypot(a[0] - b[0], a[1] - b[1]);
 }
 
-function joinCandidate(a, b, maxGap) {
+function joinCandidate(a, b, maxGap, minAlignment) {
   const cases = [
     { aEnd: true, bEnd: false, reverseA: false, reverseB: false },
     { aEnd: true, bEnd: true, reverseA: false, reverseB: true },
@@ -842,7 +925,7 @@ function joinCandidate(a, b, maxGap) {
 
     // Tiny gaps usually come from a skeleton junction pixel and should be
     // reconnected even when the local direction changes sharply.
-    if (gap > 3 && alignment < 0.15) continue;
+    if (gap > 3 && alignment < minAlignment) continue;
 
     const score = gap + (1 - alignment) * 8;
 
@@ -868,7 +951,7 @@ function mergeTwoPaths(a, b, candidate) {
   };
 }
 
-function mergeOpenPaths(paths, maxGap) {
+function mergeOpenPaths(paths, maxGap, minAlignment) {
   const open = paths.filter((p) => !p.closed);
   const closed = paths.filter((p) => p.closed);
 
@@ -880,7 +963,7 @@ function mergeOpenPaths(paths, maxGap) {
 
     for (let i = 0; i < open.length; i++) {
       for (let j = i + 1; j < open.length; j++) {
-        const candidate = joinCandidate(open[i], open[j], maxGap);
+        const candidate = joinCandidate(open[i], open[j], maxGap, minAlignment);
 
         if (!candidate) continue;
 
@@ -975,6 +1058,7 @@ async function convertSvgByElements(inputSvg, outputSvg, options) {
   const svgText = await fs.readFile(inputSvg, 'utf8');
   const viewBox = readViewBox(svgText);
   const elements = parseFilledElements(svgText);
+  const scale = Math.max(1, options.scale || 1);
   const outputPaths = [];
 
   for (const element of elements) {
@@ -985,13 +1069,16 @@ async function convertSvgByElements(inputSvg, outputSvg, options) {
       continue;
     }
 
-    const { mask, area } = await renderElementMask(element, viewBox);
+    const { mask, area } = await renderElementMask(element, viewBox, scale);
+    const maskWidth = Math.round(viewBox.width * scale);
+    const maskHeight = Math.round(viewBox.height * scale);
 
     if (area < options.minObjectSize) continue;
 
-    const cleaned = removeSmallObjects(mask, viewBox.width, viewBox.height, options.minObjectSize);
-    const skeleton = skeletonizeZhangSuen(cleaned, viewBox.width, viewBox.height);
-    const distance = distanceTransformChamfer(cleaned, viewBox.width, viewBox.height);
+    const cleaned = removeSmallObjects(mask, maskWidth, maskHeight, options.minObjectSize);
+    let skeleton = skeletonizeZhangSuen(cleaned, maskWidth, maskHeight);
+    skeleton = pruneSkeletonSpurs(skeleton, maskWidth, maskHeight, options.pruneSpurs * scale);
+    const distance = distanceTransformChamfer(cleaned, maskWidth, maskHeight);
     const skeletonDistances = [];
 
     for (let p = 0; p < skeleton.length; p++) {
@@ -1000,22 +1087,22 @@ async function convertSvgByElements(inputSvg, outputSvg, options) {
       }
     }
 
-    let strokeWidth = median(skeletonDistances) * 2 || 8;
+    let strokeWidth = (median(skeletonDistances) * 2 || 8) / scale;
     strokeWidth = Math.max(options.minStrokeWidth, Math.min(options.maxStrokeWidth, strokeWidth));
 
     const colorPaths = [];
 
-    for (const pixelPath of traceSkeletonContinuous(skeleton, viewBox.width, viewBox.height)) {
+    for (const pixelPath of traceSkeletonContinuous(skeleton, maskWidth, maskHeight)) {
       if (pixelPath.length < options.minPathPixels) continue;
 
-      const { points, closed } = simplifyPath(pixelPath, viewBox.width, options.simplifyEpsilon);
+      const { points, closed } = simplifyPath(pixelPath, maskWidth, options.simplifyEpsilon, scale, viewBox);
 
       if (points.length < 2 || pathLength(points) < options.minPathLength) continue;
 
       colorPaths.push({ points, closed });
     }
 
-    for (const path of mergeOpenPaths(colorPaths, options.joinGap)) {
+    for (const path of mergeOpenPaths(colorPaths, options.joinGap, options.joinAlignment)) {
       if (path.points.length < 2 || pathLength(path.points) < options.minPathLength) continue;
 
       outputPaths.push({
@@ -1134,7 +1221,7 @@ async function convertSvg(inputSvg, outputSvg, options) {
       colorPaths.push({ points, closed });
     }
 
-    for (const path of mergeOpenPaths(colorPaths, options.joinGap)) {
+    for (const path of mergeOpenPaths(colorPaths, options.joinGap, options.joinAlignment)) {
       if (path.points.length < 2 || pathLength(path.points) < options.minPathLength) continue;
 
       outputPaths.push({
