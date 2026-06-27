@@ -37,7 +37,7 @@ function parseArgs(argv) {
     minPathLength: 15,
     simplifyEpsilon: 2.2,
     minStrokeWidth: 6,
-    maxStrokeWidth: 18,
+    maxStrokeWidth: 30,
     joinGap: 3,
     minPathPixels: 2,
     mode: 'elements',

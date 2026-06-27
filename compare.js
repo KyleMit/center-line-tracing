@@ -8,7 +8,7 @@ const pixelmatch = require('pixelmatch').default || require('pixelmatch');
 const A = process.argv[2] || 'inputs/landscape.svg';
 const B = process.argv[3] || 'outputs/landscape.svg';
 const SIZE = Number(process.argv[4] || 700);
-const DIFF = process.argv[5] || 'scratch_diff.png';
+const DIFF = process.argv[5] || 'debug/scratch_diff.png';
 const SIDE_BY_SIDE = process.argv[6];
 
 async function render(file) {
