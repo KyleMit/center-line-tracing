@@ -271,7 +271,11 @@ def trace_skeleton_paths(skeleton: np.ndarray) -> list[list[tuple[int, int]]]:
     return paths
 
 
-def trace_skeleton_paired(skeleton: np.ndarray, pair_dot_cutoff: float) -> list[list[tuple[int, int]]]:
+def trace_skeleton_paired(
+    skeleton: np.ndarray,
+    pair_dot_cutoff: float,
+    overlap_spur_max_pixels: float = 0,
+) -> list[list[tuple[int, int]]]:
     h, w = skeleton.shape
     skeleton_points = np.argwhere(skeleton)
     if len(skeleton_points) == 0:
@@ -338,12 +342,22 @@ def trace_skeleton_paired(skeleton: np.ndarray, pair_dot_cutoff: float) -> list[
                     incidents.setdefault(p, []).append((edge_id, end_index, outward_vector(chain, end_index)))
 
     pair_for: dict[tuple[int, int], tuple[int, int]] = {}
+
+    def is_short_terminal(edge_id: int, end_index: int) -> bool:
+        if overlap_spur_max_pixels <= 0 or len(edges[edge_id]) > overlap_spur_max_pixels:
+            return False
+        chain = edges[edge_id]
+        other = chain[-1] if end_index == 0 else chain[0]
+        return deg[other[0], other[1]] <= 1
+
     for incident in incidents.values():
         candidates = []
         for i in range(len(incident)):
             e1, end1, v1 = incident[i]
             for j in range(i + 1, len(incident)):
                 e2, end2, v2 = incident[j]
+                if len(incident) > 2 and (is_short_terminal(e1, end1) or is_short_terminal(e2, end2)):
+                    continue
                 dot = v1[0] * v2[0] + v1[1] * v2[1]
                 candidates.append((dot, e1, end1, e2, end2))
         used: set[tuple[int, int]] = set()
@@ -360,6 +374,23 @@ def trace_skeleton_paired(skeleton: np.ndarray, pair_dot_cutoff: float) -> list[
             pair_for[b] = a
             used.add(a)
             used.add(b)
+
+    def terminal_spurs_at(node: tuple[int, int], through: tuple[int, int]) -> list[tuple[int, int]]:
+        if overlap_spur_max_pixels <= 0:
+            return []
+
+        spurs = []
+        for edge_id, end_index, _vector in incidents.get(node, []):
+            this_end = (edge_id, end_index)
+            other_end = (edge_id, 1 - end_index)
+            if this_end == through or edge_id in used_edges:
+                continue
+            if this_end in pair_for or other_end in pair_for:
+                continue
+            if not is_short_terminal(edge_id, end_index):
+                continue
+            spurs.append(this_end)
+        return sorted(spurs, key=lambda item: len(edges[item[0]]), reverse=True)
 
     def oriented(edge_id: int, start_end: int) -> list[tuple[int, int]]:
         chain = edges[edge_id]
@@ -382,6 +413,12 @@ def trace_skeleton_paired(skeleton: np.ndarray, pair_dot_cutoff: float) -> list[
             used_edges.add(edge_id)
             path.extend(segment if not path else segment[1:])
             exit_end = 1 - start_end
+            exit_node = segment[-1]
+            for spur_edge_id, spur_start_end in terminal_spurs_at(exit_node, (edge_id, exit_end)):
+                spur_segment = oriented(spur_edge_id, spur_start_end)
+                used_edges.add(spur_edge_id)
+                path.extend(spur_segment[1:])
+                path.extend(list(reversed(spur_segment))[1:])
             nxt = pair_for.get((edge_id, exit_end))
             if nxt is None:
                 break
@@ -416,11 +453,16 @@ def centerline(mask: np.ndarray, method: str) -> np.ndarray:
     raise ValueError(f"Unsupported skeleton method {method!r}.")
 
 
-def trace_centerline(skeleton: np.ndarray, mode: str, pair_dot_cutoff: float) -> list[list[tuple[int, int]]]:
+def trace_centerline(
+    skeleton: np.ndarray,
+    mode: str,
+    pair_dot_cutoff: float,
+    overlap_spur_max_pixels: float,
+) -> list[list[tuple[int, int]]]:
     if mode == "split":
         return trace_skeleton_paths(skeleton)
     if mode == "paired":
-        return trace_skeleton_paired(skeleton, pair_dot_cutoff)
+        return trace_skeleton_paired(skeleton, pair_dot_cutoff, overlap_spur_max_pixels)
     raise ValueError(f"Unsupported trace mode {mode!r}.")
 
 
@@ -528,8 +570,10 @@ def convert_svg(
     cap_mode: str = "round",
     scribble_mode: str = "none",
     scribble_path_length: int = 5000,
+    scribble_linejoin: str = "round",
     trace_mode: str = "split",
     pair_dot_cutoff: float = -0.2,
+    overlap_spur_max: float = 0,
     alpha_threshold: int = 48,
     min_object_size: int = 20,
     min_path_length: float = 15,
@@ -572,8 +616,10 @@ def convert_svg(
             stroke_width = float(np.median(skeleton_distances) * 2 / scale) if skeleton_distances.size else 8.0
             stroke_width = max(min_stroke_width, min(max_stroke_width, stroke_width))
             stroke_width *= stroke_scale
+            source_path_length = path_data_length(element["attrs"])
+            linejoin = scribble_linejoin if source_path_length >= scribble_path_length else "round"
 
-            if scribble_mode == "hough" and path_data_length(element["attrs"]) >= scribble_path_length:
+            if scribble_mode == "hough" and source_path_length >= scribble_path_length:
                 hough_paths = hough_strokes(
                     skeleton,
                     stroke_width,
@@ -585,7 +631,7 @@ def convert_svg(
                     output_paths.extend(hough_paths)
                     continue
 
-            for path in trace_centerline(skeleton, trace_mode, pair_dot_cutoff):
+            for path in trace_centerline(skeleton, trace_mode, pair_dot_cutoff, overlap_spur_max * scale):
                 if len(path) < 8:
                     continue
 
@@ -610,6 +656,7 @@ def convert_svg(
                     "stroke_width": stroke_width,
                     "d": d,
                     "linecap": "butt" if cap_mode == "endpoint" else "round",
+                    "linejoin": linejoin,
                     "caps": caps,
                 })
 
@@ -653,7 +700,7 @@ def convert_svg(
         stroke_width = max(min_stroke_width, min(max_stroke_width, stroke_width))
         stroke_width *= stroke_scale
 
-        for path in trace_centerline(skeleton, trace_mode, pair_dot_cutoff):
+        for path in trace_centerline(skeleton, trace_mode, pair_dot_cutoff, overlap_spur_max):
             if len(path) < 8:
                 continue
 
@@ -705,7 +752,9 @@ def write_output_svg(
         d = str(item["d"])
         linecap = str(item.get("linecap", "round"))
         linecap_attr = "" if linecap == "round" else f' stroke-linecap="{linecap}"'
-        lines.append(f'    <path d="{d}" stroke="{color}" stroke-width="{stroke_width:.1f}"{linecap_attr}/>')
+        linejoin = str(item.get("linejoin", "round"))
+        linejoin_attr = "" if linejoin == "round" else f' stroke-linejoin="{linejoin}"'
+        lines.append(f'    <path d="{d}" stroke="{color}" stroke-width="{stroke_width:.1f}"{linecap_attr}{linejoin_attr}/>')
         for cx, cy in item.get("caps", []):
             x2 = float(cx) + 0.01
             lines.append(
@@ -734,8 +783,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--cap-mode", choices=["round", "endpoint"], default="round", help="Use round caps everywhere or only at true skeleton endpoints. Default: round.")
     parser.add_argument("--scribble-mode", choices=["none", "hough"], default="none", help="Experimental reconstruction mode for large scribble fill paths. Default: none.")
     parser.add_argument("--scribble-path-length", type=int, default=5000, help="Minimum source path-data length for scribble mode. Default: 5000.")
+    parser.add_argument("--scribble-linejoin", choices=["round", "bevel", "miter"], default="round", help="Line join to use for paths from complex scribble elements. Default: round.")
     parser.add_argument("--trace-mode", choices=["split", "paired"], default="split", help="Trace centerlines as split graph edges or pair straight-through junctions. Default: split.")
     parser.add_argument("--pair-dot-cutoff", type=float, default=-0.2, help="Maximum outgoing-vector dot product to pair branches at a junction. Higher pairs sharper turns. Default: -0.2.")
+    parser.add_argument("--overlap-spur-max", type=float, default=0, help="In paired mode, fold unpaired terminal spurs up to this SVG-unit length into the passing stroke as an out-and-back vertex. Default: 0.")
     parser.add_argument("--alpha-threshold", type=int, default=48, help="Visible-pixel alpha cutoff. Default: 48.")
     parser.add_argument("--min-object-size", type=int, default=20, help="Remove color blobs smaller than this many pixels. Default: 20.")
     parser.add_argument("--min-path-length", type=float, default=15, help="Discard traced paths shorter than this. Default: 15.")
@@ -760,8 +811,10 @@ def main() -> None:
         cap_mode=args.cap_mode,
         scribble_mode=args.scribble_mode,
         scribble_path_length=args.scribble_path_length,
+        scribble_linejoin=args.scribble_linejoin,
         trace_mode=args.trace_mode,
         pair_dot_cutoff=args.pair_dot_cutoff,
+        overlap_spur_max=args.overlap_spur_max,
         alpha_threshold=args.alpha_threshold,
         min_object_size=args.min_object_size,
         min_path_length=args.min_path_length,
