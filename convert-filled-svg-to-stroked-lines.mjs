@@ -44,6 +44,9 @@ function parseArgs(argv) {
     mode: 'elements',
     scale: 1,
     pruneSpurs: 0,
+    traceMode: 'continuous',
+    capMode: 'round',
+    openIterations: 0,
   };
 
   for (let i = 2; i < argv.length; i++) {
@@ -63,6 +66,9 @@ function parseArgs(argv) {
     else if (token === '--mode') args.mode = next();
     else if (token === '--scale') args.scale = Number(next());
     else if (token === '--prune-spurs') args.pruneSpurs = Number(next());
+    else if (token === '--trace-mode') args.traceMode = next();
+    else if (token === '--cap-mode') args.capMode = next();
+    else if (token === '--open-iterations') args.openIterations = Number(next());
     else if (!args.input) args.input = token;
     else throw new Error(`Unexpected argument: ${token}`);
   }
@@ -300,6 +306,10 @@ function erode(mask, width, height) {
 
 function closing(mask, width, height) {
   return erode(dilate(mask, width, height), width, height);
+}
+
+function opening(mask, width, height) {
+  return dilate(erode(mask, width, height), width, height);
 }
 
 function removeSmallObjects(mask, width, height, minSize) {
@@ -802,6 +812,147 @@ function pruneSkeletonSpurs(skeleton, width, height, maxLength) {
   return out;
 }
 
+function activeNeighbors(active, width, height, p) {
+  const y = Math.floor(p / width);
+  const x = p % width;
+  const out = [];
+
+  for (const [dy, dx] of NEIGHBORS_8) {
+    const yy = y + dy;
+    const xx = x + dx;
+
+    if (!inBounds(width, height, yy, xx)) continue;
+
+    const q = index(width, yy, xx);
+
+    if (active.has(q)) out.push(q);
+  }
+
+  return out;
+}
+
+function connectedComponentsFromActive(active, width, height) {
+  const seen = new Set();
+  const components = [];
+
+  for (const start of active) {
+    if (seen.has(start)) continue;
+
+    const component = [];
+    const queue = [start];
+    seen.add(start);
+
+    for (let qi = 0; qi < queue.length; qi++) {
+      const p = queue[qi];
+      component.push(p);
+
+      for (const q of activeNeighbors(active, width, height, p)) {
+        if (seen.has(q)) continue;
+
+        seen.add(q);
+        queue.push(q);
+      }
+    }
+
+    components.push(component);
+  }
+
+  return components;
+}
+
+function farthestEndpointPath(active, width, height, start, endpoints) {
+  const endpointSet = new Set(endpoints);
+  const queue = [start];
+  const previous = new Map([[start, -1]]);
+  const distance = new Map([[start, 0]]);
+  let farthest = start;
+  let farthestDistance = 0;
+
+  for (let qi = 0; qi < queue.length; qi++) {
+    const p = queue[qi];
+    const d = distance.get(p);
+
+    if (p !== start && endpointSet.has(p) && d > farthestDistance) {
+      farthest = p;
+      farthestDistance = d;
+    }
+
+    for (const q of activeNeighbors(active, width, height, p)) {
+      if (previous.has(q)) continue;
+
+      previous.set(q, p);
+      distance.set(q, d + joinPointDistance([p % width, Math.floor(p / width)], [q % width, Math.floor(q / width)]));
+      queue.push(q);
+    }
+  }
+
+  if (farthest === start) return null;
+
+  const path = [];
+  let current = farthest;
+
+  while (current !== -1) {
+    path.push(current);
+    current = previous.get(current);
+  }
+
+  path.reverse();
+
+  return { path, distance: farthestDistance };
+}
+
+function traceSkeletonLongestPaths(skeleton, width, height) {
+  const active = new Set();
+
+  for (let p = 0; p < skeleton.length; p++) {
+    if (skeleton[p]) active.add(p);
+  }
+
+  const paths = [];
+
+  while (active.size) {
+    let progressed = false;
+
+    for (const component of connectedComponentsFromActive(active, width, height)) {
+      const endpoints = component.filter((p) => activeNeighbors(active, width, height, p).length <= 1);
+
+      if (endpoints.length < 2) continue;
+
+      let best = null;
+
+      for (const endpointPixel of endpoints) {
+        const candidate = farthestEndpointPath(active, width, height, endpointPixel, endpoints);
+
+        if (candidate && (!best || candidate.distance > best.distance)) {
+          best = candidate;
+        }
+      }
+
+      if (!best) continue;
+
+      paths.push(best.path);
+
+      for (const p of best.path) {
+        active.delete(p);
+      }
+
+      progressed = true;
+    }
+
+    if (!progressed) break;
+  }
+
+  if (active.size) {
+    const remaining = new Uint8Array(skeleton.length);
+
+    for (const p of active) remaining[p] = 1;
+
+    paths.push(...traceSkeletonContinuous(remaining, width, height));
+  }
+
+  return paths;
+}
+
 function perpendicularDistance(point, start, end) {
   const [x, y] = point;
   const [x1, y1] = start;
@@ -895,6 +1046,8 @@ function reversePath(path) {
   return {
     ...path,
     points: [...path.points].reverse(),
+    startPixel: path.endPixel,
+    endPixel: path.startPixel,
   };
 }
 
@@ -948,6 +1101,8 @@ function mergeTwoPaths(a, b, candidate) {
     ...left,
     points: left.points.concat(skipRightStart ? right.points.slice(1) : right.points),
     closed: false,
+    startPixel: left.startPixel,
+    endPixel: right.endPixel,
   };
 }
 
@@ -1075,15 +1230,25 @@ async function convertSvgByElements(inputSvg, outputSvg, options) {
 
     if (area < options.minObjectSize) continue;
 
-    const cleaned = removeSmallObjects(mask, maskWidth, maskHeight, options.minObjectSize);
+    let cleaned = removeSmallObjects(mask, maskWidth, maskHeight, options.minObjectSize);
+
+    for (let i = 0; i < options.openIterations; i++) {
+      cleaned = opening(cleaned, maskWidth, maskHeight);
+    }
+
     let skeleton = skeletonizeZhangSuen(cleaned, maskWidth, maskHeight);
     skeleton = pruneSkeletonSpurs(skeleton, maskWidth, maskHeight, options.pruneSpurs * scale);
     const distance = distanceTransformChamfer(cleaned, maskWidth, maskHeight);
     const skeletonDistances = [];
+    const trueEndpoints = new Set();
 
     for (let p = 0; p < skeleton.length; p++) {
       if (skeleton[p]) {
         skeletonDistances.push(distance[p]);
+
+        if (skeletonNeighbors(skeleton, maskWidth, maskHeight, p).length <= 1) {
+          trueEndpoints.add(p);
+        }
       }
     }
 
@@ -1092,14 +1257,23 @@ async function convertSvgByElements(inputSvg, outputSvg, options) {
 
     const colorPaths = [];
 
-    for (const pixelPath of traceSkeletonContinuous(skeleton, maskWidth, maskHeight)) {
+    const tracedPaths = options.traceMode === 'longest'
+      ? traceSkeletonLongestPaths(skeleton, maskWidth, maskHeight)
+      : traceSkeletonContinuous(skeleton, maskWidth, maskHeight);
+
+    for (const pixelPath of tracedPaths) {
       if (pixelPath.length < options.minPathPixels) continue;
 
       const { points, closed } = simplifyPath(pixelPath, maskWidth, options.simplifyEpsilon, scale, viewBox);
 
       if (points.length < 2 || pathLength(points) < options.minPathLength) continue;
 
-      colorPaths.push({ points, closed });
+      colorPaths.push({
+        points,
+        closed,
+        startPixel: pixelPath[0],
+        endPixel: pixelPath[pixelPath.length - 1],
+      });
     }
 
     for (const path of mergeOpenPaths(colorPaths, options.joinGap, options.joinAlignment)) {
@@ -1108,6 +1282,15 @@ async function convertSvgByElements(inputSvg, outputSvg, options) {
       outputPaths.push({
         color: element.fill,
         strokeWidth,
+        linecap: options.capMode === 'endpoint' ? 'butt' : 'round',
+        caps: options.capMode === 'endpoint'
+          ? [path.startPixel, path.endPixel]
+            .filter((p) => trueEndpoints.has(p))
+            .map((p) => [
+              viewBox.x + (p % maskWidth) / scale,
+              viewBox.y + Math.floor(p / maskWidth) / scale,
+            ])
+          : [],
         d: svgPathD(path.points, path.closed),
       });
     }
@@ -1127,7 +1310,12 @@ async function writeOutputSvg(outputSvg, viewBox, outputPaths) {
     if (p.circle) {
       lines.push(`    <circle cx="${formatNumber(p.circle.cx)}" cy="${formatNumber(p.circle.cy)}" r="${formatNumber(p.circle.r)}" stroke="${p.color}" stroke-width="${p.strokeWidth.toFixed(1)}"/>`);
     } else {
-      lines.push(`    <path d="${p.d}" stroke="${p.color}" stroke-width="${p.strokeWidth.toFixed(1)}"/>`);
+      const linecap = p.linecap && p.linecap !== 'round' ? ` stroke-linecap="${p.linecap}"` : '';
+      lines.push(`    <path d="${p.d}" stroke="${p.color}" stroke-width="${p.strokeWidth.toFixed(1)}"${linecap}/>`);
+
+      for (const [x, y] of p.caps ?? []) {
+        lines.push(`    <path d="M ${formatNumber(x)} ${formatNumber(y)} L ${formatNumber(x + 0.01)} ${formatNumber(y)}" stroke="${p.color}" stroke-width="${p.strokeWidth.toFixed(1)}" stroke-linecap="round"/>`);
+      }
     }
   }
 
