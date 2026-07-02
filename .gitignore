@@ -1,3 +1,5 @@
 node_modules/
 .venv/
 scratch_*.png
+pycache/
+.DS_Store
