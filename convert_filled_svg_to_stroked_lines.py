@@ -271,11 +271,213 @@ def trace_skeleton_paths(skeleton: np.ndarray) -> list[list[tuple[int, int]]]:
     return paths
 
 
+def dt_bilinear(dt: np.ndarray, y: float, x: float) -> float:
+    h, w = dt.shape
+    y = min(max(y, 0.0), h - 1.001)
+    x = min(max(x, 0.0), w - 1.001)
+    y0, x0 = int(y), int(x)
+    fy, fx = y - y0, x - x0
+    return float(
+        dt[y0, x0] * (1 - fy) * (1 - fx)
+        + dt[y0, x0 + 1] * (1 - fy) * fx
+        + dt[y0 + 1, x0] * fy * (1 - fx)
+        + dt[y0 + 1, x0 + 1] * fy * fx
+    )
+
+
+def extend_to_radius(
+    pos: tuple[float, float],
+    direction: tuple[float, float],
+    dt: np.ndarray,
+    radius_px: float,
+    max_extend: float,
+) -> tuple[float, float]:
+    """March outward from pos until the inscribed radius drops to radius_px."""
+    length = math.hypot(direction[0], direction[1])
+    if length < 1e-6:
+        return pos
+    step = 0.5
+    d = (direction[0] / length * step, direction[1] / length * step)
+    prev_dt = dt_bilinear(dt, pos[0], pos[1])
+    for _ in range(int(max_extend / step)):
+        nxt = (pos[0] + d[0], pos[1] + d[1])
+        cur_dt = dt_bilinear(dt, nxt[0], nxt[1])
+        if cur_dt < radius_px:
+            t = (prev_dt - radius_px) / max(prev_dt - cur_dt, 1e-6)
+            return (pos[0] + t * d[0], pos[1] + t * d[1])
+        pos, prev_dt = nxt, cur_dt
+    return pos
+
+
+def march_to_edge(
+    pos: tuple[float, float],
+    direction: tuple[float, float],
+    dt: np.ndarray,
+    max_march: float,
+) -> tuple[float, float]:
+    """Follow direction from pos and return the last point inside the mask."""
+    length = math.hypot(direction[0], direction[1])
+    if length < 1e-6:
+        return pos
+    step = 0.5
+    d = (direction[0] / length * step, direction[1] / length * step)
+    tip = pos
+    for _ in range(int(max_march / step)):
+        nxt = (tip[0] + d[0], tip[1] + d[1])
+        if dt_bilinear(dt, nxt[0], nxt[1]) < 1.0:
+            break
+        tip = nxt
+    return tip
+
+
+def tip_apex_point(
+    chain: list[tuple[float, float]],
+    dt: np.ndarray,
+    radius_px: float,
+) -> tuple[float, float] | None:
+    """Find the pen's turning point for a zigzag tip.
+
+    chain is ordered from the skeleton junction toward the outline corner.
+    March to the outline apex and step back one stroke radius, so the round
+    join/cap edge lands exactly on the mask's tip. This also handles tapered
+    (pressure-thinned) tips, where the inscribed radius never reaches the
+    stroke radius near the point.
+    """
+    pts = [(float(p[0]), float(p[1])) for p in chain]
+    if len(pts) < 2:
+        return None
+    a = pts[max(0, len(pts) - 6)]
+    e = pts[-1]
+    dy, dx = e[0] - a[0], e[1] - a[1]
+    length = math.hypot(dy, dx)
+    if length < 1e-6:
+        return None
+    d = (dy / length, dx / length)
+    tip = march_to_edge(e, d, dt, max_march=6.0 * radius_px + 2.0)
+    return (tip[0] - radius_px * d[0], tip[1] - radius_px * d[1])
+
+
+def calibrate_open_end(
+    points: list[tuple[float, float]],
+    dt: np.ndarray,
+    radius_px: float,
+) -> list[tuple[float, float]]:
+    """Place an open path end one cap radius behind the outline apex.
+
+    The round cap edge then kisses the tip of the filled shape. Tapered
+    stroke ends get extended to reach their needle point; ends that would
+    overshoot get pulled back along the path.
+    """
+    if len(points) < 2:
+        return points
+    a = points[max(0, len(points) - 6)]
+    e = points[-1]
+    dy, dx = e[0] - a[0], e[1] - a[1]
+    length = math.hypot(dy, dx)
+    if length < 1e-6:
+        return points
+    d = (dy / length, dx / length)
+    tip = march_to_edge(e, d, dt, max_march=6.0 * radius_px + 2.0)
+    target = (tip[0] - radius_px * d[0], tip[1] - radius_px * d[1])
+    offset = (target[0] - e[0]) * d[0] + (target[1] - e[1]) * d[1]
+    if offset > 0.25:
+        return points + [target]
+    if offset > -0.25:
+        return points
+    # Cap would overshoot the tip: pull the end back along the path.
+    need = min(-offset, 2.5 * radius_px)
+    accumulated = 0.0
+    i = len(points) - 1
+    while i > 0:
+        seg = math.hypot(
+            points[i][0] - points[i - 1][0], points[i][1] - points[i - 1][1],
+        )
+        if accumulated + seg >= need:
+            t = (need - accumulated) / max(seg, 1e-6)
+            pulled = (
+                points[i][0] + t * (points[i - 1][0] - points[i][0]),
+                points[i][1] + t * (points[i - 1][1] - points[i][1]),
+            )
+            return points[:i] + [pulled]
+        accumulated += seg
+        i -= 1
+    return points
+
+
+def sharpen_turns(
+    points: list[tuple[float, float]],
+    dt: np.ndarray,
+    radius_px: float,
+    window: int | None = None,
+    turn_dot: float = -0.1,
+) -> list[tuple[float, float]]:
+    """Replace rounded-off sharp turns with a true corner at the mask apex.
+
+    Where the skeleton smoothly cut a zigzag corner (no junction formed), the
+    path shows a sharp heading reversal while the inscribed radius dips below
+    the stroke radius. March outward along the turn bisector to recover the
+    apex and collapse the rounded pixels into it.
+    """
+    if window is None:
+        window = max(4, int(round(radius_px * 0.75)))
+    n = len(points)
+    if n < 2 * window + 1:
+        return points
+    out: list[tuple[float, float]] = []
+    i = 0
+    while i < n:
+        if i < window or i >= n - window:
+            out.append(points[i])
+            i += 1
+            continue
+        a, p, b = points[i - window], points[i], points[i + window]
+        v1 = (p[0] - a[0], p[1] - a[1])
+        v2 = (b[0] - p[0], b[1] - p[1])
+        n1 = math.hypot(v1[0], v1[1]) or 1.0
+        n2 = math.hypot(v2[0], v2[1]) or 1.0
+        dot = (v1[0] * v2[0] + v1[1] * v2[1]) / (n1 * n2)
+        local_dt = dt_bilinear(dt, p[0], p[1])
+        if dot < turn_dot and local_dt < 0.85 * radius_px:
+            bis = (v1[0] / n1 - v2[0] / n2, v1[1] / n1 - v2[1] / n2)
+            apex = extend_to_radius(
+                p, bis, dt, radius_px, max_extend=2.5 * radius_px + 2.0,
+            )
+            apex_dt = dt_bilinear(dt, apex[0], apex[1])
+            # Only sharpen if we actually moved outward into a narrowing tip.
+            if math.hypot(apex[0] - p[0], apex[1] - p[1]) > 0.75 and apex_dt < local_dt:
+                popped = 0
+                while (
+                    out
+                    and popped < window
+                    and math.hypot(out[-1][0] - apex[0], out[-1][1] - apex[1]) < radius_px
+                ):
+                    out.pop()
+                    popped += 1
+                out.append(apex)
+                i += 1
+                skipped = 0
+                while (
+                    i < n
+                    and skipped < window
+                    and math.hypot(points[i][0] - apex[0], points[i][1] - apex[1]) < radius_px
+                ):
+                    i += 1
+                    skipped += 1
+                continue
+        out.append(points[i])
+        i += 1
+    return out
+
+
 def trace_skeleton_paired(
     skeleton: np.ndarray,
     pair_dot_cutoff: float,
     overlap_spur_max_pixels: float = 0,
-) -> list[list[tuple[int, int]]]:
+    tip_mode: str = "excursion",
+    dt: np.ndarray | None = None,
+    radius_px: float = 0.0,
+    tip_spur_max_pixels: float = 0,
+) -> list[list[tuple[float, float]]]:
     h, w = skeleton.shape
     skeleton_points = np.argwhere(skeleton)
     if len(skeleton_points) == 0:
@@ -350,12 +552,112 @@ def trace_skeleton_paired(
         other = chain[-1] if end_index == 0 else chain[0]
         return deg[other[0], other[1]] <= 1
 
+    # Zigzag tips: a junction with exactly two through-legs plus short
+    # terminal spur(s) is a pen turn, not a crossing. Pair the legs through
+    # the tip and remember the apex so the trace emits a real corner there.
+    tip_apex: dict[tuple[int, int], tuple[float, float]] = {}
+    consumed_spurs: set[int] = set()
+
+    if tip_mode == "corner" and dt is not None and radius_px > 0:
+        # A zigzag-tip spur can be much longer than an overlap spur (the wedge
+        # of a nearly-parallel reversal is long), so it gets its own cutoff.
+        # dt at the terminal cannot discriminate a tip from a real stroke end
+        # (thinning stops both where the region is still cap-wide); the
+        # leg-direction test below is what rejects crossings.
+        tip_cutoff = tip_spur_max_pixels or overlap_spur_max_pixels
+
+        def is_tip_spur(edge_id: int, end_index: int) -> bool:
+            if tip_cutoff <= 0 or len(edges[edge_id]) > tip_cutoff:
+                return False
+            chain = edges[edge_id]
+            other = chain[-1] if end_index == 0 else chain[0]
+            return deg[other[0], other[1]] <= 1
+
+        # Thinning leaves clusters of 2-3 adjacent branch pixels joined by
+        # 1-2 px internal edges. Detect tips per junction cluster, not per
+        # single node, or the pattern never matches.
+        parent = {node: node for node in incidents}
+
+        def find(a: tuple[int, int]) -> tuple[int, int]:
+            while parent[a] != a:
+                parent[a] = parent[parent[a]]
+                a = parent[a]
+            return a
+
+        internal_edges: set[int] = set()
+        for edge_id, chain in enumerate(edges):
+            if (
+                len(chain) <= 4
+                and chain[0] != chain[-1]
+                and chain[0] in parent
+                and chain[-1] in parent
+            ):
+                internal_edges.add(edge_id)
+                ra, rb = find(chain[0]), find(chain[-1])
+                if ra != rb:
+                    parent[ra] = rb
+
+        members: dict[tuple[int, int], list[tuple[int, int]]] = {}
+        for node in incidents:
+            members.setdefault(find(node), []).append(node)
+
+        cluster_ends: dict[tuple[int, int], list[tuple[int, int]]] = {}
+        for node, incident in incidents.items():
+            root = find(node)
+            for e, i, _v in incident:
+                if e in internal_edges:
+                    continue
+                cluster_ends.setdefault(root, []).append((e, i))
+
+        def long_outward(edge_id: int, end_index: int, span: int) -> tuple[float, float]:
+            chain = edges[edge_id]
+            if end_index == 0:
+                a, b = chain[0], chain[min(len(chain) - 1, span)]
+            else:
+                a, b = chain[-1], chain[max(0, len(chain) - 1 - span)]
+            vy, vx = float(b[0] - a[0]), float(b[1] - a[1])
+            length = math.hypot(vx, vy) or 1.0
+            return vy / length, vx / length
+
+        for root, ends in cluster_ends.items():
+            spur_ends = [(e, i) for e, i in ends if is_tip_spur(e, i)]
+            non_spur = [(e, i) for e, i in ends if not is_tip_spur(e, i)]
+            if len(non_spur) != 2 or not spur_ends or non_spur[0][0] == non_spur[1][0]:
+                continue
+            # At a pen turn both legs point away from the tip; anti-parallel
+            # legs mean a stroke passing straight through (a crossing with a
+            # stub), which normal pairing should handle instead. Skeleton legs
+            # hug the wedge bisector near the junction, so measure direction
+            # over a couple of stroke radii, not the first few pixels.
+            span = max(5, int(round(2.0 * radius_px)))
+            v1 = long_outward(*non_spur[0], span)
+            v2 = long_outward(*non_spur[1], span)
+            if v1[0] * v2[0] + v1[1] * v2[1] <= pair_dot_cutoff:
+                continue
+            spur_edge, spur_end = max(spur_ends, key=lambda s: len(edges[s[0]]))
+            chain = edges[spur_edge] if spur_end == 0 else list(reversed(edges[spur_edge]))
+            apex = tip_apex_point(chain, dt, radius_px)
+            if apex is None:
+                apex = (float(chain[0][0]), float(chain[0][1]))
+            for node in members[root]:
+                tip_apex[node] = apex
+            for e, _i in spur_ends:
+                consumed_spurs.add(e)
+            for e in internal_edges:
+                if find(edges[e][0]) == root:
+                    consumed_spurs.add(e)
+            a, b = non_spur
+            pair_for[a] = b
+            pair_for[b] = a
+
     for incident in incidents.values():
         candidates = []
         for i in range(len(incident)):
             e1, end1, v1 = incident[i]
             for j in range(i + 1, len(incident)):
                 e2, end2, v2 = incident[j]
+                if e1 in consumed_spurs or e2 in consumed_spurs:
+                    continue
                 if len(incident) > 2 and (is_short_terminal(e1, end1) or is_short_terminal(e2, end2)):
                     continue
                 dot = v1[0] * v2[0] + v1[1] * v2[1]
@@ -364,7 +666,7 @@ def trace_skeleton_paired(
         for dot, e1, end1, e2, end2 in sorted(candidates):
             a = (e1, end1)
             b = (e2, end2)
-            if a in used or b in used:
+            if a in used or b in used or a in pair_for or b in pair_for:
                 continue
             # Opposite outgoing directions represent one stroke passing through
             # the junction. A looser cutoff handles 8-connected stair steps.
@@ -396,8 +698,8 @@ def trace_skeleton_paired(
         chain = edges[edge_id]
         return chain if start_end == 0 else list(reversed(chain))
 
-    paths: list[list[tuple[int, int]]] = []
-    used_edges: set[int] = set()
+    paths: list[list[tuple[float, float]]] = []
+    used_edges: set[int] = set(consumed_spurs)
 
     starts = []
     for edge_id in range(len(edges)):
@@ -405,23 +707,47 @@ def trace_skeleton_paired(
             if (edge_id, end_index) not in pair_for:
                 starts.append((edge_id, end_index))
 
-    def trace_from(start: tuple[int, int]) -> list[tuple[int, int]]:
+    def trace_from(start: tuple[int, int]) -> list[tuple[float, float]]:
         edge_id, start_end = start
-        path: list[tuple[int, int]] = []
+        path: list[tuple[float, float]] = []
+        pending_apex: tuple[float, float] | None = None
         while edge_id not in used_edges:
             segment = oriented(edge_id, start_end)
             used_edges.add(edge_id)
-            path.extend(segment if not path else segment[1:])
+            seg_points = segment if not path else segment[1:]
+            if pending_apex is not None:
+                k = 0
+                while k < len(seg_points) and math.hypot(
+                    seg_points[k][0] - pending_apex[0],
+                    seg_points[k][1] - pending_apex[1],
+                ) < radius_px:
+                    k += 1
+                seg_points = seg_points[k:]
+                pending_apex = None
+            path.extend(seg_points)
             exit_end = 1 - start_end
             exit_node = segment[-1]
             for spur_edge_id, spur_start_end in terminal_spurs_at(exit_node, (edge_id, exit_end)):
                 spur_segment = oriented(spur_edge_id, spur_start_end)
                 used_edges.add(spur_edge_id)
-                path.extend(spur_segment[1:])
-                path.extend(list(reversed(spur_segment))[1:])
+                out_points = [(float(p[0]), float(p[1])) for p in spur_segment]
+                if dt is not None and radius_px > 0:
+                    # Reach the spur's outline tip (tapered ends stop the
+                    # skeleton short) before doubling back.
+                    out_points = calibrate_open_end(out_points, dt, radius_px)
+                path.extend(out_points[1:])
+                path.extend(list(reversed(out_points))[1:])
             nxt = pair_for.get((edge_id, exit_end))
             if nxt is None:
                 break
+            apex = tip_apex.get(exit_node)
+            if apex is not None:
+                while len(path) > 1 and math.hypot(
+                    path[-1][0] - apex[0], path[-1][1] - apex[1],
+                ) < radius_px:
+                    path.pop()
+                path.append(apex)
+                pending_apex = apex
             edge_id, paired_end = nxt
             start_end = paired_end
         return path
@@ -458,11 +784,23 @@ def trace_centerline(
     mode: str,
     pair_dot_cutoff: float,
     overlap_spur_max_pixels: float,
-) -> list[list[tuple[int, int]]]:
+    tip_mode: str = "excursion",
+    dt: np.ndarray | None = None,
+    radius_px: float = 0.0,
+    tip_spur_max_pixels: float = 0,
+) -> list[list[tuple[float, float]]]:
     if mode == "split":
         return trace_skeleton_paths(skeleton)
     if mode == "paired":
-        return trace_skeleton_paired(skeleton, pair_dot_cutoff, overlap_spur_max_pixels)
+        return trace_skeleton_paired(
+            skeleton,
+            pair_dot_cutoff,
+            overlap_spur_max_pixels,
+            tip_mode=tip_mode,
+            dt=dt,
+            radius_px=radius_px,
+            tip_spur_max_pixels=tip_spur_max_pixels,
+        )
     raise ValueError(f"Unsupported trace mode {mode!r}.")
 
 
@@ -574,6 +912,10 @@ def convert_svg(
     trace_mode: str = "split",
     pair_dot_cutoff: float = -0.2,
     overlap_spur_max: float = 0,
+    tip_mode: str = "excursion",
+    tip_spur_max: float = 0,
+    calibrate_caps: bool = False,
+    sharpen_tips: bool = False,
     alpha_threshold: int = 48,
     min_object_size: int = 20,
     min_path_length: float = 15,
@@ -631,9 +973,35 @@ def convert_svg(
                     output_paths.extend(hough_paths)
                     continue
 
-            for path in trace_centerline(skeleton, trace_mode, pair_dot_cutoff, overlap_spur_max * scale):
+            radius_px = stroke_width * scale / 2.0
+
+            for path in trace_centerline(
+                skeleton,
+                trace_mode,
+                pair_dot_cutoff,
+                overlap_spur_max * scale,
+                tip_mode=tip_mode,
+                dt=distance_to_edge,
+                radius_px=radius_px,
+                tip_spur_max_pixels=tip_spur_max * scale,
+            ):
                 if len(path) < 8:
                     continue
+
+                path = [(float(p[0]), float(p[1])) for p in path]
+
+                if calibrate_caps:
+                    end = (int(round(path[-1][0])), int(round(path[-1][1])))
+                    if end in true_endpoints:
+                        path = calibrate_open_end(path, distance_to_edge, radius_px)
+                    start = (int(round(path[0][0])), int(round(path[0][1])))
+                    if start in true_endpoints:
+                        path = list(reversed(
+                            calibrate_open_end(list(reversed(path)), distance_to_edge, radius_px)
+                        ))
+
+                if sharpen_tips:
+                    path = sharpen_turns(path, distance_to_edge, radius_px)
 
                 points, closed = simplify_path(
                     path,
@@ -787,6 +1155,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--trace-mode", choices=["split", "paired"], default="split", help="Trace centerlines as split graph edges or pair straight-through junctions. Default: split.")
     parser.add_argument("--pair-dot-cutoff", type=float, default=-0.2, help="Maximum outgoing-vector dot product to pair branches at a junction. Higher pairs sharper turns. Default: -0.2.")
     parser.add_argument("--overlap-spur-max", type=float, default=0, help="In paired mode, fold unpaired terminal spurs up to this SVG-unit length into the passing stroke as an out-and-back vertex. Default: 0.")
+    parser.add_argument("--tip-mode", choices=["excursion", "corner"], default="excursion", help="How to treat junctions with two legs plus a short terminal spur: fold the spur out-and-back, or pair the legs through a computed apex corner. Default: excursion.")
+    parser.add_argument("--tip-spur-max", type=float, default=0, help="Max SVG-unit length for a narrowing terminal spur to count as a zigzag tip in corner mode. 0 falls back to --overlap-spur-max. Default: 0.")
+    parser.add_argument("--calibrate-caps", action="store_true", help="Trim or extend true stroke endpoints so the round cap exactly meets the filled outline.")
+    parser.add_argument("--sharpen-tips", action="store_true", help="Replace rounded-off sharp turns (where the skeleton cut a zigzag corner without a junction) with a true corner at the mask apex.")
     parser.add_argument("--alpha-threshold", type=int, default=48, help="Visible-pixel alpha cutoff. Default: 48.")
     parser.add_argument("--min-object-size", type=int, default=20, help="Remove color blobs smaller than this many pixels. Default: 20.")
     parser.add_argument("--min-path-length", type=float, default=15, help="Discard traced paths shorter than this. Default: 15.")
@@ -815,6 +1187,10 @@ def main() -> None:
         trace_mode=args.trace_mode,
         pair_dot_cutoff=args.pair_dot_cutoff,
         overlap_spur_max=args.overlap_spur_max,
+        tip_mode=args.tip_mode,
+        tip_spur_max=args.tip_spur_max,
+        calibrate_caps=args.calibrate_caps,
+        sharpen_tips=args.sharpen_tips,
         alpha_threshold=args.alpha_threshold,
         min_object_size=args.min_object_size,
         min_path_length=args.min_path_length,

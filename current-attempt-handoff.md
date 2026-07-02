@@ -42,11 +42,13 @@ It uses a raster-first pipeline:
 2. Process filled elements separately rather than merging all same-color regions.
 3. Render each candidate filled stroke to a mask.
 4. Skeletonize the mask.
-5. Trace the skeleton graph into ordered centerline paths.
+5. Trace the skeleton graph into ordered centerline paths, with tip-aware
+   junction handling (see "Tip reconstruction" below).
 6. Estimate stroke width from the filled region.
-7. Emit stroked SVG paths with `fill="none"`.
+7. Calibrate open path endpoints so round caps reach the outline tips.
+8. Emit stroked SVG paths with `fill="none"`.
 
-The current promoted landscape command is:
+The promoted command (both inputs use the same settings now):
 
 ```bash
 DYLD_LIBRARY_PATH=/opt/homebrew/lib .venv/bin/python convert_filled_svg_to_stroked_lines.py inputs/landscape.svg \
@@ -57,14 +59,57 @@ DYLD_LIBRARY_PATH=/opt/homebrew/lib .venv/bin/python convert_filled_svg_to_strok
   --max-stroke-width 30 \
   --skeleton-method zhang \
   --trace-mode paired \
-  --stroke-scale 1.07 \
-  --overlap-spur-max 80
+  --overlap-spur-max 80 \
+  --tip-mode corner \
+  --tip-spur-max 150 \
+  --calibrate-caps \
+  --stroke-scale 1.07
 ```
 
-The accepted dinosaur output should not be regressed. It currently remains:
+Run the same command with `inputs/dinosaur.svg` / `outputs/dinosaur.svg` for
+the dinosaur (it improved from 0.05% to 0.02% under these settings).
 
-```text
-outputs/dinosaur.svg
+## Tip reconstruction (added 2026-07-02)
+
+The zigzag-tip problem was diagnosed with a skeleton overlay
+(`debug/sun-skeleton-overlay.png`): the scribble "zigzags" in these drawings
+are mostly **separate tapered strokes** (pressure taper: wide middle, needle
+ends) that overlap near the turns — not single wedge-shaped turns. The
+skeleton endpoint of a taper sits well inside the shape, so a constant-width
+round cap centered there looks cut off.
+
+The unifying fix: **place every stroke tip one cap radius behind the outline
+apex** — march from the endpoint along its local direction to the mask edge
+(`march_to_edge`), step back `strokeWidth/2`, so the cap edge kisses the tip.
+This one rule is applied in three places:
+
+- `calibrate_open_end` (via `--calibrate-caps`): open path ends at true
+  skeleton endpoints get extended (tapers) or pulled back (overshoots).
+- Excursion spur folds (`--overlap-spur-max`): the out-and-back turnaround
+  now reaches the spur's outline tip.
+- `tip_apex_point` (via `--tip-mode corner` + `--tip-spur-max`): junction
+  clusters with exactly two through-legs plus a short terminal spur are pen
+  turns, not crossings — the legs are paired through a single apex vertex.
+  Junction clusters are found by union-find over ≤4px node-to-node edges
+  (thinning emits 2-3 adjacent branch pixels, never one). Crossings are
+  rejected by requiring the two legs' long-range directions (measured over
+  ~2 stroke radii — near the junction skeleton legs hug the wedge bisector)
+  to not be anti-parallel.
+
+`--sharpen-tips` (interior rounded-turn sharpener) exists but regresses the
+dinosaur badly; leave it off.
+
+There is a synthetic regression test for the corner logic:
+
+```bash
+DYLD_LIBRARY_PATH=/opt/homebrew/lib .venv/bin/python debug/test_tip_corner.py
+```
+
+And an experiment harness + zoom tool used for tuning:
+
+```bash
+bash debug/run-tip-experiments.sh
+node debug/crop-compare.js <a.svg> <b.svg> <cx> <cy> <size> <out.png>
 ```
 
 ## Current Metrics
@@ -79,13 +124,15 @@ Current final output checks:
 
 ```text
 inputs/dinosaur.svg vs outputs/dinosaur.svg @ 1200px
-differing pixels: 725/1440000 = 0.05%
-similarity: 99.95%
+differing pixels: 359/1440000 = 0.02%
+similarity: 99.98%
 
 inputs/landscape.svg vs outputs/landscape.svg @ 1200px
-differing pixels: 12021/1440000 = 0.83%
-similarity: 99.17%
+differing pixels: 10441/1440000 = 0.73%
+similarity: 99.27%
 ```
+
+Previous promoted outputs were 0.05% (dinosaur) and 0.83% (landscape).
 
 Useful debug comparison files:
 
@@ -242,14 +289,24 @@ At the time this handoff was written, many debug artifacts were untracked under 
 
 ## Recommended Next Step
 
-Do not keep only tuning global thresholds. The remaining issue is not mainly stroke width, skeleton method, or simplification epsilon.
+The tip-reach problem is now largely solved (see "Tip reconstruction"). The
+remaining perceptual gaps, in rough order of visual impact on the scribble
+fills (sun, mountain hatching):
 
-The next serious attempt should focus on local topology reconstruction around ambiguous skeleton junctions:
+1. **Tapered stroke width.** Source scribble strokes taper (pressure), so a
+   single median width per element under-represents the fat middles and
+   cannot render needle tips. Options: per-path width estimation, or
+   splitting long tapers into 2-3 segments of decreasing width (at the cost
+   of more paths).
+2. **Merged corridors.** Where two near-parallel passes overlap lengthwise,
+   the union skeleton collapses them into one line, producing "knuckle"
+   bulges and slightly sparse hatching. Recovering two parallel strokes from
+   a merged corridor would need outline-rail pairing rather than skeleton
+   tracing.
+3. **Turn slivers.** At sharp turns the two legs plus apex leave a small
+   white sliver that the solid ink wedge of the source fills. A slightly
+   wider stroke just at the join, or a small filled triangle, would close it;
+   both deviate from the pure single-stroke model.
 
-1. Detect acute-turn and overlap neighborhoods in each filled element.
-2. Preserve more local geometry than the one-pixel skeleton alone provides, possibly by sampling both outline rails.
-3. Infer candidate stroke trajectories through the neighborhood.
-4. Score candidates by both pixel coverage and natural drawing motion: curvature continuity, tangent continuity, and avoidance of short unnatural straight protrusions.
-5. Replace only the ambiguous local segment while keeping the rest of the current high-accuracy pipeline.
-
-The current output is already strong by pixel metrics. The remaining gap is perceptual and geometric: reconstructing the line as a plausible pen stroke, especially where a same-stroke segment overlaps itself or turns into a point.
+These are refinements; the current output is strong both by pixel metrics
+and at normal viewing scale.
