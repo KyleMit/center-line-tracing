@@ -369,3 +369,78 @@ Three things worth carrying to other tracks:
 Runtime scales roughly with pixel count, i.e. quadratically in `--scale`
 (landscape: 4s → 11s → 23s → 44s → 132s). Scale 3–4 is the sweet spot for this
 corpus and there is no reason to go past it.
+
+## Verdict
+
+**Is off-the-shelf tracing plus our own width recovery competitive? Yes — and
+that is a genuinely uncomfortable answer for the other seven tracks.**
+
+The number every other track should measure itself against:
+
+> **`autotrace -centerline` on per-element binary masks, with per-path stroke
+> width recovered from the source distance transform and one cap-extension
+> rule, scores 0.03% on `dinosaur-wide` and 0.39% on `landscape-square`.**
+> (`--mode element --scale 4 --cap-extend --stat trimmed`, `src/compare.js` at
+> 1200px.)
+
+Against the targets set for this track:
+
+| target | result |
+|---|---|
+| beat prior autotrace 0.17% / 1.79% | **cleared, 5.7× and 4.6×** |
+| beat incumbent 0.02% / 0.73% (stretch) | **cleared on landscape** (0.39% vs 0.73%); dinosaur 0.03% vs 0.02% |
+
+The honest framing of the whole track: **the prior evaluation was not wrong
+about autotrace, it was wrong about which half of the problem was broken.**
+Its diagnosis said "raw autotrace centerline output did not preserve usable
+stroke widths". True — autotrace emits no widths whatsoever. But the conclusion
+drawn from it, that autotrace was therefore a weak backend, does not follow. The
+geometry was good the whole time. Two changes recover it:
+
+1. feed binary masks, not antialiased colour rasters (this is the difference
+   between working and not working, not a tuning knob);
+2. measure width per path from the source instead of guessing one number for the
+   whole drawing (worth up to 3.85× on drawings with real width variation, and
+   nothing at all on drawings without).
+
+### What this means for the other tracks
+
+* **A backend that cannot beat 0.39% on `landscape-square` is not buying its
+  complexity.** That is now a shell command, a distance transform, and ~600
+  lines of adapter, against the incumbent's eight tuned heuristic flags.
+* **The width-recovery post-pass is backend-independent and should be lifted
+  out.** It takes a mask and a polyline and returns a radius; nothing about it
+  is specific to autotrace. Any track producing centerlines can adopt
+  `experiments/autotrace/width.py` directly and should, before reporting a
+  width-sensitive score. Several tracks will otherwise repeat exactly the
+  mistake this one was sent to correct.
+* **Cap extension is likewise universal.** Every medial-axis method inherits the
+  one-radius shortfall at free ends (report §2.3); it cost 1.147u → 0.280u of
+  endpoint error here for about 30 lines.
+
+### Where it genuinely loses, and why a vector backend may still win
+
+1. **Resolution dependence is structural and does not go away.** Centerline
+   error is a flat ~1.1–1.4 raster pixels at every scale tested. There is no
+   setting at which this converges to the true centerline — accuracy is bought
+   with pixels, quadratically, forever. `flo-mat` (Track 1) computes the MAT on
+   the Béziers directly and has no such floor. **If Track 1 works at all, it
+   should beat these numbers, and if it does not, that is a strong signal.**
+2. **Merged source elements cost 5.5×.** Synthetic case 13 (X as two shapes)
+   scores 0.53u P95; case 14 (the same X as one mask) scores 2.89u. This
+   pipeline leans hard on per-element separation, which the report's §9.1
+   "preserve source semantics" already recommends — but it means the numbers
+   above would degrade substantially on artwork that arrives pre-flattened.
+3. **Degenerate shapes are silently dropped** (the solid-disc case above).
+4. **Tapered strokes need a width model this output format cannot express**
+   (`sun-square`).
+
+### Recommendation
+
+Keep it, as the report asks — but promote it from "baseline we keep honest" to
+**"the thing to beat, and the source of two components everyone else should
+reuse"**. It is not obviously the production architecture: the resolution floor
+and the merged-element penalty are real, and a working vector MAT should win on
+both. But on today's evidence it is competitive with the incumbent at a small
+fraction of the complexity, and no track should ship a more complicated backend
+without showing it beats 0.03% / 0.39%.
