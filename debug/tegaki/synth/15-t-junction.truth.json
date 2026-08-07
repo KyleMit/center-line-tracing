@@ -1,0 +1,38 @@
+{
+ "case": "t-junction",
+ "index": 15,
+ "width": 20,
+ "cap": "round",
+ "join": "round",
+ "separateElements": false,
+ "centerlines": [
+  [
+   {
+    "x": 50,
+    "y": 60
+   },
+   {
+    "x": 150,
+    "y": 60
+   },
+   {
+    "x": 250,
+    "y": 60
+   }
+  ],
+  [
+   {
+    "x": 150,
+    "y": 60
+   },
+   {
+    "x": 150,
+    "y": 120
+   },
+   {
+    "x": 150,
+    "y": 180
+   }
+  ]
+ ]
+}

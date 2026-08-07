@@ -1,0 +1,24 @@
+{
+ "case": "butt-cap",
+ "index": 8,
+ "width": 20,
+ "cap": "butt",
+ "join": "round",
+ "separateElements": false,
+ "centerlines": [
+  [
+   {
+    "x": 60,
+    "y": 100
+   },
+   {
+    "x": 150,
+    "y": 100
+   },
+   {
+    "x": 240,
+    "y": 100
+   }
+  ]
+ ]
+}
