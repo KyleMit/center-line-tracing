@@ -579,6 +579,33 @@
  "scale-2": {
   "config": "element_s2_trimmed_ct100_et2_fi4_ds0_cap",
   "images": {
+   "dinosaur-wide": {
+    "boundary_median_px": 0.0,
+    "boundary_median_user": 0.0,
+    "boundary_p95_px": 1.0,
+    "boundary_p95_user": 1.8875,
+    "compare_js_pct": 0.02,
+    "config": "element_s2_trimmed_ct100_et2_fi4_ds0_cap",
+    "coverage": 0.951575834525321,
+    "failure_tags": {
+     "mixed outline/centerline": 2
+    },
+    "iou": 0.9318224740321057,
+    "n_closed": 3,
+    "n_outline_like": 0,
+    "n_source_elements": 33,
+    "n_strokes": 51,
+    "orig_px": 62221,
+    "per_element_s": 0.5836,
+    "recon_px": 60527,
+    "runtime_s": 19.258,
+    "spill": 0.021198630687388503,
+    "sym_diff_pct_of_canvas": 0.49115646258503404,
+    "sym_diff_pct_of_orig": 6.962279616206747,
+    "sym_diff_px": 4332,
+    "total_length": 14233.99,
+    "width_spread_median": 0.0
+   },
    "house-wide": {
     "boundary_median_px": 0.0,
     "boundary_median_user": 0.0,
@@ -602,6 +629,63 @@
     "sym_diff_pct_of_orig": 5.205388669710996,
     "sym_diff_px": 5027,
     "total_length": 8607.37,
+    "width_spread_median": 0.0
+   },
+   "landscape-square": {
+    "boundary_median_px": 0.0,
+    "boundary_median_user": 0.0,
+    "boundary_p95_px": 2.8284271247461903,
+    "boundary_p95_user": 4.179001076812496,
+    "compare_js_pct": 0.48,
+    "config": "element_s2_trimmed_ct100_et2_fi4_ds0_cap",
+    "coverage": 0.9457122103476547,
+    "failure_tags": {
+     "mixed outline/centerline": 17
+    },
+    "iou": 0.918708473936828,
+    "n_closed": 6,
+    "n_outline_like": 4,
+    "n_source_elements": 14,
+    "n_strokes": 131,
+    "orig_px": 278092,
+    "per_element_s": 0.7622,
+    "recon_px": 271169,
+    "runtime_s": 10.67,
+    "spill": 0.029393150468190382,
+    "sym_diff_pct_of_canvas": 1.6160416666666666,
+    "sym_diff_pct_of_orig": 8.368094012053565,
+    "sym_diff_px": 23271,
+    "total_length": 29682.84,
+    "width_spread_median": 0.0
+   }
+  }
+ },
+ "scale-3": {
+  "config": "element_s3_trimmed_ct100_et2_fi4_ds0_cap",
+  "images": {
+   "house-wide": {
+    "boundary_median_px": 0.0,
+    "boundary_median_user": 0.0,
+    "boundary_p95_px": 1.0,
+    "boundary_p95_user": 1.385,
+    "compare_js_pct": 0.05,
+    "config": "element_s3_trimmed_ct100_et2_fi4_ds0_cap",
+    "coverage": 0.967848156316983,
+    "failure_tags": {},
+    "iou": 0.9580664008446171,
+    "n_closed": 3,
+    "n_outline_like": 0,
+    "n_source_elements": 19,
+    "n_strokes": 25,
+    "orig_px": 96573,
+    "per_element_s": 0.4599,
+    "recon_px": 94454,
+    "runtime_s": 8.738,
+    "spill": 0.010209893034284946,
+    "sym_diff_pct_of_canvas": 0.49914592484138604,
+    "sym_diff_pct_of_orig": 4.236173671730194,
+    "sym_diff_px": 4091,
+    "total_length": 8721.2,
     "width_spread_median": 0.0
    }
   }

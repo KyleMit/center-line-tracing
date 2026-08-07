@@ -157,3 +157,69 @@ Recovered stroke radius degrades the same way but far more gently — median
 absolute radius error is 4.2% at scale 1, 1.7% at scale 3, and 1.0% at scale 6.
 Width recovery is much more robust to coarse rasterisation than geometry is,
 because the distance transform averages over the whole path.
+
+## Results — the full ladder
+
+Config: `--mode element --scale 4 --cap-extend --stat trimmed`, one config for
+all ten images (no per-image tuning). Diff % is `src/compare.js` at 1200px, kept
+verbatim for continuity with the incumbent's recorded numbers.
+
+| image | diff % | IoU | boundary P95 (user) | strokes | src elems | runtime | reference |
+|---|---|---|---|---|---|---|---|
+| `house-wide` | 0.05% | 0.9613 | 1.39 | 25 | 19 | 14s | |
+| `butterfly-wide` | 0.12% | 0.9494 | 1.33 | 19 | 17 | 23s | |
+| `boat-tall` | 0.03% | 0.9578 | 1.08 | 28 | 20 | 17s | |
+| `island-tall` | 0.06% | 0.9523 | 1.20 | 32 | 22 | 10s | |
+| `balloon-tall` | 0.04% | 0.9562 | 1.21 | 47 | 24 | 14s | |
+| `home-wide` | 0.03% | 0.9462 | 1.28 | 32 | 26 | 9s | |
+| `house-tall` | 0.10% | 0.9518 | 1.19 | 39 | 27 | 13s | |
+| `dinosaur-wide` | **0.03%** | 0.9512 | 1.89 | 52 | 29 | 29s | incumbent 0.02% · prior autotrace 0.17% / 3.10% raw |
+| `landscape-square` | **0.39%** | 0.9339 | 3.30 | 92 | 17 | 57s | incumbent 0.73% · prior autotrace 1.79% / 15.61% raw |
+| `sun-square` | 3.25% | 0.9028 | 4.63 | 17 | 2 | 4s | reference ~4.2% raster / ~6.3% vector |
+
+Against the bar the handoff set:
+
+* **Bar (beat prior autotrace 0.17% / 1.79%): cleared by 5.7× and 4.6×.**
+* **Stretch goal (beat incumbent 0.02% / 0.73%): cleared on `landscape-square`
+  (0.39% vs 0.73%), missed by one hundredth of a point on `dinosaur-wide`**
+  (0.03% vs 0.02%). With `--stat median` instead of `trimmed`, `dinosaur-wide`
+  hits 0.02% exactly — but the same swap costs `landscape-square` 0.43% vs
+  0.39%. That is a genuine trade, not a tuning win, and the table above reports
+  the single config rather than cherry-picking per image.
+* `sun-square` at 3.25% also beats both recorded references for that image.
+
+The incumbent needs eight tuned flags (`--trace-mode paired --tip-mode corner
+--overlap-spur-max 80 --tip-spur-max 150 --calibrate-caps --stroke-scale 1.07`
+and so on). This is `autotrace -centerline` plus a distance transform.
+
+## Failure modes observed (report §13, Experiment 2 taxonomy)
+
+| tag | where | notes |
+|---|---|---|
+| `raster quantization` | everywhere, structurally | ~1.1–1.4 raster px of centerline error at every scale — see the table above. The defining weakness of this backend. |
+| `missing narrow segment` | `butterfly-wide`, `island-tall` (1 element each), `dinosaur-wide` at scale 1 | a small source element yields no traced subpath at all. Scale-dependent: raising `--scale` fixes it, which confirms it is quantization, not a tracing bug. |
+| `crossing ambiguity` | synthetic case 14 (unioned X) | 3 subpaths where 2 strokes exist, centerline P95 2.89u vs 0.53u for the same X kept as separate shapes — a **5.5× penalty for merged source elements**, exactly as report §2.5 predicts. Left for Track 8. |
+| `join artifact` | synthetic case 12 (miter join) | the acute corner is split into 2 subpaths rather than traced through; P95 1.27u. |
+| `excessive curve complexity` | `landscape-square` at scale 1 | 204 strokes vs 92 at scale 4 for the same drawing — coarse rasterisation fragments long strokes. |
+| `cap artifact` | all free ends, before cap extension | median endpoint error 1.147u, cut to 0.280u by extending each terminal end to the mask edge and back one radius. |
+
+### The mixed outline/centerline check — negative result
+
+The handoff warns that some tracers emit centerlines for thin structures and
+outlines for thick ones, silently mixing both. **On this corpus, autotrace does
+not do that.** `experiments/autotrace/inspect_mixed.py` audits every element of
+a drawing by comparing each traced subpath's median EDT against the element's
+own thickness, and dumps a picture of anything it flags.
+
+On `dinosaur-wide` the detector fires on 2 subpaths out of 29 elements. Looking
+at the dump (`debug/autotrace/mixed/dinosaur-wide/e011.png`) **both are false
+positives**: they are short bridging segments across the notches of a
+party-hat outline, where the stroke is locally thinner than the element average,
+so a whole-element thickness reference is the wrong yardstick for them (12.4px
+and 11.5px against a 12.8px threshold — borderline by design). They run down the
+middle of the stroke like every other traced path.
+
+So: the failure the handoff asks about did not occur, the detector that would
+have caught it exists and is checked in, and its known bias is that it should
+compare against **local** thickness rather than a per-element average. Reported
+rather than silently measured, as asked.
