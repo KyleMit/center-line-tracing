@@ -8,14 +8,14 @@ centerline from a triangulation-based (chordal-axis) medial axis. Terminal
 triangles point straight into the outline's sharp corners, so the zigzag
 folds stay sharp instead of being blunted/rounded by skeletonization.
 
-Input assumption (matches inputs/sun.svg): two <path> elements — path 0 is
+Input assumption (matches inputs/sun-square.svg): two <path> elements — path 0 is
 the outer ring band (two edge loops), path 1 is the scribble fill (one closed
 outline of a single continuous pen stroke). Handles L/Q/C/A/Z path data. The
 sample uses pure polylines, so there is no curve-flattening approximation.
 
 Usage:
     DYLD_LIBRARY_PATH=/opt/homebrew/lib .venv/bin/python sun_vectorize.py \
-        inputs/sun.svg --output outputs/sun.svg
+        inputs/sun-square.svg --output outputs/sun-square.svg
 
 Dependencies: numpy, scipy, shapely.
 """

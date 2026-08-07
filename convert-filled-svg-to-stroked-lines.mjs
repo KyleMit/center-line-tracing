@@ -7,12 +7,12 @@
  *
  * Usage:
  *   # Inputs live in inputs/, outputs are written to outputs/.
- *   node convert-filled-svg-to-stroked-lines.mjs inputs/landscape.svg
- *   #   -> writes outputs/landscape.svg
+ *   node convert-filled-svg-to-stroked-lines.mjs inputs/landscape-square.svg
+ *   #   -> writes outputs/landscape-square.svg
  *
  *   # Or set the output path explicitly:
- *   node convert-filled-svg-to-stroked-lines.mjs inputs/landscape.svg \
- *     --output outputs/landscape.svg
+ *   node convert-filled-svg-to-stroked-lines.mjs inputs/landscape-square.svg \
+ *     --output outputs/landscape-square.svg
  */
 
 import fs from 'node:fs/promises';
@@ -74,7 +74,7 @@ function parseArgs(argv) {
   }
 
   if (!args.input) {
-    throw new Error('Usage: node convert-filled-svg-to-stroked-lines.mjs inputs/landscape.svg --output outputs/landscape.svg');
+    throw new Error('Usage: node convert-filled-svg-to-stroked-lines.mjs inputs/landscape-square.svg --output outputs/landscape-square.svg');
   }
 
   return args;

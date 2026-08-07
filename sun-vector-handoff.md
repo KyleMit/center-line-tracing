@@ -43,9 +43,9 @@ than a fitted circle.
 
 ## Sample
 
-`inputs/sun.svg` is a pure-polyline outline, so it is already an exact polygon
+`inputs/sun-square.svg` is a pure-polyline outline, so it is already an exact polygon
 and does not introduce bezier/arc flattening error. Its generated result is
-`outputs/sun.svg`.
+`outputs/sun-square.svg`.
 
 ## Tradeoff vs the raster pipeline
 
@@ -61,7 +61,7 @@ cannot. The sample output is therefore generated with the vector engine.
 
 ```bash
 DYLD_LIBRARY_PATH=/opt/homebrew/lib .venv/bin/python sun_vectorize.py \
-    inputs/sun.svg --output outputs/sun.svg
+    inputs/sun-square.svg --output outputs/sun-square.svg
 # deps: numpy scipy shapely  (shapely was pip-installed into .venv)
 ```
 

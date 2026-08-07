@@ -10,13 +10,13 @@ Convert SVG drawings that visually look like pen/marker line art but are interna
 
 The working examples are:
 
-- `inputs/dinosaur.svg`
-- `inputs/landscape.svg`
+- `inputs/dinosaur-wide.svg`
+- `inputs/landscape-square.svg`
 
 The final outputs currently live at:
 
-- `outputs/dinosaur.svg`
-- `outputs/landscape.svg`
+- `outputs/dinosaur-wide.svg`
+- `outputs/landscape-square.svg`
 
 Per the project convention, intermediate files and visual comparisons should stay under `debug/`. The only files intended to land in `outputs/` are final produced SVGs.
 
@@ -51,8 +51,8 @@ It uses a raster-first pipeline:
 The promoted command (both inputs use the same settings now):
 
 ```bash
-DYLD_LIBRARY_PATH=/opt/homebrew/lib .venv/bin/python convert_filled_svg_to_stroked_lines.py inputs/landscape.svg \
-  --output outputs/landscape.svg \
+DYLD_LIBRARY_PATH=/opt/homebrew/lib .venv/bin/python convert_filled_svg_to_stroked_lines.py inputs/landscape-square.svg \
+  --output outputs/landscape-square.svg \
   --mode elements \
   --scale 4 \
   --simplify-epsilon 0 \
@@ -66,7 +66,7 @@ DYLD_LIBRARY_PATH=/opt/homebrew/lib .venv/bin/python convert_filled_svg_to_strok
   --stroke-scale 1.07
 ```
 
-Run the same command with `inputs/dinosaur.svg` / `outputs/dinosaur.svg` for
+Run the same command with `inputs/dinosaur-wide.svg` / `outputs/dinosaur-wide.svg` for
 the dinosaur (it improved from 0.05% to 0.02% under these settings).
 
 ## Tip reconstruction (added 2026-07-02)
@@ -123,11 +123,11 @@ node compare.js <input.svg> <output.svg> 1200 <diff.png> <side-by-side.png>
 Current final output checks:
 
 ```text
-inputs/dinosaur.svg vs outputs/dinosaur.svg @ 1200px
+inputs/dinosaur-wide.svg vs outputs/dinosaur-wide.svg @ 1200px
 differing pixels: 359/1440000 = 0.02%
 similarity: 99.98%
 
-inputs/landscape.svg vs outputs/landscape.svg @ 1200px
+inputs/landscape-square.svg vs outputs/landscape-square.svg @ 1200px
 differing pixels: 10441/1440000 = 0.73%
 similarity: 99.27%
 ```
@@ -213,7 +213,7 @@ brew install autotrace potrace
 autotrace -centerline -preserve-width -background-color FFFFFF \
   -output-format svg \
   -output-file debug/autotrace-landscape-centerline.svg \
-  inputs/landscape.svg
+  inputs/landscape-square.svg
 ```
 
 However, raw autotrace centerline output did not preserve usable stroke widths.
