@@ -333,3 +333,39 @@ this backend emits disconnected subpaths and topology recovery is deliberately
 left to Track 8, per the "do not implement sophisticated pruning early"
 instruction. Consumers that need real junction nodes should merge by proximity;
 `radius` on each node gives the natural merge tolerance.
+
+## Resolution on real artwork — more pixels is NOT monotonically better
+
+The synthetic corpus says error falls smoothly with resolution. Real artwork
+does not agree, and this was the most surprising result of the track:
+
+| `--scale` | `house-wide` | `dinosaur-wide` | `landscape-square` | landscape strokes | landscape runtime |
+|---|---|---|---|---|---|
+| 1 | 0.10% | 0.07% | 0.58% | 204 | 4s |
+| 2 | 0.05% | **0.02%** | 0.48% | 131 | 11s |
+| 3 | 0.05% | 0.03% | 0.41% | 103 | 23s |
+| 4 | 0.05% | 0.03% | **0.39%** | 92 | 44s |
+| 6 | 0.05% | **0.02%** | 0.49% | 89 | 132s |
+| 8 | 0.05% | **0.02%** | – | – | 221s (dinosaur) |
+
+Three things worth carrying to other tracks:
+
+1. **`landscape-square` is best at scale 4 and gets WORSE at scale 6** (0.39% →
+   0.49%) while costing 3× the time. The synthetic corpus never shows this,
+   because synthetic shapes have clean boundaries. On real art a finer raster
+   resolves genuine boundary irregularity, and autotrace faithfully follows it
+   into the merged hatching corridors instead of averaging it away. Coarser
+   rasterisation is acting as a low-pass filter, and some of that filtering is
+   load-bearing.
+2. **`house-wide` is converged by scale 2.** Spending 4× the pixels buys
+   literally nothing (0.05% at every scale from 2 to 8). Resolution should be
+   chosen per drawing from its stroke width, not set globally.
+3. **Stroke count is the tell.** 204 strokes at scale 1 versus 92 at scale 4 for
+   the same drawing: at low resolution autotrace fragments long strokes, and the
+   `mixed outline/centerline` detector fires 75 times (against 0 at scale 4)
+   because fragments are short and locally thin. Stroke count is a cheap
+   proxy for "is my raster too coarse".
+
+Runtime scales roughly with pixel count, i.e. quadratically in `--scale`
+(landscape: 4s → 11s → 23s → 44s → 132s). Scale 3–4 is the sweet spot for this
+corpus and there is no reason to go past it.
