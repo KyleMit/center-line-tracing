@@ -86,8 +86,12 @@ class CenterlineGraph:
             return idmap[nid]
 
         anchors = [n for n in self.nodes if deg.get(n, 0) != 2]
-        # isolated pure cycles have no anchor; seed them arbitrarily
-        seeds = list(anchors) or list(self.nodes)
+        # Anchors first, then every remaining node: a component that is a pure
+        # cycle (a closed stroke — the cloud in house-wide, case 06) has no
+        # anchor of its own and would otherwise be dropped whenever some *other*
+        # component in the same graph supplied anchors.
+        anchor_set = set(anchors)
+        seeds = anchors + [n for n in self.nodes if n not in anchor_set]
 
         for start in seeds:
             for e0 in inc[start]:

@@ -110,6 +110,7 @@ def medial_axis_graph(
                 snapped.append((source_ids[pi], part))
 
     for pi, (src, poly) in enumerate(snapped):
+        before = len(g.edges)
         segs = polygon_segments(poly, scale)
         if len(segs) < 3:
             continue
@@ -153,9 +154,29 @@ def medial_axis_graph(
             if kb not in vmap:
                 vmap[kb] = g.add_node(pts[-1][0], pts[-1][1], rb)
             g.add_edge(vmap[ka], vmap[kb], pts, radii, source=src)
+        if len(g.edges) == before:
+            # A near-circular blob (a dot, a knob) has a medial axis that
+            # degenerates to a single point, so the Voronoi diagram has no
+            # interior edge to keep. Emit it as a zero-length stroke at the
+            # pole of inaccessibility so a round cap reproduces the dot.
+            _add_dot(g, poly, src)
         timing["filter_ms"] += (time.perf_counter() - t0) * 1000.0
 
     return g, timing
+
+
+def _add_dot(g, poly, src, min_area=1.0):
+    if poly.area < min_area:
+        return
+    p = poly.centroid
+    if not poly.contains(p):
+        p = poly.representative_point()
+    r = p.distance(poly.boundary)
+    if r <= 0:
+        return
+    n0 = g.add_node(p.x, p.y, r)
+    n1 = g.add_node(p.x, p.y, r)
+    g.add_edge(n0, n1, [(p.x, p.y), (p.x, p.y)], [r, r], source=src)
 
 
 def _interp_radii(pts, ra, rb):

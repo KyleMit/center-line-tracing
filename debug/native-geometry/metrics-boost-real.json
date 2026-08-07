@@ -1,0 +1,475 @@
+{
+ "rows": [
+  {
+   "name": "house-wide",
+   "engine": "boost",
+   "tag": "cycles-and-dots",
+   "elements": 19,
+   "polygons": 19,
+   "boundary_segments": 4462,
+   "raw_voronoi_edges": 14606,
+   "runtime_ms": {
+    "flatten": 233.4,
+    "engine": 218.9,
+    "filter": 331.8,
+    "graph": 24.4,
+    "total": 856.9
+   },
+   "params": {
+    "flatness": 0.05,
+    "prune_k": 1.0
+   },
+   "strokes": 39,
+   "branch_nodes": 12,
+   "leaf_nodes": 39,
+   "points": 5421,
+   "total_length": 8646.174,
+   "components": 19,
+   "iou": 0.97763,
+   "symdiff_area": 4181.189,
+   "symdiff_frac": 0.02266,
+   "orig_area": 184495.93,
+   "recon_area": 185089.641,
+   "boundary_recon_to_orig": {
+    "median": 0.0615,
+    "p95": 1.0232,
+    "max": 9.3498,
+    "mean": 0.2453
+   },
+   "boundary_orig_to_recon": {
+    "median": 0.0617,
+    "p95": 1.0445,
+    "max": 15.4164,
+    "mean": 0.2734
+   },
+   "radius_median": 10.481,
+   "radius_p05": 10.0355,
+   "radius_p95": 11.6172,
+   "radius_spread": 0.1509
+  },
+  {
+   "name": "butterfly-wide",
+   "engine": "boost",
+   "tag": "cycles-and-dots",
+   "elements": 13,
+   "polygons": 13,
+   "boundary_segments": 5457,
+   "raw_voronoi_edges": 18919,
+   "runtime_ms": {
+    "flatten": 282.6,
+    "engine": 265.7,
+    "filter": 447.7,
+    "graph": 31.4,
+    "total": 1081.5
+   },
+   "params": {
+    "flatness": 0.05,
+    "prune_k": 1.0
+   },
+   "strokes": 31,
+   "branch_nodes": 12,
+   "leaf_nodes": 21,
+   "points": 7433,
+   "total_length": 9829.732,
+   "components": 11,
+   "iou": 0.9685,
+   "symdiff_area": 5969.546,
+   "symdiff_frac": 0.0317,
+   "orig_area": 188336.583,
+   "recon_area": 184712.617,
+   "boundary_recon_to_orig": {
+    "median": 0.0466,
+    "p95": 0.3629,
+    "max": 15.0055,
+    "mean": 0.2261
+   },
+   "boundary_orig_to_recon": {
+    "median": 0.0475,
+    "p95": 0.9051,
+    "max": 38.7032,
+    "mean": 0.5113
+   },
+   "radius_median": 9.4131,
+   "radius_p05": 9.2442,
+   "radius_p95": 9.9712,
+   "radius_spread": 0.0772
+  },
+  {
+   "name": "boat-tall",
+   "engine": "boost",
+   "tag": "cycles-and-dots",
+   "elements": 22,
+   "polygons": 22,
+   "boundary_segments": 5681,
+   "raw_voronoi_edges": 19718,
+   "runtime_ms": {
+    "flatten": 267.6,
+    "engine": 413.4,
+    "filter": 511.4,
+    "graph": 35.7,
+    "total": 1281.8
+   },
+   "params": {
+    "flatness": 0.05,
+    "prune_k": 1.0
+   },
+   "strokes": 38,
+   "branch_nodes": 8,
+   "leaf_nodes": 45,
+   "points": 7530,
+   "total_length": 10285.258,
+   "components": 22,
+   "iou": 0.98056,
+   "symdiff_area": 2691.531,
+   "symdiff_frac": 0.01957,
+   "orig_area": 137519.711,
+   "recon_area": 136645.18,
+   "boundary_recon_to_orig": {
+    "median": 0.0529,
+    "p95": 0.2908,
+    "max": 7.7543,
+    "mean": 0.1257
+   },
+   "boundary_orig_to_recon": {
+    "median": 0.0535,
+    "p95": 0.3062,
+    "max": 8.3032,
+    "mean": 0.1507
+   },
+   "radius_median": 6.5527,
+   "radius_p05": 6.2858,
+   "radius_p95": 7.1121,
+   "radius_spread": 0.1261
+  },
+  {
+   "name": "island-tall",
+   "engine": "boost",
+   "tag": "cycles-and-dots",
+   "elements": 24,
+   "polygons": 24,
+   "boundary_segments": 5984,
+   "raw_voronoi_edges": 20839,
+   "runtime_ms": {
+    "flatten": 285.7,
+    "engine": 320.8,
+    "filter": 498.4,
+    "graph": 37.7,
+    "total": 1204.6
+   },
+   "params": {
+    "flatness": 0.05,
+    "prune_k": 1.0
+   },
+   "strokes": 61,
+   "branch_nodes": 23,
+   "leaf_nodes": 52,
+   "points": 8024,
+   "total_length": 9012.663,
+   "components": 22,
+   "iou": 0.97425,
+   "symdiff_area": 3548.602,
+   "symdiff_frac": 0.02606,
+   "orig_area": 136158.555,
+   "recon_area": 135922.221,
+   "boundary_recon_to_orig": {
+    "median": 0.0638,
+    "p95": 0.5198,
+    "max": 7.0688,
+    "mean": 0.1811
+   },
+   "boundary_orig_to_recon": {
+    "median": 0.0653,
+    "p95": 1.0414,
+    "max": 66.5357,
+    "mean": 0.5694
+   },
+   "radius_median": 7.5054,
+   "radius_p05": 5.7802,
+   "radius_p95": 8.307,
+   "radius_spread": 0.3367
+  },
+  {
+   "name": "balloon-tall",
+   "engine": "boost",
+   "tag": "cycles-and-dots",
+   "elements": 27,
+   "polygons": 27,
+   "boundary_segments": 5983,
+   "raw_voronoi_edges": 20333,
+   "runtime_ms": {
+    "flatten": 306.5,
+    "engine": 317.8,
+    "filter": 503.5,
+    "graph": 52.1,
+    "total": 1244.8
+   },
+   "params": {
+    "flatness": 0.05,
+    "prune_k": 1.0
+   },
+   "strokes": 67,
+   "branch_nodes": 22,
+   "leaf_nodes": 60,
+   "points": 7686,
+   "total_length": 9893.482,
+   "components": 27,
+   "iou": 0.97623,
+   "symdiff_area": 2999.799,
+   "symdiff_frac": 0.02402,
+   "orig_area": 124887.928,
+   "recon_area": 124551.593,
+   "boundary_recon_to_orig": {
+    "median": 0.0484,
+    "p95": 0.3936,
+    "max": 6.9548,
+    "mean": 0.1488
+   },
+   "boundary_orig_to_recon": {
+    "median": 0.049,
+    "p95": 0.4729,
+    "max": 9.5739,
+    "mean": 0.1976
+   },
+   "radius_median": 6.2148,
+   "radius_p05": 5.6078,
+   "radius_p95": 7.0526,
+   "radius_spread": 0.2325
+  },
+  {
+   "name": "home-wide",
+   "engine": "boost",
+   "tag": "cycles-and-dots",
+   "elements": 21,
+   "polygons": 21,
+   "boundary_segments": 4898,
+   "raw_voronoi_edges": 16951,
+   "runtime_ms": {
+    "flatten": 237.2,
+    "engine": 259.3,
+    "filter": 404.0,
+    "graph": 49.1,
+    "total": 1004.6
+   },
+   "params": {
+    "flatness": 0.05,
+    "prune_k": 1.0
+   },
+   "strokes": 60,
+   "branch_nodes": 23,
+   "leaf_nodes": 50,
+   "points": 6480,
+   "total_length": 6986.158,
+   "components": 21,
+   "iou": 0.95974,
+   "symdiff_area": 4267.745,
+   "symdiff_frac": 0.04089,
+   "orig_area": 104360.068,
+   "recon_area": 103389.938,
+   "boundary_recon_to_orig": {
+    "median": 0.0934,
+    "p95": 1.0903,
+    "max": 16.2591,
+    "mean": 0.3159
+   },
+   "boundary_orig_to_recon": {
+    "median": 0.0928,
+    "p95": 0.9161,
+    "max": 9.5541,
+    "mean": 0.2708
+   },
+   "radius_median": 7.2782,
+   "radius_p05": 6.3988,
+   "radius_p95": 8.3539,
+   "radius_spread": 0.2686
+  },
+  {
+   "name": "house-tall",
+   "engine": "boost",
+   "tag": "cycles-and-dots",
+   "elements": 27,
+   "polygons": 27,
+   "boundary_segments": 8039,
+   "raw_voronoi_edges": 27628,
+   "runtime_ms": {
+    "flatten": 408.4,
+    "engine": 400.6,
+    "filter": 656.2,
+    "graph": 51.4,
+    "total": 1596.9
+   },
+   "params": {
+    "flatness": 0.05,
+    "prune_k": 1.0
+   },
+   "strokes": 63,
+   "branch_nodes": 23,
+   "leaf_nodes": 49,
+   "points": 10467,
+   "total_length": 10626.008,
+   "components": 27,
+   "iou": 0.97418,
+   "symdiff_area": 4664.739,
+   "symdiff_frac": 0.02608,
+   "orig_area": 178864.082,
+   "recon_area": 177787.261,
+   "boundary_recon_to_orig": {
+    "median": 0.0785,
+    "p95": 0.7916,
+    "max": 7.0328,
+    "mean": 0.2067
+   },
+   "boundary_orig_to_recon": {
+    "median": 0.0794,
+    "p95": 1.1038,
+    "max": 10.7279,
+    "mean": 0.2499
+   },
+   "radius_median": 8.3413,
+   "radius_p05": 7.8477,
+   "radius_p95": 9.4187,
+   "radius_spread": 0.1883
+  },
+  {
+   "name": "dinosaur-wide",
+   "engine": "boost",
+   "tag": "cycles-and-dots",
+   "elements": 33,
+   "polygons": 33,
+   "boundary_segments": 7939,
+   "raw_voronoi_edges": 27556,
+   "runtime_ms": {
+    "flatten": 348.8,
+    "engine": 472.9,
+    "filter": 700.3,
+    "graph": 79.4,
+    "total": 1689.6
+   },
+   "params": {
+    "flatness": 0.05,
+    "prune_k": 1.0
+   },
+   "strokes": 80,
+   "branch_nodes": 25,
+   "leaf_nodes": 84,
+   "points": 10351,
+   "total_length": 14182.028,
+   "components": 33,
+   "iou": 0.96717,
+   "symdiff_area": 7405.625,
+   "symdiff_frac": 0.0335,
+   "orig_area": 221056.884,
+   "recon_area": 222741.89,
+   "boundary_recon_to_orig": {
+    "median": 0.1361,
+    "p95": 1.0108,
+    "max": 7.2898,
+    "mean": 0.2656
+   },
+   "boundary_orig_to_recon": {
+    "median": 0.1354,
+    "p95": 0.9844,
+    "max": 13.5589,
+    "mean": 0.2782
+   },
+   "radius_median": 8.0164,
+   "radius_p05": 5.8683,
+   "radius_p95": 8.8537,
+   "radius_spread": 0.3724
+  },
+  {
+   "name": "landscape-square",
+   "engine": "boost",
+   "tag": "cycles-and-dots",
+   "elements": 14,
+   "polygons": 14,
+   "boundary_segments": 11427,
+   "raw_voronoi_edges": 42718,
+   "runtime_ms": {
+    "flatten": 490.7,
+    "engine": 556.7,
+    "filter": 1144.5,
+    "graph": 90.1,
+    "total": 2461.8
+   },
+   "params": {
+    "flatness": 0.05,
+    "prune_k": 1.0
+   },
+   "strokes": 147,
+   "branch_nodes": 67,
+   "leaf_nodes": 90,
+   "points": 14557,
+   "total_length": 27475.13,
+   "components": 14,
+   "iou": 0.94471,
+   "symdiff_area": 34173.747,
+   "symdiff_frac": 0.05634,
+   "orig_area": 606558.223,
+   "recon_area": 595386.437,
+   "boundary_recon_to_orig": {
+    "median": 0.1174,
+    "p95": 3.3388,
+    "max": 12.8472,
+    "mean": 0.6109
+   },
+   "boundary_orig_to_recon": {
+    "median": 0.1167,
+    "p95": 3.4576,
+    "max": 20.4915,
+    "mean": 0.6603
+   },
+   "radius_median": 9.8813,
+   "radius_p05": 8.3389,
+   "radius_p95": 14.8787,
+   "radius_spread": 0.6618
+  },
+  {
+   "name": "sun-square",
+   "engine": "boost",
+   "tag": "cycles-and-dots",
+   "elements": 2,
+   "polygons": 2,
+   "boundary_segments": 926,
+   "raw_voronoi_edges": 3312,
+   "runtime_ms": {
+    "flatten": 11.8,
+    "engine": 43.4,
+    "filter": 78.2,
+    "graph": 5.7,
+    "total": 152.2
+   },
+   "params": {
+    "flatness": 0.05,
+    "prune_k": 1.0
+   },
+   "strokes": 32,
+   "branch_nodes": 15,
+   "leaf_nodes": 18,
+   "points": 1169,
+   "total_length": 3769.582,
+   "components": 2,
+   "iou": 0.91349,
+   "symdiff_area": 7684.46,
+   "symdiff_frac": 0.08985,
+   "orig_area": 85524.193,
+   "recon_area": 84440.44,
+   "boundary_recon_to_orig": {
+    "median": 0.3521,
+    "p95": 4.061,
+    "max": 7.4731,
+    "mean": 1.0614
+   },
+   "boundary_orig_to_recon": {
+    "median": 0.361,
+    "p95": 4.0782,
+    "max": 10.6102,
+    "mean": 1.0733
+   },
+   "radius_median": 13.2842,
+   "radius_p05": 8.245,
+   "radius_p95": 15.0787,
+   "radius_spread": 0.5144
+  }
+ ],
+ "generated_by": "experiments/native-geometry/py/run.py"
+}
