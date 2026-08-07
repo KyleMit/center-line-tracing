@@ -4,3 +4,4 @@ scratch_*.png
 pycache/
 .DS_Store
 .env
+debug/flo-mat/scratch/
