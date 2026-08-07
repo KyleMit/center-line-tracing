@@ -1,0 +1,316 @@
+{
+ "generated": "2026-08-07 19:20:12",
+ "seconds": 266.9,
+ "complete": true,
+ "cells": "1/1",
+ "images": [
+  "landscape-square"
+ ],
+ "tracks": [
+  "opencv-tracing"
+ ],
+ "lambdas": [
+  0.0,
+  0.5,
+  1.0,
+  1.5,
+  2.0,
+  3.0,
+  5.0,
+  10.0
+ ],
+ "tolerance": 0.1,
+ "results": [
+  {
+   "track": "opencv-tracing",
+   "image": "landscape-square",
+   "status": "ok",
+   "source": "inputs/landscape-square.svg",
+   "variants": 1,
+   "published": [
+    {
+     "graph": "debug/opencv-tracing/graphs/landscape-square.json",
+     "iou": 0.979704,
+     "sym_diff_area": 12389.505455,
+     "sym_diff_ratio": 0.020422,
+     "missing_ratio": 0.01419,
+     "extra_ratio": 0.006233,
+     "boundary_median": 0.085971,
+     "boundary_p95": 1.171181,
+     "boundary_median_norm": 0.009711,
+     "boundary_p95_norm": 0.132291,
+     "width_error_median": 0.03022,
+     "width_error_norm": 0.003413,
+     "width_cv": 0.228387,
+     "strokes": 14,
+     "edges": 175,
+     "nodes": 186,
+     "terminals": 104,
+     "junctions": 82,
+     "control_points": 6176,
+     "bezier_segments": 0,
+     "total_length": 27507.2456,
+     "global_radius": 8.8531,
+     "source_area": 606663.84175,
+     "recon_area": 601836.636935,
+     "width_mode": "auto",
+     "seconds": 28.889746,
+     "extras": {}
+    }
+   ],
+   "publishedBest": {
+    "graph": "debug/opencv-tracing/graphs/landscape-square.json",
+    "iou": 0.979704,
+    "sym_diff_area": 12389.505455,
+    "sym_diff_ratio": 0.020422,
+    "missing_ratio": 0.01419,
+    "extra_ratio": 0.006233,
+    "boundary_median": 0.085971,
+    "boundary_p95": 1.171181,
+    "boundary_median_norm": 0.009711,
+    "boundary_p95_norm": 0.132291,
+    "width_error_median": 0.03022,
+    "width_error_norm": 0.003413,
+    "width_cv": 0.228387,
+    "strokes": 14,
+    "edges": 175,
+    "nodes": 186,
+    "terminals": 104,
+    "junctions": 82,
+    "control_points": 6176,
+    "bezier_segments": 0,
+    "total_length": 27507.2456,
+    "global_radius": 8.8531,
+    "source_area": 606663.84175,
+    "recon_area": 601836.636935,
+    "width_mode": "auto",
+    "seconds": 28.889746,
+    "extras": {}
+   },
+   "rawest": "debug/opencv-tracing/graphs/landscape-square.json",
+   "auto": {
+    "from": "debug/opencv-tracing/graphs/landscape-square.json",
+    "lam": 0.5,
+    "metrics": {
+     "iou": 0.978401,
+     "sym_diff_area": 13183.801171,
+     "sym_diff_ratio": 0.021732,
+     "missing_ratio": 0.015567,
+     "extra_ratio": 0.006164,
+     "boundary_median": 0.086051,
+     "boundary_p95": 1.220876,
+     "boundary_median_norm": 0.009705,
+     "boundary_p95_norm": 0.137691,
+     "width_error_median": 0.030361,
+     "width_error_norm": 0.003424,
+     "width_cv": 0.227978,
+     "strokes": 14,
+     "edges": 156,
+     "nodes": 167,
+     "terminals": 94,
+     "junctions": 72,
+     "control_points": 6120,
+     "bezier_segments": 0,
+     "total_length": 27438.5115,
+     "global_radius": 8.8668,
+     "source_area": 606663.84175,
+     "recon_area": 600959.192271,
+     "width_mode": "auto",
+     "seconds": 28.526942,
+     "extras": {}
+    },
+    "sweep": [
+     {
+      "lam": 0.0,
+      "error": 0.020422,
+      "iou": 0.979704,
+      "missingRatio": 0.01419,
+      "extraRatio": 0.006233,
+      "boundaryP95": 1.1712,
+      "edges": 175,
+      "strokes": 14,
+      "controlPoints": 6176,
+      "totalLength": 27507.25,
+      "widthCv": 0.22839,
+      "prune": {
+       "lam": 0.0,
+       "removed": 0,
+       "removedLength": 0.0,
+       "passes": 0,
+       "keptEdges": 175,
+       "merges": 0
+      }
+     },
+     {
+      "lam": 0.5,
+      "error": 0.021732,
+      "iou": 0.978401,
+      "missingRatio": 0.015567,
+      "extraRatio": 0.006164,
+      "boundaryP95": 1.2209,
+      "edges": 156,
+      "strokes": 14,
+      "controlPoints": 6120,
+      "totalLength": 27438.51,
+      "widthCv": 0.22798,
+      "prune": {
+       "lam": 0.5,
+       "removed": 10,
+       "removedLength": 68.734,
+       "passes": 1,
+       "keptEdges": 156,
+       "merges": 9
+      }
+     },
+     {
+      "lam": 1.0,
+      "error": 0.025834,
+      "iou": 0.974317,
+      "missingRatio": 0.019942,
+      "extraRatio": 0.005892,
+      "boundaryP95": 1.3362,
+      "edges": 130,
+      "strokes": 14,
+      "controlPoints": 6033,
+      "totalLength": 27259.28,
+      "widthCv": 0.22851,
+      "prune": {
+       "lam": 1.0,
+       "removed": 23,
+       "removedLength": 247.963,
+       "passes": 1,
+       "keptEdges": 130,
+       "merges": 22
+      }
+     },
+     {
+      "lam": 1.5,
+      "error": 0.032231,
+      "iou": 0.96795,
+      "missingRatio": 0.026581,
+      "extraRatio": 0.00565,
+      "boundaryP95": 1.4995,
+      "edges": 110,
+      "strokes": 14,
+      "controlPoints": 5951,
+      "totalLength": 27043.72,
+      "widthCv": 0.22787,
+      "prune": {
+       "lam": 1.5,
+       "removed": 33,
+       "removedLength": 463.524,
+       "passes": 1,
+       "keptEdges": 110,
+       "merges": 32
+      }
+     },
+     {
+      "lam": 2.0,
+      "error": 0.037528,
+      "iou": 0.962677,
+      "missingRatio": 0.03204,
+      "extraRatio": 0.005488,
+      "boundaryP95": 1.6831,
+      "edges": 102,
+      "strokes": 14,
+      "controlPoints": 5903,
+      "totalLength": 26878.56,
+      "widthCv": 0.2276,
+      "prune": {
+       "lam": 2.0,
+       "removed": 38,
+       "removedLength": 628.682,
+       "passes": 1,
+       "keptEdges": 102,
+       "merges": 35
+      }
+     },
+     {
+      "lam": 3.0,
+      "error": 0.062882,
+      "iou": 0.937413,
+      "missingRatio": 0.058161,
+      "extraRatio": 0.004721,
+      "boundaryP95": 3.901,
+      "edges": 78,
+      "strokes": 14,
+      "controlPoints": 5747,
+      "totalLength": 26129.86,
+      "widthCv": 0.2264,
+      "prune": {
+       "lam": 3.0,
+       "removed": 55,
+       "removedLength": 1377.386,
+       "passes": 2,
+       "keptEdges": 78,
+       "merges": 42
+      }
+     },
+     {
+      "lam": 5.0,
+      "error": 0.125292,
+      "iou": 0.875156,
+      "missingRatio": 0.121708,
+      "extraRatio": 0.003583,
+      "boundaryP95": 16.5132,
+      "edges": 38,
+      "strokes": 14,
+      "controlPoints": 5434,
+      "totalLength": 24498.69,
+      "widthCv": 0.2279,
+      "prune": {
+       "lam": 5.0,
+       "removed": 77,
+       "removedLength": 3008.557,
+       "passes": 1,
+       "keptEdges": 38,
+       "merges": 60
+      }
+     },
+     {
+      "lam": 10.0,
+      "error": 0.166922,
+      "iou": 0.833578,
+      "missingRatio": 0.16392,
+      "extraRatio": 0.003002,
+      "boundaryP95": 25.2912,
+      "edges": 23,
+      "strokes": 13,
+      "controlPoints": 5265,
+      "totalLength": 23442.39,
+      "widthCv": 0.227,
+      "prune": {
+       "lam": 10.0,
+       "removed": 86,
+       "removedLength": 4064.854,
+       "passes": 2,
+       "keptEdges": 23,
+       "merges": 66
+      }
+     }
+    ]
+   },
+   "autoOnBest": {
+    "from": "debug/opencv-tracing/graphs/landscape-square.json",
+    "lam": null,
+    "metrics": null,
+    "sweep": []
+   },
+   "seconds": 264.64,
+   "promoted": {
+    "which": "auto",
+    "lam": 0.5,
+    "graph": "debug/pruning-scoring/graphs/opencv-tracing/landscape-square.json",
+    "svg": "outputs/pruning-scoring/opencv-tracing/landscape-square.svg"
+   },
+   "rasterInk": {
+    "size": 1773,
+    "sourceInkPx": 607229,
+    "symDiffRatio": 0.021584937478282492,
+    "missingRatio": 0.015442279601270691,
+    "extraRatio": 0.006142657877011803,
+    "iou": 0.9785468419321101
+   }
+  }
+ ]
+}
