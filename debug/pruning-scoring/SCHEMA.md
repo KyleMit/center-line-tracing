@@ -143,3 +143,27 @@ print(g.stats())                 # nodes, edges, strokes, terminals, junctions, 
 for edge, tip, anchor in g.terminal_edges():
     ...                          # every prunable branch, oriented tip -> anchor
 ```
+
+---
+
+## Notes for consumers of the model (not just producers)
+
+**Canonicalize before you count or prune.** Backends disagree about whether a chain
+of degree-2 nodes is one branch or forty — flo-mat emits 426 edges for a single noisy
+capsule, skimage-skan 61 — so branch counts are not comparable and a pruning
+threshold in stroke widths means different things per backend until chains are
+spliced. `CenterlineGraph.merge_chains()` does it, records provenance in the surviving
+edge's `mergedFrom`, and is geometry-preserving (there is a test).
+
+**Do not assume edge geometry meets exactly at a shared node.** It frequently does
+not — see the drift table above. Anything that splices, walks, or closes a path must
+tolerate a gap of several user units, or it will silently delete geometry.
+
+**Use `radiusProfile` when it is there.** Scoring skimage-skan's house-wide with its
+per-vertex profile rather than a per-edge median improves reconstruction error from
+0.0243 to 0.0152. A single median radius is wrong for any edge that spans a width
+change, and canonicalization creates such edges by construction.
+
+**Coordinates are source SVG user units, always.** Not raster pixels, not a
+normalized box. A graph whose coordinates are in raster space cannot be scored against
+the drawing it came from.

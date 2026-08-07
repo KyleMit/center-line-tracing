@@ -16,6 +16,10 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from complexity import canonical_index  # noqa: E402
+
 REPO = Path(__file__).resolve().parents[2]
 DEBUG = REPO / "debug" / "pruning-scoring"
 
@@ -32,8 +36,9 @@ def cx(m: dict) -> float:
 def verdict(pub: dict, auto: dict | None, tolerance: float = 0.05) -> str:
     if not auto:
         return "-"
+    pub_cx = canonical_index(pub["graph"]) if pub.get("graph") else cx(pub)
     better_err = auto["sym_diff_ratio"] < pub["sym_diff_ratio"] - 1e-9
-    better_cx = cx(auto) < cx(pub) - 1e-9
+    better_cx = cx(auto) < pub_cx - 1e-9
     within = auto["sym_diff_ratio"] <= pub["sym_diff_ratio"] * (1 + tolerance) + 1e-9
     if better_err and better_cx:
         return "auto dominates"
@@ -63,9 +68,16 @@ def main() -> int:
         "* **err** — symmetric difference / source ink area. Lower is better. This is "
         "*not* the same scale as `src/compare.js`, which reports differing pixels over "
         "the whole canvas; see NOTES.md §3.",
-        "* **cx** — complexity index: branches + control points / 100.",
+        "* **cx** — complexity index (branches + control points / 100), measured "
+        "**after canonicalization on both sides**: the automatic path splices "
+        "degree-2 chains and most published graphs do not, so raw edge counts would "
+        "credit pruning with a simplification that is only a change of representation.",
         "* **published** — the best variant that track shipped, scored as-is.",
-        "* **auto** — automatic width-aware pruning selected by this harness.",
+        "* **auto** — automatic width-aware pruning selected by this harness, applied "
+        "to that track's LEAST-processed variant. Where a track published variants "
+        "from different libraries or skeletonizers, that variant may not be the same "
+        "one as `published`, so this column is 'best reachable from the rawest graph', "
+        "not a controlled pruning A/B. The controlled comparison is `abtest.md`.",
         "* **raster** — colour-independent raster ink diff of the promoted result, as "
         "a cross-check on the vector number.\n",
     ]
@@ -93,12 +105,13 @@ def main() -> int:
         for track, pub, auto, best, r in rows:
             lam = (r.get("auto") or {}).get("lam")
             raster = (r.get("rasterInk") or {}).get("symDiffRatio")
+            pub_cx = canonical_index(pub["graph"]) if pub.get("graph") else cx(pub)
             auto_cell = f"{auto['sym_diff_ratio']:.4f} / {cx(auto):.1f}" if auto else "--"
             lam_cell = f"{lam:.2f}" if lam is not None else "--"
             raster_cell = f"{raster:.4f}" if raster is not None else "--"
             out.append(
                 f"| {track} "
-                f"| {pub['sym_diff_ratio']:.4f} / {cx(pub):.1f} "
+                f"| {pub['sym_diff_ratio']:.4f} / {pub_cx:.1f} "
                 f"| {auto_cell} "
                 f"| {lam_cell} "
                 f"| **{best['sym_diff_ratio']:.4f}** "
