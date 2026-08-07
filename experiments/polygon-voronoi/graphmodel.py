@@ -59,7 +59,9 @@ class Edge:
             "id": self.id,
             "from": self.frm,
             "to": self.to,
-            "geometry": [[round(x, 6), round(y, 6)] for x, y in self.geometry],
+            # geometry is Point[] (the polyline form of the model's
+            # `Bezier[] | Point[]`); this backend produces polylines, not curves.
+            "geometry": [{"x": round(x, 6), "y": round(y, 6)} for x, y in self.geometry],
             "length": round(self.length, 6),
         }
         if self.medianRadius is not None:
@@ -133,6 +135,7 @@ def build_graph(
     """
     g = Graph(meta=dict(meta or {}))
     g.meta.setdefault("radiusSource", "derived-distance-to-boundary")
+    g.meta.setdefault("geometryFormat", "Point[] (polyline); no Bezier fitting in this track")
 
     # 1. explode into unit segments keyed on snapped coordinates
     adj: dict[tuple, list[tuple]] = {}

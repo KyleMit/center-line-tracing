@@ -139,7 +139,9 @@ def _graph_from_json(gj) -> graphmodel.Graph:
         g.nodes.append(graphmodel.Node(n["id"], n["x"], n["y"], n.get("radius")))
     for e in gj["edges"]:
         g.edges.append(graphmodel.Edge(
-            e["id"], e["from"], e["to"], [tuple(p) for p in e["geometry"]],
+            e["id"], e["from"], e["to"],
+            [(p["x"], p["y"]) if isinstance(p, dict) else tuple(p)
+             for p in e["geometry"]],
             e["length"], e.get("medianRadius"), [], e.get("sourceElementId")))
     return g
 
@@ -194,6 +196,39 @@ def build_progress(image_svg, iterations, out_stem="contact-progress", title=Non
     return table
 
 
+def ITERATIONS(truth=None):
+    """The actual chronological trajectory of this track, replayable.
+
+    Each entry is one thing changed relative to the previous, in the order the
+    session tried them, so the progress sheet shows the real path -- including
+    the step that made things worse.
+    """
+    P = lambda **kw: {"densify_distance": -0.5, "min_branch_length": -1.0,  # noqa: E731
+                      "simplifytolerance": -0.25, "extend": False, **kw}
+    return [
+        {"tag": "pygeoops library defaults", "backend": "pygeoops",
+         "tolerance": 0.5, "cfg": P(), "truth": truth},
+        {"tag": "no branch filter (mbl=0)", "backend": "pygeoops",
+         "tolerance": 0.5, "cfg": P(min_branch_length=0.0), "truth": truth},
+        {"tag": "simplify off", "backend": "pygeoops",
+         "tolerance": 0.5, "cfg": P(simplifytolerance=0.0), "truth": truth},
+        {"tag": "flatten tol 0.5 -> 0.15", "backend": "pygeoops",
+         "tolerance": 0.15, "cfg": P(simplifytolerance=0.0), "truth": truth},
+        {"tag": "extend=True (cap reach)", "backend": "pygeoops",
+         "tolerance": 0.15, "cfg": P(simplifytolerance=0.0, extend=True),
+         "truth": truth},
+        {"tag": "densify -0.5 -> -0.25", "backend": "pygeoops",
+         "tolerance": 0.15,
+         "cfg": P(simplifytolerance=0.0, densify_distance=-0.25), "truth": truth},
+        {"tag": "fitodic raw (interp 2.0)", "backend": "fitodic",
+         "tolerance": 0.15, "cfg": {"interpolation_distance": 2.0}, "truth": truth},
+        {"tag": "fitodic + pygeoops filter", "backend": "fitodic+filter",
+         "tolerance": 0.15,
+         "cfg": {"interpolation_distance": 2.0, "min_branch_length": -1.0,
+                 "simplifytolerance": 0.0}, "truth": truth},
+    ]
+
+
 def pixel_diff(a_svg, b_svg, size=1200):
     """Raster pixel-diff via the incumbent src/compare.js, for continuity."""
     try:
@@ -228,3 +263,12 @@ if __name__ == "__main__":
     if a.cmd == "comparison":
         build_comparison(a.inputs or bench.REAL_LADDER[:1], a.backend, a.tolerance,
                          cfg, a.stem or f"contact-comparison-{a.backend}")
+    elif a.cmd == "progress":
+        img = a.image or "inputs/house-wide.svg"
+        truth = None
+        if img.startswith("debug/"):
+            for c in bench.load_manifest():
+                if c["svg"] == img:
+                    truth = c
+        build_progress(img, ITERATIONS(truth), a.stem or "contact-progress",
+                       title=f"polygon-voronoi progress: {os.path.basename(img)}")
