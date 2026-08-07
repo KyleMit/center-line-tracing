@@ -7,3 +7,5 @@ pycache/
 debug/flo-mat/scratch/
 
 __pycache__/
+
+*.pyc
