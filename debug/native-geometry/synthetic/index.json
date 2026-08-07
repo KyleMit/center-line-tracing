@@ -1,0 +1,22 @@
+[
+ "01-horizontal-line",
+ "02-diagonal-line",
+ "03-circular-arc",
+ "04-s-curve",
+ "05-tight-u",
+ "06-closed-loop",
+ "07-round-cap",
+ "08-butt-cap",
+ "09-square-cap",
+ "10-round-join",
+ "11-bevel-join",
+ "12-miter-join",
+ "13-x-crossing-separate",
+ "14-x-crossing-union",
+ "15-t-junction",
+ "16-y-junction",
+ "17-parallel-close",
+ "18-self-overlap",
+ "19-variable-width",
+ "20-noisy-boundary"
+]

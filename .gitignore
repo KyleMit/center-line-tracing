@@ -4,3 +4,5 @@ scratch_*.png
 pycache/
 .DS_Store
 .env
+experiments/native-geometry/cpp/voronoi_medial
+__pycache__/
