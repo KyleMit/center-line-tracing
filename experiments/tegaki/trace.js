@@ -393,23 +393,28 @@ export function pruneTegakiLength(polylines, width, height, mergeThreshold, spur
  * endpoint. A polyline attached at BOTH ends is a bridge and is never pruned,
  * matching Tegaki's "if we hit another endpoint, don't prune (it's a bridge)".
  */
-export function pruneTegakiWidth(polylines, inverseDT, width, height, attachThreshold, ratio = SPUR_WIDTH_RATIO) {
-  const attachedEnds = polylines.map((p) => {
-    const ends = [p[0], p[p.length - 1]];
-    return ends.map((e) =>
-      polylines.some((other) => {
-        if (other === p) return false;
-        return other.some((q) => dist(e, q) < attachThreshold);
-      }),
-    );
-  });
+export function pruneTegakiWidth(polylines, inverseDT, skeleton, width, height, ratio = SPUR_WIDTH_RATIO) {
+  // Attachment is decided TOPOLOGICALLY, from the skeleton's degree at the
+  // endpoint — degree 1 is a free end, anything else sits on a junction.
+  //
+  // The first version of this used a metric test ("is this endpoint within the
+  // merge threshold of any point of another polyline?"), mirroring how Tegaki's
+  // length pruner decides isolation. On a drawing that is useless: the merge
+  // threshold is ~1.5 stroke radii, the polylines are dense pixel chains, and
+  // so essentially EVERY endpoint is "near" some other stroke. Every branch got
+  // classified as a two-ended bridge and the pruner removed exactly nothing.
+  // Tegaki's own Voronoi pruner is topological (walk from a degree-1 node to
+  // the first degree-3+ node); this restores that on the raster graph.
+  const freeEnd = (p) => degree(Math.round(p.x), Math.round(p.y), skeleton, width, height) <= 1;
 
   const removed = [];
   const kept = [];
-  polylines.forEach((p, i) => {
-    const [startAttached, endAttached] = attachedEnds[i];
+  polylines.forEach((p) => {
+    const startAttached = !freeEnd(p[0]);
+    const endAttached = !freeEnd(p[p.length - 1]);
     // Not attached at all -> isolated mark, keep (Tegaki's isolation clause).
-    // Attached at both ends -> a bridge between two junctions, keep.
+    // Attached at both ends -> a bridge between two junctions, keep (Tegaki:
+    // "if we hit another endpoint, don't prune (it's a bridge)").
     if ((!startAttached && !endAttached) || (startAttached && endAttached)) {
       kept.push(p);
       return;
@@ -498,7 +503,7 @@ export function traceAndSimplify(skeleton, width, height, opts = {}) {
 
   let pruneResult;
   if (prune === 'tegaki-width' && inverseDT) {
-    pruneResult = pruneTegakiWidth(smoothed, inverseDT, width, height, mt, spurWidthRatio);
+    pruneResult = pruneTegakiWidth(smoothed, inverseDT, skeleton, width, height, spurWidthRatio);
   } else if (prune === 'none') {
     pruneResult = { kept: smoothed, removed: [], threshold: 0 };
   } else {

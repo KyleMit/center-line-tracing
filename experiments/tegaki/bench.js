@@ -102,7 +102,19 @@ export function runReal(opts, tag, only) {
       continue;
     }
     const recon = scoreReconstruction(r.doc, r.strokes, 2);
-    rows.push({ name, ...recon, ...complexity(r.strokes), ms: r.stats.ms });
+    const es = r.stats.elementStats;
+    const sum = (k) => es.reduce((a, e) => a + (e[k] ?? 0), 0);
+    rows.push({
+      name,
+      ...recon,
+      ...complexity(r.strokes),
+      pruned: sum('prunedCount'),
+      prunedLength: +sum('prunedLength').toFixed(1),
+      droppedSingles: sum('droppedSingles'),
+      crossingsSeen: sum('crossingsSeen'),
+      crossingsStopped: sum('crossingsStopped'),
+      ms: r.stats.ms,
+    });
 
     mkdirSync(OUT_DIR, { recursive: true });
     mkdirSync(GRAPH_DIR, { recursive: true });
@@ -146,7 +158,7 @@ function printSynth(rows, title) {
 
 function printReal(rows, title) {
   console.log(`\n${title}`);
-  console.log(pad('image', 20) + rpad('IoU', 7) + rpad('symDiff%', 10) + rpad('miss%', 8) + rpad('extra%', 8) + rpad('bdMed', 7) + rpad('bdP95', 8) + rpad('strokes', 8) + rpad('pts', 7) + rpad('wCV', 7) + rpad('ms', 8));
+  console.log(pad('image', 20) + rpad('IoU', 7) + rpad('symDiff%', 10) + rpad('miss%', 8) + rpad('extra%', 8) + rpad('bdMed', 7) + rpad('bdP95', 8) + rpad('strokes', 8) + rpad('pts', 7) + rpad('wCV', 7) + rpad('pruned', 8) + rpad('ms', 8));
   for (const r of rows) {
     if (r.error) {
       console.log(pad(r.name, 20) + ' ERROR ' + r.error.slice(0, 60));
@@ -163,6 +175,7 @@ function printReal(rows, title) {
         rpad(r.strokeCount, 8) +
         rpad(r.pointCount, 7) +
         rpad(r.widthCV, 7) +
+        rpad(r.pruned ?? '-', 8) +
         rpad(r.ms, 8),
     );
   }
@@ -198,11 +211,33 @@ function main() {
       metrics.runs[`synth:skeleton-${sk}`] = { options: o, at: new Date().toISOString(), rows };
     }
   } else if (mode === 'prune') {
+    // The synthetic corpus is too clean to separate the pruners — there are
+    // almost no spurious branches to remove. The A/B has to run on the real
+    // ladder, where the medial axis actually sprouts them.
+    const only = opts.only ? String(opts.only).split(',') : null;
     for (const p of ['none', 'tegaki-length', 'tegaki-width']) {
       const o = { ...runOpts, prune: p };
-      const rows = runSynth(o, `prune-${p}`);
-      printSynth(rows, `synthetic — prune=${p}`);
-      metrics.runs[`synth:prune-${p}`] = { options: o, at: new Date().toISOString(), rows };
+      const rows = runReal(o, `prune-${p}`, only);
+      printReal(rows, `real — prune=${p}`);
+      metrics.runs[`real:prune-${p}`] = { options: o, at: new Date().toISOString(), rows };
+    }
+  } else if (mode === 'prune-sweep') {
+    // Pruning as model selection (report §10.2): sweep the width-aware
+    // threshold and look at the fidelity/complexity trade-off.
+    const only = opts.only ? String(opts.only).split(',') : null;
+    for (const ratio of [0, 0.5, 1, 1.5, 2, 3, 4, 6]) {
+      const o = { ...runOpts, prune: ratio === 0 ? 'none' : 'tegaki-width', spurWidthRatio: ratio };
+      const rows = runReal(o, `sweep-${ratio}`, only);
+      printReal(rows, `real — L/(2R) < ${ratio}`);
+      metrics.runs[`real:sweep-${ratio}`] = { options: o, at: new Date().toISOString(), rows };
+    }
+  } else if (mode === 'ab-real') {
+    const only = opts.only ? String(opts.only).split(',') : null;
+    for (const sk of ['zhang-suen', 'guo-hall', 'lee', 'medial-axis', 'voronoi']) {
+      const o = { ...runOpts, skeleton: sk };
+      const rows = runReal(o, sk, only);
+      printReal(rows, `real — skeleton=${sk}`);
+      metrics.runs[`real:skeleton-${sk}`] = { options: o, at: new Date().toISOString(), rows };
     }
   } else {
     console.error(`unknown mode ${mode}`);
