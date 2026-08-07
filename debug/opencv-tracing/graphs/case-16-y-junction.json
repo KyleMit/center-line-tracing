@@ -1,0 +1,354 @@
+{
+ "schemaVersion": "centerline-graph/1",
+ "slug": "opencv-tracing",
+ "image": "case-16-y-junction",
+ "units": "svg user units",
+ "backend": {
+  "skeletonizer": "cv2.ximgproc.thinning(zhangsuen)",
+  "opencv": "5.0.0",
+  "tracer": "st-c",
+  "tracerSource": "LingDong-/skeleton-tracing @ f5dd65e (MIT), vendored",
+  "capExtension": "round"
+ },
+ "radius": {
+  "native": false,
+  "derivedFrom": "cv2.distanceTransform(DIST_L2, DIST_MASK_PRECISE) on the source mask, sampled bilinearly along the traced polylines",
+  "note": "Morphological thinning carries no distance field (report \u00a74.4, \u00a76.6). Unlike Track 3's medial_axis(return_distance=True), every radius here is DERIVED, not native to the skeletonizer."
+ },
+ "raster": {
+  "renderer": "resvg-js",
+  "renderer_version": "2.6.2",
+  "scale": 4.0,
+  "crop_pad_user_units": 4.0,
+  "threshold": "red > 128",
+  "fit_to": "zoom",
+  "crop": "per-element bbox expanded by pad, filled opaque black",
+  "pixel_to_svg": "svg = cropOrigin + (pixelIndex + 0.5) / scale"
+ },
+ "nodes": [
+  {
+   "id": "e000n0000",
+   "x": 230.0255,
+   "y": 59.9351,
+   "radius": 9.8547
+  },
+  {
+   "id": "e000n0001",
+   "x": 149.625,
+   "y": 153.625,
+   "radius": 10.0031
+  },
+  {
+   "id": "e000n0002",
+   "x": 149.3666,
+   "y": 250.0,
+   "radius": 9.3842
+  },
+  {
+   "id": "e000n0003",
+   "x": 69.9318,
+   "y": 59.8065,
+   "radius": 9.7786
+  }
+ ],
+ "edges": [
+  {
+   "id": "e000b0000",
+   "from": "e000n0000",
+   "to": "e000n0001",
+   "geometry": [
+    [
+     230.0255,
+     59.9351
+    ],
+    [
+     228.625,
+     61.625
+    ],
+    [
+     159.125,
+     148.625
+    ],
+    [
+     157.125,
+     150.875
+    ],
+    [
+     153.625,
+     152.125
+    ],
+    [
+     152.125,
+     152.875
+    ],
+    [
+     150.375,
+     153.375
+    ],
+    [
+     150.125,
+     153.625
+    ],
+    [
+     149.625,
+     153.625
+    ]
+   ],
+   "geometryType": "polyline",
+   "length": 124.6243,
+   "medianRadius": 9.9302,
+   "radiusStd": 0.1207,
+   "radii": [
+    9.8547,
+    9.9562,
+    10.0,
+    10.0778,
+    9.1924,
+    9.4637,
+    9.7532,
+    10.0,
+    10.0031
+   ],
+   "closed": false,
+   "sourceElementId": "el000",
+   "sourceElementFill": "#222222"
+  },
+  {
+   "id": "e000b0001",
+   "from": "e000n0002",
+   "to": "e000n0001",
+   "geometry": [
+    [
+     149.3666,
+     250.0
+    ],
+    [
+     149.375,
+     246.875
+    ],
+    [
+     149.875,
+     246.125
+    ],
+    [
+     149.875,
+     153.875
+    ],
+    [
+     149.625,
+     153.625
+    ]
+   ],
+   "geometryType": "polyline",
+   "length": 96.6299,
+   "medianRadius": 10.0,
+   "radiusStd": 0.3711,
+   "radii": [
+    9.3842,
+    9.5,
+    10.0,
+    10.25,
+    10.0031
+   ],
+   "closed": false,
+   "sourceElementId": "el000",
+   "sourceElementFill": "#222222"
+  },
+  {
+   "id": "e000b0002",
+   "from": "e000n0001",
+   "to": "e000n0003",
+   "geometry": [
+    [
+     149.625,
+     153.625
+    ],
+    [
+     146.375,
+     152.125
+    ],
+    [
+     142.875,
+     150.875
+    ],
+    [
+     140.875,
+     148.625
+    ],
+    [
+     130.875,
+     136.125
+    ],
+    [
+     129.875,
+     134.625
+    ],
+    [
+     128.875,
+     133.625
+    ],
+    [
+     127.875,
+     132.125
+    ],
+    [
+     126.875,
+     131.125
+    ],
+    [
+     121.875,
+     124.875
+    ],
+    [
+     120.875,
+     123.375
+    ],
+    [
+     119.875,
+     122.375
+    ],
+    [
+     118.875,
+     120.875
+    ],
+    [
+     117.875,
+     119.875
+    ],
+    [
+     112.875,
+     113.625
+    ],
+    [
+     111.875,
+     112.125
+    ],
+    [
+     110.875,
+     111.125
+    ],
+    [
+     109.875,
+     109.625
+    ],
+    [
+     108.875,
+     108.625
+    ],
+    [
+     103.875,
+     102.375
+    ],
+    [
+     102.875,
+     100.875
+    ],
+    [
+     101.875,
+     99.875
+    ],
+    [
+     100.875,
+     98.375
+    ],
+    [
+     99.875,
+     97.375
+    ],
+    [
+     94.875,
+     91.125
+    ],
+    [
+     93.875,
+     89.625
+    ],
+    [
+     92.875,
+     88.625
+    ],
+    [
+     91.875,
+     87.125
+    ],
+    [
+     90.875,
+     86.125
+    ],
+    [
+     85.875,
+     79.875
+    ],
+    [
+     84.875,
+     78.375
+    ],
+    [
+     83.875,
+     77.375
+    ],
+    [
+     82.875,
+     75.875
+    ],
+    [
+     81.875,
+     74.875
+    ],
+    [
+     71.375,
+     61.625
+    ],
+    [
+     69.9318,
+     59.8065
+    ]
+   ],
+   "geometryType": "polyline",
+   "length": 124.1651,
+   "medianRadius": 9.9284,
+   "radiusStd": 0.1204,
+   "radii": [
+    10.0031,
+    9.1924,
+    10.0778,
+    10.0,
+    10.0,
+    9.9058,
+    10.0,
+    9.9058,
+    10.0,
+    10.0,
+    9.9058,
+    10.0,
+    9.9058,
+    10.0,
+    10.0,
+    9.9058,
+    10.0,
+    9.9058,
+    10.0,
+    10.0,
+    9.9058,
+    10.0,
+    9.9058,
+    10.0,
+    10.0,
+    9.9058,
+    10.0,
+    9.9058,
+    10.0,
+    10.0,
+    9.9058,
+    10.0,
+    9.9058,
+    10.0,
+    9.9562,
+    9.7786
+   ],
+   "closed": false,
+   "sourceElementId": "el000",
+   "sourceElementFill": "#222222"
+  }
+ ]
+}

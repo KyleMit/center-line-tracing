@@ -51,9 +51,15 @@ def restroke_mask(graph, constant_width: bool = True) -> np.ndarray:
         if constant_width:
             radii = np.full(len(dense), edge.median_radius_px)
         else:
-            t_src = np.linspace(0, 1, len(edge.points_px))
-            t_dst = np.linspace(0, 1, len(dense))
-            radii = np.interp(t_dst, t_src, edge.radii_px)
+            # Interpolate the radius profile along ARC LENGTH, not vertex index.
+            # After Douglas-Peucker the vertices are wildly unevenly spaced — on
+            # the variable-width case, index 0.25 sits at x=236 while arc-length
+            # 0.25 sits at x=200 — so index interpolation reports the wrong width
+            # over most of the stroke.
+            seg = np.linalg.norm(np.diff(edge.points_px, axis=0), axis=1)
+            src = np.concatenate([[0.0], np.cumsum(seg)])
+            dst = np.linspace(0.0, src[-1], len(dense))
+            radii = np.interp(dst, src, edge.radii_px)
         stamps.append((dense, radii))
 
     if not stamps:

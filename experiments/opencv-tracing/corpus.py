@@ -89,9 +89,12 @@ def _cases():
     cases.append(("circular-arc", [(_arc(150, 170, 100, 200, 340), W, "round", "round")]))
     cases.append(("s-curve", [(_bezier((50, 240), (110, 60), (190, 240), (250, 60)),
                                W, "round", "round")]))
+    # The arc must sweep 180 -> 90 -> 0, which is the LOWER half once SVG's
+    # y-down convention is applied. Sweeping 180 -> 360 instead bulges upward and
+    # produces an arch whose legs cross it — two accidental T junctions, not a U.
     cases.append(("tight-u-curve", [(np.vstack([
         _line((100, 60), (100, 170), 60),
-        _arc(150, 170, 50, 180, 360)[1:],
+        _arc(150, 170, 50, 180, 0)[1:],
         _line((200, 170), (200, 60), 60)[1:]]), W, "round", "round")]))
     loop = _arc(150, 150, 85, 0, 360)
     loop[-1] = loop[0]

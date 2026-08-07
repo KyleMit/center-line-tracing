@@ -1,0 +1,143 @@
+{
+ "schemaVersion": "centerline-graph/1",
+ "slug": "opencv-tracing",
+ "image": "case-13-x-crossing-separate",
+ "units": "svg user units",
+ "backend": {
+  "skeletonizer": "cv2.ximgproc.thinning(zhangsuen)",
+  "opencv": "5.0.0",
+  "tracer": "st-c",
+  "tracerSource": "LingDong-/skeleton-tracing @ f5dd65e (MIT), vendored",
+  "capExtension": "round"
+ },
+ "radius": {
+  "native": false,
+  "derivedFrom": "cv2.distanceTransform(DIST_L2, DIST_MASK_PRECISE) on the source mask, sampled bilinearly along the traced polylines",
+  "note": "Morphological thinning carries no distance field (report \u00a74.4, \u00a76.6). Unlike Track 3's medial_axis(return_distance=True), every radius here is DERIVED, not native to the skeletonizer."
+ },
+ "raster": {
+  "renderer": "resvg-js",
+  "renderer_version": "2.6.2",
+  "scale": 4.0,
+  "crop_pad_user_units": 4.0,
+  "threshold": "red > 128",
+  "fit_to": "zoom",
+  "crop": "per-element bbox expanded by pad, filled opaque black",
+  "pixel_to_svg": "svg = cropOrigin + (pixelIndex + 0.5) / scale"
+ },
+ "nodes": [
+  {
+   "id": "e000n0000",
+   "x": 240.1485,
+   "y": 239.897,
+   "radius": 9.8185
+  },
+  {
+   "id": "e000n0001",
+   "x": 59.8515,
+   "y": 60.103,
+   "radius": 9.8185
+  },
+  {
+   "id": "e001n0000",
+   "x": 240.148,
+   "y": 60.1028,
+   "radius": 9.819
+  },
+  {
+   "id": "e001n0001",
+   "x": 60.1174,
+   "y": 239.8822,
+   "radius": 10.0434
+  }
+ ],
+ "edges": [
+  {
+   "id": "e000b0000",
+   "from": "e000n0000",
+   "to": "e000n0001",
+   "geometry": [
+    [
+     240.1485,
+     239.897
+    ],
+    [
+     239.625,
+     239.375
+    ],
+    [
+     238.875,
+     238.875
+    ],
+    [
+     60.875,
+     60.875
+    ],
+    [
+     60.375,
+     60.625
+    ],
+    [
+     59.8515,
+     60.103
+    ]
+   ],
+   "geometryType": "polyline",
+   "length": 254.669,
+   "medianRadius": 10.0107,
+   "radiusStd": 0.0272,
+   "radii": [
+    9.8185,
+    9.8995,
+    10.0778,
+    10.0778,
+    9.8995,
+    9.8185
+   ],
+   "closed": false,
+   "sourceElementId": "el000",
+   "sourceElementFill": "#222222"
+  },
+  {
+   "id": "e001b0000",
+   "from": "e001n0000",
+   "to": "e001n0001",
+   "geometry": [
+    [
+     240.148,
+     60.1028
+    ],
+    [
+     239.625,
+     60.625
+    ],
+    [
+     238.875,
+     61.125
+    ],
+    [
+     60.375,
+     239.625
+    ],
+    [
+     60.1174,
+     239.8822
+    ]
+   ],
+   "geometryType": "polyline",
+   "length": 254.4416,
+   "medianRadius": 10.011,
+   "radiusStd": 0.0269,
+   "radii": [
+    9.819,
+    9.8995,
+    10.0778,
+    10.0778,
+    10.0434
+   ],
+   "closed": false,
+   "sourceElementId": "el001",
+   "sourceElementFill": "#222222"
+  }
+ ]
+}

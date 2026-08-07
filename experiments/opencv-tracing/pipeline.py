@@ -385,8 +385,13 @@ def graph_to_json(graphs: list, image: str, raster_meta: dict, config: dict) -> 
     }
 
 
-def graph_to_svg(graphs: list, viewbox, constant_width: bool = True) -> str:
-    """Re-stroke the graph into the output shape Common Setup asks for."""
+def graph_to_svg(graphs: list, viewbox, hairline: bool = False) -> str:
+    """Re-stroke the graph into the output shape Common Setup asks for.
+
+    `hairline` instead draws the bare centerlines at a fixed thin width, which is
+    what the contact sheets' overlay column needs — a full-width re-stroke over
+    the source fill just hides the thing being inspected.
+    """
     vx, vy, vw, vh = viewbox
     parts = [f'<?xml version="1.0" encoding="UTF-8" standalone="no"?>',
              f'<svg xmlns="http://www.w3.org/2000/svg" version="1.1" '
@@ -400,8 +405,13 @@ def graph_to_svg(graphs: list, viewbox, constant_width: bool = True) -> str:
             d = "M " + " L ".join(f"{x:.3f} {y:.3f}" for x, y in zip(xs, ys))
             if e.closed:
                 d += " Z"
-            width = 2.0 * float(r.to_svg_len(e.median_radius_px))
-            parts.append(f'<path d="{d}" fill="none" stroke="{g.fill}" '
+            if hairline:
+                width = max(vw, vh) / 400.0
+                colour = "#e01414"
+            else:
+                width = 2.0 * float(r.to_svg_len(e.median_radius_px))
+                colour = g.fill
+            parts.append(f'<path d="{d}" fill="none" stroke="{colour}" '
                          f'stroke-width="{width:.3f}" stroke-linecap="round" '
                          f'stroke-linejoin="round"/>')
     parts.append("</svg>")
