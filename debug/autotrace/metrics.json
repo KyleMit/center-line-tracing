@@ -964,6 +964,33 @@
     "sym_diff_px": 3414,
     "total_length": 8624.57,
     "width_spread_median": 0.0
+   },
+   "landscape-square": {
+    "boundary_median_px": 0.0,
+    "boundary_median_user": 0.0,
+    "boundary_p95_px": 2.8284271247461903,
+    "boundary_p95_user": 4.179001076812496,
+    "compare_js_pct": 0.46,
+    "config": "element_s8_trimmed_ct100_et2_fi4_ds0_cap",
+    "coverage": 0.9558239719229608,
+    "failure_tags": {
+     "mixed outline/centerline": 2
+    },
+    "iou": 0.9276468473750519,
+    "n_closed": 3,
+    "n_outline_like": 0,
+    "n_source_elements": 14,
+    "n_strokes": 93,
+    "orig_px": 278092,
+    "per_element_s": 19.5334,
+    "recon_px": 274254,
+    "runtime_s": 273.468,
+    "spill": 0.030374839981013476,
+    "sym_diff_pct_of_canvas": 1.4397222222222221,
+    "sym_diff_pct_of_orig": 7.455086805805273,
+    "sym_diff_px": 20732,
+    "total_length": 28772.92,
+    "width_spread_median": 0.0
    }
   }
  },
