@@ -81,6 +81,36 @@
    }
   }
  },
+ "gran-raw": {
+  "config": "raw_s4_median_ct100_et2_fi4_ds0",
+  "images": {
+   "house-wide": {
+    "boundary_median_px": NaN,
+    "boundary_median_user": NaN,
+    "boundary_p95_px": NaN,
+    "boundary_p95_user": NaN,
+    "compare_js_pct": 5.82,
+    "config": "raw_s4_median_ct100_et2_fi4_ds0",
+    "coverage": 0.0,
+    "failure_tags": {},
+    "iou": 0.0,
+    "n_closed": 0,
+    "n_outline_like": 0,
+    "n_source_elements": 19,
+    "n_strokes": 0,
+    "orig_px": 96573,
+    "per_element_s": 6.8164,
+    "recon_px": 0,
+    "runtime_s": 129.512,
+    "spill": 0.0,
+    "sym_diff_pct_of_canvas": 11.78294289897511,
+    "sym_diff_pct_of_orig": 100.0,
+    "sym_diff_px": 96573,
+    "total_length": 0,
+    "width_spread_median": null
+   }
+  }
+ },
  "probe-cap": {
   "config": "element_s4_median_ct100_et2_fi4_ds0_cap",
   "images": {

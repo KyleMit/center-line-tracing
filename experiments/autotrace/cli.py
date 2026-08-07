@@ -29,7 +29,8 @@ SCRATCH = Path("/tmp/claude-0/-home-user-center-line-tracing/"
 def build_config(a) -> pipeline.Config:
     return pipeline.Config(
         mode=a.mode, scale=a.scale, stat=a.stat, endpoint_trim=a.endpoint_trim,
-        stroke_scale=a.stroke_scale, cap_extend=a.cap_extend,
+        stroke_scale=a.stroke_scale, global_width=a.global_width,
+        cap_extend=a.cap_extend,
         drop_outlines=a.drop_outlines, min_length_px=a.min_length_px,
         outline_frac=a.outline_frac,
         params=atrace.TraceParams(
@@ -50,6 +51,9 @@ def add_args(p):
     p.add_argument("--stat", default="median", choices=list(__import__("width").STATS))
     p.add_argument("--endpoint-trim", type=float, default=0.0)
     p.add_argument("--stroke-scale", type=float, default=1.0)
+    p.add_argument("--global-width", type=float, default=0.0,
+                   help="force one stroke width on every path (user units); "
+                        "0 = per-path width from the distance transform")
     p.add_argument("--cap-extend", action="store_true")
     p.add_argument("--drop-outlines", action="store_true")
     p.add_argument("--min-length-px", type=float, default=0.0)

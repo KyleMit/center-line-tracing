@@ -35,6 +35,10 @@ class Config:
     stat: str = "median"
     endpoint_trim: float = 0.0
     stroke_scale: float = 1.0
+    # >0 forces ONE stroke width (user units) on every path, reproducing exactly
+    # what the earlier evaluation swept.  0 == per-path width recovered from the
+    # source distance transform.  This is the controlled A/B for the whole track.
+    global_width: float = 0.0
     cap_extend: bool = False
     drop_outlines: bool = False
     min_length_px: float = 0.0
@@ -47,6 +51,8 @@ class Config:
             bits.append(f"tr{self.endpoint_trim:g}")
         if self.stroke_scale != 1.0:
             bits.append(f"ss{self.stroke_scale:g}")
+        if self.global_width:
+            bits.append(f"gw{self.global_width:g}")
         if self.cap_extend:
             bits.append("cap")
         if self.drop_outlines:
@@ -255,7 +261,8 @@ def _run_group(doc, renderer, cfg, scratch, gid, els, debug):
     paths, nodes, edges = [], [], []
     for i, sp in enumerate(kept):
         r_user = frame.len_px_to_user(sp.stats.get("radius_px", 0.0))
-        sw = max(0.15, 2.0 * r_user * cfg.stroke_scale)
+        sw = (cfg.global_width if cfg.global_width
+              else max(0.15, 2.0 * r_user * cfg.stroke_scale))
         d = sp.d(lambda p: (box[0] + p[0] / frame.scale, box[1] + p[1] / frame.scale))
         paths.append({
             "d": d, "stroke": fill, "width": sw,
