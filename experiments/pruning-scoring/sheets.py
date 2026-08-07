@@ -31,11 +31,6 @@ IMAGES = [
 ]
 
 
-def _png(svg: Path | str, tag: str, width: int = sheets.TILE * 2) -> Path:
-    svg = Path(svg)
-    return CACHE / tag / f"{svg.stem}.png"
-
-
 def _render_all(pairs: list[tuple[Path, Path]], width: int) -> None:
     jobs = [{"svg": str(s), "png": str(p), "width": width}
             for s, p in pairs if Path(s).exists()]

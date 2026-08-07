@@ -68,11 +68,6 @@ class BranchFeatures:
         return {k: (round(v, 5) if isinstance(v, float) else v) for k, v in d.items()}
 
 
-def _unit(v: tuple[float, float]) -> tuple[float, float] | None:
-    n = math.hypot(*v)
-    return (v[0] / n, v[1] / n) if n > 1e-12 else None
-
-
 def branch_features(graph, edge, tip: str, anchor: str, *, r_global: float | None = None
                     ) -> BranchFeatures:
     """Compute the §10.1 features for one terminal branch, oriented tip -> anchor."""

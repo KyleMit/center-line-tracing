@@ -22,7 +22,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from clg import CenterlineGraph, metrics, prune, resolve, restroke, select, svgio  # noqa: E402
+from clg import CenterlineGraph, metrics, resolve, select, svgio  # noqa: E402
 
 REPO = Path(__file__).resolve().parents[2]
 DEBUG = REPO / "debug" / "pruning-scoring"

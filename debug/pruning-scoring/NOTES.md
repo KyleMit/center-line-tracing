@@ -176,3 +176,57 @@ The sweep is also where the non-monotonicity shows up: on skimage-skan's case-20
 error goes 0.0444 → 0.0288 (λ=1.0) → 0.0336 (λ=1.5) → 0.0348 (λ=2.0). A single
 hand-picked threshold cannot find that; a sweep with a selection rule can, and it finds
 a *different* one for each backend, which is the point.
+
+### 6. Feedback for the individual tracks (found while scoring their graphs)
+
+**tegaki (Track 5) — the pruning ablation may not be reaching the graph output.**
+`<img>.prune-tegaki-length.json` is **byte-identical to `<img>.prune-none.json` on
+all ten images**, and `prune-tegaki-width` differs on only 3 of 10 (home-wide,
+dinosaur-wide, landscape-square), by 1–5 branches. So the ported Tegaki pruning
+rules are close to a no-op as emitted. Worth checking whether the prune stage runs
+before graph serialization. This also means my A/B "hand-tuned" baseline for tegaki
+is effectively "no pruning" on 7/10 images — stated here so the comparison is not
+read as stronger than it is.
+
+**tegaki and flo-mat — edge geometry endpoints drift from their node coordinates.**
+tegaki: 87 files, P99 8.3 user units, max 13.7 — bigger than a stroke radius.
+flo-mat: 28 files. This is not cosmetic for a shared layer: chain merging naturally
+assumes the two edges at a shared node meet there, and that assumption silently
+deleted 997 units² of geometry on house-wide before I fixed it. My layer now
+tolerates the drift, but the graphs would be better without it. Likely cause: cap
+extension applied to `geometry` without updating the node.
+
+**skimage-skan — the per-vertex radius profile is worth a lot.** Scoring with the
+profile instead of a per-edge median improves house-wide from 0.0243 to **0.0152**,
+a 37% error reduction from data the backend already emits. Any track that has a
+distance field should emit `radiusProfile`; any consumer should use it.
+
+**autotrace, native-geometry, polygon-voronoi — add the `schema` string.** 119 files
+lack `"schema": "centerline-graph/1"`. Everything else validates.
+
+**polygon-voronoi — the built-in filtering is real.** Its `+filter` variants cut the
+complexity index from ~330 to ~120 on house-wide at a small error cost, and on the
+noisy synthetic capsule its output is already a single clean branch at IoU 0.9956
+without any help from this layer. That is a meaningful point in favour of PyGeoOps'
+automatic width-relative parameters, which was an open question in the handoff.
+
+### 7. Honest limitations
+
+* **Reconstruction error is not centerline error.** For the ten real inputs there is
+  no ground-truth centerline, so everything here measures how well the drawing can be
+  rebuilt, not how close the recovered path is to the path a person drew. The
+  synthetic corpora have truth centerlines; comparing against them per-track is left
+  undone because each track generated its own corpus with its own geometry, and a
+  fair truth comparison needs the corpora unified first. **That is the single most
+  useful next step for this layer.**
+* **The re-stroke model is round-cap, round-join, and per-vertex width.** Backends
+  that intend butt or square caps are scored against a model they did not target.
+  The synthetic cap cases (7–9) exist to quantify that and I did not get to them.
+* **Selection tolerance is a policy, not a fact.** "Simplest within 5% of the best
+  error" is a defensible default, not a derived constant; a different product goal
+  (say, minimum path count for a plotter) implies different weights. The weights are
+  in one place (`select.COMPLEXITY_WEIGHTS`) for that reason.
+* **The complexity index mixes units.** Branch count and control-point count are
+  normalized across a candidate set before blending, so complexity comparisons are
+  meaningful *within* one sweep and only roughly meaningful across backends with
+  different geometry encodings (beziers vs dense polylines).
