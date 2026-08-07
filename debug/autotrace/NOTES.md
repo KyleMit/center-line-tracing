@@ -351,12 +351,14 @@ does not agree, and this was the most surprising result of the track:
 | 3 | 0.05% | 0.03% | 0.41% | 103 | 23s |
 | 4 | 0.05% | 0.03% | **0.39%** | 92 | 44s |
 | 6 | 0.05% | **0.02%** | 0.49% | 89 | 132s |
-| 8 | 0.05% | **0.02%** | – | – | 221s (dinosaur) |
+| 8 | 0.05% | **0.02%** | 0.46% | 93 | 273s |
 
 Three things worth carrying to other tracks:
 
-1. **`landscape-square` is best at scale 4 and gets WORSE at scale 6** (0.39% →
-   0.49%) while costing 3× the time. The synthetic corpus never shows this,
+1. **`landscape-square` is best at scale 4 and gets WORSE above it** — 0.39% at
+   scale 4, 0.49% at scale 6, 0.46% at scale 8, for 3× and 6× the time. The
+   regression is not a one-off sample: every scale above 4 is worse than 4.
+   The synthetic corpus never shows this,
    because synthetic shapes have clean boundaries. On real art a finer raster
    resolves genuine boundary irregularity, and autotrace faithfully follows it
    into the merged hatching corridors instead of averaging it away. Coarser
