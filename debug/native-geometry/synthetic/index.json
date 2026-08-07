@@ -18,5 +18,8 @@
  "17-parallel-close",
  "18-self-overlap",
  "19-variable-width",
- "20-noisy-boundary"
+ "20-noisy-boundary",
+ "21-shallow-x",
+ "22-reflex-notch",
+ "23-taper"
 ]

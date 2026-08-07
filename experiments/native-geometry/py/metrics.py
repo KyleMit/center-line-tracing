@@ -117,6 +117,35 @@ def width_metrics(graph, true_radius=None):
     return out
 
 
+def clearance_metrics(graph, geom, max_nodes=4000):
+    """How medial is this axis, really?
+
+    For a true Euclidean medial axis the radius carried at each node IS the
+    distance from that node to the shape boundary. For a straight skeleton the
+    stored value is the offset time — the distance to the SUPPORTING LINES of
+    the polygon edges — which the report (§4.5, §6.12) says is not the same
+    thing in a non-convex polygon. This measures the discrepancy directly, and
+    is the cleanest engine-level discriminator we have.
+    """
+    if geom is None or not graph.nodes:
+        return {}
+    b = geom.boundary
+    nodes = list(graph.nodes.values())
+    stride = max(1, len(nodes) // max_nodes)
+    errs, rel = [], []
+    for n in nodes[::stride]:
+        p = Point(n.x, n.y)
+        if not geom.contains(p):
+            continue
+        d = b.distance(p)
+        errs.append(abs(d - n.radius))
+        if d > 1e-9:
+            rel.append(abs(d - n.radius) / d)
+    if not errs:
+        return {}
+    return {"clearance_err": _stats(errs), "clearance_rel_err": _stats(rel)}
+
+
 def complexity_metrics(graph):
     st = graph.stats()
     return {

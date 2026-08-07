@@ -122,6 +122,7 @@ def process(svg_path, engine="boost", prune_k=1.0, flatness=0.05, opts=None, tag
             row["iou_mat"] = am["iou"]
             row["symdiff_frac_mat"] = am["symdiff_frac"]
     row.update(M.boundary_metrics(orig, recon))
+    row.update(M.clearance_metrics(graph, orig))
 
     gt_path = os.path.join(os.path.dirname(svg_path), name + ".json")
     truth_radius = None

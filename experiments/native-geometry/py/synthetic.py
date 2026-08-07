@@ -76,6 +76,12 @@ def _cases():
     c.append(("18", "self-overlap", [bezier((100, 200), (330, 60), (70, 60), (300, 200))], dict()))
     c.append(("19", "variable-width", [[(60, 150), (340, 150)]], dict(variable=True)))
     c.append(("20", "noisy-boundary", [bezier((60, 220), (160, 60), (240, 240), (340, 80))], dict(noise=0.9)))
+    # 21-23: shapes chosen to separate a Euclidean medial axis from a straight
+    # skeleton — shallow crossings and tapers are where angular bisectors and
+    # inscribed circles part company (report §4.5).
+    c.append(("21", "shallow-x", [[(60, 130), (340, 170)], [(60, 170), (340, 130)]], dict(merge=True)))
+    c.append(("22", "reflex-notch", [[(60, 200), (200, 100), (340, 200)]], dict(join="mitre")))
+    c.append(("23", "taper", [[(60, 150), (340, 150)]], dict(taper=True)))
     return c
 
 
@@ -83,6 +89,17 @@ def build(case):
     cid, name, paths, opts = case
     cap = opts.get("cap", "round")
     join = opts.get("join", "round")
+
+    if opts.get("taper"):
+        pts = paths[0]
+        line = LineString(pts)
+        discs = []
+        n = 300
+        for i in range(n + 1):
+            p = line.interpolate(i / n, normalized=True)
+            discs.append(Point(p.x, p.y).buffer(16.0 - 14.0 * (i / n), resolution=16))
+        geom = unary_union(discs)
+        return ([geom] if isinstance(geom, Polygon) else list(geom.geoms)), paths
 
     if opts.get("variable"):
         # union of discs with linearly varying radius — a true variable-width stroke
@@ -165,7 +182,7 @@ def main(outdir):
             "radius": R,
             "cap": opts.get("cap", "round"),
             "join": opts.get("join", "round"),
-            "variable_width": bool(opts.get("variable")),
+            "variable_width": bool(opts.get("variable") or opts.get("taper")),
             "boundary_noise": opts.get("noise", 0.0),
             "centerlines": [[[round(x, 4), round(y, 4)] for x, y in p] for p in gt],
         }
