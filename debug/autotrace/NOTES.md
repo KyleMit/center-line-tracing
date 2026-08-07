@@ -46,3 +46,56 @@ constraint the report assumes may no longer apply.
 
 This track shells out to the CLI binary and does not link `libautotrace`, which
 is the conservative choice under either reading.
+
+## What the pipeline does
+
+```
+input SVG
+  -> enumerate filled elements (inherited fill, accumulated ancestor transforms)
+  -> per element: crop to its bbox, render BLACK ON TRANSPARENT via resvg at
+     `scale` px per user unit, threshold alpha >= 128  ->  binary mask
+  -> write a 1-bit PBM (no palette, no antialiasing) and run
+     `autotrace -centerline -background-color FFFFFF -input-format pbm`
+  -> parse the SVG it writes back (M/L/C only, y already flipped by its writer)
+  -> map pixel coords back into ORIGINAL user space
+  -> width recovery: EDT of the source mask, sampled along each traced path
+  -> cap extension, then emit
+     <path fill="none" stroke=<source fill> stroke-width=2r stroke-linecap="round">
+```
+
+Code in `experiments/autotrace/`: `svgio.py` (parse / sub-SVG / resvg),
+`atrace.py` (run + parse autotrace), `width.py` (EDT width recovery),
+`pipeline.py` (orchestration + graph model), `metrics.py`, `bench.py`,
+`synth.py` (synthetic corpus), `width_ab.py` (the controlled A/B),
+`sheets.py` (contact sheets), `inspect_mixed.py` (outline-vs-centerline audit).
+
+Reproduce the promoted result:
+
+```bash
+python3 experiments/autotrace/bench.py --all --label final \
+    --mode element --scale 4 --cap-extend --stat trimmed --quad --graph
+```
+
+### The coordinate round-trip
+
+The handoff warns this is the most common source of misleadingly bad scores, so
+it is isolated in one object (`svgio.Frame`) and verified visually before any
+number was believed. Two things matter:
+
+* AutoTrace's SVG writer emits `height - y`, so its output is **already
+  top-down** in the same frame as the mask. No flip is needed — adding one
+  silently mirrors everything.
+* `resvg` fits to width, so the achieved height can differ from `round(bh*scale)`
+  by a rounding unit. The frame therefore takes its scale from the pixel buffer
+  that actually came back, never from the requested scale.
+
+`debug/autotrace/hw-first-overlay.png` is the check: traced centerlines in red
+over the source fill in grey, before any scoring. They sit on the strokes.
+
+### Why the earlier evaluation saw "no usable stroke widths"
+
+Not a width bug in autotrace — autotrace simply **does not emit widths at all**.
+Its centerline output is `style="stroke:#rrggbb; fill:none;"` with no
+`stroke-width`, so the SVG default of 1 user unit applies. At a raster scale of
+4 on a 1662-unit-wide drawing, that renders as a hairline roughly 1/40th of the
+true stroke width. The geometry was never the problem.
