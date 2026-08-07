@@ -1,0 +1,11 @@
+<!doctype html><meta charset="utf-8"><title>opencv-tracing — iteration trajectory on house-wide</title>
+<style>
+body{font:14px/1.5 system-ui,sans-serif;margin:24px;background:#fafafa;color:#222}
+table{border-collapse:collapse;margin:16px 0}
+th,td{border:1px solid #ddd;padding:4px 10px;text-align:left}
+th{background:#f0f0f0;font-weight:600}
+img{max-width:100%;border:1px solid #ccc;background:#fff}
+</style>
+<h1>opencv-tracing — iteration trajectory on house-wide</h1>
+<table><tr><th>1. raw thinning + skeleton-tracing (Zhang-Suen)</th><td>IoU 0.9605  diff 0.08%  E 36  V 8890</td></tr><tr><th>2. cap extension to the boundary (WORSE)</th><td>IoU 0.9439  diff 0.23%  E 36  V 8927</td></tr><tr><th>3. cap extension to boundary - R</th><td>IoU 0.9647  diff 0.07%  E 36  V 8916</td></tr><tr><th>4. + 0.5px Douglas-Peucker cleanup</th><td>IoU 0.9653  diff 0.06%  E 36  V 2060</td></tr><tr><th>5. Guo-Hall (8-thin skeleton) — the default</th><td>IoU 0.9625  diff 0.07%  E 48  V 2245</td></tr></table>
+<img src="progress-house-wide.png" alt="opencv-tracing — iteration trajectory on house-wide">

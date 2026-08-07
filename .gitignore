@@ -9,3 +9,9 @@ debug/flo-mat/scratch/
 __pycache__/
 
 *.pyc
+
+# opencv-tracing track: compiled vendored library (rebuild via experiments/opencv-tracing/build.sh)
+experiments/opencv-tracing/vendor/skeleton-tracing/c/*.so
+debug/opencv-tracing/masks/
+debug/opencv-tracing/sheets/_render/
+debug/opencv-tracing/sheets/_progress/

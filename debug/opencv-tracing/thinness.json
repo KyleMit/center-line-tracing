@@ -1,0 +1,420 @@
+{
+ "case-01-horizontal-line": {
+  "cv2.ximgproc.thinning(ZHANGSUEN)": {
+   "pixels": 778,
+   "endpoints": 2,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 1,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 0.0
+  },
+  "cv2.ximgproc.thinning(GUOHALL)": {
+   "pixels": 801,
+   "endpoints": 2,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 1,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 0.0
+  },
+  "skimage.skeletonize(zhang)": {
+   "pixels": 789,
+   "endpoints": 2,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 1,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 0.0
+  },
+  "skimage.skeletonize(lee)": {
+   "pixels": 788,
+   "endpoints": 2,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 1,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 0.0
+  }
+ },
+ "case-02-diagonal-line": {
+  "cv2.ximgproc.thinning(ZHANGSUEN)": {
+   "pixels": 880,
+   "endpoints": 2,
+   "degree3Plus": 320,
+   "triangles": 240,
+   "bespokeEdges": 561,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 272.7272727272727
+  },
+  "cv2.ximgproc.thinning(GUOHALL)": {
+   "pixels": 752,
+   "endpoints": 2,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 1,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 0.0
+  },
+  "skimage.skeletonize(zhang)": {
+   "pixels": 761,
+   "endpoints": 2,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 1,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 0.0
+  },
+  "skimage.skeletonize(lee)": {
+   "pixels": 760,
+   "endpoints": 2,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 1,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 0.0
+  }
+ },
+ "case-03-circular-arc": {
+  "cv2.ximgproc.thinning(ZHANGSUEN)": {
+   "pixels": 991,
+   "endpoints": 2,
+   "degree3Plus": 432,
+   "triangles": 280,
+   "bespokeEdges": 713,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 282.5428859737639
+  },
+  "cv2.ximgproc.thinning(GUOHALL)": {
+   "pixels": 851,
+   "endpoints": 2,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 1,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 0.0
+  },
+  "skimage.skeletonize(zhang)": {
+   "pixels": 850,
+   "endpoints": 2,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 1,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 0.0
+  },
+  "skimage.skeletonize(lee)": {
+   "pixels": 852,
+   "endpoints": 2,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 1,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 0.0
+  }
+ },
+ "case-04-s-curve": {
+  "cv2.ximgproc.thinning(ZHANGSUEN)": {
+   "pixels": 1190,
+   "endpoints": 2,
+   "degree3Plus": 462,
+   "triangles": 280,
+   "bespokeEdges": 743,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 235.2941176470588
+  },
+  "cv2.ximgproc.thinning(GUOHALL)": {
+   "pixels": 1056,
+   "endpoints": 2,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 1,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 0.0
+  },
+  "skimage.skeletonize(zhang)": {
+   "pixels": 1053,
+   "endpoints": 2,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 1,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 0.0
+  },
+  "skimage.skeletonize(lee)": {
+   "pixels": 1050,
+   "endpoints": 2,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 1,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 0.0
+  }
+ },
+ "case-05-tight-u-curve": {
+  "cv2.ximgproc.thinning(ZHANGSUEN)": {
+   "pixels": 1491,
+   "endpoints": 2,
+   "degree3Plus": 220,
+   "triangles": 134,
+   "bespokeEdges": 355,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 89.87256874580818
+  },
+  "cv2.ximgproc.thinning(GUOHALL)": {
+   "pixels": 1443,
+   "endpoints": 2,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 1,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 0.0
+  },
+  "skimage.skeletonize(zhang)": {
+   "pixels": 1432,
+   "endpoints": 2,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 1,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 0.0
+  },
+  "skimage.skeletonize(lee)": {
+   "pixels": 1432,
+   "endpoints": 2,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 1,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 0.0
+  }
+ },
+ "case-06-closed-loop": {
+  "cv2.ximgproc.thinning(ZHANGSUEN)": {
+   "pixels": 2188,
+   "endpoints": 0,
+   "degree3Plus": 850,
+   "triangles": 528,
+   "bespokeEdges": 1378,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 241.3162705667276
+  },
+  "cv2.ximgproc.thinning(GUOHALL)": {
+   "pixels": 1918,
+   "endpoints": 0,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 1,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 0.0
+  },
+  "skimage.skeletonize(zhang)": {
+   "pixels": 1924,
+   "endpoints": 0,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 1,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 0.0
+  },
+  "skimage.skeletonize(lee)": {
+   "pixels": 1924,
+   "endpoints": 0,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 1,
+   "stcEdges": 1,
+   "trianglesPerKilopixel": 0.0
+  }
+ },
+ "case-13-x-crossing-separate": {
+  "cv2.ximgproc.thinning(ZHANGSUEN)": {
+   "pixels": 1440,
+   "endpoints": 4,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 2,
+   "stcEdges": 2,
+   "trianglesPerKilopixel": 0.0
+  },
+  "cv2.ximgproc.thinning(GUOHALL)": {
+   "pixels": 1423,
+   "endpoints": 4,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 2,
+   "stcEdges": 2,
+   "trianglesPerKilopixel": 0.0
+  },
+  "skimage.skeletonize(zhang)": {
+   "pixels": 1442,
+   "endpoints": 4,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 2,
+   "stcEdges": 2,
+   "trianglesPerKilopixel": 0.0
+  },
+  "skimage.skeletonize(lee)": {
+   "pixels": 1440,
+   "endpoints": 4,
+   "degree3Plus": 0,
+   "triangles": 0,
+   "bespokeEdges": 2,
+   "stcEdges": 2,
+   "trianglesPerKilopixel": 0.0
+  }
+ },
+ "case-14-x-crossing-union": {
+  "cv2.ximgproc.thinning(ZHANGSUEN)": {
+   "pixels": 1496,
+   "endpoints": 4,
+   "degree3Plus": 116,
+   "triangles": 116,
+   "bespokeEdges": 234,
+   "stcEdges": 6,
+   "trianglesPerKilopixel": 77.54010695187166
+  },
+  "cv2.ximgproc.thinning(GUOHALL)": {
+   "pixels": 1423,
+   "endpoints": 4,
+   "degree3Plus": 4,
+   "triangles": 4,
+   "bespokeEdges": 10,
+   "stcEdges": 5,
+   "trianglesPerKilopixel": 2.8109627547434997
+  },
+  "skimage.skeletonize(zhang)": {
+   "pixels": 1443,
+   "endpoints": 4,
+   "degree3Plus": 5,
+   "triangles": 5,
+   "bespokeEdges": 12,
+   "stcEdges": 5,
+   "trianglesPerKilopixel": 3.465003465003465
+  },
+  "skimage.skeletonize(lee)": {
+   "pixels": 1440,
+   "endpoints": 4,
+   "degree3Plus": 4,
+   "triangles": 4,
+   "bespokeEdges": 10,
+   "stcEdges": 5,
+   "trianglesPerKilopixel": 2.7777777777777777
+  }
+ },
+ "case-15-t-junction": {
+  "cv2.ximgproc.thinning(ZHANGSUEN)": {
+   "pixels": 1327,
+   "endpoints": 3,
+   "degree3Plus": 4,
+   "triangles": 2,
+   "bespokeEdges": 8,
+   "stcEdges": 3,
+   "trianglesPerKilopixel": 1.5071590052750565
+  },
+  "cv2.ximgproc.thinning(GUOHALL)": {
+   "pixels": 1341,
+   "endpoints": 3,
+   "degree3Plus": 4,
+   "triangles": 2,
+   "bespokeEdges": 8,
+   "stcEdges": 3,
+   "trianglesPerKilopixel": 1.4914243102162563
+  },
+  "skimage.skeletonize(zhang)": {
+   "pixels": 1343,
+   "endpoints": 3,
+   "degree3Plus": 4,
+   "triangles": 2,
+   "bespokeEdges": 8,
+   "stcEdges": 3,
+   "trianglesPerKilopixel": 1.4892032762472078
+  },
+  "skimage.skeletonize(lee)": {
+   "pixels": 1339,
+   "endpoints": 3,
+   "degree3Plus": 1,
+   "triangles": 0,
+   "bespokeEdges": 3,
+   "stcEdges": 3,
+   "trianglesPerKilopixel": 0.0
+  }
+ },
+ "case-16-y-junction": {
+  "cv2.ximgproc.thinning(ZHANGSUEN)": {
+   "pixels": 1586,
+   "endpoints": 3,
+   "degree3Plus": 1161,
+   "triangles": 867,
+   "bespokeEdges": 2030,
+   "stcEdges": 3,
+   "trianglesPerKilopixel": 546.6582597730138
+  },
+  "cv2.ximgproc.thinning(GUOHALL)": {
+   "pixels": 1145,
+   "endpoints": 3,
+   "degree3Plus": 4,
+   "triangles": 2,
+   "bespokeEdges": 8,
+   "stcEdges": 3,
+   "trianglesPerKilopixel": 1.7467248908296944
+  },
+  "skimage.skeletonize(zhang)": {
+   "pixels": 1163,
+   "endpoints": 3,
+   "degree3Plus": 3,
+   "triangles": 1,
+   "bespokeEdges": 6,
+   "stcEdges": 3,
+   "trianglesPerKilopixel": 0.8598452278589854
+  },
+  "skimage.skeletonize(lee)": {
+   "pixels": 1161,
+   "endpoints": 3,
+   "degree3Plus": 3,
+   "triangles": 1,
+   "bespokeEdges": 6,
+   "stcEdges": 3,
+   "trianglesPerKilopixel": 0.8613264427217916
+  }
+ },
+ "case-20-noisy-boundary": {
+  "cv2.ximgproc.thinning(ZHANGSUEN)": {
+   "pixels": 1264,
+   "endpoints": 6,
+   "degree3Plus": 528,
+   "triangles": 352,
+   "bespokeEdges": 885,
+   "stcEdges": 8,
+   "trianglesPerKilopixel": 278.4810126582278
+  },
+  "cv2.ximgproc.thinning(GUOHALL)": {
+   "pixels": 1508,
+   "endpoints": 16,
+   "degree3Plus": 37,
+   "triangles": 13,
+   "bespokeEdges": 65,
+   "stcEdges": 29,
+   "trianglesPerKilopixel": 8.620689655172413
+  },
+  "skimage.skeletonize(zhang)": {
+   "pixels": 1387,
+   "endpoints": 14,
+   "degree3Plus": 36,
+   "triangles": 16,
+   "bespokeEdges": 65,
+   "stcEdges": 24,
+   "trianglesPerKilopixel": 11.535688536409516
+  },
+  "skimage.skeletonize(lee)": {
+   "pixels": 968,
+   "endpoints": 3,
+   "degree3Plus": 3,
+   "triangles": 1,
+   "bespokeEdges": 6,
+   "stcEdges": 3,
+   "trianglesPerKilopixel": 1.0330578512396695
+  }
+ }
+}
