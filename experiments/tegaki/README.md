@@ -32,6 +32,7 @@ the only runtime dependency beyond what the repo already had (`sharp`,
 | `bench.js` | the one re-runnable bench command |
 | `sheet.js` | comparison / progress / synthetic / crop contact sheets |
 | `render.js` | deterministic SVG→PNG and the red-on-grey overlay |
+| `order-sheet.js` | stroke order/direction visualization (viridis ramp + pen-down/pen-up markers) |
 | `cli.js` | single-file conversion |
 
 ## Usage
@@ -51,6 +52,7 @@ node experiments/tegaki/bench.js ab                                       # 5 sk
 node experiments/tegaki/bench.js ab-real --only house-wide,dinosaur-wide
 node experiments/tegaki/sheet.js comparison --tag final
 node experiments/tegaki/sheet.js progress --image landscape-square
+node experiments/tegaki/order-sheet.js                                    # stroke order/direction
 ```
 
 Key options (`DEFAULTS` in `pipeline.js`): `--scale` px per user unit (2), or

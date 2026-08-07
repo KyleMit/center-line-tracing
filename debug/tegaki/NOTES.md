@@ -818,6 +818,53 @@ landscape it stopped at 11 of 152. That ratio is the `shouldStopAtJunction`
 heuristic actually making decisions, and it is worth Track 8 knowing that a
 working local T-vs-X rule exists and how often it fires.
 
+
+### 4.9 STROKE ORDER AND DIRECTION — priority (c), the stretch goal
+
+Implemented, serialized (Part 3 schema), and visualized:
+`debug/tegaki/sheet/stroke-order.png` and `debug/tegaki/sheet/order.<image>.svg`
+draw each stroke in a viridis ramp from first (dark purple) to last (yellow),
+with a dot at the pen-down end and an arrowhead at the pen-up end.
+
+| image | strokes | reversed by the orientation rule | classified as dots |
+|---|---|---|---|
+| house-wide | 26 | 3 | 0 |
+| boat-tall | 26 | 3 | 0 |
+| dinosaur-wide | 44 | 7 | 0 |
+| landscape-square | 81 | 38 | 0 |
+
+The sequences are plausible as drawing orders: on `house-wide` the sun goes
+first, then the house body, then the tree, and the ground line last; on
+`boat-tall`, sun → mast and hull → sails → water. Directions are consistent —
+mostly left-to-right, top-to-bottom, which is what `score = y + 2x` produces.
+
+**Three honest caveats, because this is the part most likely to be over-read:**
+
+1. **The global order is DOM order between elements, greedy nearest-neighbour
+   only within an element.** Tegaki orders strokes inside one glyph; we process
+   each filled SVG element separately and concatenate. So the cross-element
+   sequence is inherited from the source document, not inferred. That is why the
+   cloud on `house-wide` is drawn early despite being far from the sun — it is
+   simply the next element in the file. Report §9.8 lists "preserve original
+   source-element ordering as a weak hint" as a legitimate rule, and that is
+   exactly what this is, but it should not be mistaken for a spatial decision.
+2. **Nothing here is semantic.** No part of this knows a roof is drawn before a
+   wall, or that an outline precedes its hatching. It is proximity and a
+   coordinate score. It is a reasonable default and better than random, and it
+   is nothing more than that.
+3. **The dot classifier never fires on our artwork** (0 across all ten images).
+   It is scoped to one element, and our elements do not contain small isolated
+   marks alongside body strokes the way a glyph contains an i-dot beside a stem.
+   The rule is ported and correct; the situation it was designed for does not
+   arise here. Applied document-wide instead of per-element it probably would
+   fire, and that is the obvious next experiment for whoever picks this up.
+
+The transferable pieces for Track 8's Experiment 5 are the orientation scoring
+function, the "small AND isolated → draw last" predicate, and the arc-length `t`
+parameterization — which is the right serialization regardless of how order is
+eventually decided.
+
+
 ---
 
 ## Part 5 — Verdict
@@ -868,10 +915,12 @@ track's output, and it is Track 8's Experiment 5, not a skeletonizer choice.
 - **Track 4** — at matched RDP complexity, sampled-point Voronoi is *worse* than
   Zhang-Suen thinning here (0.9255 vs 0.9319 on dinosaur), and its raw graph is
   a hairball (1074 strokes for 20 simple shapes).
-- **Everyone** — the stroke-order/direction schema in Part 3, and the
-  observation that Tegaki's stroke ordering carries no stroke semantics at all;
-  it is greedy nearest-neighbour from a writing-entry side. Useful as a default,
-  but it is not the semantic layer §9.8 is reaching for.
+- **Everyone** — the stroke-order/direction schema in Part 3, with a working
+  producer and a visualization (§4.9), plus the observation that Tegaki's stroke
+  ordering carries no stroke semantics at all: it is greedy nearest-neighbour
+  from a writing-entry side, and in our adaptation the cross-element sequence is
+  just DOM order. Useful as a default, but it is not the semantic layer §9.8 is
+  reaching for.
 
 **Would we productionize this?** Not as-is — the incumbent is better on the
 images we have, and Track 1's vector MAT should beat a raster pipeline on vector
