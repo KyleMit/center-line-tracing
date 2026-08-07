@@ -1,0 +1,16 @@
+sun-square        caps=none  sat=null  compare.js=3.272%  strokes=436 len=6122 failedEl=0
+sun-square        caps=none  sat=1.3   compare.js=2.320%  strokes=32 len=3753 failedEl=0
+sun-square        caps=apex  sat=null  compare.js=5.633%  strokes=436 len=7105 failedEl=0
+sun-square        caps=apex  sat=1.3   compare.js=1.865%  strokes=32 len=3696 failedEl=0
+house-wide        caps=none  sat=null  compare.js=0.057%  strokes=162 len=9257 failedEl=0
+house-wide        caps=none  sat=1.3   compare.js=0.065%  strokes=53 len=8707 failedEl=0
+house-wide        caps=apex  sat=null  compare.js=0.034%  strokes=162 len=9122 failedEl=0
+house-wide        caps=apex  sat=1.3   compare.js=0.048%  strokes=53 len=8659 failedEl=0
+landscape-square  caps=none  sat=null  compare.js=0.375%  strokes=337 len=28690 failedEl=0
+landscape-square  caps=none  sat=1.3   compare.js=0.347%  strokes=181 len=27607 failedEl=0
+landscape-square  caps=apex  sat=null  compare.js=0.160%  strokes=337 len=28058 failedEl=0
+landscape-square  caps=apex  sat=1.3   compare.js=0.187%  strokes=181 len=27305 failedEl=0
+dinosaur-wide     caps=none  sat=null  compare.js=0.027%  strokes=156 len=14522 failedEl=0
+dinosaur-wide     caps=none  sat=1.3   compare.js=0.013%  strokes=81 len=14136 failedEl=0
+dinosaur-wide     caps=apex  sat=null  compare.js=0.018%  strokes=156 len=14359 failedEl=0
+dinosaur-wide     caps=apex  sat=1.3   compare.js=0.016%  strokes=81 len=14109 failedEl=0
