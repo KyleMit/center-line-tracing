@@ -33,19 +33,20 @@ DEBUG = bench.DEBUG
 TILE = sheets.TILE
 
 
-def _fill_svg(doc) -> str:
+def _fill_svg(doc, mono: bool = False) -> str:
     """Re-emit the loaded (flattened) geometry as a plain filled SVG."""
     vb = doc.viewbox
     parts = []
     for el in doc.elements:
+        d = []
         for p in el.geometry.geoms:
             for ring in [p.exterior, *p.interiors]:
                 cs = list(ring.coords)
-                parts.append("M " + " L ".join(f"{x:.3f} {y:.3f}" for x, y in cs) + " Z")
-    d = " ".join(parts)
+                d.append("M " + " L ".join(f"{x:.3f} {y:.3f}" for x, y in cs) + " Z")
+        fill = "#000000" if mono else (el.fill or "#000000")
+        parts.append(f'<path fill="{fill}" fill-rule="evenodd" d="{" ".join(d)}"/>')
     return (f'<svg xmlns="http://www.w3.org/2000/svg" '
-            f'viewBox="{vb[0]} {vb[1]} {vb[2]} {vb[3]}">'
-            f'<path fill="#000000" fill-rule="evenodd" d="{d}"/></svg>')
+            f'viewBox="{vb[0]} {vb[1]} {vb[2]} {vb[3]}">{"".join(parts)}</svg>')
 
 
 def _worst_crops(diff_img: Image.Image, base: Image.Image, k=3, block=64, crop=140):
@@ -96,7 +97,7 @@ def build_comparison(inputs, backend, tolerance, cfg, out_stem="contact-comparis
         out_svg_path = os.path.join(ROOT, r["out_svg"])
         out_img = sheets.render_svg(out_svg_path, TILE)
         dimg, pct = sheets.diff_image(src_img, out_img)
-        ov = sheets.overlay_svg(doc.viewbox, _fill_svg(doc),
+        ov = sheets.overlay_svg(doc.viewbox, _fill_svg(doc, mono=True),
                                 graphmodel.to_svg_paths(g), TILE)
 
         rows_img.append([
@@ -142,7 +143,8 @@ def _graph_from_json(gj) -> graphmodel.Graph:
             e["id"], e["from"], e["to"],
             [(p["x"], p["y"]) if isinstance(p, dict) else tuple(p)
              for p in e["geometry"]],
-            e["length"], e.get("medianRadius"), [], e.get("sourceElementId")))
+            e["length"], e.get("medianRadius"), [], e.get("sourceElementId"),
+            e.get("sourceFill")))
     return g
 
 
@@ -165,7 +167,7 @@ def build_progress(image_svg, iterations, out_stem="contact-progress", title=Non
         doc = doc_cache[tol]
         with open(os.path.join(ROOT, r["graph"])) as f:
             g = _graph_from_json(json.load(f))
-        ov = sheets.overlay_svg(doc.viewbox, _fill_svg(doc),
+        ov = sheets.overlay_svg(doc.viewbox, _fill_svg(doc, mono=True),
                                 graphmodel.to_svg_paths(g), TILE)
         cl = r.get("cl_hausdorff_p95")
         row.append(sheets.label(

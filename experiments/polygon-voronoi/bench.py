@@ -107,7 +107,8 @@ def run_one(svg_path: str, backend: str, tolerance: float, cfg: dict,
             if res.lines.is_empty:
                 continue
             graphs.append(graphmodel.build_graph(
-                res.lines, poly, source_element_id=el.element_id))
+                res.lines, poly, source_element_id=el.element_id,
+                source_fill=el.fill))
 
     g = graphmodel.merge_graphs(graphs, meta={
         "backend": backend,

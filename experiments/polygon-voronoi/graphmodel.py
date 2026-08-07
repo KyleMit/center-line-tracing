@@ -53,6 +53,7 @@ class Edge:
     medianRadius: float | None = None
     radii: list[float] = field(default_factory=list)
     sourceElementId: str | None = None
+    sourceFill: str | None = None
 
     def to_json(self):
         d = {
@@ -66,8 +67,21 @@ class Edge:
         }
         if self.medianRadius is not None:
             d["medianRadius"] = round(self.medianRadius, 6)
+        if self.radii:
+            # Extension beyond the shared model: the radius profile along the
+            # edge, sampled at equal normalised arc length.  A single
+            # medianRadius cannot represent a tapered stroke (synthetic case
+            # 19 re-strokes at IoU 0.72 from medianRadius alone), so the
+            # profile is exported for anyone doing variable-width re-stroking.
+            d["radiusProfile"] = [round(r, 6) for r in self.radii]
         if self.sourceElementId is not None:
             d["sourceElementId"] = self.sourceElementId
+        if self.sourceFill is not None:
+            # Carried so a re-stroke reproduces the original ink colour; the
+            # raster pixel-diff is colour-sensitive and black-on-coloured
+            # scores ~6-32% differing pixels on artwork that is geometrically
+            # near-perfect.
+            d["sourceFill"] = self.sourceFill
         return d
 
 
@@ -124,6 +138,7 @@ def build_graph(
     lines: MultiLineString,
     polygon: BaseGeometry | None = None,
     source_element_id: str | None = None,
+    source_fill: str | None = None,
     radius_samples: int = 24,
     meta: dict | None = None,
 ) -> Graph:
@@ -220,6 +235,7 @@ def build_graph(
             medianRadius=float(np.median(radii)) if len(radii) else None,
             radii=[float(r) for r in radii],
             sourceElementId=source_element_id,
+            sourceFill=source_fill,
         )
         g.edges.append(e)
 
@@ -257,7 +273,8 @@ def merge_graphs(graphs: list[Graph], meta: dict | None = None) -> Graph:
         for e in g.edges:
             out.edges.append(
                 Edge(f"g{gi}_{e.id}", remap[e.frm], remap[e.to], e.geometry,
-                     e.length, e.medianRadius, e.radii, e.sourceElementId)
+                     e.length, e.medianRadius, e.radii, e.sourceElementId,
+                     e.sourceFill)
             )
     return out
 
@@ -287,15 +304,17 @@ def restroke(graph: Graph, quad_segs: int = 16, min_radius: float = 1e-6):
     return unary_union(parts)
 
 
-def to_svg_paths(graph: Graph, stroke: str = "#000000") -> list[str]:
+def to_svg_paths(graph: Graph, stroke: str | None = None) -> list[str]:
+    """Re-stroked paths, one per edge, in the source element's own fill colour."""
     out = []
     for e in graph.edges:
         if len(e.geometry) < 2:
             continue
         d = "M " + " L ".join(f"{x:.3f} {y:.3f}" for x, y in e.geometry)
         w = 2.0 * (e.medianRadius or 0.0)
+        col = stroke or e.sourceFill or "#000000"
         out.append(
-            f'<path d="{d}" fill="none" stroke="{stroke}" stroke-width="{w:.3f}" '
+            f'<path d="{d}" fill="none" stroke="{col}" stroke-width="{w:.3f}" '
             f'stroke-linecap="round" stroke-linejoin="round"/>'
         )
     return out
