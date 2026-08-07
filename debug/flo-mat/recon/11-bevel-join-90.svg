@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200">
 <path d="M60 40L60 150Q60 152.77 60.767 155.54" fill="none" stroke="#000" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M60.767 155.54L50 160" fill="none" stroke="#000" stroke-width="10.767" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M60.767 155.54Q62.386 157.614 64.46 159.233" fill="none" stroke="#000" stroke-width="21.535" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M60.767 155.54L50 160" fill="none" stroke="#000" stroke-width="11.844" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M60.767 155.54Q62.386 157.614 64.46 159.233" fill="none" stroke="#000" stroke-width="21.312" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M64.46 159.233L60 170" fill="none" stroke="#000" stroke-width="10.767" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M64.46 159.233Q67.23 160 70 160L240 160" fill="none" stroke="#000" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

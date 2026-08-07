@@ -124,6 +124,22 @@ export function shapeToPathD(tag, a) {
 
 const DEGENERATE = 1e-9;
 
+/**
+ * Coordinate quantization applied to every normalized point.
+ *
+ * flo-mat@4.1.0 can enter a NON-TERMINATING loop inside `findMats` on certain
+ * full-double-precision inputs (reproduced on inputs/house-wide.svg `rect-9`, a
+ * rotated rounded rect: hangs indefinitely at full precision, completes in
+ * ~180ms after rounding). Any perturbation avoids it — quantizing at 1e-10
+ * works as well as 1e-2 — so this is a fragile degeneracy, not a tolerance
+ * problem, and quantization is a mitigation rather than a fix. The per-element
+ * worker timeout in mat-pool.mjs is the actual safety net.
+ *
+ * The report's own example never hits this because `getPathsFromStr` parses a
+ * path string, which is already rounded to the digits present in the file.
+ */
+export const QUANTIZE = 1e-4;
+
 function dedupe(pts) {
   const out = [pts[0]];
   for (let i = 1; i < pts.length; i++) {
@@ -140,7 +156,7 @@ function dedupe(pts) {
  * Returns `{ loops, stats }` where each loop is an array of beziers and each
  * bezier is an array of 2 (line), 3 (quadratic) or 4 (cubic) `[x,y]` points.
  */
-export function pathToLoops(d, mat = IDENT) {
+export function pathToLoops(d, mat = IDENT, { quantize = QUANTIZE } = {}) {
   const segs = normalizePath(d); // absolute M/L/C/Q/A/Z
   const loops = [];
   const stats = { arcs: 0, subpaths: 0, dropped: 0, openClosed: 0 };
@@ -149,7 +165,8 @@ export function pathToLoops(d, mat = IDENT) {
   let start = null;    // subpath start point (transformed)
   let pen = null;      // current point (transformed)
 
-  const T = (x, y) => applyMat(mat, x, y);
+  const q = quantize > 0 ? (v) => Math.round(v / quantize) * quantize : (v) => v;
+  const T = (x, y) => { const p = applyMat(mat, x, y); return [q(p[0]), q(p[1])]; };
 
   const push = (bez) => {
     const b = dedupe(bez);
@@ -291,6 +308,8 @@ export function normalizeSvg(src) {
       const style = { ...inherited };
       if (child.attrs.fill !== undefined) style.fill = child.attrs.fill;
       if (child.attrs['fill-rule'] !== undefined) style.fillRule = child.attrs['fill-rule'];
+      if (child.attrs['fill-opacity'] !== undefined) style.fillOpacity = parseFloat(child.attrs['fill-opacity']);
+      if (child.attrs.opacity !== undefined) style.opacity = parseFloat(child.attrs.opacity);
       if (child.attrs.style) {
         const fm = /(?:^|;)\s*fill\s*:\s*([^;]+)/.exec(child.attrs.style);
         if (fm) style.fill = fm[1].trim();
@@ -319,6 +338,8 @@ export function normalizeSvg(src) {
         tag: child.tag,
         fill,
         fillRule: style.fillRule || 'nonzero',
+        fillOpacity: style.fillOpacity ?? 1,
+        opacity: style.opacity ?? 1,
         loops,
         area: loops.reduce((s, l) => s + loopSignedArea(l), 0),
       });
@@ -333,7 +354,8 @@ export function normalizeSvg(src) {
 export function elementsToSvg(doc, elements = doc.elements) {
   const vb = doc.viewBox;
   const body = elements
-    .map((e) => `<path fill="${e.fill}" fill-rule="${e.fillRule}" d="${loopsToPathD(e.loops)}"/>`)
+    .map((e) => `<path fill="${e.fill}" fill-rule="${e.fillRule}" fill-opacity="${e.fillOpacity}"`
+      + ` opacity="${e.opacity}" d="${loopsToPathD(e.loops)}"/>`)
     .join('\n');
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb.x} ${vb.y} ${vb.w} ${vb.h}">\n${body}\n</svg>\n`;
 }

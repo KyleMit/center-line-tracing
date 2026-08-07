@@ -21,32 +21,59 @@ export const DEFAULTS = {
   minChainLength: 0,    // 0 = no pruning (pruning is Track 8's job)
 };
 
+/** MAT stage, in-process. Fine for the synthetic corpus; the real ladder uses
+ *  `runDocumentAsync` so a hanging element can be timed out. */
+function matStageSync(doc, opt) {
+  const tol = 1e-6 * Math.max(doc.viewBox.w, doc.viewBox.h);
+  return doc.elements.map((el) => {
+    try {
+      const res = runMat(el.loops, opt);
+      const mats = opt.satSweep && opt.satSweep > 1 ? applySat(res.mats, opt.satSweep) : res.mats;
+      return {
+        el,
+        graph: mergeGraphs(mats.map((m) => matToGraph(m, { sourceElementId: el.id, tol }))),
+        ms: res.ms,
+        mats: mats.length,
+      };
+    } catch (err) {
+      return { el, error: String((err && err.message) || err) };
+    }
+  });
+}
+
 export function runDocument(doc, options = {}) {
+  return finishDocument(doc, { ...DEFAULTS, ...options }, matStageSync(doc, { ...DEFAULTS, ...options }));
+}
+
+/** Same pipeline, but each element's MAT runs in a worker with a timeout. */
+export async function runDocumentAsync(doc, options = {}, { timeoutMs = 20000 } = {}) {
   const opt = { ...DEFAULTS, ...options };
+  const { computeMatGraphs } = await import('./mat-pool.mjs');
+  const raw = await computeMatGraphs(doc.elements, {
+    options: opt,
+    tol: 1e-6 * Math.max(doc.viewBox.w, doc.viewBox.h),
+    satSweep: opt.satSweep,
+    timeoutMs,
+  });
+  return finishDocument(doc, opt, raw);
+}
+
+function finishDocument(doc, opt, matResults) {
   const diag = Math.hypot(doc.viewBox.w, doc.viewBox.h);
   const perElement = [];
   const graphs = [];
   let matMs = 0;
-  let satMs = 0;
+  const satMs = 0;
   let contracted = 0;
 
-  for (const el of doc.elements) {
-    let res;
-    try {
-      res = runMat(el.loops, opt);
-    } catch (err) {
-      perElement.push({ id: el.id, error: String((err && err.message) || err), loops: el.loops.length });
+  for (const res of matResults) {
+    const { el } = res;
+    if (res.error || !res.graph) {
+      perElement.push({ id: el.id, error: res.error || 'no-graph', timeoutMs: res.timeoutMs, loops: el.loops.length });
       continue;
     }
-    matMs += res.ms;
-    let mats = res.mats;
-    if (opt.satSweep && opt.satSweep > 1) {
-      const t0 = process.hrtime.bigint();
-      mats = applySat(mats, opt.satSweep);
-      satMs += Number(process.hrtime.bigint() - t0) / 1e6;
-    }
-    const tol = 1e-6 * Math.max(doc.viewBox.w, doc.viewBox.h);
-    let g = mergeGraphs(mats.map((m) => matToGraph(m, { sourceElementId: el.id, tol })));
+    matMs += res.ms || 0;
+    let g = res.graph;
     const c = contractShortEdges(g, opt.contractEps * diag);
     g = c.graph; contracted += c.contracted;
     const sampler = boundarySampler(el.loops, Math.max(diag / 4000, 0.05));
@@ -57,7 +84,7 @@ export function runDocument(doc, options = {}) {
       e.radiusProfile = samples;
     }
     graphs.push({ el, graph: g, sampler });
-    perElement.push({ id: el.id, ms: res.ms, mats: mats.length, nodes: g.nodes.length, edges: g.edges.length });
+    perElement.push({ id: el.id, ms: res.ms, mats: res.mats, nodes: g.nodes.length, edges: g.edges.length });
   }
 
   const graph = mergeGraphs(graphs.map((x) => x.graph));
@@ -84,7 +111,13 @@ export function runDocument(doc, options = {}) {
       }
       const prof = measureChainRadius(out, sampler, step);
       chains.push({
-        ...out, elementId: el.id, fill: el.fill, profile: prof, measuredRadius: prof.weightedMedian, radiusCv: prof.cv,
+        ...out,
+        elementId: el.id,
+        fill: el.fill,
+        opacity: (el.fillOpacity ?? 1) * (el.opacity ?? 1),
+        profile: prof,
+        measuredRadius: prof.weightedMedian,
+        radiusCv: prof.cv,
       });
     }
   }
@@ -108,7 +141,7 @@ export function runDocument(doc, options = {}) {
       strokes.push(...splitVariableWidth(c, opt.variableWidth));
     } else {
       const d = chainToPathD(c.beziers);
-      if (d) strokes.push({ d, width: 2 * r, stroke: c.fill, elementId: c.elementId });
+      if (d) strokes.push({ d, width: 2 * r, stroke: c.fill, opacity: c.opacity, elementId: c.elementId });
     }
   }
 
@@ -161,7 +194,7 @@ function splitVariableWidth(chain, radiiPerSegment) {
       const d = Math.abs(smp.s - mid);
       if (d < bd) { bd = d; r = smp.r; }
     }
-    out.push({ d: chainToPathD([piece]), width: 2 * r, stroke: chain.fill, elementId: chain.elementId });
+    out.push({ d: chainToPathD([piece]), width: 2 * r, stroke: chain.fill, opacity: chain.opacity, elementId: chain.elementId });
     s0 += L;
   }
   return out;

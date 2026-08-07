@@ -23,6 +23,30 @@ export function scoreReconstruction(originalSvg, reconSvg, { width = 1200, units
   };
 }
 
+/**
+ * The incumbent's pixel-diff, reproduced exactly so this track's numbers are
+ * comparable with the ones in docs/current-attempt-handoff.md:
+ *   sharp @ density 96 -> resize(SIZE, SIZE, contain, white) -> pixelmatch
+ *   with threshold 0.1, reported over the full SIZE x SIZE canvas.
+ * Logic mirrors src/compare.js (which this track must not modify).
+ */
+export async function comparePixelDiff(fileA, fileB, size = 1200) {
+  const [{ default: sharp }, { PNG }, pm] = await Promise.all([
+    import('sharp'), import('pngjs'), import('pixelmatch'),
+  ]);
+  const pixelmatch = pm.default || pm;
+  const render = async (f) => sharp(f, { density: 96 })
+    .resize(size, size, { fit: 'contain', background: '#fff' })
+    .flatten({ background: '#fff' })
+    .ensureAlpha()
+    .raw()
+    .toBuffer();
+  const [a, b] = await Promise.all([render(fileA), render(fileB)]);
+  const diff = new PNG({ width: size, height: size });
+  const mismatch = pixelmatch(a, b, diff.data, size, size, { threshold: 0.1 });
+  return { mismatch, total: size * size, pct: (mismatch / (size * size)) * 100 };
+}
+
 /* -------------------------------------------------- centerline vs. truth */
 
 function buildGrid(points, cell) {

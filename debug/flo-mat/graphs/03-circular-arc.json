@@ -10,7 +10,7 @@
   "satSweep": null,
   "caps": "apex",
   "capK": 1,
-  "widthMode": "chain",
+  "widthMode": "measured",
   "variableWidth": 0,
   "contractEps": 0.001,
   "minChainLength": 0

@@ -273,6 +273,7 @@ export function chainToPathD(beziers) {
 export function strokedSvg(doc, strokes) {
   const vb = doc.viewBox;
   const body = strokes.map((s) => `<path d="${s.d}" fill="none" stroke="${s.stroke}" stroke-width="${fmt(s.width)}"`
+    + (s.opacity !== undefined && s.opacity !== 1 ? ` stroke-opacity="${s.opacity}"` : '')
     + ' stroke-linecap="round" stroke-linejoin="round"/>').join('\n');
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb.x} ${vb.y} ${vb.w} ${vb.h}">\n${body}\n</svg>\n`;
 }

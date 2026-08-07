@@ -33,7 +33,7 @@ const opts = {
   satSweep: arg('sat', null) ? Number(arg('sat')) : null,
   caps: arg('caps', 'apex'),
   capK: Number(arg('capK', 1)),
-  widthMode: arg('widthMode', 'chain'),
+  widthMode: arg('widthMode', 'measured'),
 };
 
 const rows = [];

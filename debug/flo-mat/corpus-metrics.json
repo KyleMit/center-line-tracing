@@ -6,7 +6,7 @@
   "satSweep": null,
   "caps": "apex",
   "capK": 1,
-  "widthMode": "chain"
+  "widthMode": "measured"
  },
  "rows": [
   {
@@ -67,8 +67,8 @@
      "radius": 10.00002523379432
     }
    ],
-   "ms": 539,
-   "matMs": 196.76598
+   "ms": 590,
+   "matMs": 221.877564
   },
   {
    "id": "02-diagonal-line",
@@ -128,19 +128,19 @@
      "radius": 9.999844240998472
     }
    ],
-   "ms": 386,
-   "matMs": 99.349839
+   "ms": 400,
+   "matMs": 114.044046
   },
   {
    "id": "03-circular-arc",
    "num": 3,
    "normIoU": 1,
-   "iou": 0.998195721281897,
-   "symDiffPx": 105,
-   "symDiffFrac": 0.0018058613098514034,
-   "missingFrac": 0.0009287286736378646,
-   "extraFrac": 0.0008771326362135388,
-   "pixelDiffPct": 0.019444444444444445,
+   "iou": 0.9975583334766236,
+   "symDiffPx": 142,
+   "symDiffFrac": 0.002442212438084755,
+   "missingFrac": 0.0022186296092460097,
+   "extraFrac": 0.0002235828288387452,
+   "pixelDiffPct": 0.026296296296296293,
    "boundaryMedian": 0,
    "boundaryP95": 0.3333333333333333,
    "rasterWidth": 900,
@@ -189,21 +189,21 @@
      "radius": 9.985006038121004
     }
    ],
-   "ms": 435,
-   "matMs": 117.531395
+   "ms": 405,
+   "matMs": 98.587636
   },
   {
    "id": "04-s-curve",
    "num": 4,
    "normIoU": 1,
-   "iou": 0.9986214316936216,
-   "symDiffPx": 82,
-   "symDiffFrac": 0.001379960284069873,
-   "missingFrac": 0.00037023324694557573,
-   "extraFrac": 0.0010097270371242973,
-   "pixelDiffPct": 0.015185185185185185,
+   "iou": 0.9983348191008024,
+   "symDiffPx": 99,
+   "symDiffFrac": 0.0016660496112550908,
+   "missingFrac": 0.0011443573087408705,
+   "extraFrac": 0.0005216923025142203,
+   "pixelDiffPct": 0.018333333333333333,
    "boundaryMedian": 0,
-   "boundaryP95": 0,
+   "boundaryP95": 0.3333333333333333,
    "rasterWidth": 900,
    "rasterHeight": 600,
    "centerline": {
@@ -250,19 +250,19 @@
      "radius": 9.98695336436654
     }
    ],
-   "ms": 509,
-   "matMs": 176.195526
+   "ms": 526,
+   "matMs": 189.087861
   },
   {
    "id": "05-tight-u-curve",
    "num": 5,
    "normIoU": 1,
-   "iou": 0.9994224532409258,
-   "symDiffPx": 26,
-   "symDiffFrac": 0.00057762374477917,
-   "missingFrac": 0.0004443259575224385,
-   "extraFrac": 0.00013329778725673153,
-   "pixelDiffPct": 0.004814814814814815,
+   "iou": 0.9993335850900771,
+   "symDiffPx": 30,
+   "symDiffFrac": 0.0006664889362836577,
+   "missingFrac": 0.000555407446903048,
+   "extraFrac": 0.00011108148938060962,
+   "pixelDiffPct": 0.005555555555555556,
    "boundaryMedian": 0,
    "boundaryP95": 0,
    "rasterWidth": 900,
@@ -311,19 +311,19 @@
      "radius": 9.996958819341744
     }
    ],
-   "ms": 420,
-   "matMs": 136.9827
+   "ms": 429,
+   "matMs": 142.380544
   },
   {
    "id": "06-closed-loop",
    "num": 6,
    "normIoU": 1,
-   "iou": 0.9981788951015124,
-   "symDiffPx": 128,
-   "symDiffFrac": 0.001824141370956249,
-   "missingFrac": 0.00015676214906655265,
-   "extraFrac": 0.0016673792218896964,
-   "pixelDiffPct": 0.023703703703703703,
+   "iou": 0.99819250530151,
+   "symDiffPx": 127,
+   "symDiffFrac": 0.0018098902664956534,
+   "missingFrac": 0.00048453755166025366,
+   "extraFrac": 0.0013253527148353998,
+   "pixelDiffPct": 0.02351851851851852,
    "boundaryMedian": 0,
    "boundaryP95": 0.3333333333333333,
    "rasterWidth": 900,
@@ -355,8 +355,8 @@
     "medianRadius": 10.000768738682517
    },
    "caps": [],
-   "ms": 511,
-   "matMs": 156.688465
+   "ms": 524,
+   "matMs": 164.714043
   },
   {
    "id": "07-round-cap",
@@ -416,21 +416,21 @@
      "radius": 10.000025388573968
     }
    ],
-   "ms": 309,
-   "matMs": 75.733569
+   "ms": 303,
+   "matMs": 78.127132
   },
   {
    "id": "08-butt-cap",
    "num": 8,
    "normIoU": 1,
-   "iou": 0.9317449355432781,
-   "symDiffPx": 2372,
-   "symDiffFrac": 0.07320987654320987,
-   "missingFrac": 0.0006172839506172839,
-   "extraFrac": 0.0725925925925926,
-   "pixelDiffPct": 0.4392592592592593,
+   "iou": 0.9538225033997517,
+   "symDiffPx": 1562,
+   "symDiffFrac": 0.04820987654320988,
+   "missingFrac": 0.004197530864197531,
+   "extraFrac": 0.04401234567901235,
+   "pixelDiffPct": 0.2892592592592592,
    "boundaryMedian": 0,
-   "boundaryP95": 4.666666666666666,
+   "boundaryP95": 3.0731814857642954,
    "rasterWidth": 900,
    "rasterHeight": 600,
    "centerline": {
@@ -489,8 +489,8 @@
      "reason": "no-hit"
     }
    ],
-   "ms": 245,
-   "matMs": 18.21098
+   "ms": 255,
+   "matMs": 20.396449
   },
   {
    "id": "09-square-cap",
@@ -562,19 +562,19 @@
      "reason": "no-hit"
     }
    ],
-   "ms": 254,
-   "matMs": 17.558665
+   "ms": 287,
+   "matMs": 30.334354
   },
   {
    "id": "10-round-join-90",
    "num": 10,
    "normIoU": 1,
-   "iou": 0.998641759714946,
-   "symDiffPx": 77,
-   "symDiffFrac": 0.0013594152748843615,
-   "missingFrac": 0.0004943328272306769,
-   "extraFrac": 0.0008650824476536845,
-   "pixelDiffPct": 0.01425925925925926,
+   "iou": 0.9973754205492241,
+   "symDiffPx": 149,
+   "symDiffFrac": 0.0026305568306203876,
+   "missingFrac": 0.00035309487659334064,
+   "extraFrac": 0.002277461954027047,
+   "pixelDiffPct": 0.027592592592592592,
    "boundaryMedian": 0,
    "boundaryP95": 0,
    "rasterWidth": 900,
@@ -631,19 +631,19 @@
      "radius": 10.000024149559618
     }
    ],
-   "ms": 402,
-   "matMs": 95.75141
+   "ms": 426,
+   "matMs": 125.212699
   },
   {
    "id": "11-bevel-join-90",
    "num": 11,
    "normIoU": 1,
-   "iou": 0.9815376040686941,
-   "symDiffPx": 1060,
-   "symDiffFrac": 0.018804995742265115,
+   "iou": 0.9795925462383535,
+   "symDiffPx": 1174,
+   "symDiffFrac": 0.020827419812659665,
    "missingFrac": 0.00024836786829406755,
-   "extraFrac": 0.018556627873971047,
-   "pixelDiffPct": 0.19629629629629627,
+   "extraFrac": 0.020579051944365597,
+   "pixelDiffPct": 0.21740740740740738,
    "boundaryMedian": 0,
    "boundaryP95": 0.3333333333333333,
    "rasterWidth": 900,
@@ -706,19 +706,19 @@
      "radius": 10.000023454646835
     }
    ],
-   "ms": 398,
-   "matMs": 87.178472
+   "ms": 406,
+   "matMs": 90.763921
   },
   {
    "id": "12-miter-join-90",
    "num": 12,
    "normIoU": 1,
-   "iou": 0.9839630664560807,
-   "symDiffPx": 924,
-   "symDiffFrac": 0.016258159871905407,
-   "missingFrac": 0.002463357556349304,
-   "extraFrac": 0.013794802315556102,
-   "pixelDiffPct": 0.1711111111111111,
+   "iou": 0.982111315069442,
+   "symDiffPx": 1033,
+   "symDiffFrac": 0.018176059683634508,
+   "missingFrac": 0.002111449334013689,
+   "extraFrac": 0.01606461034962082,
+   "pixelDiffPct": 0.1912962962962963,
    "boundaryMedian": 0,
    "boundaryP95": 0.3333333333333333,
    "rasterWidth": 900,
@@ -774,19 +774,19 @@
      "radius": 10.00002077412083
     }
    ],
-   "ms": 381,
-   "matMs": 75.529464
+   "ms": 460,
+   "matMs": 98.083112
   },
   {
    "id": "13-x-crossing-separate",
    "num": 13,
    "normIoU": 1,
-   "iou": 0.9999298901612527,
-   "symDiffPx": 6,
-   "symDiffFrac": 0.00007011147724882563,
-   "missingFrac": 0.00004674098483255042,
+   "iou": 0.999918205188128,
+   "symDiffPx": 7,
+   "symDiffFrac": 0.00008179672345696324,
+   "missingFrac": 0.000058426231040688025,
    "extraFrac": 0.00002337049241627521,
-   "pixelDiffPct": 0.0011111111111111111,
+   "pixelDiffPct": 0.0012962962962962963,
    "boundaryMedian": 0,
    "boundaryP95": 0,
    "rasterWidth": 900,
@@ -851,21 +851,21 @@
      "radius": 9.999844240996492
     }
    ],
-   "ms": 490,
-   "matMs": 116.72754
+   "ms": 507,
+   "matMs": 114.467292
   },
   {
    "id": "14-x-crossing-unioned",
    "num": 14,
    "normIoU": 1,
-   "iou": 0.8955636257077372,
-   "symDiffPx": 9979,
-   "symDiffFrac": 0.11660707191100517,
-   "missingFrac": 0.00007011147724882563,
-   "extraFrac": 0.11653696043375635,
-   "pixelDiffPct": 1.847962962962963,
-   "boundaryMedian": 1.3743685418725535,
-   "boundaryP95": 1.4907119849998598,
+   "iou": 0.9980603851187138,
+   "symDiffPx": 166,
+   "symDiffFrac": 0.0019397508705508424,
+   "missingFrac": 0.0018696393933020168,
+   "extraFrac": 0.00007011147724882563,
+   "pixelDiffPct": 0.03074074074074074,
+   "boundaryMedian": 0,
+   "boundaryP95": 0,
    "rasterWidth": 900,
    "rasterHeight": 600,
    "centerline": {
@@ -928,21 +928,21 @@
      "radius": 9.999966670988428
     }
    ],
-   "ms": 506,
-   "matMs": 109.648616
+   "ms": 499,
+   "matMs": 103.634282
   },
   {
    "id": "15-t-junction",
    "num": 15,
    "normIoU": 1,
-   "iou": 0.9493633356219962,
-   "symDiffPx": 3245,
-   "symDiffFrac": 0.05323861399133745,
-   "missingFrac": 0.0018539178369864813,
-   "extraFrac": 0.05138469615435096,
-   "pixelDiffPct": 0.600925925925926,
+   "iou": 0.9980148313426959,
+   "symDiffPx": 121,
+   "symDiffFrac": 0.001985168657304108,
+   "missingFrac": 0.001985168657304108,
+   "extraFrac": 0,
+   "pixelDiffPct": 0.022407407407407407,
    "boundaryMedian": 0,
-   "boundaryP95": 1.3333333333333333,
+   "boundaryP95": 0,
    "rasterWidth": 900,
    "rasterHeight": 600,
    "centerline": {
@@ -997,21 +997,21 @@
      "radius": 10.000018237298278
     }
    ],
-   "ms": 405,
-   "matMs": 78.615214
+   "ms": 423,
+   "matMs": 77.170695
   },
   {
    "id": "16-y-junction",
    "num": 16,
    "normIoU": 1,
-   "iou": 0.9575335653903531,
-   "symDiffPx": 2562,
-   "symDiffFrac": 0.04434981304528458,
-   "missingFrac": 0,
-   "extraFrac": 0.04434981304528458,
-   "pixelDiffPct": 0.47444444444444445,
-   "boundaryMedian": 0.4714045207910317,
-   "boundaryP95": 0.7453559924999299,
+   "iou": 0.9998268997749697,
+   "symDiffPx": 10,
+   "symDiffFrac": 0.00017310621797534968,
+   "missingFrac": 0.00013848497438027975,
+   "extraFrac": 0.00003462124359506994,
+   "pixelDiffPct": 0.001851851851851852,
+   "boundaryMedian": 0,
+   "boundaryP95": 0,
    "rasterWidth": 900,
    "rasterHeight": 600,
    "centerline": {
@@ -1066,8 +1066,8 @@
      "radius": 9.999958281104803
     }
    ],
-   "ms": 407,
-   "matMs": 100.502203
+   "ms": 375,
+   "matMs": 88.286089
   },
   {
    "id": "17-near-parallel",
@@ -1143,21 +1143,21 @@
      "radius": 10.000025233793368
     }
    ],
-   "ms": 456,
-   "matMs": 103.215322
+   "ms": 459,
+   "matMs": 95.50169
   },
   {
    "id": "18-self-overlap",
    "num": 18,
    "normIoU": 1,
-   "iou": 0.8178471265143265,
-   "symDiffPx": 18900,
-   "symDiffFrac": 0.222528345872629,
-   "missingFrac": 0.0008712750050039443,
-   "extraFrac": 0.22165707086762507,
-   "pixelDiffPct": 3.5000000000000004,
-   "boundaryMedian": 2,
-   "boundaryP95": 4.333333333333333,
+   "iou": 0.9844953100937981,
+   "symDiffPx": 1329,
+   "symDiffFrac": 0.015647628130408674,
+   "missingFrac": 0.006428596658542616,
+   "extraFrac": 0.00921903147186606,
+   "pixelDiffPct": 0.24611111111111109,
+   "boundaryMedian": 0,
+   "boundaryP95": 1.201850425154663,
    "rasterWidth": 900,
    "rasterHeight": 600,
    "centerline": {
@@ -1220,19 +1220,19 @@
      "radius": 11.29795843098009
     }
    ],
-   "ms": 589,
-   "matMs": 130.901505
+   "ms": 528,
+   "matMs": 117.089577
   },
   {
    "id": "19-variable-width",
    "num": 19,
    "normIoU": 1,
-   "iou": 0.7106656948493684,
-   "symDiffPx": 11909,
-   "symDiffFrac": 0.33350135820101373,
-   "missingFrac": 0.18085076591335517,
-   "extraFrac": 0.15265059228765857,
-   "pixelDiffPct": 2.20537037037037,
+   "iou": 0.7154498745369817,
+   "symDiffPx": 11907,
+   "symDiffFrac": 0.3334453499117869,
+   "missingFrac": 0.16161191856394747,
+   "extraFrac": 0.1718334313478395,
+   "pixelDiffPct": 2.205,
    "boundaryMedian": 3,
    "boundaryP95": 5.666666666666666,
    "rasterWidth": 900,
@@ -1281,21 +1281,21 @@
      "radius": 8.965896557206865
     }
    ],
-   "ms": 318,
-   "matMs": 54.232563
+   "ms": 281,
+   "matMs": 42.90064
   },
   {
    "id": "20-noisy-boundary",
    "num": 20,
    "normIoU": 1,
-   "iou": 0.7533457465378797,
-   "symDiffPx": 12717,
-   "symDiffFrac": 0.32741175561906233,
+   "iou": 0.751843750604905,
+   "symDiffPx": 12820,
+   "symDiffFrac": 0.33006359259545326,
    "missingFrac": 0,
-   "extraFrac": 0.32741175561906233,
-   "pixelDiffPct": 2.355,
-   "boundaryMedian": 2.6666666666666665,
-   "boundaryP95": 4.9216076867444665,
+   "extraFrac": 0.33006359259545326,
+   "pixelDiffPct": 2.374074074074074,
+   "boundaryMedian": 2.6874192494328497,
+   "boundaryP95": 4.0276819911981905,
    "rasterWidth": 900,
    "rasterHeight": 600,
    "centerline": {
@@ -3202,21 +3202,21 @@
      "reason": "no-hit"
     }
    ],
-   "ms": 1044,
-   "matMs": 362.642435
+   "ms": 974,
+   "matMs": 333.276513
   },
   {
    "id": "21-round-join-acute",
    "num": 21,
    "normIoU": 1,
-   "iou": 0.9851296335976002,
-   "symDiffPx": 1041,
-   "symDiffFrac": 0.01501687775886443,
-   "missingFrac": 0.00516430570381697,
-   "extraFrac": 0.00985257205504746,
-   "pixelDiffPct": 0.19277777777777777,
+   "iou": 0.9878774836812281,
+   "symDiffPx": 845,
+   "symDiffFrac": 0.012189492513199273,
+   "missingFrac": 0.006664550936210727,
+   "extraFrac": 0.005524941576988547,
+   "pixelDiffPct": 0.1564814814814815,
    "boundaryMedian": 0,
-   "boundaryP95": 1.4907119849998598,
+   "boundaryP95": 0.9428090415820634,
    "rasterWidth": 900,
    "rasterHeight": 600,
    "centerline": {
@@ -3271,8 +3271,8 @@
      "radius": 10.00001982400641
     }
    ],
-   "ms": 429,
-   "matMs": 68.021574
+   "ms": 372,
+   "matMs": 54.10573
   },
   {
    "id": "22-miter-join-acute",
@@ -3339,8 +3339,8 @@
      "radius": 10.000026523590892
     }
    ],
-   "ms": 387,
-   "matMs": 43.206228
+   "ms": 374,
+   "matMs": 41.88229
   }
  ]
 }
