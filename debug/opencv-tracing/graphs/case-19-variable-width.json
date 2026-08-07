@@ -1,0 +1,85 @@
+{
+ "schemaVersion": "centerline-graph/1",
+ "slug": "opencv-tracing",
+ "image": "case-19-variable-width",
+ "units": "svg user units",
+ "backend": {
+  "skeletonizer": "cv2.ximgproc.thinning(guohall)",
+  "opencv": "5.0.0",
+  "tracer": "st-c",
+  "tracerSource": "LingDong-/skeleton-tracing @ f5dd65e (MIT), vendored",
+  "capExtension": "round"
+ },
+ "radius": {
+  "native": false,
+  "derivedFrom": "cv2.distanceTransform(DIST_L2, DIST_MASK_PRECISE) on the source mask, sampled bilinearly along the traced polylines",
+  "note": "Morphological thinning carries no distance field (report \u00a74.4, \u00a76.6). Unlike Track 3's medial_axis(return_distance=True), every radius here is DERIVED, not native to the skeletonizer."
+ },
+ "raster": {
+  "renderer": "resvg-js",
+  "renderer_version": "2.6.2",
+  "scale": 4.0,
+  "crop_pad_user_units": 4.0,
+  "threshold": "red > 128",
+  "fit_to": "zoom",
+  "crop": "per-element bbox expanded by pad, filled opaque black",
+  "pixel_to_svg": "svg = cropOrigin + (pixelIndex + 0.5) / scale"
+ },
+ "nodes": [
+  {
+   "id": "e000n0000",
+   "x": 246.4945,
+   "y": 149.625,
+   "radius": 10.4883
+  },
+  {
+   "id": "e000n0001",
+   "x": 60.375,
+   "y": 149.625,
+   "radius": 3.75
+  }
+ ],
+ "edges": [
+  {
+   "id": "e000b0000",
+   "from": "e000n0000",
+   "to": "e000n0001",
+   "geometry": [
+    [
+     246.4945,
+     149.625
+    ],
+    [
+     239.875,
+     149.625
+    ],
+    [
+     239.125,
+     149.875
+    ],
+    [
+     60.875,
+     149.875
+    ],
+    [
+     60.375,
+     149.625
+    ]
+   ],
+   "geometryType": "polyline",
+   "length": 186.2191,
+   "medianRadius": 10.443,
+   "radiusStd": 3.7381,
+   "radii": [
+    10.4883,
+    16.6208,
+    16.7966,
+    4.0,
+    3.75
+   ],
+   "closed": false,
+   "sourceElementId": "el000",
+   "sourceElementFill": "#222222"
+  }
+ ]
+}

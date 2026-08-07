@@ -1,0 +1,3346 @@
+{
+ "options": {
+  "applySat": false,
+  "satScale": 2,
+  "simplify": true,
+  "satSweep": null,
+  "caps": "apex",
+  "capK": 1,
+  "widthMode": "measured"
+ },
+ "rows": [
+  {
+   "id": "01-horizontal-line",
+   "num": 1,
+   "normIoU": 1,
+   "iou": 0.9997682443219859,
+   "symDiffPx": 9,
+   "symDiffFrac": 0.00023175567801411135,
+   "missingFrac": 0.00023175567801411135,
+   "extraFrac": 0,
+   "pixelDiffPct": 0.0016666666666666668,
+   "boundaryMedian": 0,
+   "boundaryP95": 0,
+   "rasterWidth": 900,
+   "rasterHeight": 600,
+   "centerline": {
+    "median": 0.09980039920193917,
+    "p95": 0.19001996007960997,
+    "max": 0.1996007984034236,
+    "coverMedian": 0.09980039920147021,
+    "coverP95": 0.1892215568864799,
+    "hausdorff": 0.1996007984034236
+   },
+   "complexity": {
+    "nodes": 2,
+    "edges": 1,
+    "beziers": 1,
+    "controlPoints": 2,
+    "strokes": 1,
+    "terminals": 2,
+    "junctions": 0,
+    "deg3": 0,
+    "deg4": 0,
+    "degGE5": 0,
+    "totalLength": 200.0000000000004
+   },
+   "width": {
+    "perChainCv": 7.55003900726818e-15,
+    "globalCv": 7.55003900726818e-15,
+    "medianRadius": 9.999999999999932
+   },
+   "caps": [
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "start",
+     "delta": -0.00002523379433405637,
+     "dist": 10.000000000000028,
+     "radius": 10.000025233794362
+    },
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "end",
+     "delta": -0.00002523379478880372,
+     "dist": 9.999999999999574,
+     "radius": 10.000025233794362
+    }
+   ],
+   "ms": 518,
+   "matMs": 186.592272
+  },
+  {
+   "id": "02-diagonal-line",
+   "num": 2,
+   "normIoU": 1,
+   "iou": 0.9999330835117773,
+   "symDiffPx": 3,
+   "symDiffFrac": 0.00006691798086145747,
+   "missingFrac": 0.00004461198724097165,
+   "extraFrac": 0.000022305993620485824,
+   "pixelDiffPct": 0.0005555555555555556,
+   "boundaryMedian": 0,
+   "boundaryP95": 0,
+   "rasterWidth": 900,
+   "rasterHeight": 600,
+   "centerline": {
+    "median": 0.0012756370757319698,
+    "p95": 0.0024289527792100626,
+    "max": 0.0025512741484309915,
+    "coverMedian": 0.0012756370757319698,
+    "coverP95": 0.0024289527792100626,
+    "hausdorff": 0.0025512741484309915
+   },
+   "complexity": {
+    "nodes": 2,
+    "edges": 1,
+    "beziers": 1,
+    "controlPoints": 2,
+    "strokes": 1,
+    "terminals": 2,
+    "junctions": 0,
+    "deg3": 0,
+    "deg4": 0,
+    "degGE5": 0,
+    "totalLength": 233.2330385042285
+   },
+   "width": {
+    "perChainCv": 1.3463527737376182e-13,
+    "globalCv": 1.3463527737376182e-13,
+    "medianRadius": 10.000933711655843
+   },
+   "caps": [
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "start",
+     "delta": 0.004156017711331117,
+     "dist": 10.004004775655392,
+     "radius": 9.999848757944061
+    },
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "end",
+     "delta": 0.004178913599028888,
+     "dist": 10.00402767154309,
+     "radius": 9.999848757944061
+    }
+   ],
+   "ms": 382,
+   "matMs": 95.936631
+  },
+  {
+   "id": "03-circular-arc",
+   "num": 3,
+   "normIoU": 1,
+   "iou": 0.9975583334766236,
+   "symDiffPx": 142,
+   "symDiffFrac": 0.002442212438084755,
+   "missingFrac": 0.0022186296092460097,
+   "extraFrac": 0.0002235828288387452,
+   "pixelDiffPct": 0.026296296296296293,
+   "boundaryMedian": 0,
+   "boundaryP95": 0.3333333333333333,
+   "rasterWidth": 900,
+   "rasterHeight": 600,
+   "centerline": {
+    "median": 0.0945099633698271,
+    "p95": 0.19273953065494512,
+    "max": 0.20363378667203197,
+    "coverMedian": 0.09480299059613649,
+    "coverP95": 0.19299800226297223,
+    "hausdorff": 0.28596051182782856
+   },
+   "complexity": {
+    "nodes": 10,
+    "edges": 9,
+    "beziers": 9,
+    "controlPoints": 27,
+    "strokes": 1,
+    "terminals": 2,
+    "junctions": 0,
+    "deg3": 0,
+    "deg4": 0,
+    "degGE5": 0,
+    "totalLength": 307.27009664993335
+   },
+   "width": {
+    "perChainCv": 0.00003568096172626483,
+    "globalCv": 0.00003568096172626483,
+    "medianRadius": 10.000707424856785
+   },
+   "caps": [
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "start",
+     "delta": 0.01792769595271615,
+     "dist": 10.002960565074678,
+     "radius": 9.985032869121962
+    },
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "end",
+     "delta": 0.01782980415253199,
+     "dist": 10.002862673274494,
+     "radius": 9.985032869121962
+    }
+   ],
+   "ms": 394,
+   "matMs": 96.321192
+  },
+  {
+   "id": "04-s-curve",
+   "num": 4,
+   "normIoU": 1,
+   "iou": 0.9983348191008024,
+   "symDiffPx": 99,
+   "symDiffFrac": 0.0016660496112550908,
+   "missingFrac": 0.0011443573087408705,
+   "extraFrac": 0.0005216923025142203,
+   "pixelDiffPct": 0.018333333333333333,
+   "boundaryMedian": 0,
+   "boundaryP95": 0.3333333333333333,
+   "rasterWidth": 900,
+   "rasterHeight": 600,
+   "centerline": {
+    "median": 0.09933321213112871,
+    "p95": 0.18996651431115988,
+    "max": 0.20240795089114097,
+    "coverMedian": 0.09805991382600973,
+    "coverP95": 0.18819173402482647,
+    "hausdorff": 0.20247193765243182
+   },
+   "complexity": {
+    "nodes": 14,
+    "edges": 13,
+    "beziers": 13,
+    "controlPoints": 38,
+    "strokes": 1,
+    "terminals": 2,
+    "junctions": 0,
+    "deg3": 0,
+    "deg4": 0,
+    "degGE5": 0,
+    "totalLength": 314.30951968709115
+   },
+   "width": {
+    "perChainCv": 0.00007248407970882788,
+    "globalCv": 0.00007248407970882788,
+    "medianRadius": 10.001005974364645
+   },
+   "caps": [
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "start",
+     "delta": 0.013045354599995562,
+     "dist": 10.000000000060293,
+     "radius": 9.986954645460298
+    },
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "end",
+     "delta": 0.013045354613927529,
+     "dist": 10.000000000074225,
+     "radius": 9.986954645460298
+    }
+   ],
+   "ms": 493,
+   "matMs": 169.673294
+  },
+  {
+   "id": "05-tight-u-curve",
+   "num": 5,
+   "normIoU": 1,
+   "iou": 0.9993335850900771,
+   "symDiffPx": 30,
+   "symDiffFrac": 0.0006664889362836577,
+   "missingFrac": 0.000555407446903048,
+   "extraFrac": 0.00011108148938060962,
+   "pixelDiffPct": 0.005555555555555556,
+   "boundaryMedian": 0,
+   "boundaryP95": 0,
+   "rasterWidth": 900,
+   "rasterHeight": 600,
+   "centerline": {
+    "median": 0.08481323099343556,
+    "p95": 0.19249439675758087,
+    "max": 0.20002490832262163,
+    "coverMedian": 0.09180030277985234,
+    "coverP95": 0.29085700211219684,
+    "hausdorff": 0.39313273647515207
+   },
+   "complexity": {
+    "nodes": 10,
+    "edges": 9,
+    "beziers": 9,
+    "controlPoints": 27,
+    "strokes": 1,
+    "terminals": 2,
+    "junctions": 0,
+    "deg3": 0,
+    "deg4": 0,
+    "degGE5": 0,
+    "totalLength": 234.2827306705011
+   },
+   "width": {
+    "perChainCv": 0.00007015095858265895,
+    "globalCv": 0.00007015095858265895,
+    "medianRadius": 10.00026903178928
+   },
+   "caps": [
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "start",
+     "delta": 0.0030411762314628277,
+     "dist": 10.000000000000064,
+     "radius": 9.996958823768601
+    },
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "end",
+     "delta": 0.003041176231398879,
+     "dist": 10,
+     "radius": 9.996958823768601
+    }
+   ],
+   "ms": 391,
+   "matMs": 120.53593
+  },
+  {
+   "id": "06-closed-loop",
+   "num": 6,
+   "normIoU": 1,
+   "iou": 0.99819250530151,
+   "symDiffPx": 127,
+   "symDiffFrac": 0.0018098902664956534,
+   "missingFrac": 0.00048453755166025366,
+   "extraFrac": 0.0013253527148353998,
+   "pixelDiffPct": 0.02351851851851852,
+   "boundaryMedian": 0,
+   "boundaryP95": 0.3333333333333333,
+   "rasterWidth": 900,
+   "rasterHeight": 600,
+   "centerline": {
+    "median": 0.09784148633643787,
+    "p95": 0.19415261579173607,
+    "max": 0.20086001291002692,
+    "coverMedian": 0.09685329911551885,
+    "coverP95": 0.1931816273861446,
+    "hausdorff": 0.20086001291002692
+   },
+   "complexity": {
+    "nodes": 16,
+    "edges": 16,
+    "beziers": 16,
+    "controlPoints": 48,
+    "strokes": 1,
+    "terminals": 0,
+    "junctions": 0,
+    "deg3": 0,
+    "deg4": 0,
+    "degGE5": 0,
+    "totalLength": 389.6464759809284
+   },
+   "width": {
+    "perChainCv": 0.00011351490906679334,
+    "globalCv": 0.00011351490906679334,
+    "medianRadius": 10.00076887758483
+   },
+   "caps": [],
+   "ms": 480,
+   "matMs": 136.382779
+  },
+  {
+   "id": "07-round-cap",
+   "num": 7,
+   "normIoU": 1,
+   "iou": 0.9997445649088949,
+   "symDiffPx": 9,
+   "symDiffFrac": 0.0002554350911051825,
+   "missingFrac": 0.0002554350911051825,
+   "extraFrac": 0,
+   "pixelDiffPct": 0.0016666666666666668,
+   "boundaryMedian": 0,
+   "boundaryP95": 0,
+   "rasterWidth": 900,
+   "rasterHeight": 600,
+   "centerline": {
+    "median": 0.10022172948981733,
+    "p95": 0.18980044345855163,
+    "max": 0.19955654102045628,
+    "coverMedian": 0.09933481153075263,
+    "coverP95": 0.18980044345855163,
+    "hausdorff": 0.19955654102045628
+   },
+   "complexity": {
+    "nodes": 2,
+    "edges": 1,
+    "beziers": 1,
+    "controlPoints": 2,
+    "strokes": 1,
+    "terminals": 2,
+    "junctions": 0,
+    "deg3": 0,
+    "deg4": 0,
+    "degGE5": 0,
+    "totalLength": 180.00000000000117
+   },
+   "width": {
+    "perChainCv": 1.6520118606422652e-14,
+    "globalCv": 1.6520118606422652e-14,
+    "medianRadius": 9.999999999999805
+   },
+   "caps": [
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "start",
+     "delta": -0.000025388575155105286,
+     "dist": 9.999999999999908,
+     "radius": 10.000025388575063
+    },
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "end",
+     "delta": -0.00002538857614275969,
+     "dist": 9.99999999999892,
+     "radius": 10.000025388575063
+    }
+   ],
+   "ms": 287,
+   "matMs": 64.699577
+  },
+  {
+   "id": "08-butt-cap",
+   "num": 8,
+   "normIoU": 1,
+   "iou": 0.9538225033997517,
+   "symDiffPx": 1562,
+   "symDiffFrac": 0.04820987654320988,
+   "missingFrac": 0.004197530864197531,
+   "extraFrac": 0.04401234567901235,
+   "pixelDiffPct": 0.2892592592592592,
+   "boundaryMedian": 0,
+   "boundaryP95": 3.0731814857642954,
+   "rasterWidth": 900,
+   "rasterHeight": 600,
+   "centerline": {
+    "median": 0,
+    "p95": 9.166727272526929,
+    "max": 10,
+    "coverMedian": 0,
+    "coverP95": 3.970978344558509,
+    "hausdorff": 10
+   },
+   "complexity": {
+    "nodes": 6,
+    "edges": 5,
+    "beziers": 5,
+    "controlPoints": 12,
+    "strokes": 5,
+    "terminals": 4,
+    "junctions": 2,
+    "deg3": 2,
+    "deg4": 0,
+    "degGE5": 0,
+    "totalLength": 216.5685424949238
+   },
+   "width": {
+    "perChainCv": 0.2612038749637414,
+    "globalCv": 0.8164965809277259,
+    "medianRadius": 10
+   },
+   "caps": [
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "start",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c1",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c3",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c4",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    }
+   ],
+   "ms": 241,
+   "matMs": 14.889256
+  },
+  {
+   "id": "09-square-cap",
+   "num": 9,
+   "normIoU": 1,
+   "iou": 0.9381518564872757,
+   "symDiffPx": 2372,
+   "symDiffFrac": 0.06588888888888889,
+   "missingFrac": 0.0005555555555555556,
+   "extraFrac": 0.06533333333333333,
+   "pixelDiffPct": 0.4392592592592593,
+   "boundaryMedian": 0,
+   "boundaryP95": 4.666666666666666,
+   "rasterWidth": 900,
+   "rasterHeight": 600,
+   "centerline": {
+    "median": 0.13126385809309227,
+    "p95": 11.39227591911659,
+    "max": 14.142135623730951,
+    "coverMedian": 0.09933481152997103,
+    "coverP95": 0.18980044345894953,
+    "hausdorff": 14.142135623730951
+   },
+   "complexity": {
+    "nodes": 6,
+    "edges": 5,
+    "beziers": 5,
+    "controlPoints": 10,
+    "strokes": 5,
+    "terminals": 4,
+    "junctions": 2,
+    "deg3": 2,
+    "deg4": 0,
+    "degGE5": 0,
+    "totalLength": 236.56854249492378
+   },
+   "width": {
+    "perChainCv": 0.2391211523659691,
+    "globalCv": 0.816496580927726,
+    "medianRadius": 9.999999999999977
+   },
+   "caps": [
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "start",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c2",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c3",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c4",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    }
+   ],
+   "ms": 237,
+   "matMs": 11.906683
+  },
+  {
+   "id": "10-round-join-90",
+   "num": 10,
+   "normIoU": 1,
+   "iou": 0.9981488990356645,
+   "symDiffPx": 105,
+   "symDiffFrac": 0.0018537481021150383,
+   "missingFrac": 0.00042371385191200875,
+   "extraFrac": 0.0014300342502030295,
+   "pixelDiffPct": 0.019444444444444445,
+   "boundaryMedian": 0,
+   "boundaryP95": 0,
+   "rasterWidth": 900,
+   "rasterHeight": 600,
+   "centerline": {
+    "median": 0.044216049085832765,
+    "p95": 0.1998340495486559,
+    "max": 1.719627371394723,
+    "coverMedian": 0.04898173493627864,
+    "coverP95": 0.3563142749624588,
+    "hausdorff": 1.719627371394723
+   },
+   "complexity": {
+    "nodes": 6,
+    "edges": 5,
+    "beziers": 5,
+    "controlPoints": 14,
+    "strokes": 3,
+    "terminals": 3,
+    "junctions": 1,
+    "deg3": 1,
+    "deg4": 0,
+    "degGE5": 0,
+    "totalLength": 298.83926848270767
+   },
+   "width": {
+    "perChainCv": 0.07651999802721539,
+    "globalCv": 0.07804123550438884,
+    "medianRadius": 10.000000000000016
+   },
+   "caps": [
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "start",
+     "delta": 0.000006772081155403953,
+     "dist": 10.000035630860218,
+     "radius": 10.000028858779062
+    },
+    {
+     "chain": "c1",
+     "element": "s0",
+     "which": "end",
+     "delta": -0.6177471965583479,
+     "dist": 9.99999679862532,
+     "radius": 10.617743995183668
+    },
+    {
+     "chain": "c2",
+     "element": "s0",
+     "which": "end",
+     "delta": -0.00002794825733332118,
+     "dist": 9.999999999998664,
+     "radius": 10.000027948255998
+    }
+   ],
+   "ms": 379,
+   "matMs": 92.015716
+  },
+  {
+   "id": "11-bevel-join-90",
+   "num": 11,
+   "normIoU": 1,
+   "iou": 0.9795925462383535,
+   "symDiffPx": 1174,
+   "symDiffFrac": 0.020827419812659665,
+   "missingFrac": 0.00024836786829406755,
+   "extraFrac": 0.020579051944365597,
+   "pixelDiffPct": 0.21740740740740738,
+   "boundaryMedian": 0,
+   "boundaryP95": 0.3333333333333333,
+   "rasterWidth": 900,
+   "rasterHeight": 600,
+   "centerline": {
+    "median": 0.05893949532566012,
+    "p95": 2.827116697035983,
+    "max": 10,
+    "coverMedian": 0.05138012091725841,
+    "coverP95": 0.3521106999232586,
+    "hausdorff": 10
+   },
+   "complexity": {
+    "nodes": 8,
+    "edges": 7,
+    "beziers": 7,
+    "controlPoints": 18,
+    "strokes": 5,
+    "terminals": 4,
+    "junctions": 2,
+    "deg3": 2,
+    "deg4": 0,
+    "degGE5": 0,
+    "totalLength": 319.7643196504459
+   },
+   "width": {
+    "perChainCv": 0.1050144604760167,
+    "globalCv": 0.44894279359887335,
+    "medianRadius": 10.383650274444676
+   },
+   "caps": [
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "start",
+     "delta": 0.000008025177361759006,
+     "dist": 10.000035630860218,
+     "radius": 10.000027605682856
+    },
+    {
+     "chain": "c1",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c3",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c4",
+     "element": "s0",
+     "which": "end",
+     "delta": -0.000026815361358956125,
+     "dist": 9.999999999998664,
+     "radius": 10.000026815360023
+    }
+   ],
+   "ms": 384,
+   "matMs": 82.117901
+  },
+  {
+   "id": "12-miter-join-90",
+   "num": 12,
+   "normIoU": 1,
+   "iou": 0.982111315069442,
+   "symDiffPx": 1033,
+   "symDiffFrac": 0.018176059683634508,
+   "missingFrac": 0.002111449334013689,
+   "extraFrac": 0.01606461034962082,
+   "pixelDiffPct": 0.1912962962962963,
+   "boundaryMedian": 0,
+   "boundaryP95": 0.3333333333333333,
+   "rasterWidth": 900,
+   "rasterHeight": 600,
+   "centerline": {
+    "median": 0.0456295738961785,
+    "p95": 1.4196279189890324,
+    "max": 14.142135623730951,
+    "coverMedian": 0.03991886409738754,
+    "coverP95": 0.3563142749621347,
+    "hausdorff": 14.142135623730951
+   },
+   "complexity": {
+    "nodes": 6,
+    "edges": 5,
+    "beziers": 5,
+    "controlPoints": 13,
+    "strokes": 3,
+    "terminals": 3,
+    "junctions": 1,
+    "deg3": 1,
+    "deg4": 0,
+    "degGE5": 0,
+    "totalLength": 313.5991418441263
+   },
+   "width": {
+    "perChainCv": 0.1252963316244421,
+    "globalCv": 0.3873062587033221,
+    "medianRadius": 10.000000000000016
+   },
+   "caps": [
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "start",
+     "delta": 0.000006772081155403953,
+     "dist": 10.000035630860218,
+     "radius": 10.000028858779062
+    },
+    {
+     "chain": "c1",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c2",
+     "element": "s0",
+     "which": "end",
+     "delta": -0.000021732465448565108,
+     "dist": 10,
+     "radius": 10.000021732465449
+    }
+   ],
+   "ms": 368,
+   "matMs": 70.59444
+  },
+  {
+   "id": "13-x-crossing-separate",
+   "num": 13,
+   "normIoU": 1,
+   "iou": 0.999918205188128,
+   "symDiffPx": 7,
+   "symDiffFrac": 0.00008179672345696324,
+   "missingFrac": 0.000058426231040688025,
+   "extraFrac": 0.00002337049241627521,
+   "pixelDiffPct": 0.0012962962962962963,
+   "boundaryMedian": 0,
+   "boundaryP95": 0,
+   "rasterWidth": 900,
+   "rasterHeight": 600,
+   "centerline": {
+    "median": 0.0012756370742782472,
+    "p95": 0.0024289527803216765,
+    "max": 0.002551274146059836,
+    "coverMedian": 0.0012756370742782472,
+    "coverP95": 0.0024289527803216765,
+    "hausdorff": 0.002551274146059836
+   },
+   "complexity": {
+    "nodes": 4,
+    "edges": 2,
+    "beziers": 2,
+    "controlPoints": 4,
+    "strokes": 2,
+    "terminals": 4,
+    "junctions": 0,
+    "deg3": 0,
+    "deg4": 0,
+    "degGE5": 0,
+    "totalLength": 466.4660770084645
+   },
+   "width": {
+    "perChainCv": 7.033716337732311e-14,
+    "globalCv": 9.53319119473482e-14,
+    "medianRadius": 10.000933711655978
+   },
+   "caps": [
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "start",
+     "delta": 0.004156017712963589,
+     "dist": 10.004004775658792,
+     "radius": 9.999848757945829
+    },
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "end",
+     "delta": 0.004178913587109534,
+     "dist": 10.004027671532938,
+     "radius": 9.999848757945829
+    },
+    {
+     "chain": "c0",
+     "element": "s1",
+     "which": "start",
+     "delta": 0.004156017713590643,
+     "dist": 10.004004775659952,
+     "radius": 9.999848757946362
+    },
+    {
+     "chain": "c0",
+     "element": "s1",
+     "which": "end",
+     "delta": 0.004178913591610822,
+     "dist": 10.004027671537973,
+     "radius": 9.999848757946362
+    }
+   ],
+   "ms": 429,
+   "matMs": 89.551271
+  },
+  {
+   "id": "14-x-crossing-unioned",
+   "num": 14,
+   "normIoU": 1,
+   "iou": 0.9980603851187138,
+   "symDiffPx": 166,
+   "symDiffFrac": 0.0019397508705508424,
+   "missingFrac": 0.0018696393933020168,
+   "extraFrac": 0.00007011147724882563,
+   "pixelDiffPct": 0.03074074074074074,
+   "boundaryMedian": 0,
+   "boundaryP95": 0,
+   "rasterWidth": 900,
+   "rasterHeight": 600,
+   "centerline": {
+    "median": 0.11392307537549587,
+    "p95": 1.6044692991439014,
+    "max": 3.2031209700358936,
+    "coverMedian": 0.13969960421586922,
+    "coverP95": 1.4587215501028075,
+    "hausdorff": 3.2031209700358936
+   },
+   "complexity": {
+    "nodes": 14,
+    "edges": 13,
+    "beziers": 13,
+    "controlPoints": 35,
+    "strokes": 5,
+    "terminals": 4,
+    "junctions": 2,
+    "deg3": 2,
+    "deg4": 0,
+    "degGE5": 0,
+    "totalLength": 459.86840976791575
+   },
+   "width": {
+    "perChainCv": 0.1256448588941823,
+    "globalCv": 0.1311658551054129,
+    "medianRadius": 11.78120186722337
+   },
+   "caps": [
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "start",
+     "delta": 0.003587287694267971,
+     "dist": 10.003554496004893,
+     "radius": 9.999967208310625
+    },
+    {
+     "chain": "c1",
+     "element": "s0",
+     "which": "end",
+     "delta": 0.0036116768951011124,
+     "dist": 10.00357888520566,
+     "radius": 9.99996720831056
+    },
+    {
+     "chain": "c3",
+     "element": "s0",
+     "which": "end",
+     "delta": 0.003611676749919468,
+     "dist": 10.003578885060898,
+     "radius": 9.999967208310979
+    },
+    {
+     "chain": "c4",
+     "element": "s0",
+     "which": "end",
+     "delta": 0.003611676815122422,
+     "dist": 10.003578885125643,
+     "radius": 9.99996720831052
+    }
+   ],
+   "ms": 453,
+   "matMs": 83.314189
+  },
+  {
+   "id": "15-t-junction",
+   "num": 15,
+   "normIoU": 1,
+   "iou": 0.9980148313426959,
+   "symDiffPx": 121,
+   "symDiffFrac": 0.001985168657304108,
+   "missingFrac": 0.001985168657304108,
+   "extraFrac": 0,
+   "pixelDiffPct": 0.022407407407407407,
+   "boundaryMedian": 0,
+   "boundaryP95": 0,
+   "rasterWidth": 900,
+   "rasterHeight": 600,
+   "centerline": {
+    "median": 0.04464518009302765,
+    "p95": 0.21644056297094952,
+    "max": 1.6664064104973737,
+    "coverMedian": 0.04543209876544552,
+    "coverP95": 0.3495171889838389,
+    "hausdorff": 2.26636540131924
+   },
+   "complexity": {
+    "nodes": 6,
+    "edges": 5,
+    "beziers": 5,
+    "controlPoints": 13,
+    "strokes": 3,
+    "terminals": 3,
+    "junctions": 1,
+    "deg3": 1,
+    "deg4": 0,
+    "degGE5": 0,
+    "totalLength": 323.30421724476787
+   },
+   "width": {
+    "perChainCv": 0.10966677281466355,
+    "globalCv": 0.11065666703451676,
+    "medianRadius": 10.000000000000025
+   },
+   "caps": [
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "start",
+     "delta": 0.00002467189157506766,
+     "dist": 10.00003563086031,
+     "radius": 10.000010958968735
+    },
+    {
+     "chain": "c1",
+     "element": "s0",
+     "which": "end",
+     "delta": -0.000030699207403728224,
+     "dist": 9.999999999994174,
+     "radius": 10.000030699201577
+    },
+    {
+     "chain": "c2",
+     "element": "s0",
+     "which": "end",
+     "delta": -0.000013439909112733517,
+     "dist": 10.000000000000028,
+     "radius": 10.000013439909141
+    }
+   ],
+   "ms": 351,
+   "matMs": 52.215811
+  },
+  {
+   "id": "16-y-junction",
+   "num": 16,
+   "normIoU": 1,
+   "iou": 0.9998268997749697,
+   "symDiffPx": 10,
+   "symDiffFrac": 0.00017310621797534968,
+   "missingFrac": 0.00013848497438027975,
+   "extraFrac": 0.00003462124359506994,
+   "pixelDiffPct": 0.001851851851851852,
+   "boundaryMedian": 0,
+   "boundaryP95": 0,
+   "rasterWidth": 900,
+   "rasterHeight": 600,
+   "centerline": {
+    "median": 0.10631552919508719,
+    "p95": 0.1941301128393575,
+    "max": 0.40595746891742435,
+    "coverMedian": 0.12541748441460335,
+    "coverP95": 0.3175304192772819,
+    "hausdorff": 0.40595746891742435
+   },
+   "complexity": {
+    "nodes": 8,
+    "edges": 7,
+    "beziers": 7,
+    "controlPoints": 19,
+    "strokes": 3,
+    "terminals": 3,
+    "junctions": 1,
+    "deg3": 1,
+    "deg4": 0,
+    "degGE5": 0,
+    "totalLength": 306.30342984084905
+   },
+   "width": {
+    "perChainCv": 0.06715288924598899,
+    "globalCv": 0.06822933363694313,
+    "medianRadius": 10.021919072694795
+   },
+   "caps": [
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "start",
+     "delta": 0.002395000366586686,
+     "dist": 10.00235544595315,
+     "radius": 9.999960445586563
+    },
+    {
+     "chain": "c1",
+     "element": "s0",
+     "which": "end",
+     "delta": -0.00003109481118279689,
+     "dist": 9.999999999999915,
+     "radius": 10.000031094811098
+    },
+    {
+     "chain": "c2",
+     "element": "s0",
+     "which": "end",
+     "delta": 0.0024316502950583185,
+     "dist": 10.002403273448163,
+     "radius": 9.999971623153105
+    }
+   ],
+   "ms": 353,
+   "matMs": 74.209291
+  },
+  {
+   "id": "17-near-parallel",
+   "num": 17,
+   "normIoU": 1,
+   "iou": 0.9997682443219859,
+   "symDiffPx": 18,
+   "symDiffFrac": 0.00023175567801411135,
+   "missingFrac": 0.00023175567801411135,
+   "extraFrac": 0,
+   "pixelDiffPct": 0.0033333333333333335,
+   "boundaryMedian": 0,
+   "boundaryP95": 0,
+   "rasterWidth": 900,
+   "rasterHeight": 600,
+   "centerline": {
+    "median": 0.09519999999993445,
+    "p95": 0.18880000000007158,
+    "max": 0.19960079840359413,
+    "coverMedian": 0.10219560878235256,
+    "coverP95": 0.28079999999997085,
+    "hausdorff": 0.3991999999999507
+   },
+   "complexity": {
+    "nodes": 4,
+    "edges": 2,
+    "beziers": 2,
+    "controlPoints": 5,
+    "strokes": 2,
+    "terminals": 4,
+    "junctions": 0,
+    "deg3": 0,
+    "deg4": 0,
+    "degGE5": 0,
+    "totalLength": 400.00000000000114
+   },
+   "width": {
+    "perChainCv": 7.371880883511188e-15,
+    "globalCv": 1.4048950084839116e-14,
+    "medianRadius": 9.99999999999996
+   },
+   "caps": [
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "start",
+     "delta": -0.000026012083003124076,
+     "dist": 10.000000000000078,
+     "radius": 10.000026012083081
+    },
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "end",
+     "delta": -0.000026012083109705486,
+     "dist": 9.999999999999972,
+     "radius": 10.000026012083081
+    },
+    {
+     "chain": "c0",
+     "element": "s1",
+     "which": "start",
+     "delta": -0.000025233793587986497,
+     "dist": 9.99999999999978,
+     "radius": 10.000025233793368
+    },
+    {
+     "chain": "c0",
+     "element": "s1",
+     "which": "end",
+     "delta": -0.00002523379436247808,
+     "dist": 9.999999999999005,
+     "radius": 10.000025233793368
+    }
+   ],
+   "ms": 393,
+   "matMs": 85.47974099999999
+  },
+  {
+   "id": "18-self-overlap",
+   "num": 18,
+   "normIoU": 1,
+   "iou": 0.9844953100937981,
+   "symDiffPx": 1329,
+   "symDiffFrac": 0.015647628130408674,
+   "missingFrac": 0.006428596658542616,
+   "extraFrac": 0.00921903147186606,
+   "pixelDiffPct": 0.24611111111111109,
+   "boundaryMedian": 0,
+   "boundaryP95": 1.201850425154663,
+   "rasterWidth": 900,
+   "rasterHeight": 600,
+   "centerline": {
+    "median": 0.12212971013988749,
+    "p95": 2.491755815295578,
+    "max": 4.7719373447890066,
+    "coverMedian": 0.13015873015861956,
+    "coverP95": 2.6925694609104864,
+    "hausdorff": 4.7719373447890066
+   },
+   "complexity": {
+    "nodes": 12,
+    "edges": 12,
+    "beziers": 12,
+    "controlPoints": 31,
+    "strokes": 7,
+    "terminals": 4,
+    "junctions": 3,
+    "deg3": 2,
+    "deg4": 1,
+    "degGE5": 0,
+    "totalLength": 469.76865880914323
+   },
+   "width": {
+    "perChainCv": 0.17481482939308618,
+    "globalCv": 0.17716321656836684,
+    "medianRadius": 14.142135623730951
+   },
+   "caps": [
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "start",
+     "delta": -0.00006100554660193325,
+     "dist": 10.000000000000288,
+     "radius": 10.00006100554689
+    },
+    {
+     "chain": "c1",
+     "element": "s0",
+     "which": "end",
+     "delta": -0.0000072120799927688495,
+     "dist": 10.000035630860296,
+     "radius": 10.000042842940289
+    },
+    {
+     "chain": "c4",
+     "element": "s0",
+     "which": "end",
+     "delta": -1.1730506583171252,
+     "dist": 10.002686653956077,
+     "radius": 11.175737312273203
+    },
+    {
+     "chain": "c6",
+     "element": "s0",
+     "which": "end",
+     "delta": -1.2952661039451758,
+     "dist": 10.002692360912402,
+     "radius": 11.297958464857578
+    }
+   ],
+   "ms": 475,
+   "matMs": 86.647622
+  },
+  {
+   "id": "19-variable-width",
+   "num": 19,
+   "normIoU": 1,
+   "iou": 0.7048953074567574,
+   "symDiffPx": 14263,
+   "symDiffFrac": 0.3994231146209639,
+   "missingFrac": 0.04592679716598057,
+   "extraFrac": 0.35349631745498333,
+   "pixelDiffPct": 2.6412962962962965,
+   "boundaryMedian": 2.6666666666666665,
+   "boundaryP95": 8,
+   "rasterWidth": 900,
+   "rasterHeight": 600,
+   "centerline": {
+    "median": 0.10368229616398139,
+    "p95": 0.19293292095923675,
+    "max": 3.0398543674826044,
+    "coverMedian": 0.12832448693899323,
+    "coverP95": 0.368318815455126,
+    "hausdorff": 8.960632376053724
+   },
+   "complexity": {
+    "nodes": 2,
+    "edges": 1,
+    "beziers": 1,
+    "controlPoints": 3,
+    "strokes": 1,
+    "terminals": 2,
+    "junctions": 0,
+    "deg3": 0,
+    "deg4": 0,
+    "degGE5": 0,
+    "totalLength": 194.07922199142888
+   },
+   "width": {
+    "perChainCv": 0.6666666666665144,
+    "globalCv": 0.6666666666665144,
+    "medianRadius": 9.000000000000766
+   },
+   "caps": [
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "start",
+     "delta": -8.960142441549106,
+     "dist": 3.000003190968293,
+     "radius": 11.9601456325174
+    },
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "end",
+     "delta": 3.0398543674823166,
+     "dist": 14.999999999999716,
+     "radius": 11.9601456325174
+    }
+   ],
+   "ms": 296,
+   "matMs": 40.737419
+  },
+  {
+   "id": "20-noisy-boundary",
+   "num": 20,
+   "normIoU": 1,
+   "iou": 0.7518728585532046,
+   "symDiffPx": 12818,
+   "symDiffFrac": 0.33001210061532915,
+   "missingFrac": 0,
+   "extraFrac": 0.33001210061532915,
+   "pixelDiffPct": 2.3737037037037036,
+   "boundaryMedian": 2.6874192494328497,
+   "boundaryP95": 4.0276819911981905,
+   "rasterWidth": 900,
+   "rasterHeight": 600,
+   "centerline": {
+    "median": 7.307992243631116,
+    "p95": 10.435244582847702,
+    "max": 11.197933385227666,
+    "coverMedian": 0.20223664378986292,
+    "coverP95": 0.43583334669735335,
+    "hausdorff": 11.197933385227666
+   },
+   "complexity": {
+    "nodes": 427,
+    "edges": 426,
+    "beziers": 426,
+    "controlPoints": 1047,
+    "strokes": 423,
+    "terminals": 268,
+    "junctions": 156,
+    "deg3": 84,
+    "deg4": 48,
+    "degGE5": 24,
+    "totalLength": 1609.6504643358726
+   },
+   "width": {
+    "perChainCv": 0.737126697847348,
+    "globalCv": 0.86816614130875,
+    "medianRadius": 3.887397747385131
+   },
+   "caps": [
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "start",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c2",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c3",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c4",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c6",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c13",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c15",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c16",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c17",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c22",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c24",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c25",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c26",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c27",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c33",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c34",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c35",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c36",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c37",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c43",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c44",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c45",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c46",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c51",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c52",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c53",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c54",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c55",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c60",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c61",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c62",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c67",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c69",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c70",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c71",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c72",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c77",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c79",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c80",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c81",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c82",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c87",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c88",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c89",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c90",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c95",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c97",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c98",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c99",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c100",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c105",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c106",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c107",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c112",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c114",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c115",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c116",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c117",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c123",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c124",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c125",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c126",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c131",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c133",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c134",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c135",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c140",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c142",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c143",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c144",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c145",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c146",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c151",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c153",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c154",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c155",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c160",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c162",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c163",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c164",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c165",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c171",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c172",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c173",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c174",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c179",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c180",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c181",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c182",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c188",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c189",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c190",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c191",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c192",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c197",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c199",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c200",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c201",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c206",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c208",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c209",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c210",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c211",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c212",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c213",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c214",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c216",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c217",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c218",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c219",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c220",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c223",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c224",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c225",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c226",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c227",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c228",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c229",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c230",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c231",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c232",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c233",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c234",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c235",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c237",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c238",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c239",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c240",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c242",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c243",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c244",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c245",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c246",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c247",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c249",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c250",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c251",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c252",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c254",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c255",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c256",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c257",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c258",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c259",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c260",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c261",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c262",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c263",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c264",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c265",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c266",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c268",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c269",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c270",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c271",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c272",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c273",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c275",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c276",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c277",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c278",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c281",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c282",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c283",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c284",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c285",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c287",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c288",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c289",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c290",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c291",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c292",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c293",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c295",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c296",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c297",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c298",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c299",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c300",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c301",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c302",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c303",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c305",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c306",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c307",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c308",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c309",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c311",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c312",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c313",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c314",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c315",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c317",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c318",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c319",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c320",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c321",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c322",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c323",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c324",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c326",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c327",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c328",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c329",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c330",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c332",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c334",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c335",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c336",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c337",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c340",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c341",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c342",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c343",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c344",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c346",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c347",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c348",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c351",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c353",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c354",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c355",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c356",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c361",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c363",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c364",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c365",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c370",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c371",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c372",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c373",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c378",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c379",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c380",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c381",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c382",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c387",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c388",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c389",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c390",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c391",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c392",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c393",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c395",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c396",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c397",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c398",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c399",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c400",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c401",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c403",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c404",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c405",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c406",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c407",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c408",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c409",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c410",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c411",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c412",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c413",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c415",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c416",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c417",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c418",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c420",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c421",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c422",
+     "element": "s0",
+     "which": "end",
+     "delta": 0,
+     "reason": "no-hit"
+    }
+   ],
+   "ms": 911,
+   "matMs": 306.844494
+  },
+  {
+   "id": "21-round-join-acute",
+   "num": 21,
+   "normIoU": 1,
+   "iou": 0.9878774836812281,
+   "symDiffPx": 845,
+   "symDiffFrac": 0.012189492513199273,
+   "missingFrac": 0.006664550936210727,
+   "extraFrac": 0.005524941576988547,
+   "pixelDiffPct": 0.1564814814814815,
+   "boundaryMedian": 0,
+   "boundaryP95": 0.9428090415820634,
+   "rasterWidth": 900,
+   "rasterHeight": 600,
+   "centerline": {
+    "median": 0.03764838608739825,
+    "p95": 2.2573221653922757,
+    "max": 5.1949069335373945,
+    "coverMedian": 0.03941545080722806,
+    "coverP95": 2.909452317933576,
+    "hausdorff": 5.1949069335373945
+   },
+   "complexity": {
+    "nodes": 6,
+    "edges": 5,
+    "beziers": 5,
+    "controlPoints": 14,
+    "strokes": 3,
+    "terminals": 3,
+    "junctions": 1,
+    "deg3": 1,
+    "deg4": 0,
+    "degGE5": 0,
+    "totalLength": 365.9374883753561
+   },
+   "width": {
+    "perChainCv": 0.20863747382549838,
+    "globalCv": 0.21049230151464757,
+    "medianRadius": 10.000028526019417
+   },
+   "caps": [
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "start",
+     "delta": -1.1238563769537162,
+     "dist": 10.000025911848207,
+     "radius": 11.123882288801923
+    },
+    {
+     "chain": "c1",
+     "element": "s0",
+     "which": "end",
+     "delta": 0.0027493591310339127,
+     "dist": 10.00276565020107,
+     "radius": 10.000016291070036
+    },
+    {
+     "chain": "c2",
+     "element": "s0",
+     "which": "end",
+     "delta": 0.002690987342889528,
+     "dist": 10.002703790674692,
+     "radius": 10.000012803331803
+    }
+   ],
+   "ms": 386,
+   "matMs": 57.864974
+  },
+  {
+   "id": "22-miter-join-acute",
+   "num": 22,
+   "normIoU": 1,
+   "iou": 0.9460816415629775,
+   "symDiffPx": 3952,
+   "symDiffFrac": 0.055760927843779104,
+   "missingFrac": 0.021587606174337557,
+   "extraFrac": 0.03417332166944154,
+   "pixelDiffPct": 0.7318518518518519,
+   "boundaryMedian": 0,
+   "boundaryP95": 4.333333333333333,
+   "rasterWidth": 900,
+   "rasterHeight": 600,
+   "centerline": {
+    "median": 0.041078569335679486,
+    "p95": 11.767157349830256,
+    "max": 31.62279999999737,
+    "coverMedian": 0.03941544949385058,
+    "coverP95": 2.910054435003866,
+    "hausdorff": 31.62279999999737
+   },
+   "complexity": {
+    "nodes": 6,
+    "edges": 5,
+    "beziers": 5,
+    "controlPoints": 13,
+    "strokes": 3,
+    "terminals": 3,
+    "junctions": 1,
+    "deg3": 1,
+    "deg4": 0,
+    "degGE5": 0,
+    "totalLength": 398.6841226715077
+   },
+   "width": {
+    "perChainCv": 0.3041090948227743,
+    "globalCv": 0.4397568638767085,
+    "medianRadius": 10.000017141146117
+   },
+   "caps": [
+    {
+     "chain": "c0",
+     "element": "s0",
+     "which": "start",
+     "delta": 0,
+     "reason": "no-hit"
+    },
+    {
+     "chain": "c1",
+     "element": "s0",
+     "which": "end",
+     "delta": 0.0027346915562862506,
+     "dist": 10.002765655966064,
+     "radius": 10.000030964409778
+    },
+    {
+     "chain": "c2",
+     "element": "s0",
+     "which": "end",
+     "delta": 0.0026978537224344734,
+     "dist": 10.002703790813497,
+     "radius": 10.000005937091062
+    }
+   ],
+   "ms": 362,
+   "matMs": 37.950504
+  }
+ ]
+}

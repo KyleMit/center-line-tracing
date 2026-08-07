@@ -1,0 +1,25 @@
+<!doctype html><meta charset=utf-8><title>polygon-voronoi progress: house-wide.svg</title>
+<style>
+    body{font:13px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;margin:24px;
+         background:#fafafa;color:#111}
+    h1{font-size:20px} h2{font-size:15px;margin-top:28px}
+    table{border-collapse:collapse;margin:10px 0}
+    td,th{border:1px solid #ddd;padding:4px 8px;text-align:right}
+    th{background:#eee} td:first-child,th:first-child{text-align:left}
+    img{image-rendering:auto;max-width:100%;border:1px solid #ddd;background:#fff}
+    .note{color:#555;max-width:70em}
+    </style><h1>polygon-voronoi progress: house-wide.svg</h1>
+<p class=note>PNG: <a href="contact-progress-house-wide.png">contact-progress-house-wide.png</a></p>
+<h2>Iterations</h2>
+<table><tr><th>#</th><th>tag</th><th>backend</th><th>tol</th><th>IoU</th><th>clP95</th><th>edges</th><th>s/elem</th></tr>
+<tr><td>0</td><td>pygeoops library defaults</td><td>pygeoops</td><td>0.5</td><td>0.8057</td><td>-</td><td>37</td><td>0.006</td></tr>
+<tr><td>1</td><td>no branch filter (mbl=0)</td><td>pygeoops</td><td>0.5</td><td>0.8196</td><td>-</td><td>150</td><td>0.005</td></tr>
+<tr><td>2</td><td>simplify off</td><td>pygeoops</td><td>0.5</td><td>0.9680</td><td>-</td><td>37</td><td>0.005</td></tr>
+<tr><td>3</td><td>flatten tol 0.5 -> 0.15</td><td>pygeoops</td><td>0.15</td><td>0.9722</td><td>-</td><td>37</td><td>0.006</td></tr>
+<tr><td>4</td><td>extend=True (cap reach)</td><td>pygeoops</td><td>0.15</td><td>0.9541</td><td>-</td><td>37</td><td>0.007</td></tr>
+<tr><td>5</td><td>densify -0.5 -> -0.25</td><td>pygeoops</td><td>0.15</td><td>0.9774</td><td>-</td><td>37</td><td>0.010</td></tr>
+<tr><td>6</td><td>fitodic raw (interp 2.0)</td><td>fitodic</td><td>0.15</td><td>0.9813</td><td>-</td><td>239</td><td>0.084</td></tr>
+<tr><td>7</td><td>fitodic + pygeoops filter</td><td>fitodic+filter</td><td>0.15</td><td>0.9774</td><td>-</td><td>37</td><td>0.045</td></tr>
+</table>
+<h2>Tiles</h2>
+<img src="contact-progress-house-wide.png">

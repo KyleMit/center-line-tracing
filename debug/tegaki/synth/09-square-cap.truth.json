@@ -1,0 +1,24 @@
+{
+ "case": "square-cap",
+ "index": 9,
+ "width": 20,
+ "cap": "square",
+ "join": "round",
+ "separateElements": false,
+ "centerlines": [
+  [
+   {
+    "x": 60,
+    "y": 100
+   },
+   {
+    "x": 150,
+    "y": 100
+   },
+   {
+    "x": 240,
+    "y": 100
+   }
+  ]
+ ]
+}

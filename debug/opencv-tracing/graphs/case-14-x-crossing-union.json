@@ -1,0 +1,253 @@
+{
+ "schemaVersion": "centerline-graph/1",
+ "slug": "opencv-tracing",
+ "image": "case-14-x-crossing-union",
+ "units": "svg user units",
+ "backend": {
+  "skeletonizer": "cv2.ximgproc.thinning(guohall)",
+  "opencv": "5.0.0",
+  "tracer": "st-c",
+  "tracerSource": "LingDong-/skeleton-tracing @ f5dd65e (MIT), vendored",
+  "capExtension": "round"
+ },
+ "radius": {
+  "native": false,
+  "derivedFrom": "cv2.distanceTransform(DIST_L2, DIST_MASK_PRECISE) on the source mask, sampled bilinearly along the traced polylines",
+  "note": "Morphological thinning carries no distance field (report \u00a74.4, \u00a76.6). Unlike Track 3's medial_axis(return_distance=True), every radius here is DERIVED, not native to the skeletonizer."
+ },
+ "raster": {
+  "renderer": "resvg-js",
+  "renderer_version": "2.6.2",
+  "scale": 4.0,
+  "crop_pad_user_units": 4.0,
+  "threshold": "red > 128",
+  "fit_to": "zoom",
+  "crop": "per-element bbox expanded by pad, filled opaque black",
+  "pixel_to_svg": "svg = cropOrigin + (pixelIndex + 0.5) / scale"
+ },
+ "nodes": [
+  {
+   "id": "e000n0000",
+   "x": 150.375,
+   "y": 149.875,
+   "radius": 14.0
+  },
+  {
+   "id": "e000n0001",
+   "x": 240.1616,
+   "y": 60.0884,
+   "radius": 9.8069
+  },
+  {
+   "id": "e000n0002",
+   "x": 240.1156,
+   "y": 239.8698,
+   "radius": 9.8448
+  },
+  {
+   "id": "e000n0003",
+   "x": 149.625,
+   "y": 149.875,
+   "radius": 14.0
+  },
+  {
+   "id": "e000n0004",
+   "x": 60.0931,
+   "y": 239.9156,
+   "radius": 9.9977
+  },
+  {
+   "id": "e000n0005",
+   "x": 60.0909,
+   "y": 60.0865,
+   "radius": 9.9977
+  }
+ ],
+ "edges": [
+  {
+   "id": "e000b0000",
+   "from": "e000n0000",
+   "to": "e000n0001",
+   "geometry": [
+    [
+     150.375,
+     149.875
+    ],
+    [
+     150.375,
+     149.625
+    ],
+    [
+     237.875,
+     62.125
+    ],
+    [
+     238.625,
+     61.625
+    ],
+    [
+     240.1616,
+     60.0884
+    ]
+   ],
+   "geometryType": "polyline",
+   "length": 127.0682,
+   "medianRadius": 10.0144,
+   "radiusStd": 0.5463,
+   "radii": [
+    14.0,
+    14.0022,
+    10.0778,
+    9.8995,
+    9.8069
+   ],
+   "closed": false,
+   "sourceElementId": "el000",
+   "sourceElementFill": "#222222"
+  },
+  {
+   "id": "e000b0001",
+   "from": "e000n0002",
+   "to": "e000n0000",
+   "geometry": [
+    [
+     240.1156,
+     239.8698
+    ],
+    [
+     238.625,
+     238.375
+    ],
+    [
+     237.875,
+     237.875
+    ],
+    [
+     151.125,
+     151.125
+    ],
+    [
+     150.375,
+     149.875
+    ]
+   ],
+   "geometryType": "polyline",
+   "length": 127.1532,
+   "medianRadius": 10.014,
+   "radiusStd": 0.5558,
+   "radii": [
+    9.8448,
+    9.8995,
+    10.0778,
+    13.2877,
+    14.0
+   ],
+   "closed": false,
+   "sourceElementId": "el000",
+   "sourceElementFill": "#222222"
+  },
+  {
+   "id": "e000b0002",
+   "from": "e000n0003",
+   "to": "e000n0004",
+   "geometry": [
+    [
+     149.625,
+     149.875
+    ],
+    [
+     148.625,
+     151.375
+    ],
+    [
+     61.625,
+     238.375
+    ],
+    [
+     60.0931,
+     239.9156
+    ]
+   ],
+   "geometryType": "polyline",
+   "length": 127.012,
+   "medianRadius": 10.0149,
+   "radiusStd": 0.5536,
+   "radii": [
+    14.0,
+    13.06,
+    10.0778,
+    9.9977
+   ],
+   "closed": false,
+   "sourceElementId": "el000",
+   "sourceElementFill": "#222222"
+  },
+  {
+   "id": "e000b0003",
+   "from": "e000n0000",
+   "to": "e000n0003",
+   "geometry": [
+    [
+     150.375,
+     149.875
+    ],
+    [
+     150.125,
+     150.125
+    ],
+    [
+     149.625,
+     149.875
+    ]
+   ],
+   "geometryType": "polyline",
+   "length": 0.9126,
+   "medianRadius": 14.1613,
+   "radiusStd": 0.1043,
+   "radii": [
+    14.0,
+    14.25,
+    14.0
+   ],
+   "closed": false,
+   "sourceElementId": "el000",
+   "sourceElementFill": "#222222"
+  },
+  {
+   "id": "e000b0004",
+   "from": "e000n0003",
+   "to": "e000n0005",
+   "geometry": [
+    [
+     149.625,
+     149.875
+    ],
+    [
+     149.625,
+     149.625
+    ],
+    [
+     61.625,
+     61.625
+    ],
+    [
+     60.0909,
+     60.0865
+    ]
+   ],
+   "geometryType": "polyline",
+   "length": 126.8734,
+   "medianRadius": 10.0149,
+   "radiusStd": 0.5466,
+   "radii": [
+    14.0,
+    14.0022,
+    10.0778,
+    9.9977
+   ],
+   "closed": false,
+   "sourceElementId": "el000",
+   "sourceElementFill": "#222222"
+  }
+ ]
+}
