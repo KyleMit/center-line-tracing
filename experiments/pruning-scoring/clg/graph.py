@@ -82,6 +82,14 @@ class Edge:
         prof = self.radii()
         return prof if node_id == self.frm else list(reversed(prof))
 
+    def beziers_from(self, node_id: str) -> list:
+        """Cubic segments ordered so they start at `node_id`'s end."""
+        if not self.beziers:
+            return []
+        if node_id == self.frm:
+            return list(self.beziers)
+        return _reverse_beziers(self.beziers)
+
     def radii(self) -> list[float]:
         """Per-point radius profile, resampled/filled to len(points)."""
         n = len(self.points)
@@ -100,6 +108,11 @@ class Edge:
 
     def bezier_segment_count(self) -> int:
         return len(self.beziers) if self.beziers else 0
+
+
+def _reverse_beziers(segments: list) -> list:
+    """Reverse a list of cubic segments (order and each segment's control points)."""
+    return [list(reversed(list(seg))) for seg in reversed(list(segments))]
 
 
 @dataclass
@@ -383,10 +396,20 @@ class CenterlineGraph:
         return [v for _, v in sorted(out.items())]
 
     def is_bridge(self, edge_id: str) -> bool:
-        """True if removing this edge increases the component count."""
-        before = len(self.connected_components())
+        """True if removing this edge strands geometry — i.e. splits a component.
+
+        Counted over nodes that still carry at least one edge, so a terminal edge
+        (whose removal merely leaves its tip node dangling) is correctly NOT a
+        bridge. Getting this wrong would block every prune.
+        """
+
+        def live_components(g: "CenterlineGraph") -> int:
+            live = {nid for e in g.edges.values() for nid in (e.frm, e.to)}
+            return sum(1 for c in g.connected_components() if c & live)
+
+        before = live_components(self)
         e = self.edges.pop(edge_id)
-        after = len(self.connected_components())
+        after = live_components(self)
         self.edges[edge_id] = e
         return after > before
 
@@ -436,58 +459,78 @@ class CenterlineGraph:
     def merge_chains(self) -> int:
         """Splice edges through every degree-2 node. Returns the merge count.
 
-        This is the canonical form for pruning and complexity accounting: a chain
-        of collinear degree-2 splits is an extraction artifact, not real topology,
-        and leaving it in makes branch counts incomparable across backends.
+        **This is the canonical form, and pruning requires it.** A chain of
+        degree-2 splits is an extraction artifact, not real topology, and backends
+        disagree wildly about it: flo-mat emits 426 edges for a single noisy
+        capsule where skimage-skan emits 61. Without canonicalization, a pruning
+        threshold expressed in stroke widths means something different for every
+        backend — measured: pruning flo-mat's un-merged case-20 graph at lam=1.0
+        destroys the skeleton (426 edges -> 11, IoU 0.77 -> 0.28) because each
+        individual edge is short relative to the local stroke width, so the tips
+        cascade inwards. After merging, lam=1.0 means what it says.
         """
         merged = 0
-        changed = True
-        while changed:
-            changed = False
-            adj = self.adjacency()
-            for nid, eids in adj.items():
-                if len(eids) != 2:
+        adj = self.adjacency()
+        queue = [nid for nid, eids in adj.items() if len(eids) == 2]
+        while queue:
+            nid = queue.pop()
+            eids = adj.get(nid)
+            if not eids or len(eids) != 2:
+                continue
+            a_id, b_id = eids
+            if a_id == b_id:
+                continue
+            a, b = self.edges.get(a_id), self.edges.get(b_id)
+            if a is None or b is None:
+                continue
+            if a.is_dot() or b.is_dot():
+                continue
+            # geometry oriented away from the shared node, then reversed for a
+            a_pts = a.points_from(nid)
+            b_pts = b.points_from(nid)
+            a_rad = a.radii_from(nid)
+            b_rad = b.radii_from(nid)
+            pts = geom.dedupe(list(reversed(a_pts))[:-1] + b_pts)
+            if len(pts) < 2:
+                continue
+            rad = (list(reversed(a_rad))[:-1] + b_rad) if (a_rad and b_rad) else []
+            if rad and len(rad) != len(pts):
+                rad = geom.resample_profile(rad, len(pts))
+            # cubic segments survive the splice, so bezier complexity stays honest
+            bez = None
+            if a.beziers and b.beziers:
+                bez = _reverse_beziers(a.beziers_from(nid)) + b.beziers_from(nid)
+            new = Edge(
+                id=a.id,
+                frm=a.other(nid),
+                to=b.other(nid),
+                points=pts,
+                length=a.length + b.length,
+                median_radius=geom.median(rad) if rad else a.median_radius,
+                radius_profile=rad,
+                source_element_id=a.source_element_id or b.source_element_id,
+                closed=(a.other(nid) == b.other(nid)),
+                geometry_type="beziers" if bez else "polyline",
+                beziers=bez,
+                extra={**b.extra, **a.extra},
+            )
+            del self.edges[a_id]
+            del self.edges[b_id]
+            self.edges[new.id] = new
+            self.nodes.pop(nid, None)
+            adj.pop(nid, None)
+            # keep the incremental adjacency consistent
+            for endpoint in (new.frm, new.to):
+                lst = adj.get(endpoint)
+                if lst is None:
                     continue
-                a_id, b_id = eids
-                if a_id == b_id:
-                    continue
-                a, b = self.edges.get(a_id), self.edges.get(b_id)
-                if a is None or b is None:
-                    continue
-                # geometry oriented away from the shared node, then reversed for a
-                a_pts = a.points_from(nid)
-                b_pts = b.points_from(nid)
-                a_rad = a.radii_from(nid)
-                b_rad = b.radii_from(nid)
-                pts = list(reversed(a_pts))[:-1] + b_pts
-                rad = (list(reversed(a_rad))[:-1] + b_rad) if a_rad and b_rad else []
-                new = Edge(
-                    id=a.id,
-                    frm=a.other(nid),
-                    to=b.other(nid),
-                    points=geom.dedupe(pts),
-                    length=a.length + b.length,
-                    median_radius=geom.median(rad) if rad else a.median_radius,
-                    radius_profile=rad,
-                    source_element_id=a.source_element_id or b.source_element_id,
-                    closed=False,
-                    geometry_type="polyline",
-                    beziers=None,
-                    extra={**b.extra, **a.extra},
-                )
-                if len(new.points) < 2:
-                    continue
-                if len(new.radius_profile) != len(new.points):
-                    new.radius_profile = geom.resample_profile(
-                        new.radius_profile, len(new.points)
-                    ) if new.radius_profile else []
-                del self.edges[a_id]
-                del self.edges[b_id]
-                self.edges[new.id] = new
-                del self.nodes[nid]
-                merged += 1
-                changed = True
-                break
+                adj[endpoint] = [new.id if x in (a_id, b_id) else x for x in lst]
+                seen_self = [x for x in adj[endpoint] if x == new.id]
+                if len(seen_self) > 1 and new.frm != new.to:
+                    adj[endpoint] = [x for x in adj[endpoint] if x != new.id] + [new.id]
+                if len(adj[endpoint]) == 2 and endpoint not in queue:
+                    queue.append(endpoint)
+            merged += 1
         return merged
 
     # ------------------------------------------------------------ measures
