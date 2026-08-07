@@ -1,0 +1,238 @@
+{
+ "schema": "centerline-graph/1",
+ "backend": "flo-mat@4.1.0",
+ "image": "15-t-junction",
+ "source": "debug/flo-mat/corpus/15-t-junction.svg",
+ "options": {
+  "applySat": false,
+  "satScale": 2,
+  "simplify": true,
+  "satSweep": null,
+  "caps": "apex",
+  "capK": 1,
+  "widthMode": "measured",
+  "variableWidth": 0,
+  "contractEps": 0.001,
+  "minChainLength": 0
+ },
+ "nodes": [
+  {
+   "id": "g0_g0_n0",
+   "x": 49.9732,
+   "y": 59.9241,
+   "radius": 10
+  },
+  {
+   "id": "g0_g0_n5",
+   "x": 140,
+   "y": 60,
+   "radius": 10
+  },
+  {
+   "id": "g0_g0_n6",
+   "x": 150,
+   "y": 62.5,
+   "radius": 12.5
+  },
+  {
+   "id": "g0_g0_n7",
+   "x": 150,
+   "y": 185,
+   "radius": 10
+  },
+  {
+   "id": "g0_g0_n12",
+   "x": 160,
+   "y": 60,
+   "radius": 10
+  },
+  {
+   "id": "g0_g0_n13",
+   "x": 250,
+   "y": 60,
+   "radius": 10
+  }
+ ],
+ "edges": [
+  {
+   "id": "g0_g0_e4",
+   "from": "g0_g0_n0",
+   "to": "g0_g0_n5",
+   "geometry": [
+    [
+     [
+      50,
+      60
+     ],
+     [
+      140,
+      60
+     ]
+    ]
+   ],
+   "length": 90,
+   "medianRadius": 10,
+   "radiusProfile": [
+    10,
+    10,
+    10,
+    10.0001,
+    10,
+    10,
+    10,
+    10,
+    10
+   ],
+   "sourceElementId": "s0"
+  },
+  {
+   "id": "g0_g0_e5",
+   "from": "g0_g0_n5",
+   "to": "g0_g0_n6",
+   "geometry": [
+    [
+     [
+      140,
+      60
+     ],
+     [
+      145,
+      60
+     ],
+     [
+      150,
+      62.5
+     ]
+    ]
+   ],
+   "length": 10.4021,
+   "medianRadius": 11.25,
+   "radiusProfile": [
+    10,
+    10.0391,
+    10.1562,
+    10.3516,
+    10.625,
+    10.9766,
+    11.4062,
+    11.9141,
+    12.5
+   ],
+   "sourceElementId": "s0"
+  },
+  {
+   "id": "g0_g0_e6",
+   "from": "g0_g0_n6",
+   "to": "g0_g0_n7",
+   "geometry": [
+    [
+     [
+      150,
+      62.5
+     ],
+     [
+      150,
+      185
+     ]
+    ]
+   ],
+   "length": 122.5,
+   "medianRadius": 11.25,
+   "radiusProfile": [
+    12.5,
+    10,
+    10.0001,
+    10.0001,
+    10.0001,
+    10,
+    10,
+    10,
+    10
+   ],
+   "sourceElementId": "s0"
+  },
+  {
+   "id": "g0_g0_e11",
+   "from": "g0_g0_n6",
+   "to": "g0_g0_n12",
+   "geometry": [
+    [
+     [
+      150,
+      62.5
+     ],
+     [
+      155,
+      60
+     ],
+     [
+      160,
+      60
+     ]
+    ]
+   ],
+   "length": 10.4021,
+   "medianRadius": 11.25,
+   "radiusProfile": [
+    12.5,
+    11.9141,
+    11.4062,
+    10.9766,
+    10.625,
+    10.3516,
+    10.1562,
+    10.0391,
+    10
+   ],
+   "sourceElementId": "s0"
+  },
+  {
+   "id": "g0_g0_e12",
+   "from": "g0_g0_n12",
+   "to": "g0_g0_n13",
+   "geometry": [
+    [
+     [
+      160,
+      60
+     ],
+     [
+      247.5385,
+      60
+     ],
+     [
+      250,
+      60
+     ]
+    ]
+   ],
+   "length": 90,
+   "medianRadius": 10,
+   "radiusProfile": [
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10.0001,
+    10
+   ],
+   "sourceElementId": "s0"
+  }
+ ],
+ "stats": {
+  "nodes": 6,
+  "edges": 5,
+  "beziers": 5,
+  "controlPoints": 13,
+  "strokes": 3,
+  "terminals": 3,
+  "junctions": 1,
+  "deg3": 1,
+  "deg4": 0,
+  "degGE5": 0,
+  "totalLength": 323.30421724476787
+ }
+}
