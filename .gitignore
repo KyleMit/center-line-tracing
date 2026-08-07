@@ -5,3 +5,5 @@ pycache/
 .DS_Store
 .env
 debug/flo-mat/scratch/
+
+__pycache__/
