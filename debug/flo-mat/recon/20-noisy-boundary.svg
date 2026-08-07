@@ -33,10 +33,10 @@
 <path d="M200.946 99.485L193.15 100.434" fill="none" stroke="#000" stroke-width="18.268" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M200.116 94.501L200.038 93.902" fill="none" stroke="#000" stroke-width="9.416" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M200.116 94.501L197.93 90.003" fill="none" stroke="#000" stroke-width="5.553" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M200.038 93.902L200.502 89.503" fill="none" stroke="#000" stroke-width="4.418" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M200.038 93.902Q200.322 91.207 200.502 89.503" fill="none" stroke="#000" stroke-width="3.921" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M199.959 93.364L199.859 89.468" fill="none" stroke="#000" stroke-width="4.44" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M199.959 93.364L199.216 89.536" fill="none" stroke="#000" stroke-width="4.44" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M199.991 93.645Q199.493 92.267 198.573 89.719" fill="none" stroke="#000" stroke-width="5.367" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M199.991 93.645L198.573 89.719" fill="none" stroke="#000" stroke-width="4.759" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M193.15 100.434C191.89 100.253 190.633 100.052 189.372 99.876" fill="none" stroke="#000" stroke-width="18.949" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M193.15 100.434C193.304 101.73 193.408 103.032 193.566 104.328" fill="none" stroke="#000" stroke-width="15.523" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M189.372 99.876Q189.915 96.388 190.068 95.038" fill="none" stroke="#000" stroke-width="14.581" stroke-linecap="round" stroke-linejoin="round"/>

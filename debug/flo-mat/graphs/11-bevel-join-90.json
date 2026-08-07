@@ -275,6 +275,10 @@
       160
      ],
      [
+      239.9635,
+      160
+     ],
+     [
       240,
       160
      ]
@@ -285,12 +289,12 @@
    "radiusProfile": [
     10,
     10,
-    10.0001,
     10,
     10,
     10,
     10.0001,
     10,
+    10.0001,
     10
    ],
    "sourceElementId": "s0"
@@ -300,13 +304,13 @@
   "nodes": 8,
   "edges": 7,
   "beziers": 7,
-  "controlPoints": 17,
+  "controlPoints": 18,
   "strokes": 5,
   "terminals": 4,
   "junctions": 2,
   "deg3": 2,
   "deg4": 0,
   "degGE5": 0,
-  "totalLength": 319.76435528130094
+  "totalLength": 319.7643196504459
  }
 }

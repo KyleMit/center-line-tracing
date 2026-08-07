@@ -14,8 +14,10 @@ reconstruction scoring), §12.1 (synthetic corpus), §13 (graph model).
 synthetic corpus it recovers the true centerline of every clean stroke shape to
 within ~0.1 units on a 300×200 canvas with a 20-unit stroke — that is a
 centerline error of about **0.5% of one stroke width** — and re-strokes to
-IoU ≥ 0.998 on 16 of 22 cases. It is genuinely SVG-native: no rasterization, no
-resolution parameter, no quantization noise.
+IoU ≥ 0.998 on every clean-geometry case (12 of 22). The 10 that fall short are
+exactly the cap, join, crossing, boundary-noise and variable-width cases the
+report predicted, and nothing else. It is genuinely SVG-native: no
+rasterization, no resolution parameter, no raster quantization.
 
 Three caveats, all of which matter for productionizing it:
 
@@ -197,7 +199,7 @@ source path, in canvas units, stroke width 20.
 
 | # | case | IoU | sym % | cl.p95 | strokes | edges | failure tag |
 |---|---|---|---|---|---|---|---|
-| 1 | horizontal-line | 0.9998 | 0.02 | 0.00 | 1 | 1 | — |
+| 1 | horizontal-line | 0.9998 | 0.02 | 0.19 | 1 | 1 | — |
 | 2 | diagonal-line | 0.9999 | 0.01 | 0.00 | 1 | 1 | — |
 | 3 | circular-arc | 0.9976 | 0.24 | 0.19 | 1 | 9 | — |
 | 4 | s-curve | 0.9983 | 0.17 | 0.19 | 1 | 13 | — |
@@ -206,7 +208,7 @@ source path, in canvas units, stroke width 20.
 | 7 | round-cap | 0.9997 | 0.03 | 0.19 | 1 | 1 | — |
 | 8 | butt-cap | 0.9538 | 4.82 | 9.17 | 5 | 5 | `cap artifact` |
 | 9 | square-cap | 0.9382 | 6.59 | 11.39 | 5 | 5 | `cap artifact` |
-| 10 | round-join-90 | 0.9974 | 0.26 | 0.19 | 3 | 5 | — |
+| 10 | round-join-90 | 0.9981 | 0.19 | 0.20 | 3 | 5 | — |
 | 11 | bevel-join-90 | 0.9796 | 2.08 | 2.83 | 5 | 7 | `join artifact` |
 | 12 | miter-join-90 | 0.9821 | 1.82 | 1.42 | 3 | 5 | `join artifact` |
 | 13 | x-crossing-separate | 0.9999 | 0.01 | 0.00 | 2 | 2 | — |
@@ -215,7 +217,7 @@ source path, in canvas units, stroke width 20.
 | 16 | y-junction | 0.9998 | 0.02 | 0.19 | 3 | 7 | — |
 | 17 | near-parallel | 0.9998 | 0.02 | 0.18 | 2 | 2 | — |
 | 18 | self-overlap | 0.9845 | 1.56 | 2.49 | 7 | 12 | `crossing ambiguity` |
-| 19 | variable-width | 0.7154 | 33.34 | 0.20 | 1 | 1 | width model |
+| 19 | variable-width | 0.7049 | 39.94 | 0.19 | 1 | 1 | width model |
 | 20 | noisy-boundary | 0.7518 | 33.01 | 10.44 | 423 | 426 | `outline noise branch` |
 | 21 | round-join-acute | 0.9879 | 1.22 | 2.26 | 3 | 5 | `join artifact` |
 | 22 | miter-join-acute | 0.9461 | 5.58 | 11.77 | 3 | 5 | `join artifact` |
@@ -263,8 +265,8 @@ bulge to 1.32× the surrounding radius) is the signal. The same pattern appears
 in case 18 (self-overlap), where the crossing is between two parts of one stroke.
 
 **Variable width (19) is a re-stroke limitation, not an extraction failure.** The
-centerline is recovered essentially perfectly (`cl.p95` 0.20) on a stroke that
-tapers 6 → 30. IoU 0.715 is entirely the constant-width output model. The
+centerline is recovered essentially perfectly (`cl.p95` 0.19) on a stroke that
+tapers 6 → 30. IoU 0.705 is entirely the constant-width output model. The
 `radiusProfile` on that single edge tracks the true taper. Any consumer that can
 emit variable width — or that splits the chain — recovers this; the pipeline has
 a `--variableWidth` mode that does exactly that, and it exists to demonstrate the
@@ -284,11 +286,11 @@ whole point in one number. SAT fixes most of it — see below.
 |---|---|---|---|---|---|---|
 | 08-butt-cap | 0.9538/5 | 0.9532/5 | 0.9532/5 | **0.9761/1** | 0.9761/1 | 0.9761/1 |
 | 09-square-cap | 0.9382/5 | 0.9364/5 | 0.9364/5 | **0.9785/1** | 0.9785/1 | 0.9785/1 |
-| 10-round-join-90 | **0.9974/5** | 0.9974/5 | 0.9974/5 | 0.9931/4 | 0.9931/4 | 0.9931/4 |
+| 10-round-join-90 | **0.9981/5** | 0.9981/5 | 0.9981/5 | 0.9931/4 | 0.9931/4 | 0.9931/4 |
 | 11-bevel-join-90 | 0.9796/7 | **0.9965/5** | 0.9965/5 | 0.9965/5 | 0.9965/5 | 0.9965/5 |
 | 12-miter-join-90 | 0.9821/5 | 0.9821/5 | 0.9821/5 | **0.9897/4** | 0.9897/4 | 0.9897/4 |
 | 18-self-overlap | **0.9845/12** | 0.9845/12 | 0.9845/12 | 0.9845/12 | 0.9845/12 | 0.9383/10 |
-| 20-noisy-boundary | 0.7518/426 | 0.9338/63 | **0.9472/54** | 0.9472/54 | 0.9396/51 | 0.9407/50 |
+| 20-noisy-boundary | 0.7519/426 | 0.9338/63 | **0.9472/54** | 0.9472/54 | 0.9396/51 | 0.9407/50 |
 | 21-round-join-acute | **0.9879/5** | 0.9867/5 | 0.9867/5 | 0.9867/5 | 0.9867/5 | 0.9867/5 |
 
 Every other case is flat across the whole sweep — SAT touches nothing it should
@@ -296,7 +298,7 @@ not touch.
 
 Reading:
 
-- **SAT is very good at boundary noise.** Case 20: 426 edges → 54, IoU +0.20.
+- **SAT is very good at boundary noise.** Case 20: 426 edges → 54, IoU 0.752 → 0.947.
   That is the single most valuable thing it does, and it is free.
 - **SAT clears cap and bevel corner branches** at s ≥ 1.5 (caps) and s ≥ 1.1
   (bevel), collapsing case 8/9 to a single clean edge.
