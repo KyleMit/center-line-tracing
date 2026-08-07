@@ -209,6 +209,75 @@ class CenterlineGraph:
             ng.add_edge(keep(e.frm), keep(e.to), e.geometry, e.radii, e.sourceElementId)
         return ng
 
+    def set_width_stat(self, stat="median"):
+        """Choose the per-edge stroke radius statistic.
+
+        `median` is the default. A lower percentile is more robust where an edge
+        passes through a junction, whose inscribed circle is larger than the
+        stroke half-width and inflates the whole edge.
+        """
+        for e in self.edges.values():
+            if not e.radii:
+                continue
+            if stat == "median":
+                e.medianRadius = median(e.radii)
+            elif stat.startswith("p"):
+                q = float(stat[1:]) / 100.0
+                s = sorted(e.radii)
+                e.medianRadius = s[min(len(s) - 1, int(q * len(s)))]
+            elif stat == "min":
+                e.medianRadius = min(e.radii)
+        return self
+
+    def extend_tips(self, geom, max_factor=4.0, steps=24):
+        """Width-aware cap extension (report §9.6).
+
+        Pruning and the clearance-zero filter both stop a branch short of the
+        real stroke end, and a round-capped re-stroke then leaves the tip blunt.
+        Push each leaf forward along its tangent as far as the tip's own
+        inscribed disc still fits inside the shape.
+        """
+        if geom is None:
+            return self
+        from shapely.geometry import Point
+
+        inc = self.incident()
+        deg = {n: len(v) for n, v in inc.items()}
+        for e in self.edges.values():
+            for end in ("frm", "to"):
+                nid = getattr(e, end)
+                if deg.get(nid, 0) != 1 or len(e.geometry) < 2:
+                    continue
+                pts = e.geometry if end == "to" else e.geometry[::-1]
+                (x0, y0), (x1, y1) = pts[-2], pts[-1]
+                dx, dy = x1 - x0, y1 - y0
+                n = math.hypot(dx, dy)
+                if n < 1e-9:
+                    continue
+                dx, dy = dx / n, dy / n
+                r = self.nodes[nid].radius
+                lo, hi = 0.0, max_factor * max(r, 1e-6)
+                best = 0.0
+                for _ in range(steps):
+                    mid = 0.5 * (lo + hi)
+                    p = Point(x1 + dx * mid, y1 + dy * mid)
+                    if geom.contains(p) and p.distance(geom.boundary) >= r * 0.995:
+                        best, lo = mid, mid
+                    else:
+                        hi = mid
+                if best <= 1e-6:
+                    continue
+                nx, ny = x1 + dx * best, y1 + dy * best
+                if end == "to":
+                    e.geometry = e.geometry + [(nx, ny)]
+                    e.radii = e.radii + [r]
+                else:
+                    e.geometry = [(nx, ny)] + e.geometry
+                    e.radii = [r] + e.radii
+                e.length = polyline_length(e.geometry)
+                self.nodes[nid].x, self.nodes[nid].y = nx, ny
+        return self
+
     # -- serialization -------------------------------------------------------
     def to_dict(self, meta=None):
         return {
@@ -288,6 +357,34 @@ def restroke_svg(graph, width, height, stroke="#000", simplify_tol=0.0, backgrou
         )
     parts.append("</svg>")
     return "\n".join(parts)
+
+
+def restroke_geometry_variable(graph, max_discs=40000):
+    """Reconstruction using the FULL medial-axis transform: the union of the
+    inscribed discs along each edge, with the per-point clearance radius.
+
+    This is not a deliverable (an SVG stroke has one width), but comparing it
+    with `restroke_geometry` separates axis error from the error introduced by
+    collapsing each edge to a single stroke width.
+    """
+    from shapely.geometry import Point, LineString
+    from shapely.ops import unary_union
+
+    discs = []
+    for e in graph.edges.values():
+        pts, radii = e.geometry, e.radii or [e.medianRadius] * len(e.geometry)
+        for i, (p, r) in enumerate(zip(pts, radii)):
+            if r <= 0:
+                continue
+            discs.append(Point(p).buffer(r, resolution=8))
+            if i + 1 < len(pts):
+                # bridge the gap between consecutive samples
+                seg = LineString([pts[i], pts[i + 1]])
+                if seg.length > 0:
+                    discs.append(seg.buffer(min(r, radii[i + 1]), cap_style=1, resolution=8))
+        if len(discs) > max_discs:
+            break
+    return unary_union(discs) if discs else None
 
 
 def restroke_geometry(graph, simplify_tol=0.0):

@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import svgpoly
 import metrics as M
-from graph import restroke_svg, restroke_geometry
+from graph import restroke_svg, restroke_geometry, restroke_geometry_variable
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
 DEBUG = os.path.join(ROOT, "debug", "native-geometry")
@@ -81,9 +81,13 @@ def process(svg_path, engine="boost", prune_k=1.0, flatness=0.05, opts=None, tag
     graph = graph.contract_chains()
     graph = graph.prune_tips(prune_k)
     graph = graph.drop_short_components(opts.get("min_component", 0.0))
+    orig = svgpoly.total_geometry(els)
+    if opts.get("width_stat", "median") != "median":
+        graph.set_width_stat(opts["width_stat"])
+    if opts.get("extend_tips", True):
+        graph.extend_tips(orig)
     graph_ms = (time.perf_counter() - t0) * 1000.0
 
-    orig = svgpoly.total_geometry(els)
     recon = restroke_geometry(graph, simplify_tol=opts.get("simplify", 0.0))
     total_ms = (time.perf_counter() - t_all) * 1000.0
 
@@ -111,6 +115,12 @@ def process(svg_path, engine="boost", prune_k=1.0, flatness=0.05, opts=None, tag
     }
     row.update(M.complexity_metrics(graph))
     row.update(M.area_metrics(orig, recon))
+    if opts.get("mat_metric", True):
+        mat = restroke_geometry_variable(graph)
+        if mat is not None:
+            am = M.area_metrics(orig, mat)
+            row["iou_mat"] = am["iou"]
+            row["symdiff_frac_mat"] = am["symdiff_frac"]
     row.update(M.boundary_metrics(orig, recon))
 
     gt_path = os.path.join(os.path.dirname(svg_path), name + ".json")
@@ -158,7 +168,7 @@ def bench(args):
             files = files[: args.limit]
         subdir = "real"
 
-    opts = {}
+    opts = {"width_stat": args.width_stat, "extend_tips": not args.no_extend}
     if args.simplify:
         opts["simplify"] = args.simplify
     if args.min_component:
@@ -204,6 +214,8 @@ def main():
     b.add_argument("--simplify", type=float, default=0.0)
     b.add_argument("--min-component", dest="min_component", type=float, default=0.0)
     b.add_argument("--limit", type=int, default=0)
+    b.add_argument("--width-stat", dest="width_stat", default="median")
+    b.add_argument("--no-extend", dest="no_extend", action="store_true")
     b.add_argument("--tag", default="")
     b.set_defaults(func=bench)
 
@@ -214,10 +226,12 @@ def main():
     o.add_argument("--flatness", type=float, default=0.05)
     o.add_argument("--simplify", type=float, default=0.0)
     o.add_argument("--min-component", dest="min_component", type=float, default=0.0)
+    o.add_argument("--width-stat", dest="width_stat", default="median")
+    o.add_argument("--no-extend", dest="no_extend", action="store_true")
     o.add_argument("--tag", default="")
 
     def one(args):
-        opts = {}
+        opts = {"width_stat": args.width_stat, "extend_tips": not args.no_extend}
         if args.simplify:
             opts["simplify"] = args.simplify
         if args.min_component:
