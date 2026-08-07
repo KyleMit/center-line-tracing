@@ -1,0 +1,194 @@
+{
+ "house-wide": {
+  "per_path_pct": 0.05,
+  "best_global_width": 21.14,
+  "best_global_pct": 0.05,
+  "improvement_factor": 1.0,
+  "width_range_in_drawing": [
+   17.11,
+   26.79
+  ],
+  "sweep": [
+   {
+    "width": 17.107,
+    "compare_js_pct": 0.41
+   },
+   {
+    "width": 17.914,
+    "compare_js_pct": 0.23
+   },
+   {
+    "width": 18.72,
+    "compare_js_pct": 0.12
+   },
+   {
+    "width": 19.527,
+    "compare_js_pct": 0.08
+   },
+   {
+    "width": 20.333,
+    "compare_js_pct": 0.06
+   },
+   {
+    "width": 21.14,
+    "compare_js_pct": 0.05
+   },
+   {
+    "width": 21.946,
+    "compare_js_pct": 0.05
+   },
+   {
+    "width": 22.753,
+    "compare_js_pct": 0.06
+   },
+   {
+    "width": 23.56,
+    "compare_js_pct": 0.11
+   },
+   {
+    "width": 24.366,
+    "compare_js_pct": 0.22
+   },
+   {
+    "width": 25.173,
+    "compare_js_pct": 0.4
+   },
+   {
+    "width": 25.979,
+    "compare_js_pct": 0.62
+   },
+   {
+    "width": 26.786,
+    "compare_js_pct": 0.85
+   }
+  ]
+ },
+ "dinosaur-wide": {
+  "per_path_pct": 0.03,
+  "best_global_width": 14.141,
+  "best_global_pct": 0.04,
+  "improvement_factor": 1.33,
+  "width_range_in_drawing": [
+   9.11,
+   24.19
+  ],
+  "sweep": [
+   {
+    "width": 9.114,
+    "compare_js_pct": 0.72
+   },
+   {
+    "width": 10.371,
+    "compare_js_pct": 0.45
+   },
+   {
+    "width": 11.627,
+    "compare_js_pct": 0.23
+   },
+   {
+    "width": 12.884,
+    "compare_js_pct": 0.09
+   },
+   {
+    "width": 14.141,
+    "compare_js_pct": 0.04
+   },
+   {
+    "width": 15.397,
+    "compare_js_pct": 0.04
+   },
+   {
+    "width": 16.654,
+    "compare_js_pct": 0.06
+   },
+   {
+    "width": 17.911,
+    "compare_js_pct": 0.13
+   },
+   {
+    "width": 19.167,
+    "compare_js_pct": 0.24
+   },
+   {
+    "width": 20.424,
+    "compare_js_pct": 0.43
+   },
+   {
+    "width": 21.681,
+    "compare_js_pct": 0.69
+   },
+   {
+    "width": 22.937,
+    "compare_js_pct": 1.01
+   },
+   {
+    "width": 24.194,
+    "compare_js_pct": 1.35
+   }
+  ]
+ },
+ "landscape-square": {
+  "per_path_pct": 0.39,
+  "best_global_width": 21.921,
+  "best_global_pct": 1.5,
+  "improvement_factor": 3.85,
+  "width_range_in_drawing": [
+   16.58,
+   29.4
+  ],
+  "sweep": [
+   {
+    "width": 16.581,
+    "compare_js_pct": 2.96
+   },
+   {
+    "width": 17.649,
+    "compare_js_pct": 2.51
+   },
+   {
+    "width": 18.717,
+    "compare_js_pct": 2.13
+   },
+   {
+    "width": 19.785,
+    "compare_js_pct": 1.82
+   },
+   {
+    "width": 20.853,
+    "compare_js_pct": 1.58
+   },
+   {
+    "width": 21.921,
+    "compare_js_pct": 1.5
+   },
+   {
+    "width": 22.989,
+    "compare_js_pct": 1.5
+   },
+   {
+    "width": 24.057,
+    "compare_js_pct": 1.62
+   },
+   {
+    "width": 25.125,
+    "compare_js_pct": 1.89
+   },
+   {
+    "width": 26.193,
+    "compare_js_pct": 2.23
+   },
+   {
+    "width": 27.261,
+    "compare_js_pct": 2.62
+   },
+   {
+    "width": 28.329,
+    "compare_js_pct": 3.03
+   },
+   {
+    "width": 29.397,
+    "compare_js_pct": 3.47
+   }
+  ]
+ }
+}
