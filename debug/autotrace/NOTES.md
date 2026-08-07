@@ -197,7 +197,7 @@ and so on). This is `autotrace -centerline` plus a distance transform.
 | tag | where | notes |
 |---|---|---|
 | `raster quantization` | everywhere, structurally | ~1.1–1.4 raster px of centerline error at every scale — see the table above. The defining weakness of this backend. |
-| `missing narrow segment` | `butterfly-wide`, `island-tall` (1 element each), `dinosaur-wide` at scale 1 | a small source element yields no traced subpath at all. Scale-dependent: raising `--scale` fixes it, which confirms it is quantization, not a tracing bug. |
+| `missing narrow segment` | `butterfly-wide`, `island-tall` (1 element each) | **two distinct causes, see below.** |
 | `crossing ambiguity` | synthetic case 14 (unioned X) | 3 subpaths where 2 strokes exist, centerline P95 2.89u vs 0.53u for the same X kept as separate shapes — a **5.5× penalty for merged source elements**, exactly as report §2.5 predicts. Left for Track 8. |
 | `join artifact` | synthetic case 12 (miter join) | the acute corner is split into 2 subpaths rather than traced through; P95 1.27u. |
 | `excessive curve complexity` | `landscape-square` at scale 1 | 204 strokes vs 92 at scale 4 for the same drawing — coarse rasterisation fragments long strokes. |
@@ -274,3 +274,32 @@ otherwise:
   14s for the entire element-wise pipeline, and produces hairline output with no
   width information (IoU 0.0000 as scored). **Binary masks are not an
   optimisation here, they are the difference between working and not working.**
+
+### `missing narrow segment` has two different causes — one is not fixable by resolution
+
+I initially assumed both were raster quantization. Only one is.
+
+**Cause 1 — quantization (fixable).** At `--scale 1`, `dinosaur-wide` loses an
+element that scale 2 and above recovers. Ordinary under-sampling.
+
+**Cause 2 — degenerate medial axis (NOT fixable by resolution).** In
+`butterfly-wide`, element `e004` is a solid `<circle>` — one of the two dots at
+the antenna tips. A disc's medial axis is a **single point**, so there is no
+centerline to trace, and autotrace returns nothing at all:
+
+| raster scale | element radius in mask | subpaths emitted for `e004` | for its twin `e005` |
+|---|---|---|---|
+| 4 | 26.7px | **0** | 1 |
+| 8 | 53.1px | **0** | 1 |
+
+Doubling the resolution changes nothing, which is the proof that this is not
+quantization. The two identical dots do not even behave the same way — one
+yields nothing, its twin yields a degenerate stub — so autotrace's behaviour on
+a disc is essentially arbitrary. This is visible in the contact sheet as the
+missing antenna tips in `butterfly-wide`.
+
+This is a real limitation of centerline tracing as a formulation, not a bug:
+a filled dot is not a stroke, it is a cap with no stroke attached. The fix is a
+pre-pass that detects near-circular components and emits a zero-length
+round-capped stroke for them, which belongs with Track 8's semantic layer rather
+than here.
