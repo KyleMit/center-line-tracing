@@ -308,9 +308,11 @@ def extract_document(doc: svgio.SvgDoc, cfg: ExtractConfig
                 # Always *measure* cap mismatch, whether or not we correct it:
                 # how far the outline is past the skeleton end, versus the local
                 # radius.  A round cap gives ~0; a taper or butt cap does not.
-                cap_deltas += _cap_deltas(radii_full, sk, i, mask, cfg)
+                free = (int(sk.degrees[src]) == 1, int(sk.degrees[dst]) == 1)
+                cap_deltas += _cap_deltas(radii_full, sk, i, mask, cfg, free)
                 if cfg.cap_extend:
-                    pts, radii_full = _extend_caps(pts, radii_full, sk, i, mask, rast, cfg)
+                    pts, radii_full = _extend_caps(pts, radii_full, sk, i, mask,
+                                                   rast, cfg, free)
 
             r_med_raw = float(np.median(radii_full)) or 1.0
             step = cfg.resample if cfg.resample > 0 else max(0.5, r_med_raw / 8.0)
@@ -374,8 +376,13 @@ def extract_document(doc: svgio.SvgDoc, cfg: ExtractConfig
 
 
 def _cap_deltas(radii: np.ndarray, sk, path_index: int, mask: np.ndarray,
-                cfg: ExtractConfig) -> list[float]:
-    """(outline reach - local radius) / local radius at each terminal end."""
+                cfg: ExtractConfig, free: tuple[bool, bool]) -> list[float]:
+    """(outline reach - local radius) / local radius at each FREE end.
+
+    Only degree-1 ends count.  Marching outward from a junction node hits the
+    far side of the other stroke, which would flag every junction as a cap
+    artifact — the first version of this detector did exactly that.
+    """
     px = sk.path_coordinates(path_index)
     if len(px) < 4:
         return []
@@ -384,6 +391,8 @@ def _cap_deltas(radii: np.ndarray, sk, path_index: int, mask: np.ndarray,
         (0, px[0], px[0] - px[3]),
         (len(px) - 1, px[-1], px[-1] - px[-4]),
     ):
+        if not free[0 if idx == 0 else 1]:
+            continue
         r_local = float(radii[idx]) * cfg.scale
         if r_local < 1.0:
             continue
@@ -394,8 +403,8 @@ def _cap_deltas(radii: np.ndarray, sk, path_index: int, mask: np.ndarray,
 
 
 def _extend_caps(pts: np.ndarray, radii: np.ndarray, sk, path_index: int,
-                 mask: np.ndarray, rast: raster.Raster, cfg: ExtractConfig
-                 ) -> tuple[np.ndarray, np.ndarray]:
+                 mask: np.ndarray, rast: raster.Raster, cfg: ExtractConfig,
+                 free: tuple[bool, bool]) -> tuple[np.ndarray, np.ndarray]:
     """Push a terminal end out to the outline, then back off one local radius.
 
     The incumbent's `--calibrate-caps` trick (docs/current-attempt-handoff.md).
@@ -405,8 +414,10 @@ def _extend_caps(pts: np.ndarray, radii: np.ndarray, sk, path_index: int,
     out_pts, out_radii = pts.copy(), radii.copy()
     ends = []
     if len(px) >= 4:
-        ends.append((0, px[0], px[0] - px[min(3, len(px) - 1)]))
-        ends.append((len(px) - 1, px[-1], px[-1] - px[max(0, len(px) - 4)]))
+        if free[0]:
+            ends.append((0, px[0], px[0] - px[min(3, len(px) - 1)]))
+        if free[1]:
+            ends.append((len(px) - 1, px[-1], px[-1] - px[max(0, len(px) - 4)]))
     for idx, start_rc, dir_rc in ends:
         r_local = float(radii[idx]) * cfg.scale
         reach = _march_to_edge(mask, np.asarray(start_rc, float), np.asarray(dir_rc, float),

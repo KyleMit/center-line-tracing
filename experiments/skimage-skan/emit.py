@@ -158,11 +158,14 @@ def stroked_svg(graph: CenterlineGraph, fills: dict[str, str],
         f'viewBox="{_fmt(x)} {_fmt(y)} {_fmt(w)} {_fmt(h)}">',
     ]
 
-    def path(d: str, radius: float, colour: str) -> str:
+    # Grouped by colour so fill/linecap/linejoin/stroke are written once per
+    # group instead of once per path — pure file-size hygiene, no geometry
+    # change, and it matters because piecewise width multiplies the path count.
+    groups: dict[str, list[str]] = {}
+
+    def add(d: str, radius: float, colour: str) -> None:
         width = float(np.clip(2.0 * radius * width_scale, min_width, max_width))
-        return (f'<path d="{d}" fill="none" stroke="{colour}" '
-                f'stroke-width="{_fmt(width)}" stroke-linecap="round" '
-                f'stroke-linejoin="round"/>')
+        groups.setdefault(colour, []).append(f'<path d="{d}" stroke-width="{_fmt(width)}"/>')
 
     for edge in graph.edges:
         colour = fills.get(edge.sourceElementId or "", "#000000")
@@ -172,12 +175,18 @@ def stroked_svg(graph: CenterlineGraph, fills: dict[str, str],
                 sub = edge.beziers[start:start + int(run["bezierCount"])]
                 d = bezier_path_d(sub, False)
                 if d:
-                    out.append(path(d, float(run["radius"]), colour))
+                    add(d, float(run["radius"]), colour)
             continue
         d = (bezier_path_d(edge.beziers, edge.closed) if use_beziers
              else polyline_path_d(edge.geometry, edge.closed))
         if d:
-            out.append(path(d, edge.medianRadius or 0.5, colour))
+            add(d, edge.medianRadius or 0.5, colour)
+
+    for colour, paths in groups.items():
+        out.append(f'<g fill="none" stroke="{colour}" stroke-linecap="round" '
+                   f'stroke-linejoin="round">')
+        out.extend(paths)
+        out.append("</g>")
     out.append("</svg>")
     return "\n".join(out) + "\n"
 

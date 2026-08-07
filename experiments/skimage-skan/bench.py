@@ -131,12 +131,12 @@ def fmt(v, spec=".3f"):
 
 def print_table(records: list[dict], corpus: bool = False) -> None:
     if corpus:
-        cols = [("image", 22, "s"), ("tag", 14, "s"), ("iou", 7, ".4f"),
+        cols = [("image", 22, "s"), ("tag", 21, "s"), ("iou", 7, ".4f"),
                 ("centerlineMedian", 9, ".3f"), ("centerlineP95", 9, ".3f"),
                 ("centerlineHausdorff", 10, ".2f"), ("edges", 6, "d"),
                 ("bezierSegments", 6, "d"), ("medianRadius", 7, ".2f")]
     else:
-        cols = [("image", 18, "s"), ("tag", 14, "s"), ("iou", 7, ".4f"),
+        cols = [("image", 18, "s"), ("tag", 21, "s"), ("iou", 7, ".4f"),
                 ("pixelDiffPct", 8, ".2f"), ("symDiffFrac", 8, ".4f"),
                 ("boundaryMedian", 8, ".3f"), ("boundaryP95", 8, ".3f"),
                 ("edges", 6, "d"), ("bezierSegments", 7, "d"),
@@ -239,17 +239,28 @@ def cmd_report(args) -> None:
         print("SYNTHETIC CORPUS")
         print_table(corpus, corpus=True)
         print()
-    totals: dict[str, dict[str, int]] = {}
+    # Failure tags, restricted to the image set every listed tag actually ran
+    # on — otherwise a config that only ran on 3 images looks "cleaner" than one
+    # that ran on 10 purely because of the image count.
+    by_tag: dict[str, dict[str, dict]] = {}
     for r in real:
-        for k, v in (r.get("tags") or {}).items():
-            totals.setdefault(r["tag"], {}).setdefault(k, 0)
-            totals[r["tag"]][k] += v
-    if totals:
-        print("FAILURE TAGS (summed over real inputs)")
-        keys = sorted({k for t in totals.values() for k in t})
-        print(f"{'tag':22s}" + "".join(f"{k[:13]:>15s}" for k in keys))
-        for tag, counts in sorted(totals.items()):
-            print(f"{tag:22s}" + "".join(f"{counts.get(k, 0):>15d}" for k in keys))
+        by_tag.setdefault(r["tag"], {})[r["image"]] = r
+    if not by_tag:
+        return
+    common = set.intersection(*(set(v) for v in by_tag.values()))
+    if not common:
+        common = set(max(by_tag.values(), key=len))
+        by_tag = {t: v for t, v in by_tag.items() if common <= set(v)}
+    keys = sorted({k for v in by_tag.values() for r in v.values()
+                   for k in (r.get("tags") or {})})
+    print(f"FAILURE TAGS  (summed over {len(common)} images common to all rows: "
+          f"{', '.join(sorted(common))})")
+    print(f"{'tag':22s}{'edges':>7s}" + "".join(f"{k[:14]:>16s}" for k in keys))
+    for tag, per_image in sorted(by_tag.items()):
+        recs = [per_image[i] for i in sorted(common)]
+        edges = sum(r["edges"] for r in recs)
+        counts = {k: sum((r.get("tags") or {}).get(k, 0) for r in recs) for k in keys}
+        print(f"{tag:22s}{edges:>7d}" + "".join(f"{counts[k]:>16d}" for k in keys))
 
 
 def main() -> None:
