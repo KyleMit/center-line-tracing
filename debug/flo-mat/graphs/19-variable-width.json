@@ -1,0 +1,78 @@
+{
+ "schema": "centerline-graph/1",
+ "backend": "flo-mat@4.1.0",
+ "image": "19-variable-width",
+ "source": "debug/flo-mat/corpus/19-variable-width.svg",
+ "options": {
+  "applySat": false,
+  "satScale": 2,
+  "simplify": true,
+  "satSweep": null,
+  "caps": "apex",
+  "capK": 1,
+  "widthMode": "chain",
+  "variableWidth": 0,
+  "contractEps": 0.001,
+  "minChainLength": 0
+ },
+ "nodes": [
+  {
+   "id": "g0_g0_n0",
+   "x": 49.992,
+   "y": 99.9772,
+   "radius": 3
+  },
+  {
+   "id": "g0_g0_n5",
+   "x": 250,
+   "y": 100,
+   "radius": 15
+  }
+ ],
+ "edges": [
+  {
+   "id": "g0_g0_e4",
+   "from": "g0_g0_n0",
+   "to": "g0_g0_n5",
+   "geometry": [
+    [
+     [
+      50,
+      100
+     ],
+     [
+      250,
+      100
+     ]
+    ]
+   ],
+   "length": 200,
+   "medianRadius": 9,
+   "radiusProfile": [
+    3,
+    4.4919,
+    5.9893,
+    7.4866,
+    8.9839,
+    10.4812,
+    11.9785,
+    13.4758,
+    15
+   ],
+   "sourceElementId": "s0"
+  }
+ ],
+ "stats": {
+  "nodes": 2,
+  "edges": 1,
+  "beziers": 1,
+  "controlPoints": 2,
+  "strokes": 1,
+  "terminals": 2,
+  "junctions": 0,
+  "deg3": 0,
+  "deg4": 0,
+  "degGE5": 0,
+  "totalLength": 200.06820688558622
+ }
+}

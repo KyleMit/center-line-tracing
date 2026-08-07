@@ -11,9 +11,14 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "fit-curve": "^0.2.0",
+    "flo-mat": "^4.1.0",
+    "paper": "^0.12.18",
     "pixelmatch": "^7.2.0",
     "pngjs": "^7.0.0",
     "sharp": "^0.35.2",
-    "simplify-js": "^1.2.4"
+    "simplify-js": "^1.2.4",
+    "svg-path-commander": "^2.3.1"
   }
 }

@@ -1,0 +1,121 @@
+{
+ "schema": "centerline-graph/1",
+ "backend": "flo-mat@4.1.0",
+ "image": "13-x-crossing-separate",
+ "source": "debug/flo-mat/corpus/13-x-crossing-separate.svg",
+ "options": {
+  "applySat": false,
+  "satScale": 2,
+  "simplify": true,
+  "satSweep": null,
+  "caps": "apex",
+  "capK": 1,
+  "widthMode": "chain",
+  "variableWidth": 0,
+  "contractEps": 0.001,
+  "minChainLength": 0
+ },
+ "nodes": [
+  {
+   "id": "g0_g0_n0",
+   "x": 49.9732,
+   "y": 39.9241,
+   "radius": 10.0009
+  },
+  {
+   "id": "g0_g0_n5",
+   "x": 249.9977,
+   "y": 159.9991,
+   "radius": 10.0009
+  },
+  {
+   "id": "g1_g0_n0",
+   "x": 249.9728,
+   "y": 39.9227,
+   "radius": 10.0009
+  },
+  {
+   "id": "g1_g0_n2",
+   "x": 50.0023,
+   "y": 159.9991,
+   "radius": 10.0009
+  }
+ ],
+ "edges": [
+  {
+   "id": "g0_g0_e4",
+   "from": "g0_g0_n0",
+   "to": "g0_g0_n5",
+   "geometry": [
+    [
+     [
+      50.0023,
+      40.0009
+     ],
+     [
+      249.9977,
+      159.9991
+     ]
+    ]
+   ],
+   "length": 233.2331,
+   "medianRadius": 10.0009,
+   "radiusProfile": [
+    10.0009,
+    9.9998,
+    9.9998,
+    10,
+    10,
+    10,
+    9.9998,
+    9.9998,
+    10.0009
+   ],
+   "sourceElementId": "s0"
+  },
+  {
+   "id": "g1_g0_e1",
+   "from": "g1_g0_n0",
+   "to": "g1_g0_n2",
+   "geometry": [
+    [
+     [
+      249.9977,
+      40.0009
+     ],
+     [
+      50.0023,
+      159.9991
+     ]
+    ]
+   ],
+   "length": 233.2331,
+   "medianRadius": 10.0009,
+   "radiusProfile": [
+    10.0009,
+    9.9998,
+    9.9998,
+    10,
+    10,
+    10,
+    9.9998,
+    9.9998,
+    10.0009
+   ],
+   "sourceElementId": "s1"
+  }
+ ],
+ "stats": {
+  "nodes": 4,
+  "edges": 2,
+  "beziers": 2,
+  "controlPoints": 4,
+  "strokes": 2,
+  "terminals": 4,
+  "junctions": 0,
+  "deg3": 0,
+  "deg4": 0,
+  "degGE5": 0,
+  "totalLength": 466.4662689160897
+ }
+}
