@@ -71,10 +71,11 @@ def cross_sheet(images: list[str], tracks: list[str], out: Path) -> None:
                 prom = rec.get("promoted") or {}
                 m = ((rec.get(prom.get("which", "auto")) or {}).get("metrics")
                      or rec.get("publishedBest") or {})
+                err = m.get("sym_diff_ratio")
                 labels.append(
-                    f"{track}  λ={prom.get('lam', '?')}\n"
-                    f"err {m.get('sym_diff_ratio', float('nan')):.4f}  "
-                    f"br {m.get('edges', '?')}"
+                    f"{track}  λ={prom.get('lam', '--')}\n"
+                    + (f"err {err:.4f}  br {m.get('edges', '--')}"
+                       if isinstance(err, (int, float)) else "not in this run")
                 )
             else:
                 row.append(sheets._load_tile("missing"))
