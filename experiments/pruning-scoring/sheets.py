@@ -195,6 +195,12 @@ def main() -> int:
     p_prog.add_argument("--graph", required=True)
     p_prog.add_argument("--out", default=None)
 
+    p_crop = sub.add_parser("crops")
+    p_crop.add_argument("--track", required=True)
+    p_crop.add_argument("--image", required=True)
+    p_crop.add_argument("--n", type=int, default=3)
+    p_crop.add_argument("--out", default=None)
+
     args = ap.parse_args()
     if args.cmd == "cross":
         tracks = args.tracks or sorted(
@@ -208,8 +214,83 @@ def main() -> int:
         gp = Path(args.graph)
         out = Path(args.out or DEBUG / f"progress-{gp.stem}.png")
         progress_sheet(gp, out)
+    elif args.cmd == "crops":
+        out = Path(args.out or DEBUG / f"crops-{args.track}-{args.image}.png")
+        worst_region_crops(args.track, args.image, out, n=args.n)
     return 0
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+
+def worst_region_crops(track: str, image: str, out: Path, *, n: int = 3,
+                       zoom: int = 3) -> None:
+    """Zoomed crops of the worst reconstruction regions.
+
+    "Worst" = the largest connected pieces of the symmetric difference between the
+    source fill and the re-stroked centerline. This is the part of the contact
+    sheet that actually tells you WHAT went wrong, as opposed to how much.
+    """
+    from clg import metrics, restroke
+
+    svg_in = REPO / "inputs" / f"{image}.svg"
+    graph_path = DEBUG / "graphs" / track / f"{image}.json"
+    if not graph_path.exists():
+        print(f"no promoted graph for {track}/{image}")
+        return
+    src = svgio.load_source(str(svg_in))
+    g = CenterlineGraph.load(graph_path)
+    rec = restroke.graph_to_fill(g)
+    sym = src.polygon.symmetric_difference(rec)
+    pieces = sorted(getattr(sym, "geoms", [sym]), key=lambda p: -p.area)[:n]
+    if not pieces:
+        print("no symmetric difference to show")
+        return
+
+    vb = src.view_box
+    px_w = int(vb[2] * zoom)
+    recon_svg = CACHE / "recon-hi" / f"{track}-{image}.svg"
+    svgio.write_graph_svg(g, recon_svg, view_box=vb)
+    jobs = [
+        {"svg": str(svg_in), "png": str(CACHE / "hi" / f"{image}.png"), "width": px_w},
+        {"svg": str(recon_svg), "png": str(CACHE / "hi" / f"{track}-{image}.png"),
+         "width": px_w},
+    ]
+    sheets.render_svgs(jobs)
+
+    from PIL import Image
+    a = Image.open(CACHE / "hi" / f"{image}.png").convert("RGB")
+    b = Image.open(CACHE / "hi" / f"{track}-{image}.png").convert("RGB")
+    scale = a.width / vb[2]
+
+    rows, cell_labels = [], []
+    for piece in pieces:
+        cx, cy = piece.centroid.x, piece.centroid.y
+        half = max(piece.bounds[2] - piece.bounds[0],
+                   piece.bounds[3] - piece.bounds[1], 40.0) * 1.6 / 2
+        box = (
+            int(max(0, (cx - half - vb[0]) * scale)),
+            int(max(0, (cy - half - vb[1]) * scale)),
+            int(min(a.width, (cx + half - vb[0]) * scale)),
+            int(min(a.height, (cy + half - vb[1]) * scale)),
+        )
+        if box[2] - box[0] < 8 or box[3] - box[1] < 8:
+            continue
+        ca, cb = a.crop(box), b.crop(box)
+        ca.thumbnail((sheets.TILE, sheets.TILE), Image.LANCZOS)
+        cb.thumbnail((sheets.TILE, sheets.TILE), Image.LANCZOS)
+        ta = Image.new("RGB", (sheets.TILE, sheets.TILE), (255, 255, 255))
+        tb = Image.new("RGB", (sheets.TILE, sheets.TILE), (255, 255, 255))
+        ta.paste(ca, ((sheets.TILE - ca.width) // 2, (sheets.TILE - ca.height) // 2))
+        tb.paste(cb, ((sheets.TILE - cb.width) // 2, (sheets.TILE - cb.height) // 2))
+        rows.append([ta, tb])
+        cell_labels.append([
+            f"source  ({cx:.0f}, {cy:.0f})",
+            f"recovered  defect area {piece.area:.0f} u²",
+        ])
+    sheet = sheets.grid(rows, col_labels=["source fill", "re-stroked centerline"],
+                        cell_labels=cell_labels,
+                        title=f"{track} / {image} — worst reconstruction regions")
+    sheets.save(sheet, out)
+    print(f"wrote {out}")
