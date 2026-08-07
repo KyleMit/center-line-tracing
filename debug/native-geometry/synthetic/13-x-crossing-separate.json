@@ -1,0 +1,1 @@
+{"id": "13", "name": "x-crossing-separate", "radius": 8.0, "cap": "round", "join": "round", "variable_width": false, "boundary_noise": 0.0, "centerlines": [[[80, 80], [320, 220]], [[80, 220], [320, 80]]]}

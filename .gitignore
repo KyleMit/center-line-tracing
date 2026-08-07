@@ -15,3 +15,5 @@ experiments/opencv-tracing/vendor/skeleton-tracing/c/*.so
 debug/opencv-tracing/masks/
 debug/opencv-tracing/sheets/_render/
 debug/opencv-tracing/sheets/_progress/
+
+experiments/native-geometry/cpp/voronoi_medial

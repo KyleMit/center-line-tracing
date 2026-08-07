@@ -1,0 +1,645 @@
+{
+ "rows": [
+  {
+   "name": "house-wide",
+   "engine": "boost",
+   "tag": "final-simplify0.1",
+   "elements": 19,
+   "polygons": 19,
+   "boundary_segments": 4462,
+   "raw_voronoi_edges": 14606,
+   "runtime_ms": {
+    "flatten": 222.3,
+    "engine": 221.3,
+    "filter": 353.6,
+    "graph": 29.1,
+    "total": 871.1
+   },
+   "params": {
+    "flatness": 0.05,
+    "prune_k": 1.0,
+    "width_stat": "median",
+    "extend_tips": false,
+    "simplify": 0.1
+   },
+   "strokes": 39,
+   "branch_nodes": 12,
+   "leaf_nodes": 39,
+   "points": 5421,
+   "total_length": 8646.174,
+   "components": 19,
+   "iou": 0.97713,
+   "symdiff_area": 4275.272,
+   "symdiff_frac": 0.02317,
+   "orig_area": 184495.93,
+   "recon_area": 185048.375,
+   "iou_mat": 0.99669,
+   "symdiff_frac_mat": 0.00331,
+   "boundary_recon_to_orig": {
+    "median": 0.0667,
+    "p95": 1.0239,
+    "max": 9.4877,
+    "mean": 0.2494
+   },
+   "boundary_orig_to_recon": {
+    "median": 0.0667,
+    "p95": 1.0445,
+    "max": 15.4026,
+    "mean": 0.2789
+   },
+   "clearance_err": {
+    "median": 0.0012,
+    "p95": 0.0056,
+    "max": 0.006,
+    "mean": 0.0016
+   },
+   "clearance_rel_err": {
+    "median": 0.0001,
+    "p95": 0.0018,
+    "max": 0.0042,
+    "mean": 0.0003
+   },
+   "radius_median": 10.481,
+   "radius_p05": 10.0355,
+   "radius_p95": 11.6172,
+   "radius_spread": 0.1509
+  },
+  {
+   "name": "butterfly-wide",
+   "engine": "boost",
+   "tag": "final-simplify0.1",
+   "elements": 13,
+   "polygons": 13,
+   "boundary_segments": 5457,
+   "raw_voronoi_edges": 18919,
+   "runtime_ms": {
+    "flatten": 272.4,
+    "engine": 248.3,
+    "filter": 460.0,
+    "graph": 34.9,
+    "total": 1055.9
+   },
+   "params": {
+    "flatness": 0.05,
+    "prune_k": 1.0,
+    "width_stat": "median",
+    "extend_tips": false,
+    "simplify": 0.1
+   },
+   "strokes": 31,
+   "branch_nodes": 12,
+   "leaf_nodes": 21,
+   "points": 7433,
+   "total_length": 9829.732,
+   "components": 11,
+   "iou": 0.96769,
+   "symdiff_area": 6125.298,
+   "symdiff_frac": 0.03252,
+   "orig_area": 188336.583,
+   "recon_area": 184675.28,
+   "iou_mat": 0.99253,
+   "symdiff_frac_mat": 0.00747,
+   "boundary_recon_to_orig": {
+    "median": 0.0574,
+    "p95": 0.3626,
+    "max": 14.9951,
+    "mean": 0.2344
+   },
+   "boundary_orig_to_recon": {
+    "median": 0.058,
+    "p95": 0.8968,
+    "max": 38.7254,
+    "mean": 0.5192
+   },
+   "clearance_err": {
+    "median": 0.0019,
+    "p95": 0.0055,
+    "max": 0.008,
+    "mean": 0.0022
+   },
+   "clearance_rel_err": {
+    "median": 0.0002,
+    "p95": 0.0071,
+    "max": 0.0078,
+    "mean": 0.0007
+   },
+   "radius_median": 9.4131,
+   "radius_p05": 9.2442,
+   "radius_p95": 9.9712,
+   "radius_spread": 0.0772
+  },
+  {
+   "name": "boat-tall",
+   "engine": "boost",
+   "tag": "final-simplify0.1",
+   "elements": 22,
+   "polygons": 22,
+   "boundary_segments": 5681,
+   "raw_voronoi_edges": 19718,
+   "runtime_ms": {
+    "flatten": 281.0,
+    "engine": 283.5,
+    "filter": 460.5,
+    "graph": 41.0,
+    "total": 1119.8
+   },
+   "params": {
+    "flatness": 0.05,
+    "prune_k": 1.0,
+    "width_stat": "median",
+    "extend_tips": false,
+    "simplify": 0.1
+   },
+   "strokes": 38,
+   "branch_nodes": 8,
+   "leaf_nodes": 45,
+   "points": 7530,
+   "total_length": 10285.258,
+   "components": 22,
+   "iou": 0.97963,
+   "symdiff_area": 2820.454,
+   "symdiff_frac": 0.02051,
+   "orig_area": 137519.711,
+   "recon_area": 136615.083,
+   "iou_mat": 0.99568,
+   "symdiff_frac_mat": 0.00432,
+   "boundary_recon_to_orig": {
+    "median": 0.0606,
+    "p95": 0.2948,
+    "max": 7.7967,
+    "mean": 0.1317
+   },
+   "boundary_orig_to_recon": {
+    "median": 0.061,
+    "p95": 0.3134,
+    "max": 8.2828,
+    "mean": 0.1571
+   },
+   "clearance_err": {
+    "median": 0.0009,
+    "p95": 0.0052,
+    "max": 0.2771,
+    "mean": 0.0085
+   },
+   "clearance_rel_err": {
+    "median": 0.0002,
+    "p95": 0.0013,
+    "max": 0.1921,
+    "mean": 0.007
+   },
+   "radius_median": 6.5527,
+   "radius_p05": 6.2858,
+   "radius_p95": 7.1121,
+   "radius_spread": 0.1261
+  },
+  {
+   "name": "island-tall",
+   "engine": "boost",
+   "tag": "final-simplify0.1",
+   "elements": 24,
+   "polygons": 24,
+   "boundary_segments": 5984,
+   "raw_voronoi_edges": 20839,
+   "runtime_ms": {
+    "flatten": 285.0,
+    "engine": 319.0,
+    "filter": 523.2,
+    "graph": 44.8,
+    "total": 1222.7
+   },
+   "params": {
+    "flatness": 0.05,
+    "prune_k": 1.0,
+    "width_stat": "median",
+    "extend_tips": false,
+    "simplify": 0.1
+   },
+   "strokes": 61,
+   "branch_nodes": 23,
+   "leaf_nodes": 52,
+   "points": 8024,
+   "total_length": 9012.663,
+   "components": 22,
+   "iou": 0.97367,
+   "symdiff_area": 3629.724,
+   "symdiff_frac": 0.02666,
+   "orig_area": 136158.555,
+   "recon_area": 135887.976,
+   "iou_mat": 0.99395,
+   "symdiff_frac_mat": 0.00605,
+   "boundary_recon_to_orig": {
+    "median": 0.07,
+    "p95": 0.5467,
+    "max": 7.1045,
+    "mean": 0.186
+   },
+   "boundary_orig_to_recon": {
+    "median": 0.0715,
+    "p95": 1.0421,
+    "max": 66.5357,
+    "mean": 0.5739
+   },
+   "clearance_err": {
+    "median": 0.0014,
+    "p95": 0.037,
+    "max": 0.2675,
+    "mean": 0.0104
+   },
+   "clearance_rel_err": {
+    "median": 0.0002,
+    "p95": 0.0128,
+    "max": 0.2689,
+    "mean": 0.0063
+   },
+   "radius_median": 7.5054,
+   "radius_p05": 5.7802,
+   "radius_p95": 8.307,
+   "radius_spread": 0.3367
+  },
+  {
+   "name": "balloon-tall",
+   "engine": "boost",
+   "tag": "final-simplify0.1",
+   "elements": 27,
+   "polygons": 27,
+   "boundary_segments": 5983,
+   "raw_voronoi_edges": 20333,
+   "runtime_ms": {
+    "flatten": 323.8,
+    "engine": 319.9,
+    "filter": 464.3,
+    "graph": 43.7,
+    "total": 1204.4
+   },
+   "params": {
+    "flatness": 0.05,
+    "prune_k": 1.0,
+    "width_stat": "median",
+    "extend_tips": false,
+    "simplify": 0.1
+   },
+   "strokes": 67,
+   "branch_nodes": 22,
+   "leaf_nodes": 60,
+   "points": 7686,
+   "total_length": 9893.482,
+   "components": 27,
+   "iou": 0.97518,
+   "symdiff_area": 3134.422,
+   "symdiff_frac": 0.0251,
+   "orig_area": 124887.928,
+   "recon_area": 124509.338,
+   "iou_mat": 0.99423,
+   "symdiff_frac_mat": 0.00577,
+   "boundary_recon_to_orig": {
+    "median": 0.0577,
+    "p95": 0.3937,
+    "max": 6.9727,
+    "mean": 0.1555
+   },
+   "boundary_orig_to_recon": {
+    "median": 0.0585,
+    "p95": 0.4808,
+    "max": 9.5214,
+    "mean": 0.2043
+   },
+   "clearance_err": {
+    "median": 0.0016,
+    "p95": 0.0044,
+    "max": 1.9612,
+    "mean": 0.0258
+   },
+   "clearance_rel_err": {
+    "median": 0.0003,
+    "p95": 0.0011,
+    "max": 0.6533,
+    "mean": 0.0084
+   },
+   "radius_median": 6.2148,
+   "radius_p05": 5.6078,
+   "radius_p95": 7.0526,
+   "radius_spread": 0.2325
+  },
+  {
+   "name": "home-wide",
+   "engine": "boost",
+   "tag": "final-simplify0.1",
+   "elements": 21,
+   "polygons": 21,
+   "boundary_segments": 4898,
+   "raw_voronoi_edges": 16951,
+   "runtime_ms": {
+    "flatten": 261.0,
+    "engine": 277.6,
+    "filter": 424.3,
+    "graph": 41.5,
+    "total": 1048.5
+   },
+   "params": {
+    "flatness": 0.05,
+    "prune_k": 1.0,
+    "width_stat": "median",
+    "extend_tips": false,
+    "simplify": 0.1
+   },
+   "strokes": 60,
+   "branch_nodes": 23,
+   "leaf_nodes": 50,
+   "points": 6480,
+   "total_length": 6986.158,
+   "components": 21,
+   "iou": 0.95921,
+   "symdiff_area": 4324.498,
+   "symdiff_frac": 0.04144,
+   "orig_area": 104360.068,
+   "recon_area": 103362.508,
+   "iou_mat": 0.99529,
+   "symdiff_frac_mat": 0.00471,
+   "boundary_recon_to_orig": {
+    "median": 0.0996,
+    "p95": 1.1108,
+    "max": 16.3157,
+    "mean": 0.3196
+   },
+   "boundary_orig_to_recon": {
+    "median": 0.0988,
+    "p95": 0.9243,
+    "max": 9.4922,
+    "mean": 0.275
+   },
+   "clearance_err": {
+    "median": 0.0016,
+    "p95": 0.0042,
+    "max": 0.0059,
+    "mean": 0.0019
+   },
+   "clearance_rel_err": {
+    "median": 0.0002,
+    "p95": 0.003,
+    "max": 0.0202,
+    "mean": 0.0009
+   },
+   "radius_median": 7.2782,
+   "radius_p05": 6.3988,
+   "radius_p95": 8.3539,
+   "radius_spread": 0.2686
+  },
+  {
+   "name": "house-tall",
+   "engine": "boost",
+   "tag": "final-simplify0.1",
+   "elements": 27,
+   "polygons": 27,
+   "boundary_segments": 8039,
+   "raw_voronoi_edges": 27628,
+   "runtime_ms": {
+    "flatten": 384.9,
+    "engine": 425.2,
+    "filter": 669.5,
+    "graph": 63.4,
+    "total": 1606.2
+   },
+   "params": {
+    "flatness": 0.05,
+    "prune_k": 1.0,
+    "width_stat": "median",
+    "extend_tips": false,
+    "simplify": 0.1
+   },
+   "strokes": 63,
+   "branch_nodes": 23,
+   "leaf_nodes": 49,
+   "points": 10467,
+   "total_length": 10626.008,
+   "components": 27,
+   "iou": 0.97361,
+   "symdiff_area": 4768.081,
+   "symdiff_frac": 0.02666,
+   "orig_area": 178864.082,
+   "recon_area": 177727.872,
+   "iou_mat": 0.9949,
+   "symdiff_frac_mat": 0.0051,
+   "boundary_recon_to_orig": {
+    "median": 0.0846,
+    "p95": 0.8273,
+    "max": 7.0318,
+    "mean": 0.2117
+   },
+   "boundary_orig_to_recon": {
+    "median": 0.086,
+    "p95": 1.115,
+    "max": 10.7535,
+    "mean": 0.2548
+   },
+   "clearance_err": {
+    "median": 0.0019,
+    "p95": 0.0564,
+    "max": 2.5522,
+    "mean": 0.1041
+   },
+   "clearance_rel_err": {
+    "median": 0.0002,
+    "p95": 0.011,
+    "max": 0.7527,
+    "mean": 0.0291
+   },
+   "radius_median": 8.3413,
+   "radius_p05": 7.8477,
+   "radius_p95": 9.4187,
+   "radius_spread": 0.1883
+  },
+  {
+   "name": "dinosaur-wide",
+   "engine": "boost",
+   "tag": "final-simplify0.1",
+   "elements": 33,
+   "polygons": 33,
+   "boundary_segments": 7939,
+   "raw_voronoi_edges": 27556,
+   "runtime_ms": {
+    "flatten": 339.4,
+    "engine": 448.4,
+    "filter": 693.1,
+    "graph": 65.8,
+    "total": 1613.0
+   },
+   "params": {
+    "flatness": 0.05,
+    "prune_k": 1.0,
+    "width_stat": "median",
+    "extend_tips": false,
+    "simplify": 0.1
+   },
+   "strokes": 80,
+   "branch_nodes": 25,
+   "leaf_nodes": 84,
+   "points": 10351,
+   "total_length": 14182.028,
+   "components": 33,
+   "iou": 0.96683,
+   "symdiff_area": 7483.356,
+   "symdiff_frac": 0.03385,
+   "orig_area": 221056.884,
+   "recon_area": 222706.462,
+   "iou_mat": 0.99703,
+   "symdiff_frac_mat": 0.00297,
+   "boundary_recon_to_orig": {
+    "median": 0.1366,
+    "p95": 1.0105,
+    "max": 7.2119,
+    "mean": 0.2679
+   },
+   "boundary_orig_to_recon": {
+    "median": 0.1363,
+    "p95": 0.9891,
+    "max": 13.5368,
+    "mean": 0.2809
+   },
+   "clearance_err": {
+    "median": 0.0013,
+    "p95": 0.0046,
+    "max": 0.0055,
+    "mean": 0.0017
+   },
+   "clearance_rel_err": {
+    "median": 0.0002,
+    "p95": 0.001,
+    "max": 0.0189,
+    "mean": 0.0006
+   },
+   "radius_median": 8.0164,
+   "radius_p05": 5.8683,
+   "radius_p95": 8.8537,
+   "radius_spread": 0.3724
+  },
+  {
+   "name": "landscape-square",
+   "engine": "boost",
+   "tag": "final-simplify0.1",
+   "elements": 14,
+   "polygons": 14,
+   "boundary_segments": 11427,
+   "raw_voronoi_edges": 42718,
+   "runtime_ms": {
+    "flatten": 494.2,
+    "engine": 568.4,
+    "filter": 1177.2,
+    "graph": 89.9,
+    "total": 2429.8
+   },
+   "params": {
+    "flatness": 0.05,
+    "prune_k": 1.0,
+    "width_stat": "median",
+    "extend_tips": false,
+    "simplify": 0.1
+   },
+   "strokes": 147,
+   "branch_nodes": 67,
+   "leaf_nodes": 90,
+   "points": 14557,
+   "total_length": 27475.13,
+   "components": 14,
+   "iou": 0.94437,
+   "symdiff_area": 34387.735,
+   "symdiff_frac": 0.05669,
+   "orig_area": 606558.223,
+   "recon_area": 595330.004,
+   "iou_mat": 0.99422,
+   "symdiff_frac_mat": 0.00578,
+   "boundary_recon_to_orig": {
+    "median": 0.1229,
+    "p95": 3.3376,
+    "max": 12.9786,
+    "mean": 0.6143
+   },
+   "boundary_orig_to_recon": {
+    "median": 0.1225,
+    "p95": 3.462,
+    "max": 20.521,
+    "mean": 0.6645
+   },
+   "clearance_err": {
+    "median": 0.0016,
+    "p95": 0.005,
+    "max": 0.0071,
+    "mean": 0.002
+   },
+   "clearance_rel_err": {
+    "median": 0.0001,
+    "p95": 0.0005,
+    "max": 0.0066,
+    "mean": 0.0003
+   },
+   "radius_median": 9.8813,
+   "radius_p05": 8.3389,
+   "radius_p95": 14.8787,
+   "radius_spread": 0.6618
+  },
+  {
+   "name": "sun-square",
+   "engine": "boost",
+   "tag": "final-simplify0.1",
+   "elements": 2,
+   "polygons": 2,
+   "boundary_segments": 926,
+   "raw_voronoi_edges": 3312,
+   "runtime_ms": {
+    "flatten": 18.4,
+    "engine": 56.8,
+    "filter": 81.0,
+    "graph": 6.1,
+    "total": 175.5
+   },
+   "params": {
+    "flatness": 0.05,
+    "prune_k": 1.0,
+    "width_stat": "median",
+    "extend_tips": false,
+    "simplify": 0.1
+   },
+   "strokes": 32,
+   "branch_nodes": 15,
+   "leaf_nodes": 18,
+   "points": 1169,
+   "total_length": 3769.582,
+   "components": 2,
+   "iou": 0.91333,
+   "symdiff_area": 7698.888,
+   "symdiff_frac": 0.09002,
+   "orig_area": 85524.193,
+   "recon_area": 84434.46,
+   "iou_mat": 0.98952,
+   "symdiff_frac_mat": 0.01049,
+   "boundary_recon_to_orig": {
+    "median": 0.3548,
+    "p95": 4.058,
+    "max": 7.455,
+    "mean": 1.0627
+   },
+   "boundary_orig_to_recon": {
+    "median": 0.3631,
+    "p95": 4.072,
+    "max": 10.2909,
+    "mean": 1.0722
+   },
+   "clearance_err": {
+    "median": 0.0,
+    "p95": 0.0,
+    "max": 0.0,
+    "mean": 0.0
+   },
+   "clearance_rel_err": {
+    "median": 0.0,
+    "p95": 0.0,
+    "max": 0.0,
+    "mean": 0.0
+   },
+   "radius_median": 13.2842,
+   "radius_p05": 8.245,
+   "radius_p95": 15.0787,
+   "radius_spread": 0.5144
+  }
+ ],
+ "generated_by": "experiments/native-geometry/py/run.py"
+}
