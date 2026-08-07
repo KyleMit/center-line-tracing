@@ -223,3 +223,54 @@ So: the failure the handoff asks about did not occur, the detector that would
 have caught it exists and is checked in, and its known bias is that it should
 compare against **local** thickness rather than a per-element average. Reported
 rather than silently measured, as asked.
+
+## Where the remaining error actually is
+
+`sun-square` (3.25%) is the one image where the residual is **not** a geometry
+problem. The overlay shows the traced centerlines running correctly down the
+middle of every scribble stroke; the reconstruction is wrong because those
+strokes **taper**, and one constant width per path cannot represent a taper.
+
+The graph JSON measures this directly. Taking the ratio of max to min radius
+along each individual path:
+
+| drawing | median within-path max/min radius ratio |
+|---|---|
+| `house-wide` | 1.09× |
+| `sun-square` | **2.05×** |
+
+A path whose true radius doubles along its length is being re-stroked at one
+width, which necessarily over-fills the needle ends and under-fills the belly.
+This is synthetic case 19 (`19-variable-width`, the worst synthetic geometry
+result at 1.08u) showing up in real artwork.
+
+The per-vertex radius profile needed to fix it is **already recorded** in
+`debug/autotrace/graphs/<image>.json` as `radiusProfile` on every edge. What is
+missing is an output representation: a variable-width stroke is not expressible
+as `<path stroke-width>`, and emitting it means generating a filled ribbon,
+which leaves the output shape this project specified. Flagged for Track 8
+rather than solved here.
+
+## What did NOT help
+
+Negative results, recorded because they are cheap for other tracks to re-derive
+otherwise:
+
+* **Width statistic barely matters, and the best choice is image-dependent.**
+  Across `median` / `p60` / `p75` / `mean` / `trimmed`, `house-wide` sat at 0.05%
+  for every single one. `trimmed` and `mean` tie at the best `landscape-square`
+  value (0.39%); `median` is best on `dinosaur-wide` (0.02%). Spread across the
+  whole sweep is 0.39–0.52%. Do not spend time here.
+* **`--stroke-scale` fudge factors hurt.** The incumbent uses `--stroke-scale
+  1.07`. Applying the same idea here made things worse at every value tried
+  (0.96/0.98/1.02/1.04/1.05 all ≥ the unscaled result; 1.05 gave 0.57% against
+  0.53%). That is a good sign — it means the EDT is already measuring the true
+  radius rather than a biased one that needs correcting.
+* **`--mode raw` (the literal one-command baseline) is not merely inaccurate,
+  it is impractical.** Rasterising the whole drawing in full colour makes
+  antialiasing produce ~100 distinct colour bands (verified: 100+ distinct
+  stroke colours in the output of a single `house-wide` trace), and autotrace
+  then traces every band. It took 130s for `house-wide` alone at scale 4 against
+  14s for the entire element-wise pipeline, and produces hairline output with no
+  width information (IoU 0.0000 as scored). **Binary masks are not an
+  optimisation here, they are the difference between working and not working.**
