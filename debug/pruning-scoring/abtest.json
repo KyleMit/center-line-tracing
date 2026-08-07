@@ -27,7 +27,7 @@
    "source_area": 184534.652361,
    "recon_area": 186299.596354,
    "width_mode": "auto",
-   "seconds": 2.296463,
+   "seconds": 0.808596,
    "extras": {}
   },
   "handTuned": {
@@ -56,7 +56,7 @@
     "source_area": 184534.652361,
     "recon_area": 187103.570232,
     "width_mode": "auto",
-    "seconds": 2.596176,
+    "seconds": 0.787558,
     "extras": {}
    }
   },
@@ -87,7 +87,7 @@
    "source_area": 184534.652361,
    "recon_area": 185606.499549,
    "width_mode": "auto",
-   "seconds": 2.380646,
+   "seconds": 0.685002,
    "extras": {}
   },
   "sweep": [
@@ -386,7 +386,7 @@
     }
    }
   ],
-  "seconds": 16.67,
+  "seconds": 5.15,
   "verdict": "hand-tuned-better"
  },
  {
@@ -417,7 +417,7 @@
    "source_area": 188348.761825,
    "recon_area": 190597.556139,
    "width_mode": "auto",
-   "seconds": 4.004551,
+   "seconds": 0.809808,
    "extras": {}
   },
   "handTuned": {
@@ -446,7 +446,7 @@
     "source_area": 188348.761825,
     "recon_area": 190654.619099,
     "width_mode": "auto",
-    "seconds": 3.899534,
+    "seconds": 0.834432,
     "extras": {}
    }
   },
@@ -477,7 +477,7 @@
    "source_area": 188348.761825,
    "recon_area": 189537.119327,
    "width_mode": "auto",
-   "seconds": 3.629512,
+   "seconds": 0.662138,
    "extras": {}
   },
   "sweep": [
@@ -776,7 +776,7 @@
     }
    }
   ],
-  "seconds": 33.49,
+  "seconds": 6.69,
   "verdict": "auto-simpler-same-error"
  },
  {
@@ -807,7 +807,7 @@
    "source_area": 137556.924292,
    "recon_area": 138768.828896,
    "width_mode": "auto",
-   "seconds": 4.504758,
+   "seconds": 1.05025,
    "extras": {}
   },
   "handTuned": {
@@ -836,7 +836,7 @@
     "source_area": 137556.924292,
     "recon_area": 139062.59958,
     "width_mode": "auto",
-    "seconds": 4.061047,
+    "seconds": 1.108081,
     "extras": {}
    }
   },
@@ -867,7 +867,7 @@
    "source_area": 137556.924292,
    "recon_area": 138432.105231,
    "width_mode": "auto",
-   "seconds": 4.214967,
+   "seconds": 0.805171,
    "extras": {}
   },
   "sweep": [
@@ -1166,7 +1166,7 @@
     }
    }
   ],
-  "seconds": 29.47,
+  "seconds": 6.98,
   "verdict": "auto-simpler-same-error"
  },
  {
@@ -1197,7 +1197,7 @@
    "source_area": 136187.065568,
    "recon_area": 136648.650156,
    "width_mode": "auto",
-   "seconds": 3.385981,
+   "seconds": 1.038668,
    "extras": {}
   },
   "handTuned": {
@@ -1226,7 +1226,7 @@
     "source_area": 136187.065568,
     "recon_area": 137068.455819,
     "width_mode": "auto",
-    "seconds": 3.270341,
+    "seconds": 1.109348,
     "extras": {}
    }
   },
@@ -1257,7 +1257,7 @@
    "source_area": 136187.065568,
    "recon_area": 136346.633942,
    "width_mode": "auto",
-   "seconds": 3.246632,
+   "seconds": 0.897871,
    "extras": {}
   },
   "sweep": [
@@ -1556,7 +1556,7 @@
     }
    }
   ],
-  "seconds": 29.23,
+  "seconds": 8.66,
   "verdict": "auto-simpler-same-error"
  },
  {
@@ -1587,7 +1587,7 @@
    "source_area": 124919.287823,
    "recon_area": 126490.993298,
    "width_mode": "auto",
-   "seconds": 3.791706,
+   "seconds": 1.115064,
    "extras": {}
   },
   "handTuned": {
@@ -1616,7 +1616,7 @@
     "source_area": 124919.287823,
     "recon_area": 126738.881642,
     "width_mode": "auto",
-    "seconds": 4.340854,
+    "seconds": 1.205784,
     "extras": {}
    }
   },
@@ -1647,7 +1647,7 @@
    "source_area": 124919.287823,
    "recon_area": 126035.101748,
    "width_mode": "auto",
-   "seconds": 4.084144,
+   "seconds": 0.937695,
    "extras": {}
   },
   "sweep": [
@@ -1946,7 +1946,7 @@
     }
    }
   ],
-  "seconds": 43.04,
+  "seconds": 11.24,
   "verdict": "auto-simpler-same-error"
  },
  {
@@ -1977,7 +1977,7 @@
    "source_area": 104381.933242,
    "recon_area": 106199.640539,
    "width_mode": "auto",
-   "seconds": 2.727254,
+   "seconds": 0.764277,
    "extras": {}
   },
   "handTuned": {
@@ -2006,7 +2006,7 @@
     "source_area": 104381.933242,
     "recon_area": 104412.432718,
     "width_mode": "auto",
-    "seconds": 2.76834,
+    "seconds": 0.7734,
     "extras": {}
    }
   },
@@ -2037,7 +2037,7 @@
    "source_area": 104381.933242,
    "recon_area": 106206.558967,
    "width_mode": "auto",
-   "seconds": 2.66787,
+   "seconds": 0.65836,
    "extras": {}
   },
   "sweep": [
@@ -2336,7 +2336,7 @@
     }
    }
   ],
-  "seconds": 31.68,
+  "seconds": 7.86,
   "verdict": "auto-dominates"
  },
  {
@@ -2367,7 +2367,7 @@
    "source_area": 178918.21306,
    "recon_area": 180490.613084,
    "width_mode": "auto",
-   "seconds": 3.576666,
+   "seconds": 1.240979,
    "extras": {}
   },
   "handTuned": {
@@ -2396,7 +2396,7 @@
     "source_area": 178918.21306,
     "recon_area": 180719.823069,
     "width_mode": "auto",
-    "seconds": 3.897091,
+    "seconds": 1.35926,
     "extras": {}
    }
   },
@@ -2427,7 +2427,7 @@
    "source_area": 178918.21306,
    "recon_area": 179799.464116,
    "width_mode": "auto",
-   "seconds": 3.672299,
+   "seconds": 0.975333,
    "extras": {}
   },
   "sweep": [
@@ -2726,7 +2726,7 @@
     }
    }
   ],
-  "seconds": 32.37,
+  "seconds": 10.62,
   "verdict": "auto-simpler-same-error"
  },
  {
@@ -2757,7 +2757,7 @@
    "source_area": 221107.422279,
    "recon_area": 222098.695185,
    "width_mode": "auto",
-   "seconds": 7.359852,
+   "seconds": 1.617506,
    "extras": {}
   },
   "handTuned": {
@@ -2786,7 +2786,7 @@
     "source_area": 221107.422279,
     "recon_area": 222361.604195,
     "width_mode": "auto",
-    "seconds": 7.273931,
+    "seconds": 1.570192,
     "extras": {}
    }
   },
@@ -2817,7 +2817,7 @@
    "source_area": 221107.422279,
    "recon_area": 222036.888653,
    "width_mode": "auto",
-   "seconds": 7.670099,
+   "seconds": 1.350236,
    "extras": {}
   },
   "sweep": [
@@ -3116,7 +3116,397 @@
     }
    }
   ],
-  "seconds": 79.67,
+  "seconds": 15.94,
+  "verdict": "auto-simpler-same-error"
+ },
+ {
+  "track": "flo-mat",
+  "image": "landscape-square",
+  "unpruned": {
+   "iou": 0.943307,
+   "sym_diff_area": 35867.234555,
+   "sym_diff_ratio": 0.059122,
+   "missing_ratio": 0.016282,
+   "extra_ratio": 0.04284,
+   "boundary_median": 0.222279,
+   "boundary_p95": 3.048163,
+   "boundary_median_norm": 0.019102,
+   "boundary_p95_norm": 0.261948,
+   "width_error_median": 0.000846,
+   "width_error_norm": 7.3e-05,
+   "width_cv": 0.220176,
+   "strokes": 14,
+   "edges": 722,
+   "nodes": 732,
+   "terminals": 114,
+   "junctions": 94,
+   "control_points": 2061,
+   "bezier_segments": 722,
+   "total_length": 27736.9368,
+   "global_radius": 11.6365,
+   "source_area": 606663.84175,
+   "recon_area": 622775.783956,
+   "width_mode": "auto",
+   "seconds": 2.39946,
+   "extras": {}
+  },
+  "handTuned": {
+   "sat-1.3": {
+    "iou": 0.943521,
+    "sym_diff_area": 35713.302235,
+    "sym_diff_ratio": 0.058868,
+    "missing_ratio": 0.016566,
+    "extra_ratio": 0.042302,
+    "boundary_median": 0.219787,
+    "boundary_p95": 3.010265,
+    "boundary_median_norm": 0.01877,
+    "boundary_p95_norm": 0.257085,
+    "width_error_median": 0.000826,
+    "width_error_norm": 7.1e-05,
+    "width_cv": 0.218901,
+    "strokes": 14,
+    "edges": 707,
+    "nodes": 717,
+    "terminals": 105,
+    "junctions": 85,
+    "control_points": 2017,
+    "bezier_segments": 707,
+    "total_length": 27607.3625,
+    "global_radius": 11.7092,
+    "source_area": 606663.84175,
+    "recon_area": 622277.145697,
+    "width_mode": "auto",
+    "seconds": 2.27952,
+    "extras": {}
+   }
+  },
+  "bestHandTuned": "sat-1.3",
+  "auto": {
+   "lam": 0.75,
+   "iou": 0.940916,
+   "sym_diff_area": 37322.412857,
+   "sym_diff_ratio": 0.061521,
+   "missing_ratio": 0.020278,
+   "extra_ratio": 0.041243,
+   "boundary_median": 0.218152,
+   "boundary_p95": 3.195834,
+   "boundary_median_norm": 0.021869,
+   "boundary_p95_norm": 0.320365,
+   "width_error_median": 0.0018,
+   "width_error_norm": 0.00018,
+   "width_cv": 0.214204,
+   "strokes": 14,
+   "edges": 149,
+   "nodes": 159,
+   "terminals": 88,
+   "junctions": 68,
+   "control_points": 1955,
+   "bezier_segments": 685,
+   "total_length": 27478.0447,
+   "global_radius": 9.9756,
+   "source_area": 606663.84175,
+   "recon_area": 619382.784164,
+   "width_mode": "auto",
+   "seconds": 2.312569,
+   "extras": {}
+  },
+  "sweep": [
+   {
+    "lam": 0.0,
+    "error": 0.059122,
+    "iou": 0.943307,
+    "missingRatio": 0.016282,
+    "extraRatio": 0.04284,
+    "boundaryP95": 3.0367,
+    "edges": 199,
+    "strokes": 14,
+    "controlPoints": 2061,
+    "totalLength": 27736.94,
+    "widthCv": 0.21795,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 199,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 0.25,
+    "error": 0.059134,
+    "iou": 0.94329,
+    "missingRatio": 0.016393,
+    "extraRatio": 0.042741,
+    "boundaryP95": 3.0369,
+    "edges": 193,
+    "strokes": 14,
+    "controlPoints": 2052,
+    "totalLength": 27727.95,
+    "widthCv": 0.21794,
+    "prune": {
+     "lam": 0.25,
+     "removed": 3,
+     "removedLength": 8.988,
+     "passes": 1,
+     "keptEdges": 193,
+     "merges": 3
+    }
+   },
+   {
+    "lam": 0.5,
+    "error": 0.059569,
+    "iou": 0.942849,
+    "missingRatio": 0.017263,
+    "extraRatio": 0.042307,
+    "boundaryP95": 3.0779,
+    "edges": 181,
+    "strokes": 14,
+    "controlPoints": 2024,
+    "totalLength": 27679.45,
+    "widthCv": 0.21755,
+    "prune": {
+     "lam": 0.5,
+     "removed": 10,
+     "removedLength": 57.488,
+     "passes": 1,
+     "keptEdges": 181,
+     "merges": 8
+    }
+   },
+   {
+    "lam": 0.75,
+    "error": 0.061521,
+    "iou": 0.940916,
+    "missingRatio": 0.020278,
+    "extraRatio": 0.041243,
+    "boundaryP95": 3.1958,
+    "edges": 149,
+    "strokes": 14,
+    "controlPoints": 1955,
+    "totalLength": 27478.04,
+    "widthCv": 0.2142,
+    "prune": {
+     "lam": 0.75,
+     "removed": 26,
+     "removedLength": 258.892,
+     "passes": 1,
+     "keptEdges": 149,
+     "merges": 24
+    }
+   },
+   {
+    "lam": 1.0,
+    "error": 0.063805,
+    "iou": 0.938675,
+    "missingRatio": 0.023353,
+    "extraRatio": 0.040452,
+    "boundaryP95": 3.3002,
+    "edges": 133,
+    "strokes": 14,
+    "controlPoints": 1921,
+    "totalLength": 27321.43,
+    "widthCv": 0.21405,
+    "prune": {
+     "lam": 1.0,
+     "removed": 35,
+     "removedLength": 415.511,
+     "passes": 1,
+     "keptEdges": 133,
+     "merges": 31
+    }
+   },
+   {
+    "lam": 1.25,
+    "error": 0.068229,
+    "iou": 0.934352,
+    "missingRatio": 0.028906,
+    "extraRatio": 0.039323,
+    "boundaryP95": 3.4467,
+    "edges": 115,
+    "strokes": 14,
+    "controlPoints": 1864,
+    "totalLength": 27050.59,
+    "widthCv": 0.21235,
+    "prune": {
+     "lam": 1.25,
+     "removed": 47,
+     "removedLength": 686.351,
+     "passes": 1,
+     "keptEdges": 115,
+     "merges": 37
+    }
+   },
+   {
+    "lam": 1.5,
+    "error": 0.069962,
+    "iou": 0.93265,
+    "missingRatio": 0.03118,
+    "extraRatio": 0.038783,
+    "boundaryP95": 3.5387,
+    "edges": 109,
+    "strokes": 14,
+    "controlPoints": 1853,
+    "totalLength": 26978.05,
+    "widthCv": 0.21273,
+    "prune": {
+     "lam": 1.5,
+     "removed": 50,
+     "removedLength": 758.887,
+     "passes": 1,
+     "keptEdges": 109,
+     "merges": 40
+    }
+   },
+   {
+    "lam": 2.0,
+    "error": 0.074851,
+    "iou": 0.927879,
+    "missingRatio": 0.036993,
+    "extraRatio": 0.037858,
+    "boundaryP95": 3.7486,
+    "edges": 99,
+    "strokes": 14,
+    "controlPoints": 1814,
+    "totalLength": 26743.1,
+    "widthCv": 0.21261,
+    "prune": {
+     "lam": 2.0,
+     "removed": 58,
+     "removedLength": 993.833,
+     "passes": 1,
+     "keptEdges": 99,
+     "merges": 42
+    }
+   },
+   {
+    "lam": 2.5,
+    "error": 0.088245,
+    "iou": 0.914792,
+    "missingRatio": 0.052604,
+    "extraRatio": 0.03564,
+    "boundaryP95": 4.4534,
+    "edges": 83,
+    "strokes": 14,
+    "controlPoints": 1759,
+    "totalLength": 26276.15,
+    "widthCv": 0.21406,
+    "prune": {
+     "lam": 2.5,
+     "removed": 70,
+     "removedLength": 1460.784,
+     "passes": 2,
+     "keptEdges": 83,
+     "merges": 46
+    }
+   },
+   {
+    "lam": 3.0,
+    "error": 0.104446,
+    "iou": 0.899034,
+    "missingRatio": 0.069981,
+    "extraRatio": 0.034464,
+    "boundaryP95": 6.4009,
+    "edges": 73,
+    "strokes": 14,
+    "controlPoints": 1703,
+    "totalLength": 25790.26,
+    "widthCv": 0.21559,
+    "prune": {
+     "lam": 3.0,
+     "removed": 79,
+     "removedLength": 1946.679,
+     "passes": 2,
+     "keptEdges": 73,
+     "merges": 47
+    }
+   },
+   {
+    "lam": 4.0,
+    "error": 0.134614,
+    "iou": 0.869535,
+    "missingRatio": 0.102817,
+    "extraRatio": 0.031796,
+    "boundaryP95": 13.4204,
+    "edges": 49,
+    "strokes": 14,
+    "controlPoints": 1648,
+    "totalLength": 24917.37,
+    "widthCv": 0.21634,
+    "prune": {
+     "lam": 4.0,
+     "removed": 91,
+     "removedLength": 2819.568,
+     "passes": 1,
+     "keptEdges": 49,
+     "merges": 59
+    }
+   },
+   {
+    "lam": 5.0,
+    "error": 0.166326,
+    "iou": 0.838431,
+    "missingRatio": 0.136882,
+    "extraRatio": 0.029444,
+    "boundaryP95": 20.5465,
+    "edges": 29,
+    "strokes": 14,
+    "controlPoints": 1590,
+    "totalLength": 24046.8,
+    "widthCv": 0.2158,
+    "prune": {
+     "lam": 5.0,
+     "removed": 101,
+     "removedLength": 3690.137,
+     "passes": 1,
+     "keptEdges": 29,
+     "merges": 69
+    }
+   },
+   {
+    "lam": 7.0,
+    "error": 0.185214,
+    "iou": 0.819932,
+    "missingRatio": 0.156636,
+    "extraRatio": 0.028578,
+    "boundaryP95": 24.6396,
+    "edges": 22,
+    "strokes": 13,
+    "controlPoints": 1551,
+    "totalLength": 23605.67,
+    "widthCv": 0.21402,
+    "prune": {
+     "lam": 7.0,
+     "removed": 105,
+     "removedLength": 4131.267,
+     "passes": 2,
+     "keptEdges": 22,
+     "merges": 72
+    }
+   },
+   {
+    "lam": 10.0,
+    "error": 0.205866,
+    "iou": 0.799702,
+    "missingRatio": 0.178067,
+    "extraRatio": 0.027799,
+    "boundaryP95": 28.5935,
+    "edges": 20,
+    "strokes": 13,
+    "controlPoints": 1499,
+    "totalLength": 22924.55,
+    "widthCv": 0.21367,
+    "prune": {
+     "lam": 10.0,
+     "removed": 109,
+     "removedLength": 4812.382,
+     "passes": 2,
+     "keptEdges": 20,
+     "merges": 70
+    }
+   }
+  ],
+  "seconds": 38.23,
   "verdict": "auto-simpler-same-error"
  },
  {
@@ -3147,7 +3537,7 @@
    "source_area": 85524.19285,
    "recon_area": 87823.48255,
    "width_mode": "auto",
-   "seconds": 0.213492,
+   "seconds": 0.198608,
    "extras": {}
   },
   "handTuned": {
@@ -3176,7 +3566,7 @@
     "source_area": 85524.19285,
     "recon_area": 87823.48255,
     "width_mode": "auto",
-    "seconds": 0.233875,
+    "seconds": 0.196491,
     "extras": {}
    }
   },
@@ -3207,7 +3597,7 @@
    "source_area": 85524.19285,
    "recon_area": 87823.996454,
    "width_mode": "auto",
-   "seconds": 0.210392,
+   "seconds": 0.283001,
    "extras": {}
   },
   "sweep": [
@@ -3506,8 +3896,3908 @@
     }
    }
   ],
-  "seconds": 1.91,
+  "seconds": 1.82,
   "verdict": "auto-simpler-same-error"
+ },
+ {
+  "track": "polygon-voronoi",
+  "image": "house-wide",
+  "unpruned": {
+   "iou": 0.897773,
+   "sym_diff_area": 19356.469267,
+   "sym_diff_ratio": 0.104893,
+   "missing_ratio": 0.078806,
+   "extra_ratio": 0.026087,
+   "boundary_median": 0.061811,
+   "boundary_p95": 1.734643,
+   "boundary_median_norm": 0.005905,
+   "boundary_p95_norm": 0.165719,
+   "width_error_median": 0.039674,
+   "width_error_norm": 0.00379,
+   "width_cv": 0.094468,
+   "strokes": 19,
+   "edges": 239,
+   "nodes": 251,
+   "terminals": 137,
+   "junctions": 113,
+   "control_points": 9135,
+   "bezier_segments": 0,
+   "total_length": 9028.8382,
+   "global_radius": 10.4674,
+   "source_area": 184534.652361,
+   "recon_area": 174806.078176,
+   "width_mode": "auto",
+   "seconds": 2.664828,
+   "extras": {}
+  },
+  "handTuned": {
+   "fitodic-filter": {
+    "iou": 0.893578,
+    "sym_diff_area": 20123.84112,
+    "sym_diff_ratio": 0.109052,
+    "missing_ratio": 0.08434,
+    "extra_ratio": 0.024712,
+    "boundary_median": 0.067678,
+    "boundary_p95": 2.077358,
+    "boundary_median_norm": 0.006463,
+    "boundary_p95_norm": 0.198378,
+    "width_error_median": 0.046963,
+    "width_error_norm": 0.004485,
+    "width_cv": 0.041755,
+    "strokes": 19,
+    "edges": 37,
+    "nodes": 49,
+    "terminals": 35,
+    "junctions": 11,
+    "control_points": 8353,
+    "bezier_segments": 0,
+    "total_length": 8569.8698,
+    "global_radius": 10.4717,
+    "source_area": 184534.652361,
+    "recon_area": 173531.290571,
+    "width_mode": "auto",
+    "seconds": 2.697968,
+    "extras": {}
+   }
+  },
+  "bestHandTuned": "fitodic-filter",
+  "auto": {
+   "lam": 0.75,
+   "iou": 0.897971,
+   "sym_diff_area": 19266.425877,
+   "sym_diff_ratio": 0.104405,
+   "missing_ratio": 0.081109,
+   "extra_ratio": 0.023296,
+   "boundary_median": 0.061068,
+   "boundary_p95": 1.551419,
+   "boundary_median_norm": 0.00583,
+   "boundary_p95_norm": 0.148114,
+   "width_error_median": 0.039359,
+   "width_error_norm": 0.003758,
+   "width_cv": 0.041346,
+   "strokes": 19,
+   "edges": 37,
+   "nodes": 49,
+   "terminals": 35,
+   "junctions": 11,
+   "control_points": 8404,
+   "bezier_segments": 0,
+   "total_length": 8630.0932,
+   "global_radius": 10.4745,
+   "source_area": 184534.652361,
+   "recon_area": 173866.068089,
+   "width_mode": "auto",
+   "seconds": 2.43835,
+   "extras": {}
+  },
+  "sweep": [
+   {
+    "lam": 0.0,
+    "error": 0.104893,
+    "iou": 0.897773,
+    "missingRatio": 0.078806,
+    "extraRatio": 0.026087,
+    "boundaryP95": 1.7346,
+    "edges": 239,
+    "strokes": 19,
+    "controlPoints": 9135,
+    "totalLength": 9028.84,
+    "widthCv": 0.09447,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 239,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 0.25,
+    "error": 0.103674,
+    "iou": 0.89877,
+    "missingRatio": 0.079526,
+    "extraRatio": 0.024148,
+    "boundaryP95": 1.5578,
+    "edges": 76,
+    "strokes": 19,
+    "controlPoints": 8593,
+    "totalLength": 8850.22,
+    "widthCv": 0.09156,
+    "prune": {
+     "lam": 0.25,
+     "removed": 112,
+     "removedLength": 178.62,
+     "passes": 2,
+     "keptEdges": 76,
+     "merges": 51
+    }
+   },
+   {
+    "lam": 0.5,
+    "error": 0.103671,
+    "iou": 0.898709,
+    "missingRatio": 0.080182,
+    "extraRatio": 0.023488,
+    "boundaryP95": 1.5504,
+    "edges": 51,
+    "strokes": 19,
+    "controlPoints": 8499,
+    "totalLength": 8742.65,
+    "widthCv": 0.07219,
+    "prune": {
+     "lam": 0.5,
+     "removed": 133,
+     "removedLength": 286.189,
+     "passes": 2,
+     "keptEdges": 51,
+     "merges": 55
+    }
+   },
+   {
+    "lam": 0.75,
+    "error": 0.104405,
+    "iou": 0.897971,
+    "missingRatio": 0.081109,
+    "extraRatio": 0.023296,
+    "boundaryP95": 1.5514,
+    "edges": 37,
+    "strokes": 19,
+    "controlPoints": 8404,
+    "totalLength": 8630.09,
+    "widthCv": 0.04135,
+    "prune": {
+     "lam": 0.75,
+     "removed": 143,
+     "removedLength": 398.745,
+     "passes": 2,
+     "keptEdges": 37,
+     "merges": 59
+    }
+   },
+   {
+    "lam": 1.0,
+    "error": 0.104405,
+    "iou": 0.897971,
+    "missingRatio": 0.081109,
+    "extraRatio": 0.023296,
+    "boundaryP95": 1.5514,
+    "edges": 37,
+    "strokes": 19,
+    "controlPoints": 8404,
+    "totalLength": 8630.09,
+    "widthCv": 0.04135,
+    "prune": {
+     "lam": 1.0,
+     "removed": 146,
+     "removedLength": 442.138,
+     "passes": 2,
+     "keptEdges": 37,
+     "merges": 56
+    }
+   },
+   {
+    "lam": 1.25,
+    "error": 0.104405,
+    "iou": 0.897971,
+    "missingRatio": 0.081109,
+    "extraRatio": 0.023296,
+    "boundaryP95": 1.5514,
+    "edges": 37,
+    "strokes": 19,
+    "controlPoints": 8404,
+    "totalLength": 8630.09,
+    "widthCv": 0.04135,
+    "prune": {
+     "lam": 1.25,
+     "removed": 147,
+     "removedLength": 458.968,
+     "passes": 2,
+     "keptEdges": 37,
+     "merges": 55
+    }
+   },
+   {
+    "lam": 1.5,
+    "error": 0.109209,
+    "iou": 0.893241,
+    "missingRatio": 0.086258,
+    "extraRatio": 0.022951,
+    "boundaryP95": 1.7189,
+    "edges": 35,
+    "strokes": 19,
+    "controlPoints": 8280,
+    "totalLength": 8498.08,
+    "widthCv": 0.03768,
+    "prune": {
+     "lam": 1.5,
+     "removed": 150,
+     "removedLength": 530.76,
+     "passes": 2,
+     "keptEdges": 35,
+     "merges": 54
+    }
+   },
+   {
+    "lam": 2.0,
+    "error": 0.112964,
+    "iou": 0.889564,
+    "missingRatio": 0.090066,
+    "extraRatio": 0.022898,
+    "boundaryP95": 1.7683,
+    "edges": 33,
+    "strokes": 19,
+    "controlPoints": 8209,
+    "totalLength": 8420.79,
+    "widthCv": 0.03477,
+    "prune": {
+     "lam": 2.0,
+     "removed": 153,
+     "removedLength": 608.05,
+     "passes": 2,
+     "keptEdges": 33,
+     "merges": 53
+    }
+   },
+   {
+    "lam": 2.5,
+    "error": 0.125466,
+    "iou": 0.877328,
+    "missingRatio": 0.10269,
+    "extraRatio": 0.022776,
+    "boundaryP95": 2.9832,
+    "edges": 27,
+    "strokes": 19,
+    "controlPoints": 8091,
+    "totalLength": 8310.52,
+    "widthCv": 0.02208,
+    "prune": {
+     "lam": 2.5,
+     "removed": 156,
+     "removedLength": 718.319,
+     "passes": 2,
+     "keptEdges": 27,
+     "merges": 56
+    }
+   },
+   {
+    "lam": 3.0,
+    "error": 0.125466,
+    "iou": 0.877328,
+    "missingRatio": 0.10269,
+    "extraRatio": 0.022776,
+    "boundaryP95": 2.9832,
+    "edges": 27,
+    "strokes": 19,
+    "controlPoints": 8091,
+    "totalLength": 8310.52,
+    "widthCv": 0.02208,
+    "prune": {
+     "lam": 3.0,
+     "removed": 156,
+     "removedLength": 718.319,
+     "passes": 2,
+     "keptEdges": 27,
+     "merges": 56
+    }
+   },
+   {
+    "lam": 4.0,
+    "error": 0.125466,
+    "iou": 0.877328,
+    "missingRatio": 0.10269,
+    "extraRatio": 0.022776,
+    "boundaryP95": 2.9832,
+    "edges": 27,
+    "strokes": 19,
+    "controlPoints": 8091,
+    "totalLength": 8310.52,
+    "widthCv": 0.02208,
+    "prune": {
+     "lam": 4.0,
+     "removed": 156,
+     "removedLength": 718.319,
+     "passes": 2,
+     "keptEdges": 27,
+     "merges": 56
+    }
+   },
+   {
+    "lam": 5.0,
+    "error": 0.125466,
+    "iou": 0.877328,
+    "missingRatio": 0.10269,
+    "extraRatio": 0.022776,
+    "boundaryP95": 2.9832,
+    "edges": 27,
+    "strokes": 19,
+    "controlPoints": 8091,
+    "totalLength": 8310.52,
+    "widthCv": 0.02208,
+    "prune": {
+     "lam": 5.0,
+     "removed": 156,
+     "removedLength": 718.319,
+     "passes": 2,
+     "keptEdges": 27,
+     "merges": 56
+    }
+   },
+   {
+    "lam": 7.0,
+    "error": 0.108687,
+    "iou": 0.891961,
+    "missingRatio": 0.10269,
+    "extraRatio": 0.005997,
+    "boundaryP95": 1.7144,
+    "edges": 19,
+    "strokes": 11,
+    "controlPoints": 7554,
+    "totalLength": 7811.06,
+    "widthCv": 0.02001,
+    "prune": {
+     "lam": 7.0,
+     "removed": 164,
+     "removedLength": 1217.781,
+     "passes": 2,
+     "keptEdges": 19,
+     "merges": 56
+    }
+   },
+   {
+    "lam": 10.0,
+    "error": 0.108687,
+    "iou": 0.891961,
+    "missingRatio": 0.10269,
+    "extraRatio": 0.005997,
+    "boundaryP95": 1.7144,
+    "edges": 19,
+    "strokes": 11,
+    "controlPoints": 7554,
+    "totalLength": 7811.06,
+    "widthCv": 0.02001,
+    "prune": {
+     "lam": 10.0,
+     "removed": 165,
+     "removedLength": 1362.895,
+     "passes": 2,
+     "keptEdges": 19,
+     "merges": 55
+    }
+   }
+  ],
+  "seconds": 25.48,
+  "verdict": "auto-lower-error"
+ },
+ {
+  "track": "polygon-voronoi",
+  "image": "butterfly-wide",
+  "unpruned": {
+   "iou": 0.976554,
+   "sym_diff_area": 4506.447678,
+   "sym_diff_ratio": 0.023926,
+   "missing_ratio": 0.003443,
+   "extra_ratio": 0.020483,
+   "boundary_median": 0.05992,
+   "boundary_p95": 0.725728,
+   "boundary_median_norm": 0.006361,
+   "boundary_p95_norm": 0.077039,
+   "width_error_median": 0.047793,
+   "width_error_norm": 0.005073,
+   "width_cv": 0.200189,
+   "strokes": 13,
+   "edges": 233,
+   "nodes": 237,
+   "terminals": 120,
+   "junctions": 112,
+   "control_points": 10126,
+   "bezier_segments": 0,
+   "total_length": 10362.0603,
+   "global_radius": 9.4203,
+   "source_area": 188348.761825,
+   "recon_area": 191558.06446,
+   "width_mode": "auto",
+   "seconds": 2.720794,
+   "extras": {}
+  },
+  "handTuned": {
+   "fitodic-filter": {
+    "iou": 0.973343,
+    "sym_diff_area": 5096.910047,
+    "sym_diff_ratio": 0.027061,
+    "missing_ratio": 0.011896,
+    "extra_ratio": 0.015165,
+    "boundary_median": 0.063418,
+    "boundary_p95": 1.095326,
+    "boundary_median_norm": 0.006723,
+    "boundary_p95_norm": 0.116121,
+    "width_error_median": 0.052212,
+    "width_error_norm": 0.005535,
+    "width_cv": 0.056707,
+    "strokes": 13,
+    "edges": 27,
+    "nodes": 31,
+    "terminals": 17,
+    "junctions": 9,
+    "control_points": 9528,
+    "bezier_segments": 0,
+    "total_length": 9736.8022,
+    "global_radius": 9.4326,
+    "source_area": 188348.761825,
+    "recon_area": 188964.319194,
+    "width_mode": "auto",
+    "seconds": 2.507596,
+    "extras": {}
+   }
+  },
+  "bestHandTuned": "fitodic-filter",
+  "auto": {
+   "lam": 0.25,
+   "iou": 0.979279,
+   "sym_diff_area": 3970.478367,
+   "sym_diff_ratio": 0.02108,
+   "missing_ratio": 0.003726,
+   "extra_ratio": 0.017354,
+   "boundary_median": 0.059601,
+   "boundary_p95": 0.532371,
+   "boundary_median_norm": 0.006333,
+   "boundary_p95_norm": 0.056567,
+   "width_error_median": 0.046524,
+   "width_error_norm": 0.004943,
+   "width_cv": 0.139946,
+   "strokes": 13,
+   "edges": 71,
+   "nodes": 75,
+   "terminals": 39,
+   "junctions": 31,
+   "control_points": 9745,
+   "bezier_segments": 0,
+   "total_length": 10030.4159,
+   "global_radius": 9.4113,
+   "source_area": 188348.761825,
+   "recon_area": 190915.558632,
+   "width_mode": "auto",
+   "seconds": 2.601945,
+   "extras": {}
+  },
+  "sweep": [
+   {
+    "lam": 0.0,
+    "error": 0.023926,
+    "iou": 0.976554,
+    "missingRatio": 0.003443,
+    "extraRatio": 0.020483,
+    "boundaryP95": 0.7257,
+    "edges": 233,
+    "strokes": 13,
+    "controlPoints": 10126,
+    "totalLength": 10362.06,
+    "widthCv": 0.20019,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 233,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 0.25,
+    "error": 0.02108,
+    "iou": 0.979279,
+    "missingRatio": 0.003726,
+    "extraRatio": 0.017354,
+    "boundaryP95": 0.5324,
+    "edges": 71,
+    "strokes": 13,
+    "controlPoints": 9745,
+    "totalLength": 10030.42,
+    "widthCv": 0.13995,
+    "prune": {
+     "lam": 0.25,
+     "removed": 99,
+     "removedLength": 331.644,
+     "passes": 4,
+     "keptEdges": 71,
+     "merges": 63
+    }
+   },
+   {
+    "lam": 0.5,
+    "error": 0.023006,
+    "iou": 0.977307,
+    "missingRatio": 0.009204,
+    "extraRatio": 0.013802,
+    "boundaryP95": 0.4984,
+    "edges": 35,
+    "strokes": 11,
+    "controlPoints": 9626,
+    "totalLength": 9847.4,
+    "widthCv": 0.06838,
+    "prune": {
+     "lam": 0.5,
+     "removed": 130,
+     "removedLength": 514.658,
+     "passes": 2,
+     "keptEdges": 35,
+     "merges": 68
+    }
+   },
+   {
+    "lam": 0.75,
+    "error": 0.023574,
+    "iou": 0.976744,
+    "missingRatio": 0.009892,
+    "extraRatio": 0.013682,
+    "boundaryP95": 0.5351,
+    "edges": 27,
+    "strokes": 11,
+    "controlPoints": 9580,
+    "totalLength": 9801.5,
+    "widthCv": 0.05678,
+    "prune": {
+     "lam": 0.75,
+     "removed": 135,
+     "removedLength": 560.565,
+     "passes": 2,
+     "keptEdges": 27,
+     "merges": 71
+    }
+   },
+   {
+    "lam": 1.0,
+    "error": 0.02383,
+    "iou": 0.976491,
+    "missingRatio": 0.010165,
+    "extraRatio": 0.013665,
+    "boundaryP95": 0.5428,
+    "edges": 27,
+    "strokes": 11,
+    "controlPoints": 9566,
+    "totalLength": 9786.52,
+    "widthCv": 0.05683,
+    "prune": {
+     "lam": 1.0,
+     "removed": 136,
+     "removedLength": 575.543,
+     "passes": 2,
+     "keptEdges": 27,
+     "merges": 70
+    }
+   },
+   {
+    "lam": 1.25,
+    "error": 0.027286,
+    "iou": 0.973076,
+    "missingRatio": 0.013842,
+    "extraRatio": 0.013444,
+    "boundaryP95": 0.7262,
+    "edges": 23,
+    "strokes": 11,
+    "controlPoints": 9496,
+    "totalLength": 9716.69,
+    "widthCv": 0.05534,
+    "prune": {
+     "lam": 1.25,
+     "removed": 140,
+     "removedLength": 645.373,
+     "passes": 3,
+     "keptEdges": 23,
+     "merges": 70
+    }
+   },
+   {
+    "lam": 1.5,
+    "error": 0.027286,
+    "iou": 0.973076,
+    "missingRatio": 0.013842,
+    "extraRatio": 0.013444,
+    "boundaryP95": 0.7262,
+    "edges": 23,
+    "strokes": 11,
+    "controlPoints": 9496,
+    "totalLength": 9716.69,
+    "widthCv": 0.05534,
+    "prune": {
+     "lam": 1.5,
+     "removed": 140,
+     "removedLength": 645.373,
+     "passes": 3,
+     "keptEdges": 23,
+     "merges": 70
+    }
+   },
+   {
+    "lam": 2.0,
+    "error": 0.030221,
+    "iou": 0.970178,
+    "missingRatio": 0.016851,
+    "extraRatio": 0.01337,
+    "boundaryP95": 0.8388,
+    "edges": 22,
+    "strokes": 11,
+    "controlPoints": 9442,
+    "totalLength": 9666.2,
+    "widthCv": 0.05475,
+    "prune": {
+     "lam": 2.0,
+     "removed": 142,
+     "removedLength": 695.859,
+     "passes": 3,
+     "keptEdges": 22,
+     "merges": 69
+    }
+   },
+   {
+    "lam": 2.5,
+    "error": 0.030221,
+    "iou": 0.970178,
+    "missingRatio": 0.016851,
+    "extraRatio": 0.01337,
+    "boundaryP95": 0.8388,
+    "edges": 22,
+    "strokes": 11,
+    "controlPoints": 9442,
+    "totalLength": 9666.2,
+    "widthCv": 0.05475,
+    "prune": {
+     "lam": 2.5,
+     "removed": 142,
+     "removedLength": 695.859,
+     "passes": 3,
+     "keptEdges": 22,
+     "merges": 69
+    }
+   },
+   {
+    "lam": 3.0,
+    "error": 0.030221,
+    "iou": 0.970178,
+    "missingRatio": 0.016851,
+    "extraRatio": 0.01337,
+    "boundaryP95": 0.8388,
+    "edges": 22,
+    "strokes": 11,
+    "controlPoints": 9442,
+    "totalLength": 9666.2,
+    "widthCv": 0.05475,
+    "prune": {
+     "lam": 3.0,
+     "removed": 142,
+     "removedLength": 695.859,
+     "passes": 3,
+     "keptEdges": 22,
+     "merges": 69
+    }
+   },
+   {
+    "lam": 4.0,
+    "error": 0.030221,
+    "iou": 0.970178,
+    "missingRatio": 0.016851,
+    "extraRatio": 0.01337,
+    "boundaryP95": 0.8388,
+    "edges": 22,
+    "strokes": 11,
+    "controlPoints": 9442,
+    "totalLength": 9666.2,
+    "widthCv": 0.05475,
+    "prune": {
+     "lam": 4.0,
+     "removed": 142,
+     "removedLength": 695.859,
+     "passes": 3,
+     "keptEdges": 22,
+     "merges": 69
+    }
+   },
+   {
+    "lam": 5.0,
+    "error": 0.030221,
+    "iou": 0.970178,
+    "missingRatio": 0.016851,
+    "extraRatio": 0.01337,
+    "boundaryP95": 0.8388,
+    "edges": 22,
+    "strokes": 11,
+    "controlPoints": 9442,
+    "totalLength": 9666.2,
+    "widthCv": 0.05475,
+    "prune": {
+     "lam": 5.0,
+     "removed": 142,
+     "removedLength": 695.859,
+     "passes": 3,
+     "keptEdges": 22,
+     "merges": 69
+    }
+   },
+   {
+    "lam": 7.0,
+    "error": 0.071915,
+    "iou": 0.928843,
+    "missingRatio": 0.061268,
+    "extraRatio": 0.010647,
+    "boundaryP95": 1.9286,
+    "edges": 19,
+    "strokes": 11,
+    "controlPoints": 9154,
+    "totalLength": 9351.57,
+    "widthCv": 0.05563,
+    "prune": {
+     "lam": 7.0,
+     "removed": 144,
+     "removedLength": 1010.494,
+     "passes": 4,
+     "keptEdges": 19,
+     "merges": 70
+    }
+   },
+   {
+    "lam": 10.0,
+    "error": 0.079897,
+    "iou": 0.920944,
+    "missingRatio": 0.069259,
+    "extraRatio": 0.010638,
+    "boundaryP95": 2.3412,
+    "edges": 18,
+    "strokes": 10,
+    "controlPoints": 9079,
+    "totalLength": 9285.12,
+    "widthCv": 0.05582,
+    "prune": {
+     "lam": 10.0,
+     "removed": 145,
+     "removedLength": 1076.941,
+     "passes": 3,
+     "keptEdges": 18,
+     "merges": 70
+    }
+   }
+  ],
+  "seconds": 27.97,
+  "verdict": "auto-lower-error"
+ },
+ {
+  "track": "polygon-voronoi",
+  "image": "boat-tall",
+  "unpruned": {
+   "iou": 0.926068,
+   "sym_diff_area": 10404.184645,
+   "sym_diff_ratio": 0.075635,
+   "missing_ratio": 0.052597,
+   "extra_ratio": 0.023039,
+   "boundary_median": 0.057095,
+   "boundary_p95": 0.507094,
+   "boundary_median_norm": 0.008695,
+   "boundary_p95_norm": 0.07723,
+   "width_error_median": 0.039265,
+   "width_error_norm": 0.00598,
+   "width_cv": 0.053592,
+   "strokes": 22,
+   "edges": 218,
+   "nodes": 233,
+   "terminals": 130,
+   "junctions": 100,
+   "control_points": 10741,
+   "bezier_segments": 0,
+   "total_length": 10518.9757,
+   "global_radius": 6.566,
+   "source_area": 137556.924292,
+   "recon_area": 133490.96197,
+   "width_mode": "auto",
+   "seconds": 3.56182,
+   "extras": {}
+  },
+  "handTuned": {
+   "fitodic-filter": {
+    "iou": 0.917508,
+    "sym_diff_area": 11624.916192,
+    "sym_diff_ratio": 0.08451,
+    "missing_ratio": 0.060047,
+    "extra_ratio": 0.024463,
+    "boundary_median": 0.063755,
+    "boundary_p95": 0.870111,
+    "boundary_median_norm": 0.009765,
+    "boundary_p95_norm": 0.133275,
+    "width_error_median": 0.04889,
+    "width_error_norm": 0.007489,
+    "width_cv": 0.024111,
+    "strokes": 22,
+    "edges": 30,
+    "nodes": 45,
+    "terminals": 34,
+    "junctions": 4,
+    "control_points": 10152,
+    "bezier_segments": 0,
+    "total_length": 10216.1322,
+    "global_radius": 6.5287,
+    "source_area": 137556.924292,
+    "recon_area": 132662.172398,
+    "width_mode": "auto",
+    "seconds": 3.27919,
+    "extras": {}
+   }
+  },
+  "bestHandTuned": "fitodic-filter",
+  "auto": {
+   "lam": 1.25,
+   "iou": 0.923841,
+   "sym_diff_area": 10696.556646,
+   "sym_diff_ratio": 0.077761,
+   "missing_ratio": 0.056732,
+   "extra_ratio": 0.021028,
+   "boundary_median": 0.057075,
+   "boundary_p95": 0.51185,
+   "boundary_median_norm": 0.008745,
+   "boundary_p95_norm": 0.078422,
+   "width_error_median": 0.039312,
+   "width_error_norm": 0.006023,
+   "width_cv": 0.024315,
+   "strokes": 22,
+   "edges": 30,
+   "nodes": 45,
+   "terminals": 34,
+   "junctions": 4,
+   "control_points": 10152,
+   "bezier_segments": 0,
+   "total_length": 10216.1322,
+   "global_radius": 6.5269,
+   "source_area": 137556.924292,
+   "recon_area": 132645.594008,
+   "width_mode": "auto",
+   "seconds": 3.015955,
+   "extras": {}
+  },
+  "sweep": [
+   {
+    "lam": 0.0,
+    "error": 0.075635,
+    "iou": 0.926068,
+    "missingRatio": 0.052597,
+    "extraRatio": 0.023039,
+    "boundaryP95": 0.5071,
+    "edges": 218,
+    "strokes": 22,
+    "controlPoints": 10741,
+    "totalLength": 10518.98,
+    "widthCv": 0.05359,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 218,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 0.25,
+    "error": 0.075174,
+    "iou": 0.92645,
+    "missingRatio": 0.053099,
+    "extraRatio": 0.022075,
+    "boundaryP95": 0.4767,
+    "edges": 76,
+    "strokes": 22,
+    "controlPoints": 10368,
+    "totalLength": 10410.53,
+    "widthCv": 0.04822,
+    "prune": {
+     "lam": 0.25,
+     "removed": 100,
+     "removedLength": 108.442,
+     "passes": 2,
+     "keptEdges": 76,
+     "merges": 42
+    }
+   },
+   {
+    "lam": 0.5,
+    "error": 0.076005,
+    "iou": 0.925588,
+    "missingRatio": 0.054588,
+    "extraRatio": 0.021417,
+    "boundaryP95": 0.5024,
+    "edges": 42,
+    "strokes": 22,
+    "controlPoints": 10242,
+    "totalLength": 10313.41,
+    "widthCv": 0.04141,
+    "prune": {
+     "lam": 0.5,
+     "removed": 125,
+     "removedLength": 205.565,
+     "passes": 2,
+     "keptEdges": 42,
+     "merges": 51
+    }
+   },
+   {
+    "lam": 0.75,
+    "error": 0.077334,
+    "iou": 0.924265,
+    "missingRatio": 0.056225,
+    "extraRatio": 0.021109,
+    "boundaryP95": 0.5109,
+    "edges": 30,
+    "strokes": 22,
+    "controlPoints": 10179,
+    "totalLength": 10249.74,
+    "widthCv": 0.02429,
+    "prune": {
+     "lam": 0.75,
+     "removed": 134,
+     "removedLength": 269.235,
+     "passes": 2,
+     "keptEdges": 30,
+     "merges": 54
+    }
+   },
+   {
+    "lam": 1.0,
+    "error": 0.077334,
+    "iou": 0.924265,
+    "missingRatio": 0.056225,
+    "extraRatio": 0.021109,
+    "boundaryP95": 0.5109,
+    "edges": 30,
+    "strokes": 22,
+    "controlPoints": 10179,
+    "totalLength": 10249.74,
+    "widthCv": 0.02429,
+    "prune": {
+     "lam": 1.0,
+     "removed": 135,
+     "removedLength": 279.903,
+     "passes": 2,
+     "keptEdges": 30,
+     "merges": 53
+    }
+   },
+   {
+    "lam": 1.25,
+    "error": 0.077761,
+    "iou": 0.923841,
+    "missingRatio": 0.056732,
+    "extraRatio": 0.021028,
+    "boundaryP95": 0.5118,
+    "edges": 30,
+    "strokes": 22,
+    "controlPoints": 10152,
+    "totalLength": 10216.13,
+    "widthCv": 0.02432,
+    "prune": {
+     "lam": 1.25,
+     "removed": 137,
+     "removedLength": 302.844,
+     "passes": 2,
+     "keptEdges": 30,
+     "merges": 51
+    }
+   },
+   {
+    "lam": 1.5,
+    "error": 0.077761,
+    "iou": 0.923841,
+    "missingRatio": 0.056732,
+    "extraRatio": 0.021028,
+    "boundaryP95": 0.5118,
+    "edges": 30,
+    "strokes": 22,
+    "controlPoints": 10152,
+    "totalLength": 10216.13,
+    "widthCv": 0.02432,
+    "prune": {
+     "lam": 1.5,
+     "removed": 137,
+     "removedLength": 302.844,
+     "passes": 2,
+     "keptEdges": 30,
+     "merges": 51
+    }
+   },
+   {
+    "lam": 2.0,
+    "error": 0.077761,
+    "iou": 0.923841,
+    "missingRatio": 0.056732,
+    "extraRatio": 0.021028,
+    "boundaryP95": 0.5118,
+    "edges": 30,
+    "strokes": 22,
+    "controlPoints": 10152,
+    "totalLength": 10216.13,
+    "widthCv": 0.02432,
+    "prune": {
+     "lam": 2.0,
+     "removed": 137,
+     "removedLength": 302.844,
+     "passes": 2,
+     "keptEdges": 30,
+     "merges": 51
+    }
+   },
+   {
+    "lam": 2.5,
+    "error": 0.077761,
+    "iou": 0.923841,
+    "missingRatio": 0.056732,
+    "extraRatio": 0.021028,
+    "boundaryP95": 0.5118,
+    "edges": 30,
+    "strokes": 22,
+    "controlPoints": 10152,
+    "totalLength": 10216.13,
+    "widthCv": 0.02432,
+    "prune": {
+     "lam": 2.5,
+     "removed": 137,
+     "removedLength": 302.844,
+     "passes": 2,
+     "keptEdges": 30,
+     "merges": 51
+    }
+   },
+   {
+    "lam": 3.0,
+    "error": 0.077761,
+    "iou": 0.923841,
+    "missingRatio": 0.056732,
+    "extraRatio": 0.021028,
+    "boundaryP95": 0.5118,
+    "edges": 30,
+    "strokes": 22,
+    "controlPoints": 10152,
+    "totalLength": 10216.13,
+    "widthCv": 0.02432,
+    "prune": {
+     "lam": 3.0,
+     "removed": 137,
+     "removedLength": 302.844,
+     "passes": 2,
+     "keptEdges": 30,
+     "merges": 51
+    }
+   },
+   {
+    "lam": 4.0,
+    "error": 0.077761,
+    "iou": 0.923841,
+    "missingRatio": 0.056732,
+    "extraRatio": 0.021028,
+    "boundaryP95": 0.5118,
+    "edges": 30,
+    "strokes": 22,
+    "controlPoints": 10152,
+    "totalLength": 10216.13,
+    "widthCv": 0.02432,
+    "prune": {
+     "lam": 4.0,
+     "removed": 137,
+     "removedLength": 302.844,
+     "passes": 2,
+     "keptEdges": 30,
+     "merges": 51
+    }
+   },
+   {
+    "lam": 5.0,
+    "error": 0.077761,
+    "iou": 0.923841,
+    "missingRatio": 0.056732,
+    "extraRatio": 0.021028,
+    "boundaryP95": 0.5118,
+    "edges": 30,
+    "strokes": 22,
+    "controlPoints": 10152,
+    "totalLength": 10216.13,
+    "widthCv": 0.02432,
+    "prune": {
+     "lam": 5.0,
+     "removed": 137,
+     "removedLength": 302.844,
+     "passes": 2,
+     "keptEdges": 30,
+     "merges": 51
+    }
+   },
+   {
+    "lam": 7.0,
+    "error": 0.105944,
+    "iou": 0.896203,
+    "missingRatio": 0.08526,
+    "extraRatio": 0.020684,
+    "boundaryP95": 0.8059,
+    "edges": 28,
+    "strokes": 20,
+    "controlPoints": 9878,
+    "totalLength": 9938.75,
+    "widthCv": 0.0246,
+    "prune": {
+     "lam": 7.0,
+     "removed": 141,
+     "removedLength": 580.224,
+     "passes": 2,
+     "keptEdges": 28,
+     "merges": 49
+    }
+   },
+   {
+    "lam": 10.0,
+    "error": 0.112247,
+    "iou": 0.89002,
+    "missingRatio": 0.09164,
+    "extraRatio": 0.020606,
+    "boundaryP95": 0.979,
+    "edges": 23,
+    "strokes": 15,
+    "controlPoints": 9553,
+    "totalLength": 9639.2,
+    "widthCv": 0.02435,
+    "prune": {
+     "lam": 10.0,
+     "removed": 146,
+     "removedLength": 879.775,
+     "passes": 2,
+     "keptEdges": 23,
+     "merges": 49
+    }
+   }
+  ],
+  "seconds": 29.89,
+  "verdict": "auto-dominates"
+ },
+ {
+  "track": "polygon-voronoi",
+  "image": "island-tall",
+  "unpruned": {
+   "iou": 0.932558,
+   "sym_diff_area": 9396.553601,
+   "sym_diff_ratio": 0.068997,
+   "missing_ratio": 0.045942,
+   "extra_ratio": 0.023055,
+   "boundary_median": 0.06365,
+   "boundary_p95": 0.682479,
+   "boundary_median_norm": 0.008494,
+   "boundary_p95_norm": 0.091079,
+   "width_error_median": 0.050816,
+   "width_error_norm": 0.006781,
+   "width_cv": 0.110788,
+   "strokes": 24,
+   "edges": 297,
+   "nodes": 313,
+   "terminals": 172,
+   "junctions": 140,
+   "control_points": 9529,
+   "bezier_segments": 0,
+   "total_length": 9288.8812,
+   "global_radius": 7.4933,
+   "source_area": 136187.065568,
+   "recon_area": 133070.160332,
+   "width_mode": "auto",
+   "seconds": 2.984283,
+   "extras": {}
+  },
+  "handTuned": {
+   "fitodic-filter": {
+    "iou": 0.92162,
+    "sym_diff_area": 10906.770005,
+    "sym_diff_ratio": 0.080087,
+    "missing_ratio": 0.058314,
+    "extra_ratio": 0.021773,
+    "boundary_median": 0.069345,
+    "boundary_p95": 1.459159,
+    "boundary_median_norm": 0.009213,
+    "boundary_p95_norm": 0.193849,
+    "width_error_median": 0.061398,
+    "width_error_norm": 0.008157,
+    "width_cv": 0.038795,
+    "strokes": 24,
+    "edges": 45,
+    "nodes": 61,
+    "terminals": 46,
+    "junctions": 14,
+    "control_points": 8789,
+    "bezier_segments": 0,
+    "total_length": 8887.7481,
+    "global_radius": 7.5273,
+    "source_area": 136187.065568,
+    "recon_area": 131210.731659,
+    "width_mode": "auto",
+    "seconds": 2.834259,
+    "extras": {}
+   }
+  },
+  "bestHandTuned": "fitodic-filter",
+  "auto": {
+   "lam": 5.0,
+   "iou": 0.929012,
+   "sym_diff_area": 9810.893593,
+   "sym_diff_ratio": 0.07204,
+   "missing_ratio": 0.057217,
+   "extra_ratio": 0.014823,
+   "boundary_median": 0.063194,
+   "boundary_p95": 0.637533,
+   "boundary_median_norm": 0.008373,
+   "boundary_p95_norm": 0.084466,
+   "width_error_median": 0.051366,
+   "width_error_norm": 0.006805,
+   "width_cv": 0.032353,
+   "strokes": 18,
+   "edges": 39,
+   "nodes": 49,
+   "terminals": 34,
+   "junctions": 14,
+   "control_points": 8543,
+   "bezier_segments": 0,
+   "total_length": 8676.1606,
+   "global_radius": 7.5478,
+   "source_area": 136187.065568,
+   "recon_area": 130413.48147,
+   "width_mode": "auto",
+   "seconds": 2.788707,
+   "extras": {}
+  },
+  "sweep": [
+   {
+    "lam": 0.0,
+    "error": 0.068997,
+    "iou": 0.932558,
+    "missingRatio": 0.045942,
+    "extraRatio": 0.023055,
+    "boundaryP95": 0.6825,
+    "edges": 297,
+    "strokes": 24,
+    "controlPoints": 9529,
+    "totalLength": 9288.88,
+    "widthCv": 0.11079,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 297,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 0.25,
+    "error": 0.071295,
+    "iou": 0.930212,
+    "missingRatio": 0.049698,
+    "extraRatio": 0.021597,
+    "boundaryP95": 0.6819,
+    "edges": 97,
+    "strokes": 22,
+    "controlPoints": 9012,
+    "totalLength": 9140.84,
+    "widthCv": 0.10782,
+    "prune": {
+     "lam": 0.25,
+     "removed": 142,
+     "removedLength": 148.039,
+     "passes": 2,
+     "keptEdges": 97,
+     "merges": 58
+    }
+   },
+   {
+    "lam": 0.5,
+    "error": 0.071248,
+    "iou": 0.930223,
+    "missingRatio": 0.050167,
+    "extraRatio": 0.021081,
+    "boundaryP95": 0.641,
+    "edges": 64,
+    "strokes": 21,
+    "controlPoints": 8918,
+    "totalLength": 9055.37,
+    "widthCv": 0.0874,
+    "prune": {
+     "lam": 0.5,
+     "removed": 161,
+     "removedLength": 233.507,
+     "passes": 2,
+     "keptEdges": 64,
+     "merges": 72
+    }
+   },
+   {
+    "lam": 0.75,
+    "error": 0.071876,
+    "iou": 0.929591,
+    "missingRatio": 0.051044,
+    "extraRatio": 0.020832,
+    "boundaryP95": 0.6669,
+    "edges": 48,
+    "strokes": 21,
+    "controlPoints": 8830,
+    "totalLength": 8962.67,
+    "widthCv": 0.05451,
+    "prune": {
+     "lam": 0.75,
+     "removed": 172,
+     "removedLength": 326.216,
+     "passes": 2,
+     "keptEdges": 48,
+     "merges": 77
+    }
+   },
+   {
+    "lam": 1.0,
+    "error": 0.072146,
+    "iou": 0.929317,
+    "missingRatio": 0.051437,
+    "extraRatio": 0.02071,
+    "boundaryP95": 0.6591,
+    "edges": 44,
+    "strokes": 21,
+    "controlPoints": 8799,
+    "totalLength": 8926.35,
+    "widthCv": 0.04241,
+    "prune": {
+     "lam": 1.0,
+     "removed": 176,
+     "removedLength": 362.533,
+     "passes": 2,
+     "keptEdges": 44,
+     "merges": 77
+    }
+   },
+   {
+    "lam": 1.25,
+    "error": 0.072665,
+    "iou": 0.928808,
+    "missingRatio": 0.05197,
+    "extraRatio": 0.020695,
+    "boundaryP95": 0.6708,
+    "edges": 44,
+    "strokes": 21,
+    "controlPoints": 8776,
+    "totalLength": 8899.86,
+    "widthCv": 0.04248,
+    "prune": {
+     "lam": 1.25,
+     "removed": 178,
+     "removedLength": 389.025,
+     "passes": 2,
+     "keptEdges": 44,
+     "merges": 75
+    }
+   },
+   {
+    "lam": 1.5,
+    "error": 0.074285,
+    "iou": 0.927219,
+    "missingRatio": 0.053616,
+    "extraRatio": 0.020669,
+    "boundaryP95": 0.6607,
+    "edges": 41,
+    "strokes": 20,
+    "controlPoints": 8743,
+    "totalLength": 8869.9,
+    "widthCv": 0.03316,
+    "prune": {
+     "lam": 1.5,
+     "removed": 181,
+     "removedLength": 418.978,
+     "passes": 2,
+     "keptEdges": 41,
+     "merges": 75
+    }
+   },
+   {
+    "lam": 2.0,
+    "error": 0.074285,
+    "iou": 0.927219,
+    "missingRatio": 0.053616,
+    "extraRatio": 0.020669,
+    "boundaryP95": 0.6607,
+    "edges": 41,
+    "strokes": 20,
+    "controlPoints": 8743,
+    "totalLength": 8869.9,
+    "widthCv": 0.03316,
+    "prune": {
+     "lam": 2.0,
+     "removed": 184,
+     "removedLength": 475.983,
+     "passes": 2,
+     "keptEdges": 41,
+     "merges": 72
+    }
+   },
+   {
+    "lam": 2.5,
+    "error": 0.074285,
+    "iou": 0.927219,
+    "missingRatio": 0.053616,
+    "extraRatio": 0.020669,
+    "boundaryP95": 0.6607,
+    "edges": 41,
+    "strokes": 20,
+    "controlPoints": 8743,
+    "totalLength": 8869.9,
+    "widthCv": 0.03316,
+    "prune": {
+     "lam": 2.5,
+     "removed": 184,
+     "removedLength": 475.983,
+     "passes": 2,
+     "keptEdges": 41,
+     "merges": 72
+    }
+   },
+   {
+    "lam": 3.0,
+    "error": 0.074285,
+    "iou": 0.927219,
+    "missingRatio": 0.053616,
+    "extraRatio": 0.020669,
+    "boundaryP95": 0.6607,
+    "edges": 41,
+    "strokes": 20,
+    "controlPoints": 8743,
+    "totalLength": 8869.9,
+    "widthCv": 0.03316,
+    "prune": {
+     "lam": 3.0,
+     "removed": 184,
+     "removedLength": 475.983,
+     "passes": 2,
+     "keptEdges": 41,
+     "merges": 72
+    }
+   },
+   {
+    "lam": 4.0,
+    "error": 0.074285,
+    "iou": 0.927219,
+    "missingRatio": 0.053616,
+    "extraRatio": 0.020669,
+    "boundaryP95": 0.6607,
+    "edges": 41,
+    "strokes": 20,
+    "controlPoints": 8743,
+    "totalLength": 8869.9,
+    "widthCv": 0.03316,
+    "prune": {
+     "lam": 4.0,
+     "removed": 185,
+     "removedLength": 510.561,
+     "passes": 2,
+     "keptEdges": 41,
+     "merges": 71
+    }
+   },
+   {
+    "lam": 5.0,
+    "error": 0.07204,
+    "iou": 0.929012,
+    "missingRatio": 0.057217,
+    "extraRatio": 0.014823,
+    "boundaryP95": 0.6375,
+    "edges": 39,
+    "strokes": 18,
+    "controlPoints": 8543,
+    "totalLength": 8676.16,
+    "widthCv": 0.03235,
+    "prune": {
+     "lam": 5.0,
+     "removed": 187,
+     "removedLength": 612.721,
+     "passes": 2,
+     "keptEdges": 39,
+     "merges": 71
+    }
+   },
+   {
+    "lam": 7.0,
+    "error": 0.101958,
+    "iou": 0.898658,
+    "missingRatio": 0.095876,
+    "extraRatio": 0.006083,
+    "boundaryP95": 1.1485,
+    "edges": 31,
+    "strokes": 12,
+    "controlPoints": 8035,
+    "totalLength": 8206.87,
+    "widthCv": 0.0291,
+    "prune": {
+     "lam": 7.0,
+     "removed": 195,
+     "removedLength": 1082.014,
+     "passes": 2,
+     "keptEdges": 31,
+     "merges": 71
+    }
+   },
+   {
+    "lam": 10.0,
+    "error": 0.148996,
+    "iou": 0.85185,
+    "missingRatio": 0.143286,
+    "extraRatio": 0.00571,
+    "boundaryP95": 33.8545,
+    "edges": 28,
+    "strokes": 11,
+    "controlPoints": 7621,
+    "totalLength": 7787.73,
+    "widthCv": 0.02941,
+    "prune": {
+     "lam": 10.0,
+     "removed": 199,
+     "removedLength": 1501.155,
+     "passes": 2,
+     "keptEdges": 28,
+     "merges": 70
+    }
+   }
+  ],
+  "seconds": 34.23,
+  "verdict": "auto-dominates"
+ },
+ {
+  "track": "polygon-voronoi",
+  "image": "balloon-tall",
+  "unpruned": {
+   "iou": 0.903947,
+   "sym_diff_area": 12307.39122,
+   "sym_diff_ratio": 0.098523,
+   "missing_ratio": 0.07281,
+   "extra_ratio": 0.025713,
+   "boundary_median": 0.061204,
+   "boundary_p95": 0.730841,
+   "boundary_median_norm": 0.009799,
+   "boundary_p95_norm": 0.117009,
+   "width_error_median": 0.038776,
+   "width_error_norm": 0.006208,
+   "width_cv": 0.095913,
+   "strokes": 27,
+   "edges": 300,
+   "nodes": 315,
+   "terminals": 171,
+   "junctions": 141,
+   "control_points": 10369,
+   "bezier_segments": 0,
+   "total_length": 10209.2452,
+   "global_radius": 6.246,
+   "source_area": 124919.287823,
+   "recon_area": 119035.95106,
+   "width_mode": "auto",
+   "seconds": 3.152502,
+   "extras": {}
+  },
+  "handTuned": {
+   "fitodic-filter": {
+    "iou": 0.895612,
+    "sym_diff_area": 13371.246462,
+    "sym_diff_ratio": 0.107039,
+    "missing_ratio": 0.08164,
+    "extra_ratio": 0.025399,
+    "boundary_median": 0.065478,
+    "boundary_p95": 1.401316,
+    "boundary_median_norm": 0.010436,
+    "boundary_p95_norm": 0.223353,
+    "width_error_median": 0.048818,
+    "width_error_norm": 0.007781,
+    "width_cv": 0.064829,
+    "strokes": 27,
+    "edges": 61,
+    "nodes": 76,
+    "terminals": 49,
+    "junctions": 19,
+    "control_points": 9633,
+    "bezier_segments": 0,
+    "total_length": 9836.891,
+    "global_radius": 6.274,
+    "source_area": 124919.287823,
+    "recon_area": 117893.716195,
+    "width_mode": "auto",
+    "seconds": 3.083222,
+    "extras": {}
+   }
+  },
+  "bestHandTuned": "fitodic-filter",
+  "auto": {
+   "lam": 2.5,
+   "iou": 0.899576,
+   "sym_diff_area": 12837.702441,
+   "sym_diff_ratio": 0.102768,
+   "missing_ratio": 0.07943,
+   "extra_ratio": 0.023338,
+   "boundary_median": 0.060941,
+   "boundary_p95": 1.033628,
+   "boundary_median_norm": 0.009774,
+   "boundary_p95_norm": 0.165778,
+   "width_error_median": 0.039102,
+   "width_error_norm": 0.006271,
+   "width_cv": 0.064892,
+   "strokes": 27,
+   "edges": 61,
+   "nodes": 76,
+   "terminals": 49,
+   "junctions": 19,
+   "control_points": 9585,
+   "bezier_segments": 0,
+   "total_length": 9786.4846,
+   "global_radius": 6.235,
+   "source_area": 124919.287823,
+   "recon_area": 117912.410697,
+   "width_mode": "auto",
+   "seconds": 3.188017,
+   "extras": {}
+  },
+  "sweep": [
+   {
+    "lam": 0.0,
+    "error": 0.098523,
+    "iou": 0.903947,
+    "missingRatio": 0.07281,
+    "extraRatio": 0.025713,
+    "boundaryP95": 0.7308,
+    "edges": 300,
+    "strokes": 27,
+    "controlPoints": 10369,
+    "totalLength": 10209.25,
+    "widthCv": 0.09591,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 300,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 0.25,
+    "error": 0.098059,
+    "iou": 0.904279,
+    "missingRatio": 0.073636,
+    "extraRatio": 0.024423,
+    "boundaryP95": 0.7399,
+    "edges": 118,
+    "strokes": 27,
+    "controlPoints": 9877,
+    "totalLength": 10050.67,
+    "widthCv": 0.08622,
+    "prune": {
+     "lam": 0.25,
+     "removed": 139,
+     "removedLength": 158.578,
+     "passes": 3,
+     "keptEdges": 118,
+     "merges": 43
+    }
+   },
+   {
+    "lam": 0.5,
+    "error": 0.099724,
+    "iou": 0.902582,
+    "missingRatio": 0.076056,
+    "extraRatio": 0.023668,
+    "boundaryP95": 0.8489,
+    "edges": 75,
+    "strokes": 27,
+    "controlPoints": 9734,
+    "totalLength": 9943.09,
+    "widthCv": 0.07515,
+    "prune": {
+     "lam": 0.5,
+     "removed": 170,
+     "removedLength": 266.155,
+     "passes": 2,
+     "keptEdges": 75,
+     "merges": 55
+    }
+   },
+   {
+    "lam": 0.75,
+    "error": 0.100351,
+    "iou": 0.901946,
+    "missingRatio": 0.076925,
+    "extraRatio": 0.023426,
+    "boundaryP95": 0.9123,
+    "edges": 63,
+    "strokes": 27,
+    "controlPoints": 9670,
+    "totalLength": 9879.94,
+    "widthCv": 0.06524,
+    "prune": {
+     "lam": 0.75,
+     "removed": 181,
+     "removedLength": 329.306,
+     "passes": 2,
+     "keptEdges": 63,
+     "merges": 56
+    }
+   },
+   {
+    "lam": 1.0,
+    "error": 0.101202,
+    "iou": 0.901109,
+    "missingRatio": 0.077835,
+    "extraRatio": 0.023367,
+    "boundaryP95": 0.9839,
+    "edges": 61,
+    "strokes": 27,
+    "controlPoints": 9643,
+    "totalLength": 9848.2,
+    "widthCv": 0.06471,
+    "prune": {
+     "lam": 1.0,
+     "removed": 185,
+     "removedLength": 361.049,
+     "passes": 2,
+     "keptEdges": 61,
+     "merges": 54
+    }
+   },
+   {
+    "lam": 1.25,
+    "error": 0.101202,
+    "iou": 0.901109,
+    "missingRatio": 0.077835,
+    "extraRatio": 0.023367,
+    "boundaryP95": 0.9839,
+    "edges": 61,
+    "strokes": 27,
+    "controlPoints": 9643,
+    "totalLength": 9848.2,
+    "widthCv": 0.06471,
+    "prune": {
+     "lam": 1.25,
+     "removed": 186,
+     "removedLength": 372.354,
+     "passes": 2,
+     "keptEdges": 61,
+     "merges": 53
+    }
+   },
+   {
+    "lam": 1.5,
+    "error": 0.101202,
+    "iou": 0.901109,
+    "missingRatio": 0.077835,
+    "extraRatio": 0.023367,
+    "boundaryP95": 0.9839,
+    "edges": 61,
+    "strokes": 27,
+    "controlPoints": 9643,
+    "totalLength": 9848.2,
+    "widthCv": 0.06471,
+    "prune": {
+     "lam": 1.5,
+     "removed": 186,
+     "removedLength": 372.354,
+     "passes": 2,
+     "keptEdges": 61,
+     "merges": 53
+    }
+   },
+   {
+    "lam": 2.0,
+    "error": 0.101202,
+    "iou": 0.901109,
+    "missingRatio": 0.077835,
+    "extraRatio": 0.023367,
+    "boundaryP95": 0.9839,
+    "edges": 61,
+    "strokes": 27,
+    "controlPoints": 9643,
+    "totalLength": 9848.2,
+    "widthCv": 0.06471,
+    "prune": {
+     "lam": 2.0,
+     "removed": 188,
+     "removedLength": 403.005,
+     "passes": 2,
+     "keptEdges": 61,
+     "merges": 51
+    }
+   },
+   {
+    "lam": 2.5,
+    "error": 0.102768,
+    "iou": 0.899576,
+    "missingRatio": 0.07943,
+    "extraRatio": 0.023338,
+    "boundaryP95": 1.0336,
+    "edges": 61,
+    "strokes": 27,
+    "controlPoints": 9585,
+    "totalLength": 9786.48,
+    "widthCv": 0.06489,
+    "prune": {
+     "lam": 2.5,
+     "removed": 189,
+     "removedLength": 422.761,
+     "passes": 2,
+     "keptEdges": 61,
+     "merges": 50
+    }
+   },
+   {
+    "lam": 3.0,
+    "error": 0.109388,
+    "iou": 0.893095,
+    "missingRatio": 0.086165,
+    "extraRatio": 0.023223,
+    "boundaryP95": 1.2259,
+    "edges": 57,
+    "strokes": 27,
+    "controlPoints": 9510,
+    "totalLength": 9711.39,
+    "widthCv": 0.0648,
+    "prune": {
+     "lam": 3.0,
+     "removed": 191,
+     "removedLength": 497.856,
+     "passes": 2,
+     "keptEdges": 57,
+     "merges": 52
+    }
+   },
+   {
+    "lam": 4.0,
+    "error": 0.133819,
+    "iou": 0.869144,
+    "missingRatio": 0.11118,
+    "extraRatio": 0.022639,
+    "boundaryP95": 3.1058,
+    "edges": 45,
+    "strokes": 27,
+    "controlPoints": 9228,
+    "totalLength": 9429.35,
+    "widthCv": 0.06329,
+    "prune": {
+     "lam": 4.0,
+     "removed": 197,
+     "removedLength": 779.898,
+     "passes": 2,
+     "keptEdges": 45,
+     "merges": 58
+    }
+   },
+   {
+    "lam": 5.0,
+    "error": 0.140336,
+    "iou": 0.862672,
+    "missingRatio": 0.118437,
+    "extraRatio": 0.021899,
+    "boundaryP95": 5.0397,
+    "edges": 42,
+    "strokes": 24,
+    "controlPoints": 9065,
+    "totalLength": 9287.25,
+    "widthCv": 0.05714,
+    "prune": {
+     "lam": 5.0,
+     "removed": 201,
+     "removedLength": 921.999,
+     "passes": 3,
+     "keptEdges": 42,
+     "merges": 57
+    }
+   },
+   {
+    "lam": 7.0,
+    "error": 0.175505,
+    "iou": 0.828145,
+    "missingRatio": 0.154268,
+    "extraRatio": 0.021236,
+    "boundaryP95": 28.5254,
+    "edges": 35,
+    "strokes": 21,
+    "controlPoints": 8643,
+    "totalLength": 8865.4,
+    "widthCv": 0.04768,
+    "prune": {
+     "lam": 7.0,
+     "removed": 208,
+     "removedLength": 1343.846,
+     "passes": 3,
+     "keptEdges": 35,
+     "merges": 57
+    }
+   },
+   {
+    "lam": 10.0,
+    "error": 0.167908,
+    "iou": 0.833466,
+    "missingRatio": 0.159658,
+    "extraRatio": 0.008251,
+    "boundaryP95": 18.6378,
+    "edges": 28,
+    "strokes": 14,
+    "controlPoints": 8136,
+    "totalLength": 8394.75,
+    "widthCv": 0.04877,
+    "prune": {
+     "lam": 10.0,
+     "removed": 216,
+     "removedLength": 1814.493,
+     "passes": 3,
+     "keptEdges": 28,
+     "merges": 56
+    }
+   }
+  ],
+  "seconds": 42.4,
+  "verdict": "auto-dominates"
+ },
+ {
+  "track": "polygon-voronoi",
+  "image": "home-wide",
+  "unpruned": {
+   "iou": 0.896455,
+   "sym_diff_area": 11169.05681,
+   "sym_diff_ratio": 0.107002,
+   "missing_ratio": 0.073614,
+   "extra_ratio": 0.033388,
+   "boundary_median": 0.063635,
+   "boundary_p95": 1.624476,
+   "boundary_median_norm": 0.008899,
+   "boundary_p95_norm": 0.227165,
+   "width_error_median": 0.04552,
+   "width_error_norm": 0.006365,
+   "width_cv": 0.241019,
+   "strokes": 21,
+   "edges": 269,
+   "nodes": 282,
+   "terminals": 154,
+   "junctions": 128,
+   "control_points": 7415,
+   "bezier_segments": 0,
+   "total_length": 7553.0106,
+   "global_radius": 7.1511,
+   "source_area": 104381.933242,
+   "recon_area": 100183.112016,
+   "width_mode": "auto",
+   "seconds": 2.462731,
+   "extras": {}
+  },
+  "handTuned": {
+   "fitodic-filter": {
+    "iou": 0.888976,
+    "sym_diff_area": 11893.276959,
+    "sym_diff_ratio": 0.11394,
+    "missing_ratio": 0.087677,
+    "extra_ratio": 0.026263,
+    "boundary_median": 0.070445,
+    "boundary_p95": 2.057229,
+    "boundary_median_norm": 0.009838,
+    "boundary_p95_norm": 0.287294,
+    "width_error_median": 0.051825,
+    "width_error_norm": 0.007237,
+    "width_cv": 0.074645,
+    "strokes": 21,
+    "edges": 37,
+    "nodes": 50,
+    "terminals": 37,
+    "junctions": 11,
+    "control_points": 6653,
+    "bezier_segments": 0,
+    "total_length": 6779.1649,
+    "global_radius": 7.1607,
+    "source_area": 104381.933242,
+    "recon_area": 97971.364408,
+    "width_mode": "auto",
+    "seconds": 2.017987,
+    "extras": {}
+   }
+  },
+  "bestHandTuned": "fitodic-filter",
+  "auto": {
+   "lam": 0.5,
+   "iou": 0.898715,
+   "sym_diff_area": 10858.210348,
+   "sym_diff_ratio": 0.104024,
+   "missing_ratio": 0.076986,
+   "extra_ratio": 0.027038,
+   "boundary_median": 0.064047,
+   "boundary_p95": 1.324278,
+   "boundary_median_norm": 0.008976,
+   "boundary_p95_norm": 0.18559,
+   "width_error_median": 0.045414,
+   "width_error_norm": 0.006365,
+   "width_cv": 0.103057,
+   "strokes": 20,
+   "edges": 73,
+   "nodes": 85,
+   "terminals": 54,
+   "junctions": 30,
+   "control_points": 6872,
+   "bezier_segments": 0,
+   "total_length": 7051.9544,
+   "global_radius": 7.1355,
+   "source_area": 104381.933242,
+   "recon_area": 99168.236791,
+   "width_mode": "auto",
+   "seconds": 2.164551,
+   "extras": {}
+  },
+  "sweep": [
+   {
+    "lam": 0.0,
+    "error": 0.107002,
+    "iou": 0.896455,
+    "missingRatio": 0.073614,
+    "extraRatio": 0.033388,
+    "boundaryP95": 1.6245,
+    "edges": 269,
+    "strokes": 21,
+    "controlPoints": 7415,
+    "totalLength": 7553.01,
+    "widthCv": 0.24102,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 269,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 0.25,
+    "error": 0.106098,
+    "iou": 0.897213,
+    "missingRatio": 0.073886,
+    "extraRatio": 0.032212,
+    "boundaryP95": 1.6421,
+    "edges": 131,
+    "strokes": 21,
+    "controlPoints": 7099,
+    "totalLength": 7400.71,
+    "widthCv": 0.23952,
+    "prune": {
+     "lam": 0.25,
+     "removed": 90,
+     "removedLength": 152.298,
+     "passes": 3,
+     "keptEdges": 131,
+     "merges": 48
+    }
+   },
+   {
+    "lam": 0.5,
+    "error": 0.104024,
+    "iou": 0.898715,
+    "missingRatio": 0.076986,
+    "extraRatio": 0.027038,
+    "boundaryP95": 1.3243,
+    "edges": 73,
+    "strokes": 20,
+    "controlPoints": 6872,
+    "totalLength": 7051.95,
+    "widthCv": 0.10306,
+    "prune": {
+     "lam": 0.5,
+     "removed": 143,
+     "removedLength": 501.056,
+     "passes": 3,
+     "keptEdges": 73,
+     "merges": 53
+    }
+   },
+   {
+    "lam": 0.75,
+    "error": 0.120975,
+    "iou": 0.882123,
+    "missingRatio": 0.094692,
+    "extraRatio": 0.026283,
+    "boundaryP95": 1.5018,
+    "edges": 46,
+    "strokes": 19,
+    "controlPoints": 6730,
+    "totalLength": 6889.41,
+    "widthCv": 0.06555,
+    "prune": {
+     "lam": 0.75,
+     "removed": 162,
+     "removedLength": 663.601,
+     "passes": 3,
+     "keptEdges": 46,
+     "merges": 61
+    }
+   },
+   {
+    "lam": 1.0,
+    "error": 0.124048,
+    "iou": 0.879082,
+    "missingRatio": 0.098166,
+    "extraRatio": 0.025882,
+    "boundaryP95": 1.8895,
+    "edges": 37,
+    "strokes": 19,
+    "controlPoints": 6645,
+    "totalLength": 6787.23,
+    "widthCv": 0.05926,
+    "prune": {
+     "lam": 1.0,
+     "removed": 174,
+     "removedLength": 765.777,
+     "passes": 3,
+     "keptEdges": 37,
+     "merges": 58
+    }
+   },
+   {
+    "lam": 1.25,
+    "error": 0.124048,
+    "iou": 0.879082,
+    "missingRatio": 0.098166,
+    "extraRatio": 0.025882,
+    "boundaryP95": 1.8895,
+    "edges": 37,
+    "strokes": 19,
+    "controlPoints": 6645,
+    "totalLength": 6787.23,
+    "widthCv": 0.05926,
+    "prune": {
+     "lam": 1.25,
+     "removed": 174,
+     "removedLength": 765.777,
+     "passes": 3,
+     "keptEdges": 37,
+     "merges": 58
+    }
+   },
+   {
+    "lam": 1.5,
+    "error": 0.125318,
+    "iou": 0.877818,
+    "missingRatio": 0.099648,
+    "extraRatio": 0.02567,
+    "boundaryP95": 2.0254,
+    "edges": 35,
+    "strokes": 19,
+    "controlPoints": 6624,
+    "totalLength": 6773.25,
+    "widthCv": 0.05916,
+    "prune": {
+     "lam": 1.5,
+     "removed": 175,
+     "removedLength": 779.76,
+     "passes": 3,
+     "keptEdges": 35,
+     "merges": 59
+    }
+   },
+   {
+    "lam": 2.0,
+    "error": 0.127051,
+    "iou": 0.876114,
+    "missingRatio": 0.1015,
+    "extraRatio": 0.025552,
+    "boundaryP95": 2.2517,
+    "edges": 35,
+    "strokes": 19,
+    "controlPoints": 6575,
+    "totalLength": 6719.7,
+    "widthCv": 0.05903,
+    "prune": {
+     "lam": 2.0,
+     "removed": 178,
+     "removedLength": 833.306,
+     "passes": 3,
+     "keptEdges": 35,
+     "merges": 56
+    }
+   },
+   {
+    "lam": 2.5,
+    "error": 0.127051,
+    "iou": 0.876114,
+    "missingRatio": 0.1015,
+    "extraRatio": 0.025552,
+    "boundaryP95": 2.2517,
+    "edges": 35,
+    "strokes": 19,
+    "controlPoints": 6575,
+    "totalLength": 6719.7,
+    "widthCv": 0.05903,
+    "prune": {
+     "lam": 2.5,
+     "removed": 178,
+     "removedLength": 833.306,
+     "passes": 3,
+     "keptEdges": 35,
+     "merges": 56
+    }
+   },
+   {
+    "lam": 3.0,
+    "error": 0.127051,
+    "iou": 0.876114,
+    "missingRatio": 0.1015,
+    "extraRatio": 0.025552,
+    "boundaryP95": 2.2517,
+    "edges": 35,
+    "strokes": 19,
+    "controlPoints": 6575,
+    "totalLength": 6719.7,
+    "widthCv": 0.05903,
+    "prune": {
+     "lam": 3.0,
+     "removed": 178,
+     "removedLength": 833.306,
+     "passes": 3,
+     "keptEdges": 35,
+     "merges": 56
+    }
+   },
+   {
+    "lam": 4.0,
+    "error": 0.127051,
+    "iou": 0.876114,
+    "missingRatio": 0.1015,
+    "extraRatio": 0.025552,
+    "boundaryP95": 2.2517,
+    "edges": 35,
+    "strokes": 19,
+    "controlPoints": 6575,
+    "totalLength": 6719.7,
+    "widthCv": 0.05903,
+    "prune": {
+     "lam": 4.0,
+     "removed": 178,
+     "removedLength": 833.306,
+     "passes": 3,
+     "keptEdges": 35,
+     "merges": 56
+    }
+   },
+   {
+    "lam": 5.0,
+    "error": 0.133155,
+    "iou": 0.870115,
+    "missingRatio": 0.10798,
+    "extraRatio": 0.025175,
+    "boundaryP95": 3.0106,
+    "edges": 31,
+    "strokes": 17,
+    "controlPoints": 6427,
+    "totalLength": 6572.86,
+    "widthCv": 0.05895,
+    "prune": {
+     "lam": 5.0,
+     "removed": 181,
+     "removedLength": 980.153,
+     "passes": 3,
+     "keptEdges": 31,
+     "merges": 57
+    }
+   },
+   {
+    "lam": 7.0,
+    "error": 0.145558,
+    "iou": 0.855707,
+    "missingRatio": 0.136791,
+    "extraRatio": 0.008768,
+    "boundaryP95": 4.8376,
+    "edges": 23,
+    "strokes": 11,
+    "controlPoints": 5941,
+    "totalLength": 6121.95,
+    "widthCv": 0.05683,
+    "prune": {
+     "lam": 7.0,
+     "removed": 189,
+     "removedLength": 1431.064,
+     "passes": 3,
+     "keptEdges": 23,
+     "merges": 57
+    }
+   },
+   {
+    "lam": 10.0,
+    "error": 0.186906,
+    "iou": 0.814636,
+    "missingRatio": 0.178586,
+    "extraRatio": 0.00832,
+    "boundaryP95": 22.4455,
+    "edges": 21,
+    "strokes": 11,
+    "controlPoints": 5634,
+    "totalLength": 5804.33,
+    "widthCv": 0.05852,
+    "prune": {
+     "lam": 10.0,
+     "removed": 192,
+     "removedLength": 1748.679,
+     "passes": 3,
+     "keptEdges": 21,
+     "merges": 56
+    }
+   }
+  ],
+  "seconds": 26.61,
+  "verdict": "auto-lower-error"
+ },
+ {
+  "track": "polygon-voronoi",
+  "image": "house-tall",
+  "unpruned": {
+   "iou": 0.944514,
+   "sym_diff_area": 10182.52322,
+   "sym_diff_ratio": 0.056912,
+   "missing_ratio": 0.031222,
+   "extra_ratio": 0.02569,
+   "boundary_median": 0.066703,
+   "boundary_p95": 0.946551,
+   "boundary_median_norm": 0.007988,
+   "boundary_p95_norm": 0.113358,
+   "width_error_median": 0.052209,
+   "width_error_norm": 0.006253,
+   "width_cv": 0.08629,
+   "strokes": 27,
+   "edges": 398,
+   "nodes": 408,
+   "terminals": 213,
+   "junctions": 193,
+   "control_points": 11144,
+   "bezier_segments": 0,
+   "total_length": 11109.8801,
+   "global_radius": 8.3501,
+   "source_area": 178918.21306,
+   "recon_area": 177928.538691,
+   "width_mode": "auto",
+   "seconds": 3.428957,
+   "extras": {}
+  },
+  "handTuned": {
+   "fitodic-filter": {
+    "iou": 0.933494,
+    "sym_diff_area": 12204.235818,
+    "sym_diff_ratio": 0.068211,
+    "missing_ratio": 0.042567,
+    "extra_ratio": 0.025644,
+    "boundary_median": 0.077344,
+    "boundary_p95": 1.549692,
+    "boundary_median_norm": 0.009263,
+    "boundary_p95_norm": 0.18559,
+    "width_error_median": 0.067667,
+    "width_error_norm": 0.008104,
+    "width_cv": 0.053095,
+    "strokes": 27,
+    "edges": 56,
+    "nodes": 66,
+    "terminals": 40,
+    "junctions": 20,
+    "control_points": 10100,
+    "bezier_segments": 0,
+    "total_length": 10509.0387,
+    "global_radius": 8.3501,
+    "source_area": 178918.21306,
+    "recon_area": 175890.356131,
+    "width_mode": "auto",
+    "seconds": 2.77563,
+    "extras": {}
+   }
+  },
+  "bestHandTuned": "fitodic-filter",
+  "auto": {
+   "lam": 1.0,
+   "iou": 0.942989,
+   "sym_diff_area": 10418.987271,
+   "sym_diff_ratio": 0.058233,
+   "missing_ratio": 0.036799,
+   "extra_ratio": 0.021434,
+   "boundary_median": 0.065941,
+   "boundary_p95": 1.036109,
+   "boundary_median_norm": 0.007897,
+   "boundary_p95_norm": 0.124083,
+   "width_error_median": 0.054323,
+   "width_error_norm": 0.006506,
+   "width_cv": 0.052876,
+   "strokes": 26,
+   "edges": 55,
+   "nodes": 64,
+   "terminals": 38,
+   "junctions": 20,
+   "control_points": 10100,
+   "bezier_segments": 0,
+   "total_length": 10522.0223,
+   "global_radius": 8.3501,
+   "source_area": 178918.21306,
+   "recon_area": 176169.060272,
+   "width_mode": "auto",
+   "seconds": 3.45962,
+   "extras": {}
+  },
+  "sweep": [
+   {
+    "lam": 0.0,
+    "error": 0.056912,
+    "iou": 0.944514,
+    "missingRatio": 0.031222,
+    "extraRatio": 0.02569,
+    "boundaryP95": 0.9466,
+    "edges": 398,
+    "strokes": 27,
+    "controlPoints": 11144,
+    "totalLength": 11109.88,
+    "widthCv": 0.08629,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 398,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 0.25,
+    "error": 0.055763,
+    "iou": 0.945509,
+    "missingRatio": 0.032418,
+    "extraRatio": 0.023346,
+    "boundaryP95": 0.9002,
+    "edges": 124,
+    "strokes": 27,
+    "controlPoints": 10495,
+    "totalLength": 10874.59,
+    "widthCv": 0.08299,
+    "prune": {
+     "lam": 0.25,
+     "removed": 175,
+     "removedLength": 235.292,
+     "passes": 2,
+     "keptEdges": 124,
+     "merges": 99
+    }
+   },
+   {
+    "lam": 0.5,
+    "error": 0.05759,
+    "iou": 0.943647,
+    "missingRatio": 0.035639,
+    "extraRatio": 0.021952,
+    "boundaryP95": 1.0141,
+    "edges": 73,
+    "strokes": 26,
+    "controlPoints": 10226,
+    "totalLength": 10670.48,
+    "widthCv": 0.07387,
+    "prune": {
+     "lam": 0.5,
+     "removed": 224,
+     "removedLength": 439.397,
+     "passes": 2,
+     "keptEdges": 73,
+     "merges": 101
+    }
+   },
+   {
+    "lam": 0.75,
+    "error": 0.058082,
+    "iou": 0.943145,
+    "missingRatio": 0.036496,
+    "extraRatio": 0.021587,
+    "boundaryP95": 1.0266,
+    "edges": 57,
+    "strokes": 26,
+    "controlPoints": 10126,
+    "totalLength": 10553.86,
+    "widthCv": 0.05745,
+    "prune": {
+     "lam": 0.75,
+     "removed": 237,
+     "removedLength": 556.018,
+     "passes": 2,
+     "keptEdges": 57,
+     "merges": 104
+    }
+   },
+   {
+    "lam": 1.0,
+    "error": 0.058233,
+    "iou": 0.942989,
+    "missingRatio": 0.036799,
+    "extraRatio": 0.021434,
+    "boundaryP95": 1.0361,
+    "edges": 55,
+    "strokes": 26,
+    "controlPoints": 10100,
+    "totalLength": 10522.02,
+    "widthCv": 0.05288,
+    "prune": {
+     "lam": 1.0,
+     "removed": 240,
+     "removedLength": 587.858,
+     "passes": 2,
+     "keptEdges": 55,
+     "merges": 103
+    }
+   },
+   {
+    "lam": 1.25,
+    "error": 0.058233,
+    "iou": 0.942989,
+    "missingRatio": 0.036799,
+    "extraRatio": 0.021434,
+    "boundaryP95": 1.0361,
+    "edges": 55,
+    "strokes": 26,
+    "controlPoints": 10100,
+    "totalLength": 10522.02,
+    "widthCv": 0.05288,
+    "prune": {
+     "lam": 1.25,
+     "removed": 242,
+     "removedLength": 602.442,
+     "passes": 2,
+     "keptEdges": 55,
+     "merges": 101
+    }
+   },
+   {
+    "lam": 1.5,
+    "error": 0.060448,
+    "iou": 0.94081,
+    "missingRatio": 0.039201,
+    "extraRatio": 0.021247,
+    "boundaryP95": 1.0851,
+    "edges": 55,
+    "strokes": 26,
+    "controlPoints": 10061,
+    "totalLength": 10487.94,
+    "widthCv": 0.05295,
+    "prune": {
+     "lam": 1.5,
+     "removed": 243,
+     "removedLength": 621.942,
+     "passes": 2,
+     "keptEdges": 55,
+     "merges": 100
+    }
+   },
+   {
+    "lam": 2.0,
+    "error": 0.060448,
+    "iou": 0.94081,
+    "missingRatio": 0.039201,
+    "extraRatio": 0.021247,
+    "boundaryP95": 1.0851,
+    "edges": 55,
+    "strokes": 26,
+    "controlPoints": 10061,
+    "totalLength": 10487.94,
+    "widthCv": 0.05295,
+    "prune": {
+     "lam": 2.0,
+     "removed": 243,
+     "removedLength": 621.942,
+     "passes": 2,
+     "keptEdges": 55,
+     "merges": 100
+    }
+   },
+   {
+    "lam": 2.5,
+    "error": 0.060448,
+    "iou": 0.94081,
+    "missingRatio": 0.039201,
+    "extraRatio": 0.021247,
+    "boundaryP95": 1.0851,
+    "edges": 55,
+    "strokes": 26,
+    "controlPoints": 10061,
+    "totalLength": 10487.94,
+    "widthCv": 0.05295,
+    "prune": {
+     "lam": 2.5,
+     "removed": 243,
+     "removedLength": 621.942,
+     "passes": 2,
+     "keptEdges": 55,
+     "merges": 100
+    }
+   },
+   {
+    "lam": 3.0,
+    "error": 0.064426,
+    "iou": 0.936904,
+    "missingRatio": 0.043342,
+    "extraRatio": 0.021085,
+    "boundaryP95": 1.1297,
+    "edges": 53,
+    "strokes": 26,
+    "controlPoints": 10015,
+    "totalLength": 10434.68,
+    "widthCv": 0.04868,
+    "prune": {
+     "lam": 3.0,
+     "removed": 244,
+     "removedLength": 675.197,
+     "passes": 2,
+     "keptEdges": 53,
+     "merges": 101
+    }
+   },
+   {
+    "lam": 4.0,
+    "error": 0.064426,
+    "iou": 0.936904,
+    "missingRatio": 0.043342,
+    "extraRatio": 0.021085,
+    "boundaryP95": 1.1297,
+    "edges": 52,
+    "strokes": 25,
+    "controlPoints": 10007,
+    "totalLength": 10429.43,
+    "widthCv": 0.04492,
+    "prune": {
+     "lam": 4.0,
+     "removed": 245,
+     "removedLength": 680.446,
+     "passes": 2,
+     "keptEdges": 52,
+     "merges": 101
+    }
+   },
+   {
+    "lam": 5.0,
+    "error": 0.093645,
+    "iou": 0.908241,
+    "missingRatio": 0.073092,
+    "extraRatio": 0.020553,
+    "boundaryP95": 1.9044,
+    "edges": 43,
+    "strokes": 24,
+    "controlPoints": 9686,
+    "totalLength": 10104.23,
+    "widthCv": 0.03472,
+    "prune": {
+     "lam": 5.0,
+     "removed": 250,
+     "removedLength": 1005.652,
+     "passes": 2,
+     "keptEdges": 43,
+     "merges": 105
+    }
+   },
+   {
+    "lam": 7.0,
+    "error": 0.095242,
+    "iou": 0.905643,
+    "missingRatio": 0.085863,
+    "extraRatio": 0.009379,
+    "boundaryP95": 1.999,
+    "edges": 36,
+    "strokes": 19,
+    "controlPoints": 9316,
+    "totalLength": 9770.94,
+    "widthCv": 0.03521,
+    "prune": {
+     "lam": 7.0,
+     "removed": 256,
+     "removedLength": 1338.944,
+     "passes": 2,
+     "keptEdges": 36,
+     "merges": 106
+    }
+   },
+   {
+    "lam": 10.0,
+    "error": 0.102619,
+    "iou": 0.898331,
+    "missingRatio": 0.093275,
+    "extraRatio": 0.009343,
+    "boundaryP95": 2.4872,
+    "edges": 35,
+    "strokes": 18,
+    "controlPoints": 9238,
+    "totalLength": 9704.17,
+    "widthCv": 0.03531,
+    "prune": {
+     "lam": 10.0,
+     "removed": 257,
+     "removedLength": 1405.706,
+     "passes": 2,
+     "keptEdges": 35,
+     "merges": 106
+    }
+   }
+  ],
+  "seconds": 42.95,
+  "verdict": "auto-dominates"
+ },
+ {
+  "track": "polygon-voronoi",
+  "image": "dinosaur-wide",
+  "unpruned": {
+   "iou": 0.960357,
+   "sym_diff_area": 8937.239954,
+   "sym_diff_ratio": 0.04042,
+   "missing_ratio": 0.020799,
+   "extra_ratio": 0.019622,
+   "boundary_median": 0.066161,
+   "boundary_p95": 0.616373,
+   "boundary_median_norm": 0.008185,
+   "boundary_p95_norm": 0.076256,
+   "width_error_median": 0.059866,
+   "width_error_norm": 0.007407,
+   "width_cv": 0.148669,
+   "strokes": 42,
+   "edges": 253,
+   "nodes": 291,
+   "terminals": 183,
+   "junctions": 107,
+   "control_points": 14905,
+   "bezier_segments": 0,
+   "total_length": 14601.5646,
+   "global_radius": 8.0829,
+   "source_area": 221107.422279,
+   "recon_area": 220847.129415,
+   "width_mode": "auto",
+   "seconds": 4.094089,
+   "extras": {}
+  },
+  "handTuned": {
+   "fitodic-filter": {
+    "iou": 0.956538,
+    "sym_diff_area": 9789.917684,
+    "sym_diff_ratio": 0.044277,
+    "missing_ratio": 0.025522,
+    "extra_ratio": 0.018754,
+    "boundary_median": 0.069479,
+    "boundary_p95": 0.806038,
+    "boundary_median_norm": 0.008596,
+    "boundary_p95_norm": 0.099721,
+    "width_error_median": 0.066052,
+    "width_error_norm": 0.008172,
+    "width_cv": 0.130905,
+    "strokes": 42,
+    "edges": 70,
+    "nodes": 108,
+    "terminals": 91,
+    "junctions": 15,
+    "control_points": 14240,
+    "bezier_segments": 0,
+    "total_length": 14204.8963,
+    "global_radius": 8.0829,
+    "source_area": 221107.422279,
+    "recon_area": 219610.946689,
+    "width_mode": "auto",
+    "seconds": 3.967404,
+    "extras": {}
+   }
+  },
+  "bestHandTuned": "fitodic-filter",
+  "auto": {
+   "lam": 1.25,
+   "iou": 0.96094,
+   "sym_diff_area": 8786.115968,
+   "sym_diff_ratio": 0.039737,
+   "missing_ratio": 0.022409,
+   "extra_ratio": 0.017328,
+   "boundary_median": 0.06583,
+   "boundary_p95": 0.608533,
+   "boundary_median_norm": 0.008144,
+   "boundary_p95_norm": 0.075286,
+   "width_error_median": 0.060458,
+   "width_error_norm": 0.00748,
+   "width_cv": 0.12934,
+   "strokes": 40,
+   "edges": 68,
+   "nodes": 104,
+   "terminals": 87,
+   "junctions": 15,
+   "control_points": 14209,
+   "bezier_segments": 0,
+   "total_length": 14189.4581,
+   "global_radius": 8.0829,
+   "source_area": 221107.422279,
+   "recon_area": 219983.971131,
+   "width_mode": "auto",
+   "seconds": 4.073435,
+   "extras": {}
+  },
+  "sweep": [
+   {
+    "lam": 0.0,
+    "error": 0.04042,
+    "iou": 0.960357,
+    "missingRatio": 0.020799,
+    "extraRatio": 0.019622,
+    "boundaryP95": 0.6164,
+    "edges": 253,
+    "strokes": 42,
+    "controlPoints": 14905,
+    "totalLength": 14601.56,
+    "widthCv": 0.14867,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 253,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 0.25,
+    "error": 0.040164,
+    "iou": 0.960588,
+    "missingRatio": 0.021092,
+    "extraRatio": 0.019072,
+    "boundaryP95": 0.611,
+    "edges": 129,
+    "strokes": 42,
+    "controlPoints": 14558,
+    "totalLength": 14511.03,
+    "widthCv": 0.14561,
+    "prune": {
+     "lam": 0.25,
+     "removed": 93,
+     "removedLength": 90.537,
+     "passes": 2,
+     "keptEdges": 129,
+     "merges": 31
+    }
+   },
+   {
+    "lam": 0.5,
+    "error": 0.039241,
+    "iou": 0.961442,
+    "missingRatio": 0.021548,
+    "extraRatio": 0.017692,
+    "boundaryP95": 0.6137,
+    "edges": 94,
+    "strokes": 41,
+    "controlPoints": 14348,
+    "totalLength": 14346.63,
+    "widthCv": 0.13957,
+    "prune": {
+     "lam": 0.5,
+     "removed": 135,
+     "removedLength": 254.932,
+     "passes": 2,
+     "keptEdges": 94,
+     "merges": 24
+    }
+   },
+   {
+    "lam": 0.75,
+    "error": 0.039295,
+    "iou": 0.96138,
+    "missingRatio": 0.021819,
+    "extraRatio": 0.017476,
+    "boundaryP95": 0.6004,
+    "edges": 76,
+    "strokes": 41,
+    "controlPoints": 14285,
+    "totalLength": 14272.46,
+    "widthCv": 0.13435,
+    "prune": {
+     "lam": 0.75,
+     "removed": 144,
+     "removedLength": 329.104,
+     "passes": 2,
+     "keptEdges": 76,
+     "merges": 33
+    }
+   },
+   {
+    "lam": 1.0,
+    "error": 0.039602,
+    "iou": 0.961073,
+    "missingRatio": 0.022248,
+    "extraRatio": 0.017354,
+    "boundaryP95": 0.6092,
+    "edges": 69,
+    "strokes": 41,
+    "controlPoints": 14231,
+    "totalLength": 14213.59,
+    "widthCv": 0.13049,
+    "prune": {
+     "lam": 1.0,
+     "removed": 150,
+     "removedLength": 387.977,
+     "passes": 2,
+     "keptEdges": 69,
+     "merges": 34
+    }
+   },
+   {
+    "lam": 1.25,
+    "error": 0.039737,
+    "iou": 0.96094,
+    "missingRatio": 0.022409,
+    "extraRatio": 0.017328,
+    "boundaryP95": 0.6085,
+    "edges": 68,
+    "strokes": 40,
+    "controlPoints": 14209,
+    "totalLength": 14189.46,
+    "widthCv": 0.12934,
+    "prune": {
+     "lam": 1.25,
+     "removed": 152,
+     "removedLength": 412.107,
+     "passes": 2,
+     "keptEdges": 68,
+     "merges": 33
+    }
+   },
+   {
+    "lam": 1.5,
+    "error": 0.039737,
+    "iou": 0.96094,
+    "missingRatio": 0.022409,
+    "extraRatio": 0.017328,
+    "boundaryP95": 0.6085,
+    "edges": 68,
+    "strokes": 40,
+    "controlPoints": 14209,
+    "totalLength": 14189.46,
+    "widthCv": 0.12934,
+    "prune": {
+     "lam": 1.5,
+     "removed": 152,
+     "removedLength": 412.107,
+     "passes": 2,
+     "keptEdges": 68,
+     "merges": 33
+    }
+   },
+   {
+    "lam": 2.0,
+    "error": 0.048544,
+    "iou": 0.952227,
+    "missingRatio": 0.032389,
+    "extraRatio": 0.016155,
+    "boundaryP95": 0.6307,
+    "edges": 59,
+    "strokes": 39,
+    "controlPoints": 14037,
+    "totalLength": 13986.67,
+    "widthCv": 0.12457,
+    "prune": {
+     "lam": 2.0,
+     "removed": 160,
+     "removedLength": 614.895,
+     "passes": 3,
+     "keptEdges": 59,
+     "merges": 34
+    }
+   },
+   {
+    "lam": 2.5,
+    "error": 0.052884,
+    "iou": 0.947945,
+    "missingRatio": 0.036968,
+    "extraRatio": 0.015916,
+    "boundaryP95": 0.6297,
+    "edges": 58,
+    "strokes": 38,
+    "controlPoints": 14001,
+    "totalLength": 13951.6,
+    "widthCv": 0.12472,
+    "prune": {
+     "lam": 2.5,
+     "removed": 161,
+     "removedLength": 649.963,
+     "passes": 3,
+     "keptEdges": 58,
+     "merges": 34
+    }
+   },
+   {
+    "lam": 3.0,
+    "error": 0.052884,
+    "iou": 0.947945,
+    "missingRatio": 0.036968,
+    "extraRatio": 0.015916,
+    "boundaryP95": 0.6294,
+    "edges": 57,
+    "strokes": 37,
+    "controlPoints": 13982,
+    "totalLength": 13934.61,
+    "widthCv": 0.12279,
+    "prune": {
+     "lam": 3.0,
+     "removed": 162,
+     "removedLength": 666.953,
+     "passes": 3,
+     "keptEdges": 57,
+     "merges": 34
+    }
+   },
+   {
+    "lam": 4.0,
+    "error": 0.055077,
+    "iou": 0.945783,
+    "missingRatio": 0.039205,
+    "extraRatio": 0.015873,
+    "boundaryP95": 0.654,
+    "edges": 55,
+    "strokes": 37,
+    "controlPoints": 13949,
+    "totalLength": 13900.97,
+    "widthCv": 0.12297,
+    "prune": {
+     "lam": 4.0,
+     "removed": 163,
+     "removedLength": 700.595,
+     "passes": 3,
+     "keptEdges": 55,
+     "merges": 35
+    }
+   },
+   {
+    "lam": 5.0,
+    "error": 0.055077,
+    "iou": 0.945783,
+    "missingRatio": 0.039205,
+    "extraRatio": 0.015873,
+    "boundaryP95": 0.654,
+    "edges": 55,
+    "strokes": 37,
+    "controlPoints": 13949,
+    "totalLength": 13900.97,
+    "widthCv": 0.12297,
+    "prune": {
+     "lam": 5.0,
+     "removed": 163,
+     "removedLength": 700.595,
+     "passes": 3,
+     "keptEdges": 55,
+     "merges": 35
+    }
+   },
+   {
+    "lam": 7.0,
+    "error": 0.079476,
+    "iou": 0.921736,
+    "missingRatio": 0.063999,
+    "extraRatio": 0.015477,
+    "boundaryP95": 1.106,
+    "edges": 45,
+    "strokes": 31,
+    "controlPoints": 13464,
+    "totalLength": 13459.8,
+    "widthCv": 0.11593,
+    "prune": {
+     "lam": 7.0,
+     "removed": 172,
+     "removedLength": 1141.768,
+     "passes": 3,
+     "keptEdges": 45,
+     "merges": 36
+    }
+   },
+   {
+    "lam": 10.0,
+    "error": 0.109284,
+    "iou": 0.892342,
+    "missingRatio": 0.094184,
+    "extraRatio": 0.0151,
+    "boundaryP95": 4.8635,
+    "edges": 35,
+    "strokes": 23,
+    "controlPoints": 12847,
+    "totalLength": 12909.86,
+    "widthCv": 0.11324,
+    "prune": {
+     "lam": 10.0,
+     "removed": 183,
+     "removedLength": 1691.7,
+     "passes": 3,
+     "keptEdges": 35,
+     "merges": 35
+    }
+   }
+  ],
+  "seconds": 59.55,
+  "verdict": "auto-dominates"
+ },
+ {
+  "track": "polygon-voronoi",
+  "image": "landscape-square",
+  "unpruned": {
+   "iou": 0.983489,
+   "sym_diff_area": 10161.319122,
+   "sym_diff_ratio": 0.01675,
+   "missing_ratio": 0.002299,
+   "extra_ratio": 0.014451,
+   "boundary_median": 0.060693,
+   "boundary_p95": 0.86008,
+   "boundary_median_norm": 0.006776,
+   "boundary_p95_norm": 0.096018,
+   "width_error_median": 0.055083,
+   "width_error_norm": 0.006149,
+   "width_cv": 0.247561,
+   "strokes": 14,
+   "edges": 865,
+   "nodes": 875,
+   "terminals": 447,
+   "junctions": 427,
+   "control_points": 28365,
+   "bezier_segments": 0,
+   "total_length": 29194.2414,
+   "global_radius": 8.9575,
+   "source_area": 606663.84175,
+   "recon_area": 614036.281289,
+   "width_mode": "auto",
+   "seconds": 8.813048,
+   "extras": {}
+  },
+  "handTuned": {
+   "fitodic-filter": {
+    "iou": 0.965844,
+    "sym_diff_area": 21141.333751,
+    "sym_diff_ratio": 0.034849,
+    "missing_ratio": 0.014583,
+    "extra_ratio": 0.020265,
+    "boundary_median": 0.069803,
+    "boundary_p95": 2.147846,
+    "boundary_median_norm": 0.007853,
+    "boundary_p95_norm": 0.241641,
+    "width_error_median": 0.06889,
+    "width_error_norm": 0.00775,
+    "width_cv": 0.226571,
+    "strokes": 14,
+    "edges": 129,
+    "nodes": 139,
+    "terminals": 78,
+    "junctions": 58,
+    "control_points": 26162,
+    "bezier_segments": 0,
+    "total_length": 27185.2244,
+    "global_radius": 8.8886,
+    "source_area": 606663.84175,
+    "recon_area": 610111.181299,
+    "width_mode": "auto",
+    "seconds": 7.670997,
+    "extras": {}
+   }
+  },
+  "bestHandTuned": "fitodic-filter",
+  "auto": {
+   "lam": 0.5,
+   "iou": 0.98429,
+   "sym_diff_area": 9645.068438,
+   "sym_diff_ratio": 0.015899,
+   "missing_ratio": 0.003892,
+   "extra_ratio": 0.012007,
+   "boundary_median": 0.059022,
+   "boundary_p95": 0.717171,
+   "boundary_median_norm": 0.006621,
+   "boundary_p95_norm": 0.080455,
+   "width_error_median": 0.056465,
+   "width_error_norm": 0.006335,
+   "width_cv": 0.228027,
+   "strokes": 14,
+   "edges": 175,
+   "nodes": 185,
+   "terminals": 101,
+   "junctions": 81,
+   "control_points": 26647,
+   "bezier_segments": 0,
+   "total_length": 27648.0751,
+   "global_radius": 8.9139,
+   "source_area": 606663.84175,
+   "recon_area": 611586.628849,
+   "width_mode": "auto",
+   "seconds": 7.978016,
+   "extras": {}
+  },
+  "sweep": [
+   {
+    "lam": 0.0,
+    "error": 0.01675,
+    "iou": 0.983489,
+    "missingRatio": 0.002299,
+    "extraRatio": 0.014451,
+    "boundaryP95": 0.8601,
+    "edges": 865,
+    "strokes": 14,
+    "controlPoints": 28365,
+    "totalLength": 29194.24,
+    "widthCv": 0.24756,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 865,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 0.25,
+    "error": 0.015565,
+    "iou": 0.984635,
+    "missingRatio": 0.002519,
+    "extraRatio": 0.013046,
+    "boundaryP95": 0.7553,
+    "edges": 421,
+    "strokes": 14,
+    "controlPoints": 27162,
+    "totalLength": 28702.55,
+    "widthCv": 0.24691,
+    "prune": {
+     "lam": 0.25,
+     "removed": 332,
+     "removedLength": 491.689,
+     "passes": 2,
+     "keptEdges": 421,
+     "merges": 112
+    }
+   },
+   {
+    "lam": 0.5,
+    "error": 0.015899,
+    "iou": 0.98429,
+    "missingRatio": 0.003892,
+    "extraRatio": 0.012007,
+    "boundaryP95": 0.7172,
+    "edges": 175,
+    "strokes": 14,
+    "controlPoints": 26647,
+    "totalLength": 27648.08,
+    "widthCv": 0.22803,
+    "prune": {
+     "lam": 0.5,
+     "removed": 463,
+     "removedLength": 1546.166,
+     "passes": 2,
+     "keptEdges": 175,
+     "merges": 227
+    }
+   },
+   {
+    "lam": 0.75,
+    "error": 0.017417,
+    "iou": 0.982783,
+    "missingRatio": 0.005822,
+    "extraRatio": 0.011595,
+    "boundaryP95": 0.7541,
+    "edges": 145,
+    "strokes": 14,
+    "controlPoints": 26439,
+    "totalLength": 27455.07,
+    "widthCv": 0.22614,
+    "prune": {
+     "lam": 0.75,
+     "removed": 478,
+     "removedLength": 1739.173,
+     "passes": 2,
+     "keptEdges": 145,
+     "merges": 242
+    }
+   },
+   {
+    "lam": 1.0,
+    "error": 0.019814,
+    "iou": 0.980404,
+    "missingRatio": 0.008679,
+    "extraRatio": 0.011135,
+    "boundaryP95": 0.7928,
+    "edges": 131,
+    "strokes": 14,
+    "controlPoints": 26245,
+    "totalLength": 27272.32,
+    "widthCv": 0.22623,
+    "prune": {
+     "lam": 1.0,
+     "removed": 488,
+     "removedLength": 1921.923,
+     "passes": 2,
+     "keptEdges": 131,
+     "merges": 246
+    }
+   },
+   {
+    "lam": 1.25,
+    "error": 0.024618,
+    "iou": 0.975646,
+    "missingRatio": 0.01376,
+    "extraRatio": 0.010858,
+    "boundaryP95": 0.9306,
+    "edges": 115,
+    "strokes": 14,
+    "controlPoints": 25980,
+    "totalLength": 27030.0,
+    "widthCv": 0.22782,
+    "prune": {
+     "lam": 1.25,
+     "removed": 499,
+     "removedLength": 2164.238,
+     "passes": 2,
+     "keptEdges": 115,
+     "merges": 251
+    }
+   },
+   {
+    "lam": 1.5,
+    "error": 0.027786,
+    "iou": 0.972507,
+    "missingRatio": 0.017131,
+    "extraRatio": 0.010655,
+    "boundaryP95": 1.0277,
+    "edges": 107,
+    "strokes": 14,
+    "controlPoints": 25821,
+    "totalLength": 26900.63,
+    "widthCv": 0.22802,
+    "prune": {
+     "lam": 1.5,
+     "removed": 504,
+     "removedLength": 2293.614,
+     "passes": 2,
+     "keptEdges": 107,
+     "merges": 254
+    }
+   },
+   {
+    "lam": 2.0,
+    "error": 0.031539,
+    "iou": 0.968789,
+    "missingRatio": 0.021028,
+    "extraRatio": 0.01051,
+    "boundaryP95": 1.1554,
+    "edges": 101,
+    "strokes": 14,
+    "controlPoints": 25679,
+    "totalLength": 26774.45,
+    "widthCv": 0.22795,
+    "prune": {
+     "lam": 2.0,
+     "removed": 508,
+     "removedLength": 2419.794,
+     "passes": 2,
+     "keptEdges": 101,
+     "merges": 256
+    }
+   },
+   {
+    "lam": 2.5,
+    "error": 0.045005,
+    "iou": 0.955443,
+    "missingRatio": 0.034946,
+    "extraRatio": 0.010059,
+    "boundaryP95": 1.6389,
+    "edges": 85,
+    "strokes": 14,
+    "controlPoints": 25243,
+    "totalLength": 26375.58,
+    "widthCv": 0.22788,
+    "prune": {
+     "lam": 2.5,
+     "removed": 517,
+     "removedLength": 2818.665,
+     "passes": 2,
+     "keptEdges": 85,
+     "merges": 263
+    }
+   },
+   {
+    "lam": 3.0,
+    "error": 0.053706,
+    "iou": 0.946815,
+    "missingRatio": 0.04391,
+    "extraRatio": 0.009796,
+    "boundaryP95": 1.9798,
+    "edges": 77,
+    "strokes": 14,
+    "controlPoints": 24954,
+    "totalLength": 26118.31,
+    "widthCv": 0.2278,
+    "prune": {
+     "lam": 3.0,
+     "removed": 522,
+     "removedLength": 3075.934,
+     "passes": 2,
+     "keptEdges": 77,
+     "merges": 266
+    }
+   },
+   {
+    "lam": 4.0,
+    "error": 0.089242,
+    "iou": 0.911575,
+    "missingRatio": 0.080008,
+    "extraRatio": 0.009234,
+    "boundaryP95": 4.932,
+    "edges": 53,
+    "strokes": 14,
+    "controlPoints": 23915,
+    "totalLength": 25160.0,
+    "widthCv": 0.22908,
+    "prune": {
+     "lam": 4.0,
+     "removed": 537,
+     "removedLength": 4034.237,
+     "passes": 3,
+     "keptEdges": 53,
+     "merges": 275
+    }
+   },
+   {
+    "lam": 5.0,
+    "error": 0.123001,
+    "iou": 0.878083,
+    "missingRatio": 0.114107,
+    "extraRatio": 0.008894,
+    "boundaryP95": 10.9611,
+    "edges": 33,
+    "strokes": 14,
+    "controlPoints": 22960,
+    "totalLength": 24300.58,
+    "widthCv": 0.2303,
+    "prune": {
+     "lam": 5.0,
+     "removed": 547,
+     "removedLength": 4893.658,
+     "passes": 3,
+     "keptEdges": 33,
+     "merges": 285
+    }
+   },
+   {
+    "lam": 7.0,
+    "error": 0.156587,
+    "iou": 0.844752,
+    "missingRatio": 0.147961,
+    "extraRatio": 0.008627,
+    "boundaryP95": 16.5319,
+    "edges": 22,
+    "strokes": 13,
+    "controlPoints": 22202,
+    "totalLength": 23515.91,
+    "widthCv": 0.23048,
+    "prune": {
+     "lam": 7.0,
+     "removed": 554,
+     "removedLength": 5678.335,
+     "passes": 3,
+     "keptEdges": 22,
+     "merges": 289
+    }
+   },
+   {
+    "lam": 10.0,
+    "error": 0.178932,
+    "iou": 0.822581,
+    "missingRatio": 0.170405,
+    "extraRatio": 0.008527,
+    "boundaryP95": 22.403,
+    "edges": 19,
+    "strokes": 12,
+    "controlPoints": 21676,
+    "totalLength": 22981.38,
+    "widthCv": 0.23046,
+    "prune": {
+     "lam": 10.0,
+     "removed": 558,
+     "removedLength": 6212.861,
+     "passes": 3,
+     "keptEdges": 19,
+     "merges": 288
+    }
+   }
+  ],
+  "seconds": 126.1,
+  "verdict": "auto-lower-error"
+ },
+ {
+  "track": "polygon-voronoi",
+  "image": "sun-square",
+  "unpruned": {
+   "iou": 0.985244,
+   "sym_diff_area": 1279.535863,
+   "sym_diff_ratio": 0.014961,
+   "missing_ratio": 0.001087,
+   "extra_ratio": 0.013874,
+   "boundary_median": 0.036626,
+   "boundary_p95": 0.661217,
+   "boundary_median_norm": 0.00293,
+   "boundary_p95_norm": 0.052902,
+   "width_error_median": 0.017523,
+   "width_error_norm": 0.001402,
+   "width_cv": 0.253183,
+   "strokes": 2,
+   "edges": 167,
+   "nodes": 168,
+   "terminals": 85,
+   "junctions": 83,
+   "control_points": 3886,
+   "bezier_segments": 0,
+   "total_length": 4138.0601,
+   "global_radius": 12.499,
+   "source_area": 85524.19285,
+   "recon_area": 86617.776092,
+   "width_mode": "auto",
+   "seconds": 0.729149,
+   "extras": {}
+  },
+  "handTuned": {
+   "fitodic-filter": {
+    "iou": 0.97734,
+    "sym_diff_area": 1975.176679,
+    "sym_diff_ratio": 0.023095,
+    "missing_ratio": 0.003901,
+    "extra_ratio": 0.019194,
+    "boundary_median": 0.047427,
+    "boundary_p95": 1.270472,
+    "boundary_median_norm": 0.003686,
+    "boundary_p95_norm": 0.098746,
+    "width_error_median": 0.046706,
+    "width_error_norm": 0.00363,
+    "width_cv": 0.203271,
+    "strokes": 2,
+    "edges": 30,
+    "nodes": 31,
+    "terminals": 16,
+    "junctions": 14,
+    "control_points": 3571,
+    "bezier_segments": 0,
+    "total_length": 3744.8989,
+    "global_radius": 12.866,
+    "source_area": 85524.19285,
+    "recon_area": 86832.164766,
+    "width_mode": "auto",
+    "seconds": 0.574703,
+    "extras": {}
+   }
+  },
+  "bestHandTuned": "fitodic-filter",
+  "auto": {
+   "lam": 0.5,
+   "iou": 0.988346,
+   "sym_diff_area": 1007.119006,
+   "sym_diff_ratio": 0.011776,
+   "missing_ratio": 0.001287,
+   "extra_ratio": 0.010489,
+   "boundary_median": 0.032716,
+   "boundary_p95": 0.431312,
+   "boundary_median_norm": 0.002558,
+   "boundary_p95_norm": 0.033719,
+   "width_error_median": 0.029926,
+   "width_error_norm": 0.00234,
+   "width_cv": 0.203914,
+   "strokes": 2,
+   "edges": 32,
+   "nodes": 33,
+   "terminals": 17,
+   "junctions": 15,
+   "control_points": 3585,
+   "bezier_segments": 0,
+   "total_length": 3762.4978,
+   "global_radius": 12.7913,
+   "source_area": 85524.19285,
+   "recon_area": 86311.23691,
+   "width_mode": "auto",
+   "seconds": 0.691383,
+   "extras": {}
+  },
+  "sweep": [
+   {
+    "lam": 0.0,
+    "error": 0.014961,
+    "iou": 0.985244,
+    "missingRatio": 0.001087,
+    "extraRatio": 0.013874,
+    "boundaryP95": 0.6612,
+    "edges": 167,
+    "strokes": 2,
+    "controlPoints": 3886,
+    "totalLength": 4138.06,
+    "widthCv": 0.25318,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 167,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 0.25,
+    "error": 0.013754,
+    "iou": 0.986416,
+    "missingRatio": 0.00117,
+    "extraRatio": 0.012584,
+    "boundaryP95": 0.5847,
+    "edges": 99,
+    "strokes": 2,
+    "controlPoints": 3723,
+    "totalLength": 4076.43,
+    "widthCv": 0.24749,
+    "prune": {
+     "lam": 0.25,
+     "removed": 44,
+     "removedLength": 61.629,
+     "passes": 2,
+     "keptEdges": 99,
+     "merges": 24
+    }
+   },
+   {
+    "lam": 0.5,
+    "error": 0.011776,
+    "iou": 0.988346,
+    "missingRatio": 0.001287,
+    "extraRatio": 0.010489,
+    "boundaryP95": 0.4313,
+    "edges": 32,
+    "strokes": 2,
+    "controlPoints": 3585,
+    "totalLength": 3762.5,
+    "widthCv": 0.20391,
+    "prune": {
+     "lam": 0.5,
+     "removed": 85,
+     "removedLength": 375.562,
+     "passes": 1,
+     "keptEdges": 32,
+     "merges": 50
+    }
+   },
+   {
+    "lam": 0.75,
+    "error": 0.011776,
+    "iou": 0.988346,
+    "missingRatio": 0.001287,
+    "extraRatio": 0.010489,
+    "boundaryP95": 0.4313,
+    "edges": 32,
+    "strokes": 2,
+    "controlPoints": 3585,
+    "totalLength": 3762.5,
+    "widthCv": 0.20391,
+    "prune": {
+     "lam": 0.75,
+     "removed": 85,
+     "removedLength": 375.562,
+     "passes": 1,
+     "keptEdges": 32,
+     "merges": 50
+    }
+   },
+   {
+    "lam": 1.0,
+    "error": 0.013828,
+    "iou": 0.986314,
+    "missingRatio": 0.003409,
+    "extraRatio": 0.010419,
+    "boundaryP95": 0.4502,
+    "edges": 30,
+    "strokes": 2,
+    "controlPoints": 3571,
+    "totalLength": 3744.9,
+    "widthCv": 0.20321,
+    "prune": {
+     "lam": 1.0,
+     "removed": 86,
+     "removedLength": 393.161,
+     "passes": 2,
+     "keptEdges": 30,
+     "merges": 51
+    }
+   },
+   {
+    "lam": 1.25,
+    "error": 0.013828,
+    "iou": 0.986314,
+    "missingRatio": 0.003409,
+    "extraRatio": 0.010419,
+    "boundaryP95": 0.4502,
+    "edges": 30,
+    "strokes": 2,
+    "controlPoints": 3571,
+    "totalLength": 3744.9,
+    "widthCv": 0.20321,
+    "prune": {
+     "lam": 1.25,
+     "removed": 86,
+     "removedLength": 393.161,
+     "passes": 2,
+     "keptEdges": 30,
+     "merges": 51
+    }
+   },
+   {
+    "lam": 1.5,
+    "error": 0.013828,
+    "iou": 0.986314,
+    "missingRatio": 0.003409,
+    "extraRatio": 0.010419,
+    "boundaryP95": 0.4502,
+    "edges": 30,
+    "strokes": 2,
+    "controlPoints": 3571,
+    "totalLength": 3744.9,
+    "widthCv": 0.20321,
+    "prune": {
+     "lam": 1.5,
+     "removed": 86,
+     "removedLength": 393.161,
+     "passes": 2,
+     "keptEdges": 30,
+     "merges": 51
+    }
+   },
+   {
+    "lam": 2.0,
+    "error": 0.013828,
+    "iou": 0.986314,
+    "missingRatio": 0.003409,
+    "extraRatio": 0.010419,
+    "boundaryP95": 0.4502,
+    "edges": 30,
+    "strokes": 2,
+    "controlPoints": 3571,
+    "totalLength": 3744.9,
+    "widthCv": 0.20321,
+    "prune": {
+     "lam": 2.0,
+     "removed": 86,
+     "removedLength": 393.161,
+     "passes": 2,
+     "keptEdges": 30,
+     "merges": 51
+    }
+   },
+   {
+    "lam": 2.5,
+    "error": 0.029932,
+    "iou": 0.970364,
+    "missingRatio": 0.019951,
+    "extraRatio": 0.00998,
+    "boundaryP95": 0.461,
+    "edges": 28,
+    "strokes": 2,
+    "controlPoints": 3516,
+    "totalLength": 3677.94,
+    "widthCv": 0.20221,
+    "prune": {
+     "lam": 2.5,
+     "removed": 88,
+     "removedLength": 460.121,
+     "passes": 3,
+     "keptEdges": 28,
+     "merges": 51
+    }
+   },
+   {
+    "lam": 3.0,
+    "error": 0.0401,
+    "iou": 0.960277,
+    "missingRatio": 0.030612,
+    "extraRatio": 0.009489,
+    "boundaryP95": 0.4594,
+    "edges": 26,
+    "strokes": 2,
+    "controlPoints": 3464,
+    "totalLength": 3632.99,
+    "widthCv": 0.20282,
+    "prune": {
+     "lam": 3.0,
+     "removed": 89,
+     "removedLength": 505.072,
+     "passes": 3,
+     "keptEdges": 26,
+     "merges": 52
+    }
+   },
+   {
+    "lam": 4.0,
+    "error": 0.123905,
+    "iou": 0.877081,
+    "missingRatio": 0.115887,
+    "extraRatio": 0.008018,
+    "boundaryP95": 1.759,
+    "edges": 18,
+    "strokes": 2,
+    "controlPoints": 3085,
+    "totalLength": 3276.83,
+    "widthCv": 0.21387,
+    "prune": {
+     "lam": 4.0,
+     "removed": 94,
+     "removedLength": 861.231,
+     "passes": 3,
+     "keptEdges": 18,
+     "merges": 55
+    }
+   },
+   {
+    "lam": 5.0,
+    "error": 0.233894,
+    "iou": 0.767722,
+    "missingRatio": 0.226938,
+    "extraRatio": 0.006955,
+    "boundaryP95": 9.3557,
+    "edges": 8,
+    "strokes": 2,
+    "controlPoints": 2618,
+    "totalLength": 2860.09,
+    "widthCv": 0.22545,
+    "prune": {
+     "lam": 5.0,
+     "removed": 99,
+     "removedLength": 1277.975,
+     "passes": 2,
+     "keptEdges": 8,
+     "merges": 60
+    }
+   },
+   {
+    "lam": 7.0,
+    "error": 0.318926,
+    "iou": 0.683116,
+    "missingRatio": 0.312483,
+    "extraRatio": 0.006443,
+    "boundaryP95": 16.6512,
+    "edges": 2,
+    "strokes": 2,
+    "controlPoints": 2291,
+    "totalLength": 2548.71,
+    "widthCv": 0.23448,
+    "prune": {
+     "lam": 7.0,
+     "removed": 102,
+     "removedLength": 1589.347,
+     "passes": 2,
+     "keptEdges": 2,
+     "merges": 63
+    }
+   },
+   {
+    "lam": 10.0,
+    "error": 0.318926,
+    "iou": 0.683116,
+    "missingRatio": 0.312483,
+    "extraRatio": 0.006443,
+    "boundaryP95": 16.6512,
+    "edges": 2,
+    "strokes": 2,
+    "controlPoints": 2291,
+    "totalLength": 2548.71,
+    "widthCv": 0.23448,
+    "prune": {
+     "lam": 10.0,
+     "removed": 102,
+     "removedLength": 1589.347,
+     "passes": 2,
+     "keptEdges": 2,
+     "merges": 63
+    }
+   }
+  ],
+  "seconds": 7.08,
+  "verdict": "auto-lower-error"
  },
  {
   "track": "tegaki",
@@ -3537,7 +7827,7 @@
    "source_area": 184534.652361,
    "recon_area": 184976.239969,
    "width_mode": "auto",
-   "seconds": 1.56761,
+   "seconds": 0.606187,
    "extras": {}
   },
   "handTuned": {
@@ -3566,7 +7856,7 @@
     "source_area": 184534.652361,
     "recon_area": 184976.239969,
     "width_mode": "auto",
-    "seconds": 1.640744,
+    "seconds": 0.479986,
     "extras": {}
    },
    "tegaki-width": {
@@ -3594,7 +7884,7 @@
     "source_area": 184534.652361,
     "recon_area": 184976.239969,
     "width_mode": "auto",
-    "seconds": 1.539321,
+    "seconds": 0.42374,
     "extras": {}
    }
   },
@@ -3625,7 +7915,7 @@
    "source_area": 184534.652361,
    "recon_area": 184992.767671,
    "width_mode": "auto",
-   "seconds": 1.695834,
+   "seconds": 0.463876,
    "extras": {}
   },
   "sweep": [
@@ -3924,7 +8214,7 @@
     }
    }
   ],
-  "seconds": 10.92,
+  "seconds": 3.42,
   "verdict": "auto-simpler-same-error"
  },
  {
@@ -3955,7 +8245,7 @@
    "source_area": 188348.761825,
    "recon_area": 189867.052605,
    "width_mode": "auto",
-   "seconds": 3.054988,
+   "seconds": 0.61671,
    "extras": {}
   },
   "handTuned": {
@@ -3984,7 +8274,7 @@
     "source_area": 188348.761825,
     "recon_area": 189867.052605,
     "width_mode": "auto",
-    "seconds": 2.724075,
+    "seconds": 0.501726,
     "extras": {}
    },
    "tegaki-width": {
@@ -4012,7 +8302,7 @@
     "source_area": 188348.761825,
     "recon_area": 189867.052605,
     "width_mode": "auto",
-    "seconds": 2.725702,
+    "seconds": 0.645471,
     "extras": {}
    }
   },
@@ -4043,7 +8333,7 @@
    "source_area": 188348.761825,
    "recon_area": 189246.30106,
    "width_mode": "auto",
-   "seconds": 3.113873,
+   "seconds": 0.568941,
    "extras": {}
   },
   "sweep": [
@@ -4342,7 +8632,7 @@
     }
    }
   ],
-  "seconds": 17.44,
+  "seconds": 3.47,
   "verdict": "auto-simpler-same-error"
  },
  {
@@ -4373,7 +8663,7 @@
    "source_area": 137556.924292,
    "recon_area": 140311.557432,
    "width_mode": "auto",
-   "seconds": 3.086313,
+   "seconds": 0.759373,
    "extras": {}
   },
   "handTuned": {
@@ -4402,7 +8692,7 @@
     "source_area": 137556.924292,
     "recon_area": 140311.557432,
     "width_mode": "auto",
-    "seconds": 3.133816,
+    "seconds": 0.611415,
     "extras": {}
    },
    "tegaki-width": {
@@ -4430,7 +8720,7 @@
     "source_area": 137556.924292,
     "recon_area": 140311.557432,
     "width_mode": "auto",
-    "seconds": 3.0131,
+    "seconds": 0.68234,
     "extras": {}
    }
   },
@@ -4461,7 +8751,7 @@
    "source_area": 137556.924292,
    "recon_area": 140312.962242,
    "width_mode": "auto",
-   "seconds": 3.21941,
+   "seconds": 0.779612,
    "extras": {}
   },
   "sweep": [
@@ -4760,7 +9050,7 @@
     }
    }
   ],
-  "seconds": 15.7,
+  "seconds": 3.53,
   "verdict": "auto-simpler-same-error"
  },
  {
@@ -4791,7 +9081,7 @@
    "source_area": 136187.065568,
    "recon_area": 138115.458476,
    "width_mode": "auto",
-   "seconds": 2.238635,
+   "seconds": 0.746556,
    "extras": {}
   },
   "handTuned": {
@@ -4820,7 +9110,7 @@
     "source_area": 136187.065568,
     "recon_area": 138115.458476,
     "width_mode": "auto",
-    "seconds": 2.204469,
+    "seconds": 0.645065,
     "extras": {}
    },
    "tegaki-width": {
@@ -4848,7 +9138,7 @@
     "source_area": 136187.065568,
     "recon_area": 138115.458476,
     "width_mode": "auto",
-    "seconds": 2.147015,
+    "seconds": 0.7151,
     "extras": {}
    }
   },
@@ -4879,7 +9169,7 @@
    "source_area": 136187.065568,
    "recon_area": 138116.472856,
    "width_mode": "auto",
-   "seconds": 2.242964,
+   "seconds": 0.647886,
    "extras": {}
   },
   "sweep": [
@@ -5178,7 +9468,7 @@
     }
    }
   ],
-  "seconds": 12.99,
+  "seconds": 4.07,
   "verdict": "auto-simpler-same-error"
  },
  {
@@ -5209,7 +9499,7 @@
    "source_area": 124919.287823,
    "recon_area": 126692.379467,
    "width_mode": "auto",
-   "seconds": 3.096637,
+   "seconds": 1.021518,
    "extras": {}
   },
   "handTuned": {
@@ -5238,7 +9528,7 @@
     "source_area": 124919.287823,
     "recon_area": 126692.379467,
     "width_mode": "auto",
-    "seconds": 3.078688,
+    "seconds": 0.986167,
     "extras": {}
    },
    "tegaki-width": {
@@ -5266,7 +9556,7 @@
     "source_area": 124919.287823,
     "recon_area": 126692.379467,
     "width_mode": "auto",
-    "seconds": 3.075165,
+    "seconds": 0.768602,
     "extras": {}
    }
   },
@@ -5297,7 +9587,7 @@
    "source_area": 124919.287823,
    "recon_area": 126455.976395,
    "width_mode": "auto",
-   "seconds": 3.116252,
+   "seconds": 0.909459,
    "extras": {}
   },
   "sweep": [
@@ -5596,7 +9886,7 @@
     }
    }
   ],
-  "seconds": 33.38,
+  "seconds": 9.91,
   "verdict": "auto-simpler-same-error"
  },
  {
@@ -5627,7 +9917,7 @@
    "source_area": 104381.933242,
    "recon_area": 105733.39025,
    "width_mode": "auto",
-   "seconds": 1.863453,
+   "seconds": 0.762782,
    "extras": {}
   },
   "handTuned": {
@@ -5656,7 +9946,7 @@
     "source_area": 104381.933242,
     "recon_area": 105733.39025,
     "width_mode": "auto",
-    "seconds": 1.82941,
+    "seconds": 0.577821,
     "extras": {}
    },
    "tegaki-width": {
@@ -5684,7 +9974,7 @@
     "source_area": 104381.933242,
     "recon_area": 105513.53033,
     "width_mode": "auto",
-    "seconds": 1.777777,
+    "seconds": 0.652716,
     "extras": {}
    }
   },
@@ -5715,7 +10005,7 @@
    "source_area": 104381.933242,
    "recon_area": 105513.53033,
    "width_mode": "auto",
-   "seconds": 1.785545,
+   "seconds": 0.617719,
    "extras": {}
   },
   "sweep": [
@@ -6014,7 +10304,7 @@
     }
    }
   ],
-  "seconds": 12.43,
+  "seconds": 4.39,
   "verdict": "auto-simpler-same-error"
  },
  {
@@ -6045,7 +10335,7 @@
    "source_area": 178918.21306,
    "recon_area": 179847.693121,
    "width_mode": "auto",
-   "seconds": 2.151609,
+   "seconds": 0.736017,
    "extras": {}
   },
   "handTuned": {
@@ -6074,7 +10364,7 @@
     "source_area": 178918.21306,
     "recon_area": 179847.693121,
     "width_mode": "auto",
-    "seconds": 2.223247,
+    "seconds": 0.578063,
     "extras": {}
    },
    "tegaki-width": {
@@ -6102,7 +10392,7 @@
     "source_area": 178918.21306,
     "recon_area": 179847.693121,
     "width_mode": "auto",
-    "seconds": 2.215937,
+    "seconds": 0.686441,
     "extras": {}
    }
   },
@@ -6133,7 +10423,7 @@
    "source_area": 178918.21306,
    "recon_area": 179465.683923,
    "width_mode": "auto",
-   "seconds": 2.185277,
+   "seconds": 0.616138,
    "extras": {}
   },
   "sweep": [
@@ -6432,7 +10722,7 @@
     }
    }
   ],
-  "seconds": 19.6,
+  "seconds": 5.94,
   "verdict": "auto-simpler-same-error"
  },
  {
@@ -6463,7 +10753,7 @@
    "source_area": 221107.422279,
    "recon_area": 223874.90624,
    "width_mode": "auto",
-   "seconds": 4.898862,
+   "seconds": 1.197844,
    "extras": {}
   },
   "handTuned": {
@@ -6492,7 +10782,7 @@
     "source_area": 221107.422279,
     "recon_area": 223874.90624,
     "width_mode": "auto",
-    "seconds": 5.086362,
+    "seconds": 0.931366,
     "extras": {}
    },
    "tegaki-width": {
@@ -6520,7 +10810,7 @@
     "source_area": 221107.422279,
     "recon_area": 223667.947626,
     "width_mode": "auto",
-    "seconds": 4.972028,
+    "seconds": 0.975404,
     "extras": {}
    }
   },
@@ -6551,7 +10841,7 @@
    "source_area": 221107.422279,
    "recon_area": 223322.73645,
    "width_mode": "auto",
-   "seconds": 5.008739,
+   "seconds": 0.937223,
    "extras": {}
   },
   "sweep": [
@@ -6850,7 +11140,425 @@
     }
    }
   ],
-  "seconds": 34.81,
+  "seconds": 6.91,
+  "verdict": "auto-simpler-same-error"
+ },
+ {
+  "track": "tegaki",
+  "image": "landscape-square",
+  "unpruned": {
+   "iou": 0.88819,
+   "sym_diff_area": 72112.214308,
+   "sym_diff_ratio": 0.118867,
+   "missing_ratio": 0.055751,
+   "extra_ratio": 0.063116,
+   "boundary_median": 0.816305,
+   "boundary_p95": 6.054937,
+   "boundary_median_norm": 0.077855,
+   "boundary_p95_norm": 0.577486,
+   "width_error_median": 0.953293,
+   "width_error_norm": 0.09092,
+   "width_cv": 0.183734,
+   "strokes": 84,
+   "edges": 86,
+   "nodes": 161,
+   "terminals": 150,
+   "junctions": 0,
+   "control_points": 1002,
+   "bezier_segments": 0,
+   "total_length": 28176.363,
+   "global_radius": 10.485,
+   "source_area": 606663.84175,
+   "recon_area": 611131.569705,
+   "width_mode": "auto",
+   "seconds": 1.99589,
+   "extras": {}
+  },
+  "handTuned": {
+   "tegaki-length": {
+    "iou": 0.88819,
+    "sym_diff_area": 72112.214308,
+    "sym_diff_ratio": 0.118867,
+    "missing_ratio": 0.055751,
+    "extra_ratio": 0.063116,
+    "boundary_median": 0.816305,
+    "boundary_p95": 6.054937,
+    "boundary_median_norm": 0.077855,
+    "boundary_p95_norm": 0.577486,
+    "width_error_median": 0.953293,
+    "width_error_norm": 0.09092,
+    "width_cv": 0.183734,
+    "strokes": 84,
+    "edges": 86,
+    "nodes": 161,
+    "terminals": 150,
+    "junctions": 0,
+    "control_points": 1002,
+    "bezier_segments": 0,
+    "total_length": 28176.363,
+    "global_radius": 10.485,
+    "source_area": 606663.84175,
+    "recon_area": 611131.569705,
+    "width_mode": "auto",
+    "seconds": 1.58814,
+    "extras": {}
+   },
+   "tegaki-width": {
+    "iou": 0.887154,
+    "sym_diff_area": 72734.138376,
+    "sym_diff_ratio": 0.119892,
+    "missing_ratio": 0.057451,
+    "extra_ratio": 0.062441,
+    "boundary_median": 0.817682,
+    "boundary_p95": 6.131177,
+    "boundary_median_norm": 0.077986,
+    "boundary_p95_norm": 0.584757,
+    "width_error_median": 0.936583,
+    "width_error_norm": 0.089326,
+    "width_cv": 0.183621,
+    "strokes": 79,
+    "edges": 81,
+    "nodes": 156,
+    "terminals": 150,
+    "junctions": 0,
+    "control_points": 986,
+    "bezier_segments": 0,
+    "total_length": 28090.743,
+    "global_radius": 10.485,
+    "source_area": 606663.84175,
+    "recon_area": 609691.126338,
+    "width_mode": "auto",
+    "seconds": 1.567993,
+    "extras": {}
+   }
+  },
+  "bestHandTuned": "tegaki-length",
+  "auto": {
+   "lam": 5.0,
+   "iou": 0.884919,
+   "sym_diff_area": 74163.094572,
+   "sym_diff_ratio": 0.122247,
+   "missing_ratio": 0.059976,
+   "extra_ratio": 0.062272,
+   "boundary_median": 0.817073,
+   "boundary_p95": 6.034876,
+   "boundary_median_norm": 0.077031,
+   "boundary_p95_norm": 0.568952,
+   "width_error_median": 0.916168,
+   "width_error_norm": 0.086374,
+   "width_cv": 0.182501,
+   "strokes": 75,
+   "edges": 75,
+   "nodes": 141,
+   "terminals": 132,
+   "junctions": 0,
+   "control_points": 959,
+   "bezier_segments": 0,
+   "total_length": 27843.227,
+   "global_radius": 10.607,
+   "source_area": 606663.84175,
+   "recon_area": 608056.843826,
+   "width_mode": "auto",
+   "seconds": 1.5993,
+   "extras": {}
+  },
+  "sweep": [
+   {
+    "lam": 0.0,
+    "error": 0.118906,
+    "iou": 0.888157,
+    "missingRatio": 0.055748,
+    "extraRatio": 0.063158,
+    "boundaryP95": 6.0467,
+    "edges": 84,
+    "strokes": 84,
+    "controlPoints": 1002,
+    "totalLength": 28176.36,
+    "widthCv": 0.18346,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 84,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 0.25,
+    "error": 0.118906,
+    "iou": 0.888157,
+    "missingRatio": 0.055748,
+    "extraRatio": 0.063158,
+    "boundaryP95": 6.0467,
+    "edges": 84,
+    "strokes": 84,
+    "controlPoints": 1002,
+    "totalLength": 28176.36,
+    "widthCv": 0.18346,
+    "prune": {
+     "lam": 0.25,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 84,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 0.5,
+    "error": 0.118906,
+    "iou": 0.888157,
+    "missingRatio": 0.055748,
+    "extraRatio": 0.063158,
+    "boundaryP95": 6.0467,
+    "edges": 84,
+    "strokes": 84,
+    "controlPoints": 1002,
+    "totalLength": 28176.36,
+    "widthCv": 0.18346,
+    "prune": {
+     "lam": 0.5,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 84,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 0.75,
+    "error": 0.118906,
+    "iou": 0.888157,
+    "missingRatio": 0.055748,
+    "extraRatio": 0.063158,
+    "boundaryP95": 6.0467,
+    "edges": 84,
+    "strokes": 84,
+    "controlPoints": 1002,
+    "totalLength": 28176.36,
+    "widthCv": 0.18346,
+    "prune": {
+     "lam": 0.75,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 84,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 1.0,
+    "error": 0.118906,
+    "iou": 0.888157,
+    "missingRatio": 0.055748,
+    "extraRatio": 0.063158,
+    "boundaryP95": 6.0467,
+    "edges": 84,
+    "strokes": 84,
+    "controlPoints": 1002,
+    "totalLength": 28176.36,
+    "widthCv": 0.18346,
+    "prune": {
+     "lam": 1.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 84,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 1.25,
+    "error": 0.118906,
+    "iou": 0.888157,
+    "missingRatio": 0.055748,
+    "extraRatio": 0.063158,
+    "boundaryP95": 6.0467,
+    "edges": 84,
+    "strokes": 84,
+    "controlPoints": 1002,
+    "totalLength": 28176.36,
+    "widthCv": 0.18346,
+    "prune": {
+     "lam": 1.25,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 84,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 1.5,
+    "error": 0.118906,
+    "iou": 0.888157,
+    "missingRatio": 0.055748,
+    "extraRatio": 0.063158,
+    "boundaryP95": 6.0467,
+    "edges": 84,
+    "strokes": 84,
+    "controlPoints": 1002,
+    "totalLength": 28176.36,
+    "widthCv": 0.18346,
+    "prune": {
+     "lam": 1.5,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 84,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 2.0,
+    "error": 0.118906,
+    "iou": 0.888157,
+    "missingRatio": 0.055748,
+    "extraRatio": 0.063158,
+    "boundaryP95": 6.0467,
+    "edges": 83,
+    "strokes": 83,
+    "controlPoints": 1000,
+    "totalLength": 28159.39,
+    "widthCv": 0.18339,
+    "prune": {
+     "lam": 2.0,
+     "removed": 1,
+     "removedLength": 16.971,
+     "passes": 1,
+     "keptEdges": 83,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 2.5,
+    "error": 0.118906,
+    "iou": 0.888157,
+    "missingRatio": 0.055748,
+    "extraRatio": 0.063158,
+    "boundaryP95": 6.0467,
+    "edges": 82,
+    "strokes": 82,
+    "controlPoints": 998,
+    "totalLength": 28141.33,
+    "widthCv": 0.18335,
+    "prune": {
+     "lam": 2.5,
+     "removed": 2,
+     "removedLength": 35.033,
+     "passes": 1,
+     "keptEdges": 82,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 3.0,
+    "error": 0.11957,
+    "iou": 0.887524,
+    "missingRatio": 0.056502,
+    "extraRatio": 0.063067,
+    "boundaryP95": 6.0314,
+    "edges": 80,
+    "strokes": 80,
+    "controlPoints": 987,
+    "totalLength": 28083.3,
+    "widthCv": 0.18289,
+    "prune": {
+     "lam": 3.0,
+     "removed": 4,
+     "removedLength": 93.061,
+     "passes": 1,
+     "keptEdges": 80,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 4.0,
+    "error": 0.120731,
+    "iou": 0.88637,
+    "missingRatio": 0.058243,
+    "extraRatio": 0.062487,
+    "boundaryP95": 6.1201,
+    "edges": 77,
+    "strokes": 77,
+    "controlPoints": 970,
+    "totalLength": 27954.04,
+    "widthCv": 0.1829,
+    "prune": {
+     "lam": 4.0,
+     "removed": 7,
+     "removedLength": 222.327,
+     "passes": 1,
+     "keptEdges": 77,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 5.0,
+    "error": 0.122247,
+    "iou": 0.884919,
+    "missingRatio": 0.059976,
+    "extraRatio": 0.062272,
+    "boundaryP95": 6.0349,
+    "edges": 75,
+    "strokes": 75,
+    "controlPoints": 959,
+    "totalLength": 27843.23,
+    "widthCv": 0.1825,
+    "prune": {
+     "lam": 5.0,
+     "removed": 9,
+     "removedLength": 333.136,
+     "passes": 1,
+     "keptEdges": 75,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 7.0,
+    "error": 0.129302,
+    "iou": 0.878145,
+    "missingRatio": 0.06819,
+    "extraRatio": 0.061112,
+    "boundaryP95": 6.1557,
+    "edges": 70,
+    "strokes": 70,
+    "controlPoints": 934,
+    "totalLength": 27516.26,
+    "widthCv": 0.18274,
+    "prune": {
+     "lam": 7.0,
+     "removed": 14,
+     "removedLength": 660.106,
+     "passes": 1,
+     "keptEdges": 70,
+     "merges": 0
+    }
+   },
+   {
+    "lam": 10.0,
+    "error": 0.135127,
+    "iou": 0.872548,
+    "missingRatio": 0.074908,
+    "extraRatio": 0.060219,
+    "boundaryP95": 6.4272,
+    "edges": 68,
+    "strokes": 68,
+    "controlPoints": 926,
+    "totalLength": 27303.72,
+    "widthCv": 0.18339,
+    "prune": {
+     "lam": 10.0,
+     "removed": 16,
+     "removedLength": 872.648,
+     "passes": 1,
+     "keptEdges": 68,
+     "merges": 0
+    }
+   }
+  ],
+  "seconds": 18.8,
   "verdict": "auto-simpler-same-error"
  },
  {
@@ -6881,7 +11589,7 @@
    "source_area": 85524.19285,
    "recon_area": 81939.023034,
    "width_mode": "auto",
-   "seconds": 0.068212,
+   "seconds": 0.101532,
    "extras": {}
   },
   "handTuned": {
@@ -6910,7 +11618,7 @@
     "source_area": 85524.19285,
     "recon_area": 81939.023034,
     "width_mode": "auto",
-    "seconds": 0.069433,
+    "seconds": 0.104976,
     "extras": {}
    },
    "tegaki-width": {
@@ -6938,7 +11646,7 @@
     "source_area": 85524.19285,
     "recon_area": 81939.023034,
     "width_mode": "auto",
-    "seconds": 0.069556,
+    "seconds": 0.098553,
     "extras": {}
    }
   },
@@ -6969,7 +11677,7 @@
    "source_area": 85524.19285,
    "recon_area": 81939.023034,
    "width_mode": "auto",
-   "seconds": 0.069487,
+   "seconds": 0.077784,
    "extras": {}
   },
   "sweep": [
@@ -7268,7 +11976,7 @@
     }
    }
   ],
-  "seconds": 0.35,
+  "seconds": 0.49,
   "verdict": "tie"
  }
 ]

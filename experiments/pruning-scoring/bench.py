@@ -28,6 +28,13 @@ REPO = Path(__file__).resolve().parents[2]
 DEBUG = REPO / "debug" / "pruning-scoring"
 OUTPUTS = REPO / "outputs" / "pruning-scoring"
 GRAPHS = DEBUG / "graphs"
+# The incumbent's graphs are an INPUT to the leaderboard, and every other track's
+# inputs live in its own debug/<track>/graphs. Keeping the incumbent's under
+# GRAPHS would collide with the promotion target below (GRAPHS/<track>/<image>),
+# so each leaderboard run would score the previous run's pruned winner as if it
+# were the incumbent's published output — measured drift on sun-square: 0.2104
+# published on the first run, 0.2288 on the second. Distinct paths, no feedback.
+INCUMBENT_GRAPHS = DEBUG / "incumbent" / "graphs"
 
 REAL_IMAGES = [
     "house-wide", "butterfly-wide", "boat-tall", "island-tall", "balloon-tall",
@@ -81,7 +88,7 @@ def run_incumbent(images: list[str], *, force: bool = False) -> list[dict]:
             print(f"  incumbent {image}: {time.time() - t:.1f}s")
         g = svgio.graph_from_stroked_svg(out_svg, image=image, backend="incumbent")
         g.source = str(src_svg.relative_to(REPO))
-        path = GRAPHS / "incumbent" / f"{image}.json"
+        path = INCUMBENT_GRAPHS / f"{image}.json"
         g.save(path)
         records.append({"image": image, "graph": str(path.relative_to(REPO)),
                         "svg": str(out_svg.relative_to(REPO)), **g.stats()})
@@ -94,7 +101,7 @@ def run_incumbent(images: list[str], *, force: bool = False) -> list[dict]:
 def graphs_for(track: str, image: str) -> list[Path]:
     root = REPO / "debug" / track / "graphs"
     if track == "incumbent":
-        root = GRAPHS / "incumbent"
+        root = INCUMBENT_GRAPHS
     if not root.is_dir():
         return []
     out = []

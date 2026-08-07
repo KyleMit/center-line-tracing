@@ -13,7 +13,7 @@ removed, in stroke radii — an exact line scores 0.000, an exact arc 0.002.
 | opencv-tracing | 5.00 | 0.0204 | 0.310 | 0.35 | smooth |
 | native-geometry | 10.33 | 0.0192 | 0.203 | 0.06 | drawn in one motion |
 | autotrace | 14.04 | 0.0244 | 0.216 | 0.08 | smooth |
-| polygon-voronoi | 15.48 | 0.0175 | 0.211 | 0.07 | drawn in one motion |
+| polygon-voronoi | 15.75 | 0.0170 | 0.206 | 0.07 | drawn in one motion |
 
 ## One shared stroke — house-wide
 

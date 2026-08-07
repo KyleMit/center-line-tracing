@@ -472,8 +472,13 @@ class CenterlineGraph:
         merged = 0
         adj = self.adjacency()
         queue = [nid for nid, eids in adj.items() if len(eids) == 2]
+        # Mirror of `queue` for membership tests. The re-queue check below runs
+        # once per merge, so a list scan makes canonicalization O(V^2) and a dense
+        # graph never finishes; the set keeps it linear.
+        queued = set(queue)
         while queue:
             nid = queue.pop()
+            queued.discard(nid)
             eids = adj.get(nid)
             if not eids or len(eids) != 2:
                 continue
@@ -545,8 +550,9 @@ class CenterlineGraph:
                 seen_self = [x for x in adj[endpoint] if x == new.id]
                 if len(seen_self) > 1 and new.frm != new.to:
                     adj[endpoint] = [x for x in adj[endpoint] if x != new.id] + [new.id]
-                if len(adj[endpoint]) == 2 and endpoint not in queue:
+                if len(adj[endpoint]) == 2 and endpoint not in queued:
                     queue.append(endpoint)
+                    queued.add(endpoint)
             merged += 1
         return merged
 

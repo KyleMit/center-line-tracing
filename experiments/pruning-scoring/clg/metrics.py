@@ -14,6 +14,7 @@ import math
 import subprocess
 import tempfile
 from dataclasses import asdict, dataclass, field
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -72,19 +73,70 @@ class ReconMetrics:
         return d
 
 
-def _boundary_points(geom_obj, step: float) -> np.ndarray:
-    """Dense samples along a geometry's boundary."""
+def _boundary_lines(geom_obj, step: float) -> list:
+    """A geometry's boundary, segmentized, as a list of LineStrings."""
     if geom_obj is None or geom_obj.is_empty:
-        return np.empty((0, 2))
+        return []
     boundary = geom_obj.boundary
     if boundary.is_empty:
-        return np.empty((0, 2))
+        return []
     dense = shapely.segmentize(boundary, max_segment_length=max(step, 1e-6))
-    lines = dense.geoms if isinstance(dense, MultiLineString) else [dense]
-    chunks = [np.asarray(ln.coords) for ln in lines if len(ln.coords) > 0]
+    return list(dense.geoms) if isinstance(dense, MultiLineString) else [dense]
+
+
+def _boundary_points(geom_obj, step: float) -> np.ndarray:
+    """Dense samples along a geometry's boundary."""
+    chunks = [np.asarray(ln.coords) for ln in _boundary_lines(geom_obj, step)
+              if len(ln.coords) > 0]
     if not chunks:
         return np.empty((0, 2))
     return np.vstack(chunks)
+
+
+@lru_cache(maxsize=8)
+def _boundary_index(geom_obj, step: float):
+    """An STRtree over the boundary exploded into individual segments.
+
+    `shapely.distance(points, one_big_boundary)` is a linear scan over every
+    segment of that boundary for every point, so its cost is
+    O(points x boundary segments). On polygon-voronoi/landscape-square — 28k
+    control points re-stroked against a dense source outline — that is 30 s for a
+    single call and ~97 s for one `score_graph`, which is what actually stopped
+    that leaderboard cell from ever finishing. Indexing makes it O(points x log).
+
+    Exploded to segments rather than whole rings so the bounding boxes are tight;
+    a single ring's bbox covers the whole drawing and prunes nothing. Cached
+    because a pruning sweep scores every candidate against the same source.
+    """
+    lines = _boundary_lines(geom_obj, step)
+    segs: list[np.ndarray] = []
+    for ln in lines:
+        c = np.asarray(ln.coords)
+        if len(c) < 2:
+            continue
+        segs.append(np.stack([c[:-1], c[1:]], axis=1))
+    if not segs:
+        return None, None
+    arr = np.concatenate(segs, axis=0)
+    idx = np.repeat(np.arange(len(arr)), 2)
+    geoms = shapely.linestrings(arr.reshape(-1, 2), indices=idx)
+    return shapely.STRtree(geoms), geoms
+
+
+def nearest_boundary_distance(points: np.ndarray, geom_obj, step: float) -> np.ndarray:
+    """Distance from each point to the nearest point on `geom_obj`'s boundary."""
+    out = np.full(len(points), np.inf)
+    if len(points) == 0:
+        return out
+    tree, _ = _boundary_index(geom_obj, step)
+    if tree is None:
+        return out
+    pts = shapely.points(points)
+    hits, dist = tree.query_nearest(pts, all_matches=False, return_distance=True)
+    # scatter rather than assume every input got a hit: an empty tree branch or a
+    # degenerate point would silently shift the whole array otherwise.
+    out[hits[0]] = dist
+    return out
 
 
 def boundary_distances(a, b, step: float) -> tuple[float, float]:
@@ -97,8 +149,8 @@ def boundary_distances(a, b, step: float) -> tuple[float, float]:
     pb = _boundary_points(b, step)
     if len(pa) == 0 or len(pb) == 0:
         return (float("inf"), float("inf"))
-    da = shapely.distance(shapely.points(pa), b.boundary)
-    db = shapely.distance(shapely.points(pb), a.boundary)
+    da = nearest_boundary_distance(pa, b, step)
+    db = nearest_boundary_distance(pb, a, step)
     allv = np.concatenate([da, db])
     return (float(np.median(allv)), float(np.percentile(allv, 95)))
 
@@ -129,7 +181,7 @@ def width_error(graph, source_poly, *, sample_step: float) -> tuple[float, float
     arr = np.asarray(pts)
     sp = shapely.points(arr)
     inside = shapely.contains(source_poly, sp)
-    dist = shapely.distance(sp, source_poly.boundary)
+    dist = nearest_boundary_distance(arr, source_poly, sample_step)
     a = np.asarray(assigned)
     if inside.any():
         err = np.abs(a[inside] - dist[inside])
@@ -146,6 +198,65 @@ def width_error(graph, source_poly, *, sample_step: float) -> tuple[float, float
         ((e.median_radius or 0.0) - mean_r) ** 2 * e.length for e in graph.edges.values()
     ) / tot
     return (med, float(math.sqrt(var) / mean_r))
+
+
+def _densify(lines, sample: float) -> np.ndarray:
+    """Uniformly resample a set of polylines so nearest-point stats are unbiased."""
+    out = []
+    for line in lines:
+        arr = np.asarray(line, dtype=float)
+        if len(arr) < 2:
+            if len(arr):
+                out.append(arr.reshape(-1, 2))
+            continue
+        seg = np.hypot(*np.diff(arr, axis=0).T)
+        s = np.r_[0.0, np.cumsum(seg)]
+        if s[-1] <= 0:
+            continue
+        n = max(2, int(s[-1] / max(sample, 1e-9)))
+        t = np.linspace(0.0, s[-1], n)
+        out.append(np.column_stack([np.interp(t, s, arr[:, 0]),
+                                    np.interp(t, s, arr[:, 1])]))
+    return np.vstack(out) if out else np.zeros((0, 2))
+
+
+def centerline_error(graph, truth, *, sample: float = 0.5) -> dict:
+    """Two-way nearest-distance error against KNOWN centerlines. Synthetic only.
+
+    This is the measurement NOTES §7 calls the single most useful missing one:
+    everything else in this layer is *reconstruction* error, which cannot tell a
+    smooth path in the wrong place from a smooth path in the right one. It needs
+    ground truth, so it only applies to a corpus that was generated from known
+    centerlines — never to the ten real drawings.
+
+    The two directions answer different questions and must not be averaged away:
+    `recoveredToTruth` is invented geometry (spurious branches), `truthToRecovered`
+    is missed geometry (over-pruning). A pruning sweep trades one for the other,
+    so a single blended number would hide exactly what is being decided.
+
+    Both directions have a noise floor of roughly `sample / 2`: the two point sets
+    are densified independently and need not land on each other, so a perfectly
+    recovered centerline reads as ~0.25 units at the default step, not 0.
+    """
+    got = _densify([e.points for e in graph.edges.values() if len(e.points) >= 2], sample)
+    want = _densify(truth, sample)
+    if len(got) == 0 or len(want) == 0:
+        return {"centerlineMedian": None, "centerlineP95": None,
+                "centerlineHausdorff": None, "recoveredToTruthP95": None,
+                "truthToRecoveredP95": None}
+    got_pts, want_pts = shapely.points(got), shapely.points(want)
+    _, d1 = shapely.STRtree(want_pts).query_nearest(
+        got_pts, all_matches=False, return_distance=True)
+    _, d2 = shapely.STRtree(got_pts).query_nearest(
+        want_pts, all_matches=False, return_distance=True)
+    both = np.concatenate([d1, d2])
+    return {
+        "centerlineMedian": float(np.median(both)),
+        "centerlineP95": float(np.percentile(both, 95)),
+        "centerlineHausdorff": float(max(d1.max(), d2.max())),
+        "recoveredToTruthP95": float(np.percentile(d1, 95)),
+        "truthToRecoveredP95": float(np.percentile(d2, 95)),
+    }
 
 
 def score_graph(

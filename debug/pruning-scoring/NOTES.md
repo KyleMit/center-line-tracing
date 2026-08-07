@@ -410,3 +410,157 @@ spread for identical geometry.**
   centerline, so a path could be beautifully smooth and in the wrong place. Read it
   together with the error axis — and unifying the synthetic corpora (NOTES §7) is what
   would close this gap properly.
+
+---
+
+## Addendum 2 — raster scale, and three measurement bugs found on the way
+
+Handoff item 1 was "sweep skimage-skan's raster scale", on the reasoning that it is
+the leading backend and it only ever published scale 4. Doing it turned up a clear
+answer, one clean negative result, and three bugs in this layer that were producing
+confident wrong numbers — the same pattern as §7.
+
+Reproduce:
+
+```bash
+python3 experiments/pruning-scoring/scalesweep.py --jobs 3            # 10 drawings x 5 scales
+python3 experiments/pruning-scoring/scalesweep.py --corpus --jobs 3   # 20 truth cases x 5 scales
+```
+
+[`scalesweep.md`](./scalesweep.md) · [`scalesweep-corpus.md`](./scalesweep-corpus.md)
+
+### 8. Scale 8 is the right default. Scale 16 is not.
+
+Every cell re-extracts at its own scale and is then auto-pruned by this layer, so a
+scale is judged on what survives cleanup rather than on its raw skeleton. Medians
+over all ten drawings:
+
+| scale | error | wobble | pts / stroke width | branches | extract |
+|---|---|---|---|---|---|
+| 1 | 0.0443 | 0.0298 | 3.66 | 59 | 2.9 s |
+| 2 | 0.0252 | 0.0237 | 3.49 | 52 | 3.4 s |
+| **4** (published) | 0.0205 | 0.0215 | 2.24 | 62 | 9.2 s |
+| **8** | **0.0188** | **0.0178** | **1.76** | 76 | 31.1 s |
+
+Scale 4 → 8 improves **all three axes at once**: −8% error, −17% wobble, −21%
+control points per stroke width. That combination is what makes it a real result
+rather than a metric artifact — the addendum above exists precisely because error
+alone rewards a path that wiggles along the outline, and here the smoothness axis
+moves the same way as the error axis instead of against it.
+
+Scale 16 does not continue the trend. Over the nine drawings that completed all five
+scales, error is flat (0.0187 vs 0.0188), **wobble is worse than scale 8** (0.0185 vs
+0.0178), points per width is identical (1.75 vs 1.76), and extraction is 5.8× slower
+(117.5 s vs 20.3 s median). skimage-skan's own notes nominated scale 16 as the
+experiment to run; the answer is no.
+
+### 9. Two drawings want a *lower* scale, and they are the two this backend is worst on
+
+| drawing | best scale | error there | error at scale 4 |
+|---|---|---|---|
+| `sun-square` | 2 | **0.0246** | 0.0390 (−37%) |
+| `landscape-square` | 2 | **0.0244** | 0.0268 (−9%) |
+
+`sun-square` is skimage-skan's worst cell in the whole leaderboard, and it is worst
+because of the scale, not the backend: it is thin tapering rays, and above scale 2
+the taper tails resolve into skeleton structure that pruning then has to guess about.
+This is the same shape-dependent story as the hybrid-routing finding — per-drawing
+selection beats any single constant, and here the parameter is cheaper to route on
+than the backend.
+
+Counting outright wins the split is scale 16 on 4 drawings, scale 8 on 3, scale 2 on
+2, scale 4 on 1 — but every scale-16 win is 1–4% over scale 8 at 6× the cost and
+worse wobble, which is why the recommendation is 8 and not "whatever won".
+
+### 10. The conjecture that motivated the sweep is false, and only ground truth shows it
+
+skimage-skan's notes say: *"scale 4 is the default here; scale 8 is the right choice
+if a pruning stage will clean up after it."* This layer is that pruning stage, so the
+conditional is testable. It does not hold.
+
+`scalesweep.py --corpus` runs the same sweep over that track's 20-case synthetic
+corpus, which was generated from **known centerlines**. Case 20 is the stress test —
+a single straight capsule under boundary jitter, whose true answer is one branch at
+every scale. Branches surviving automatic pruning:
+
+| scale | 1 | 2 | 4 | 8 | 16 |
+|---|---|---|---|---|---|
+| branches before pruning | 20 | 23 | 43 | 106 | 201 |
+| **branches after pruning** | **1** | 4 | 4 | **21** | **59** |
+
+Pruning does not keep up. It removes 95% of the spurious branches at scale 1 and 71%
+at scale 16, but the absolute count it leaves behind grows by 15× across the sweep.
+Scale 8 is still the right default — the accuracy and smoothness gains in §8 are
+real and measured — but it is right *despite* the cleanup argument, not because of it.
+
+Ground truth also tempers §8 in a second way. Median distance to the true centerline
+over the 20 cases: 0.2511 (s1) · 0.1897 (s2) · **0.1363 (s4)** · **0.1332 (s8)** ·
+0.1435 (s16), and the P95 is *best at scale 4* (0.1882, against 0.2522 at scale 8).
+So where the line actually sits converges by scale 4 and stops improving; the scale-8
+win on real drawings is a reconstruction-and-smoothness win, not a "the line is in a
+more correct place" win. Stated plainly because the leaderboard cannot tell the
+difference and this is the first measurement in this track that can.
+
+This is a partial down-payment on §7's "single most useful next step". It is one
+backend against one track's corpus, not the unified corpus that would let the tracks
+be compared on truth — but `clg.metrics.centerline_error` is now in the shared layer,
+so the remaining work is corpus unification, not measurement.
+
+### 11. Three bugs in this layer, all of which published wrong numbers
+
+**The leaderboard was scoring its own previous output as the incumbent's input.**
+`bench.py` read the incumbent's graphs from `debug/pruning-scoring/graphs/incumbent/`
+and promoted each cell's winner to `GRAPHS/<track>/<image>.json` — the same path. So
+every run fed the previous run's *pruned, canonicalized* graph back in as "what the
+incumbent published". Four of ten incumbent cells had drifted by the time it was
+caught (butterfly-wide 0.1229 → 0.1167, island-tall 0.1285 → 0.1178, house-tall
+0.1162 → 0.1119, home-wide 0.1618 → 0.1522) — always *better*, because
+canonicalization lets the radius profile interpolate across spliced chains instead of
+using a per-edge median, which flatters the re-stroke. Inputs now live in
+`debug/pruning-scoring/incumbent/graphs/`, and two consecutive leaderboard runs now
+produce byte-identical scores. The incumbent's median is unchanged at 0.1325; the
+individual cells in the previous `leaderboard.md` were not reproducible.
+
+**The `merge_chains` blow-up was diagnosed wrong.** §"A runtime failure worth
+recording" blamed `merge_chains`'s O(V²) re-queue scan for
+`polygon-voronoi/landscape-square` never completing. It is not the cause: on that
+graph `merge_chains` runs in 0.0 s and performs **zero** merges. The real cost was
+`metrics.boundary_distances` — `shapely.distance(points, one_big_boundary)` is a
+linear scan over every boundary segment for every sample point, so it is
+O(points × segments): 30 s per call, 97 s for a single `score_graph`, and a λ sweep
+never finished. An STRtree over the boundary exploded into individual segments takes
+that to 7.3 s, **13× faster, with distances identical to 1e-13 over 268k samples on
+three backends**. The whole 80-cell leaderboard went from 1323 s to 317 s at the same
+`--jobs 4`, the cell that never finished now takes 76 s, and it is filled — see §12.
+(The header in `leaderboard.md` reads 435 s because that run used `--jobs 3` with the
+scale sweep occupying a core.) The O(V²) queue scan was real and is also
+fixed; it simply was not what was biting. Worth recording as a lesson: the profile
+disagreed with a diagnosis that had been written down confidently enough to become
+the next session's task list.
+
+**Two reporters were being overwritten by the harness that feeds them.**
+`bench.py leaderboard` and `abtest.py` each write a `.md` at the end of a run, but the
+committed reports come from `lbreport.py` and `abreport.py`, which say materially
+different things — `abreport.py` canonicalizes both sides before measuring complexity,
+without which flo-mat's hand-tuned graph looks 7× more complex than it is (house-wide
+cx 305.6 vs 61.6). Re-running a bench silently downgrades the published report. Always
+re-run the matching reporter afterwards; the commands are in the handoff.
+
+### 12. What the faster metric unblocked
+
+Both were "did not finish in the session" in the previous handoff and are now simply
+done:
+
+- **The leaderboard is 80/80.** `polygon-voronoi/landscape-square` scores **0.0159**
+  auto-pruned — the best of any backend on that drawing, ahead of opencv-tracing's
+  0.0204 and skimage-skan's 0.0262. It is a second row for the hybrid-routing
+  argument, which previously rested on `sun-square` alone. polygon-voronoi's median is
+  unchanged at 0.0690; it is the extremes that make it interesting.
+- **The A/B is 30 cells, not 18** — `landscape-square` for flo-mat and tegaki, plus
+  **polygon-voronoi added as a third pair**, and that pair is the strongest evidence
+  in the whole A/B: against PyGeoOps' own width-relative filtering, automatic pruning
+  is better on **10 of 10** images (5 dominate outright, 5 lower error), and a
+  candidate somewhere in the sweep beat the hand-tuned answer on 10 of 10. The
+  "simpler, not more accurate" summary in the verdict was drawn from flo-mat and
+  tegaki only; against a backend whose own filtering is genuinely tuned, automatic
+  selection wins on error too.
