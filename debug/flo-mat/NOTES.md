@@ -30,6 +30,15 @@ Three caveats, all of which matter for productionizing it:
    *correct medial axis* and *wrong centerline*. On real artwork these are the
    dominant visible defect.
 
+On the real ladder it **beats the incumbent Python pipeline on every image the
+incumbent has a number for**, using the incumbent's own `src/compare.js` metric:
+
+| image | flo-mat | incumbent |
+|---|---|---|
+| `dinosaur-wide` | **0.01 %** | 0.02 % |
+| `landscape-square` | **0.15 %** | 0.73 % |
+| `sun-square` | **1.86 %** | 4.2 % raster / 6.3 % vector |
+
 Recommendation: **yes, make this the production vector backend**, with Track 8's
 pruning layer on top. The graph JSON in `graphs/` is written for that.
 
@@ -304,26 +313,103 @@ sits on the far side of that window.
 
 ---
 
-## Real ladder
+## Real ladder — all ten images
 
-See `metrics.json` and `comparison-sheet.png`. Reproduce with
-`node experiments/flo-mat/bench.mjs`.
+**`compare.js %` is the incumbent's own metric**, produced by the unmodified
+`src/compare.js` at 1200 px against the promoted SVG in `outputs/flo-mat/`, so
+these numbers sit directly next to the ones in `docs/current-attempt-handoff.md`.
+Verified by running that script independently of the bench.
 
-`pixdiff` is symmetric-difference pixels over the whole 1200 px canvas, which is
-the same convention as the incumbent's numbers in
-`docs/current-attempt-handoff.md`.
+| # | image | SAT s | **compare.js %** | incumbent % | IoU | bd med | bd P95 | strokes | edges | elements | failed |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | house-wide | 2 | **0.05** | — | 0.9794 | 0.42 | 1.39 | 36 | 277 | 19 | 0 |
+| 2 | butterfly-wide | 1.5 | **0.12** | — | 0.9707 | 0.42 | 1.33 | 33 | 339 | 13 | 0 |
+| 3 | boat-tall | 2 | **0.01** | — | 0.9812 | 0.35 | 1.01 | 37 | 357 | 22 | 0 |
+| 4 | island-tall | 2 | **0.06** | — | 0.9731 | 0.35 | 0.91 | 48 | 434 | 24 | 0 |
+| 5 | balloon-tall | 2 | **0.02** | — | 0.9800 | 0.35 | 0.91 | 77 | 414 | 28 | 0 |
+| 6 | home-wide | 1.1 | **0.02** | — | 0.9730 | 0.42 | 1.28 | 85 | 420 | 28 | 0 |
+| 7 | house-tall | 1.5 | **0.04** | — | 0.9770 | 0.35 | 0.92 | 72 | 621 | 27 | 0 |
+| 8 | dinosaur-wide | 1.5 | **0.01** | 0.02 | 0.9695 | 0.53 | 1.89 | 64 | 463 | 33 | 0 |
+| 9 | landscape-square | 1.1 | **0.15** | 0.73 | 0.9620 | 0.53 | 2.09 | 199 | 722 | 14 | 0 |
+| 10 | sun-square | 1.3 | **1.86** | 4.2 raster / 6.3 vector | 0.9415 | 1.05 | 2.79 | 32 | 273 | 2 | 0 |
 
-Results are filled in below from the committed `metrics.json`.
+Boundary distances are in source units. `metrics-final.json` carries the full
+per-image SAT sweep, width CV, per-element MAT milliseconds and complexity.
+Sheets: `comparison-sheet-final.png` / `.html`; per-image zooms
+`zoom-<image>.png`; SAT trajectories `sat-progress-<image>.png`.
 
-### Dominant real-artwork defect
+**flo-mat beats the incumbent on all three images the incumbent has numbers
+for**, and does it while emitting Bézier paths rather than dense polylines:
+dinosaur 0.01 vs 0.02, landscape **0.15 vs 0.73**, sun 1.86 vs 4.2. No element
+failed or timed out anywhere on the ladder.
 
-The zoom crops (`zoom-house-wide.png`) show it clearly: where a stroke ends in a
-**squared or angled end** rather than a round cap — which is common in this
-artwork where one stroke was drawn over another — the MAT's corner branches get
-re-stroked at full width and produce small bumps hanging off the stroke. Same
-mechanism as corpus cases 8/9/11/12, and it is the main thing standing between
-this backend and the incumbent's numbers. It is a pruning problem, so it belongs
-to Track 8; SAT at s ≈ 1.3–1.5 removes much of it.
+### How the SAT scale was chosen
+
+`promote.mjs` sweeps s ∈ {raw, 1.1, 1.3, 1.5, 2} per image and takes the
+**simplest graph within 0.03 pp of the best reconstruction** (report §13
+Experiment 4, applied to the one knob flo-mat exposes). The chosen s differs per
+image — 1.1 for landscape and home, 2 for house-wide, boat, island and balloon —
+which is itself the argument for §10.2: there is no single good global setting.
+The cost of the tolerance is visible and small (house-wide 0.03 → 0.05 % for
+162 → 36 strokes; butterfly 0.09 → 0.12 % for 85 → 33).
+
+The full general version of this — width-aware features, Pareto selection over
+several objectives — is Track 8's, and it should consume the graph JSON here
+rather than the SVG.
+
+### Cap calibration: measured, and it depends on pruning
+
+`cap-ablation.txt` — cap calibration on/off × SAT on/off, compare.js %:
+
+| image | none/raw | none/s=1.3 | apex/raw | apex/s=1.3 |
+|---|---|---|---|---|
+| house-wide | 0.057 | 0.065 | **0.034** | 0.048 |
+| landscape-square | 0.375 | 0.347 | **0.160** | 0.187 |
+| dinosaur-wide | 0.027 | **0.013** | 0.018 | 0.016 |
+| sun-square | 3.272 | 2.320 | 5.633 | **1.865** |
+
+Reading: cap calibration is worth roughly **2× on landscape** and clearly
+positive on house-wide and dinosaur — but on sun-square *without* pruning it
+makes things much worse (3.27 → 5.63), because it faithfully extends all 436
+noise spurs out to the outline as well as the real stroke ends. Combined with
+SAT it is the best configuration there (1.87). So the ordering matters: **prune
+first, calibrate caps second.** In this pipeline SAT runs in the MAT stage and
+cap calibration in the chain stage, which is already the right order; any Track 8
+pruning must slot in before the cap step for the same reason.
+
+### Dominant real-artwork defects
+
+Two, both visible in the zoom crops:
+
+1. **Corner branches at squared / overlapped stroke ends** (`zoom-house-wide.png`,
+   `zoom-dinosaur-wide.png`). Where one stroke was drawn over another, the
+   surviving filled region ends in a corner rather than a round cap, and the
+   corner spawns a 45° MAT branch that gets re-stroked at full width as a small
+   bump. Same mechanism as corpus cases 8/9/11/12. `join artifact` / `cap
+   artifact`. SAT removes most of them.
+2. **Tapered tips re-stroked blunt** (`zoom-sun-square.png`). sun-square's
+   scribble has pressure-tapered ends; the centerline is right but a constant
+   width cannot narrow into the tip, so the reconstruction is fatter and
+   rounder than the source. This is the whole of sun-square's remaining 1.86 %
+   and it is corpus case 19 on real artwork — a width-model limit, not an
+   extraction failure. The `radiusProfile` data needed to fix it is already in
+   the graph JSON.
+
+### Iteration history on the focus image (sun-square)
+
+`progress-sun-square.png`, reproducible via `progress.mjs`:
+
+| step | change | compare.js % | IoU | strokes | total length |
+|---|---|---|---|---|---|
+| 1 | raw MAT, node-radius width | 3.43 | 0.8943 | 579 | 6161 |
+| 2 | + coincident-node & degenerate-edge merge | 3.47 | 0.8932 | 436 | 6122 |
+| 3 | + measured length-weighted width | 3.27 | 0.8995 | 436 | 6122 |
+| 4 | + cap calibration | 5.63 | 0.8404 | 436 | 7105 |
+| 5 | + SAT s = 1.3 | **1.86** | **0.9415** | **32** | 3696 |
+
+Step 2 costs 0.04 pp and buys a 25 % smaller graph — worth it under §11's
+"prefer the simpler graph". Step 4 in isolation is the negative result described
+above. Step 5 is where the image is actually won.
 
 ---
 
@@ -399,10 +485,35 @@ Notes for consuming it:
 ## Reproducing everything
 
 ```bash
-npm install
-node experiments/flo-mat/corpus-bench.mjs        # synthetic corpus + sheet
-node experiments/flo-mat/sat-sweep.mjs           # raw MAT vs SAT sweep
-node experiments/flo-mat/bench.mjs               # real ladder + sheet + graphs
-node experiments/flo-mat/real-sat-sweep.mjs house-wide
-node experiments/flo-mat/zoom.mjs house-wide 3   # worst-region crops
+npm install                                       # then: git checkout -- package-lock.json
+
+node experiments/flo-mat/corpus-bench.mjs         # synthetic corpus + comparison sheet
+node experiments/flo-mat/sat-sweep.mjs            # raw MAT vs SAT, whole corpus
+node experiments/flo-mat/bench.mjs                # real ladder at one setting
+node experiments/flo-mat/promote.mjs              # per-image SAT selection -> outputs/
+node experiments/flo-mat/real-sat-sweep.mjs sun-square
+node experiments/flo-mat/cap-ablation.mjs         # caps x SAT ablation
+node experiments/flo-mat/progress.mjs sun-square  # iteration progress sheet
+node experiments/flo-mat/zoom.mjs sun-square 3    # worst-region crops
 ```
+
+`promote.mjs` is the one that regenerates everything in `outputs/flo-mat/` and
+`metrics-final.json`; the numbers in this file come from it.
+
+### Files
+
+| path | what |
+|---|---|
+| `experiments/flo-mat/lib/normalize.mjs` | SVG -> closed Bézier loops (transforms, shapes, arcs, quantization) |
+| `experiments/flo-mat/lib/mat.mjs` | flo-mat driver + MAT -> graph |
+| `experiments/flo-mat/lib/mat-pool.mjs` | per-element worker + hard timeout |
+| `experiments/flo-mat/lib/graph.mjs` | hygiene, chains, radius measurement, cap calibration, emission |
+| `experiments/flo-mat/lib/geom.mjs` | ray/Bézier intersection, boundary distance sampler |
+| `experiments/flo-mat/lib/stroker.mjs` | analytic stroker used to build the corpus |
+| `experiments/flo-mat/lib/corpus.mjs` | the 22 synthetic ground-truth cases |
+| `experiments/flo-mat/lib/metrics.mjs` | IoU, symdiff, boundary distance, centerline error, compare.js metric |
+| `experiments/flo-mat/lib/sheet.mjs` | contact sheets (PNG + HTML) |
+| `debug/flo-mat/graphs/*.json` | **the common graph model — the deliverable for Track 8** |
+| `debug/flo-mat/metrics-final.json` | promoted per-image metrics + full SAT sweep |
+| `debug/flo-mat/corpus-metrics.json` | per-case synthetic corpus metrics |
+| `outputs/flo-mat/*.svg` | promoted stroked SVGs |
