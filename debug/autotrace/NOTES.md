@@ -303,3 +303,33 @@ a filled dot is not a stroke, it is a cap with no stroke attached. The fix is a
 pre-pass that detects near-circular components and emits a zero-length
 round-capped stroke for them, which belongs with Track 8's semantic layer rather
 than here.
+
+## The common graph model
+
+Every run writes `debug/autotrace/graphs/<image>.json` in the shared shape from
+Common Setup §13, so Track 8 can consume this backend's output without knowing
+anything about autotrace:
+
+```json
+{"nodes": [{"id": "e003/0:a", "x": 402.3, "y": 118.7, "radius": 10.9}],
+ "edges": [{"id": "e003/0", "from": "e003/0:a", "to": "e003/0:b",
+            "geometry": [[402.3, 118.7], ...],
+            "length": 214.6, "medianRadius": 10.9,
+            "radiusProfile": [10.2, 10.7, 11.1, ...],
+            "sourceElementId": "e003", "closed": false, "outlineLike": false}]}
+```
+
+Two additions beyond the required interface, both of which cost nothing to
+ignore:
+
+* `radiusProfile` — 24 evenly spaced radius samples along the edge. This is what
+  a variable-width re-stroke would need, and it is what proves `sun-square` is a
+  width-model problem (see above).
+* `outlineLike` — the outline-vs-centerline verdict, so a consumer can filter or
+  audit rather than having to re-derive it.
+
+Nodes are currently per-edge endpoints and are **not merged at junctions** —
+this backend emits disconnected subpaths and topology recovery is deliberately
+left to Track 8, per the "do not implement sophisticated pruning early"
+instruction. Consumers that need real junction nodes should merge by proximity;
+`radius` on each node gives the natural merge tolerance.
