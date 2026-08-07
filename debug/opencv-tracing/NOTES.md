@@ -343,10 +343,13 @@ Pixel-diff % is the incumbent's own `src/compare.js` at 1200 px, so it is direct
 comparable with its published numbers. **dinosaur-wide 0.01% beats the incumbent's
 best-known 0.02%**; house-wide is 0.07%.
 
-Caveat on the contact sheets: the "preview diff" figure printed on the sheet tiles
-is a coarse 900 px alpha-threshold diff computed by `sheets.py`, **not** the
-compare.js number, and the two are not comparable. The compare.js numbers are in
-`pixel-diff.json` and the table above.
+Caveat on the contact sheets: the diff figure printed on the sheet tiles is a
+coarse 900 px alpha-threshold diff computed by `sheets.py`, **not** the compare.js
+number, and the two are not comparable — the same house-wide output reads 0.39%
+there and 0.07% under compare.js. `real-ladder.png` is labelled "preview diff
+(900px)"; the two corpus sheets were rendered before that relabelling and still
+say "pixel diff", so read them as preview numbers too. The compare.js numbers are
+in `pixel-diff.json` and the table above.
 
 landscape-square and sun-square were measured under the Zhang-Suen default only
 (`metrics-thinning-sweep.json`: landscape IoU 0.9498, 175 edges, 103 tags; sun
