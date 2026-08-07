@@ -99,3 +99,30 @@ Its centerline output is `style="stroke:#rrggbb; fill:none;"` with no
 `stroke-width`, so the SVG default of 1 user unit applies. At a raster scale of
 4 on a 1662-unit-wide drawing, that renders as a hairline roughly 1/40th of the
 true stroke width. The geometry was never the problem.
+
+## The controlled A/B — was it really the width?
+
+Yes. `experiments/autotrace/width_ab.py` holds the traced geometry **completely
+fixed** and varies only how stroke width is assigned: one global width for the
+whole drawing (swept over 13 values spanning the widths actually present),
+versus per-path width measured from the source distance transform.
+
+| image | per-path EDT width | best single global width | ratio | true widths present |
+|---|---|---|---|---|
+| `house-wide` | **0.05%** | 0.05% @ w=21.1 | 1.00× | 17.1 – 26.8 |
+| `dinosaur-wide` | **0.03%** | 0.04% @ w=14.1 | 1.33× | 9.1 – 24.2 |
+| `landscape-square` | **0.39%** | 1.50% @ w=21.9 | **3.85×** | 16.6 – 29.4 |
+
+Two things to read off this table.
+
+* Our own best-global-width number on `landscape-square` (1.50%) lands close to
+  the prior evaluation's recorded best fixed-width result (1.79%). The geometry
+  in the two evaluations is therefore comparable, and **the width policy really
+  is what separates them**.
+* The benefit of per-path width is entirely a function of how much width
+  *variation* a drawing contains. `house-wide` is nearly uniform, so one global
+  width is already optimal and width recovery buys exactly nothing. The gain
+  appears on drawings whose strokes genuinely differ in weight.
+
+That last point is the honest caveat on the headline: this is not a universal
+3.85× — it is 1× on easy art and 3.85× on the hardest image in the set.
