@@ -25,6 +25,7 @@ from shapely.ops import unary_union
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import backends  # noqa: E402
+import failures  # noqa: E402
 import graphmodel  # noqa: E402
 import metrics as M  # noqa: E402
 from svgpoly import load_svg  # noqa: E402
@@ -55,6 +56,10 @@ def _params_for(backend: str, cfg: dict) -> dict:
     if backend == "pygeoops":
         return {k: cfg[k] for k in
                 ("densify_distance", "min_branch_length", "simplifytolerance", "extend")
+                if k in cfg}
+    if backend == "fitodic+filter":
+        return {k: cfg[k] for k in
+                ("interpolation_distance", "min_branch_length", "simplifytolerance")
                 if k in cfg}
     return {k: cfg[k] for k in ("interpolation_distance",) if k in cfg}
 
@@ -140,6 +145,14 @@ def run_one(svg_path: str, backend: str, tolerance: float, cfg: dict,
     row["bdist_median"] = round(bd["median"], 4)
     row["bdist_p95"] = round(bd["p95"], 4)
 
+    fc = failures.classify(g, source, recon, n_parts, row["avg_width"])
+    row["components"] = fc["components"]
+    row.update({f"tag_{k.replace(' ', '_')}": v for k, v in fc["tags"].items()})
+    row["tag_total"] = sum(fc["tags"].values())
+    if source.area:
+        row["cap_missed_frac"] = round(fc["cap_missed_area"] / source.area, 5)
+        row["join_missed_frac"] = round(fc["join_missed_area"] / source.area, 5)
+
     if truth:
         ce = M.centerline_error(g.to_multilinestring(), truth["centerlines"])
         row.update({f"cl_{k}": round(v, 4) for k, v in ce.items()})
@@ -182,6 +195,18 @@ GRIDS = {
     # A: pygeoops' width-relative branch filter -- the Track 8 comparison point.
     "branch": ("pygeoops", "min_branch_length", PYGEOOPS_BRANCH,
                {"densify_distance": -0.5, "simplifytolerance": -0.25, "extend": False}),
+    # A2: the same branch filter with simplification OFF, which is the setting
+    # the synthetic sweep showed is actually usable on curved strokes.
+    "branch0": ("pygeoops", "min_branch_length", PYGEOOPS_BRANCH,
+                {"densify_distance": -0.5, "simplifytolerance": 0.0, "extend": False}),
+    # F: fitodic's Voronoi with pygeoops' branch filter bolted on, to separate
+    # "which Voronoi" from "does it prune".
+    "interp_filtered": ("fitodic+filter", "interpolation_distance", FITODIC_INTERP,
+                        {"min_branch_length": -1.0, "simplifytolerance": 0.0}),
+    # E: cap handling -- pygeoops can extend the axis out to the polygon edge.
+    "extend": ("pygeoops", "extend", [False, True],
+               {"densify_distance": -0.5, "min_branch_length": -1.0,
+                "simplifytolerance": 0.0}),
     # B: pygeoops' output simplification -- suspected cause of curve error.
     "simplify": ("pygeoops", "simplifytolerance", [0.0, -0.02, -0.05, -0.1, -0.25],
                  {"densify_distance": -0.5, "min_branch_length": -1.0, "extend": False}),
@@ -289,6 +314,35 @@ def print_knob_summary(rows, grid, metrics_list):
             print(line)
 
 
+def sweep_real(inputs, grids, out_name="sweep-real.json", tolerances=None):
+    """Same 2-D surface as the synthetic sweep, on real artwork.
+
+    Real inputs have no ground truth, so the columns that matter here are
+    reconstruction (IoU / symdiff) and complexity (edges / terminals) rather
+    than centerline error.
+    """
+    tolerances = tolerances or [0.1, 0.25, 0.75, 2.0]
+    rows = []
+    for p in inputs:
+        full = os.path.join(ROOT, p)
+        name = os.path.basename(p)[:-4]
+        for gname in grids:
+            backend, knob_name, values, fixed = GRIDS[gname]
+            for tol in tolerances:
+                for v in values:
+                    cfg = dict(fixed)
+                    cfg[knob_name] = v
+                    r = run_one(full, backend, tol, cfg)
+                    r.update(case=name, grid=gname, knob=v, knob_name=knob_name)
+                    rows.append(r)
+            print(f"  {name} / {gname} done", flush=True)
+    path = os.path.join(DEBUG, out_name)
+    with open(path, "w") as f:
+        json.dump(rows, f)
+    print(f"wrote {path} ({len(rows)} rows)")
+    return rows
+
+
 def bench_real(inputs, backend, tolerance, cfg, out_name="metrics.json"):
     rows = []
     for p in inputs:
@@ -309,7 +363,7 @@ def bench_real(inputs, backend, tolerance, cfg, out_name="metrics.json"):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["sweep-synthetic", "bench", "one"])
+    ap.add_argument("cmd", choices=["sweep-synthetic", "sweep-real", "bench", "one"])
     ap.add_argument("--cases", nargs="*")
     ap.add_argument("--grids", nargs="*", default=["branch", "simplify", "densify", "interp"])
     ap.add_argument("--inputs", nargs="*")
@@ -332,6 +386,11 @@ def main():
         for g in a.grids:
             print_knob_summary(rows, g,
                                ["cl_hausdorff_p95", "iou", "cx_edges", "s_per_element"])
+    elif a.cmd == "sweep-real":
+        rows = sweep_real(a.inputs or REAL_LADDER[:4], a.grids, a.out, a.tolerances)
+        for g in a.grids:
+            print_knob_summary(rows, g, ["iou", "symdiff_frac", "cx_edges",
+                                         "cx_terminals", "s_per_element"])
     elif a.cmd == "bench":
         bench_real(a.inputs or REAL_LADDER, a.backend, a.tolerance, cfg, a.out)
     elif a.cmd == "one":

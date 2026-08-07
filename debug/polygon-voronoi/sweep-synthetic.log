@@ -4,3 +4,14 @@
   swept 04-s-curve
   swept 05-u-tight
   swept 06-loop
+  swept 07-cap-round
+  swept 08-cap-butt
+  swept 09-cap-square
+  swept 10-join-round
+  swept 11-join-bevel
+  swept 12-join-miter
+  swept 13-x-separate
+  swept 14-x-union
+  swept 15-t-junction
+  swept 16-y-junction
+  swept 17-parallel-near

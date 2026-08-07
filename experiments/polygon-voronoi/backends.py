@@ -130,6 +130,46 @@ def run_fitodic(
     return BackendResult("fitodic", lines, dt, params, err, _npoints(geom))
 
 
+def run_fitodic_filtered(
+    geom: BaseGeometry,
+    interpolation_distance: float = 2.0,
+    min_branch_length: float = -1.0,
+    simplifytolerance: float = 0.0,
+) -> BackendResult:
+    """fitodic's Voronoi + pygeoops' branch filter.
+
+    The two libraries differ in two ways at once -- how they build the Voronoi
+    graph, and whether they prune it.  fitodic has no pruning at all, so a
+    straight head-to-head measures mostly the pruning.  This variant borrows
+    pygeoops' own ``_remove_short_branches_notempty`` so the remaining
+    difference is the Voronoi construction itself, which is what Track 8 needs
+    to know.
+    """
+    from pygeoops._centerline import _remove_short_branches_notempty
+
+    base = run_fitodic(geom, interpolation_distance=interpolation_distance)
+    if base.error or base.lines.is_empty:
+        base.backend = "fitodic+filter"
+        return base
+    t0 = time.perf_counter()
+    mbl = min_branch_length
+    if mbl < 0:
+        mbl = abs(mbl) * average_width(geom)
+    lines = _remove_short_branches_notempty(base.lines, mbl)
+    if simplifytolerance:
+        tol = (abs(simplifytolerance) * average_width(geom)
+               if simplifytolerance < 0 else simplifytolerance)
+        import shapely
+
+        lines = shapely.simplify(lines, tol)
+    out = _clean_lines(lines)
+    params = dict(interpolation_distance=interpolation_distance,
+                  min_branch_length=min_branch_length,
+                  simplifytolerance=simplifytolerance)
+    return BackendResult("fitodic+filter", out, base.seconds + (time.perf_counter() - t0),
+                         params, None, base.n_input_points)
+
+
 def _npoints(geom: BaseGeometry) -> int:
     n = 0
     for p in _as_polygons(geom):
@@ -137,7 +177,8 @@ def _npoints(geom: BaseGeometry) -> int:
     return n
 
 
-BACKENDS = {"pygeoops": run_pygeoops, "fitodic": run_fitodic}
+BACKENDS = {"pygeoops": run_pygeoops, "fitodic": run_fitodic,
+            "fitodic+filter": run_fitodic_filtered}
 
 
 def run(backend: str, geom: BaseGeometry, **kwargs) -> BackendResult:

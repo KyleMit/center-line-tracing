@@ -1,0 +1,19 @@
+<!doctype html><meta charset=utf-8><title>polygon-voronoi comparison (pygeoops, tol=0.25)</title>
+<style>
+    body{font:13px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;margin:24px;
+         background:#fafafa;color:#111}
+    h1{font-size:20px} h2{font-size:15px;margin-top:28px}
+    table{border-collapse:collapse;margin:10px 0}
+    td,th{border:1px solid #ddd;padding:4px 8px;text-align:right}
+    th{background:#eee} td:first-child,th:first-child{text-align:left}
+    img{image-rendering:auto;max-width:100%;border:1px solid #ddd;background:#fff}
+    .note{color:#555;max-width:70em}
+    </style><h1>polygon-voronoi comparison (pygeoops, tol=0.25)</h1>
+<p class=note>PNG: <a href="contact-real-first.png">contact-real-first.png</a></p>
+<h2>Scores</h2>
+<table><tr><th>image</th><th>backend</th><th>tol</th><th>elems</th><th>IoU</th><th>symdiff%</th><th>bdistP95</th><th>edges</th><th>terminals</th><th>junctions</th><th>s/elem</th><th>pixdiff%</th></tr>
+<tr><td>house-wide</td><td>pygeoops</td><td>0.25</td><td>19</td><td>0.9711</td><td>2.92</td><td>1.419</td><td>37</td><td>35</td><td>11</td><td>0.006</td><td>0.26</td></tr>
+<tr><td>butterfly-wide</td><td>pygeoops</td><td>0.25</td><td>13</td><td>0.9579</td><td>4.24</td><td>0.717</td><td>25</td><td>13</td><td>9</td><td>0.010</td><td>0.31</td></tr>
+</table>
+<h2>Contact sheet</h2>
+<img src="contact-real-first.png">
