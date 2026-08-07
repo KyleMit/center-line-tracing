@@ -1,678 +1,855 @@
-# Centerline Recovery: Per-Technique Session Handoffs
+# Centerline Recovery: Per-Backend Session Handoffs
 
-Eight independent research tracks for recovering pen centerlines from filled SVG
-line art. Each track below is a **self-contained prompt** meant to be pasted into
-its own fresh session so the tracks can iterate in parallel without colliding.
+Eight independent tracks derived from
+[`docs/svg-centerline-stroke-recovery-report.md`](./svg-centerline-stroke-recovery-report.md).
+Each track below is a **self-contained prompt** meant to be pasted into its own
+fresh session, so every candidate backend in the report can be prototyped and
+iterated on in parallel without collisions.
 
-> **Note on provenance.** These tracks were derived from the handoff docs that
-> exist in this repo (`current-attempt-handoff.md`, `sun-vector-handoff.md`,
-> `filled-svg-to-stroked-lines-handoff.md`,
-> `python-filled-svg-to-stroked-lines-handoff.md`) — specifically their
-> "Iterations Tried", "Literature And Tooling Notes", "Recommended Next Step",
-> and "Extension Ideas" sections. There is no
-> `docs/svg-centerline-stroke-recovery-report.md` in the repository or in git
-> history; if that report exists elsewhere, reconcile this list against it.
+Track numbering follows the report's §18 final ranking. Tracks 1–4 are its Tier 1
+("prototype immediately"); Tracks 5–7 cover Tier 2 and Tier 3; Track 8 is the
+shared semantic layer the report calls "probably the most important custom logic"
+(§10) and "the single most valuable quality technique to add" (§11).
+
+| Track | Report ref | Backend / idea | Tier |
+|---|---|---|---|
+| 1 | §6.1, §18.1 | `flo-mat` vector MAT/SAT over Béziers | 1 |
+| 2 | §6.2, §18.2 | AutoTrace `-centerline` baseline | 1 |
+| 3 | §6.5–6.7, §18.3 | scikit-image `medial_axis` + Skan + fit-curve | 1 |
+| 4 | §6.3–6.4, §18.4/9 | PyGeoOps + fitodic polygon-Voronoi centerlines | 1/3 |
+| 5 | §6.9, §18.5 | Tegaki generator, adapted | 2 |
+| 6 | §6.6, §6.8, §18.6/10 | OpenCV thinning + `skeleton-tracing` | 2/3 |
+| 7 | §6.10–6.12, §18.8/11/12 | Boost.Polygon Voronoi, CGAL, PostGIS | 2/3 |
+| 8 | §10, §11, §13 | Width-aware pruning + re-stroke scoring + graph layer | — |
 
 ---
 
 ## Common Setup
 
-Every track prompt references this section. Read it first.
+Every track prompt references this section. Read it, and the report, first.
 
 ### The problem
 
-The `inputs/*.svg` files look like pen/marker drawings but are internally
-**filled shapes** — the outline of the ink, not the stroke. The goal is output
-SVGs built from real stroked paths:
+Per the report's framing, this is **inverse stroke recovery**: given a filled 2-D
+region that was plausibly produced by stroking one or more 1-D paths, infer
+centerline paths that can be re-stroked. This is *not* ordinary vectorization —
+Potrace/VTracer find the **boundary**; we want the **curve through the interior**
+(§8). For roughly constant-width round-capped pen strokes the target object is
+the **Euclidean medial axis / MAT** (§1.3), plus pruning (§10).
+
+Output shape:
 
 ```xml
 <path d="..." fill="none" stroke="#..." stroke-width="..." stroke-linecap="round" />
 ```
 
-The original centerlines, stroke order, pressure/taper model, and join semantics
-were all discarded when the fills were baked. Recovering them is the task.
-
 ### The sample set
 
-Ten inputs, roughly ordered easy → hard. Use this as the escalation ladder:
+Ten real inputs, ordered easy → hard. Use as the escalation ladder (§12.2):
 
 | # | File | paths | fills | Notes |
 |---|------|-------|-------|-------|
-| 1 | `inputs/house-wide.svg` | 11 | 6 | simplest, mostly long clean strokes |
-| 2 | `inputs/butterfly-wide.svg` | 11 | 6 | symmetric curves, few junctions |
+| 1 | `inputs/house-wide.svg` | 11 | 6 | simplest, long clean strokes |
+| 2 | `inputs/butterfly-wide.svg` | 11 | 6 | smooth curves, few junctions |
 | 3 | `inputs/boat-tall.svg` | 15 | 5 | some hatching |
 | 4 | `inputs/island-tall.svg` | 16 | 6 | |
 | 5 | `inputs/balloon-tall.svg` | 18 | 6 | long smooth arcs |
 | 6 | `inputs/home-wide.svg` | 20 | 6 | |
 | 7 | `inputs/house-tall.svg` | 21 | 6 | |
-| 8 | `inputs/dinosaur-wide.svg` | 38 | 6 | many elements, best-known baseline (0.02%) |
-| 9 | `inputs/landscape-square.svg` | 14 | 7 | merged corridors, dense hatching (0.73%) |
-| 10 | `inputs/sun-square.svg` | 2 | 1 | single continuous scribble, hairpin tips |
+| 8 | `inputs/dinosaur-wide.svg` | 38 | 6 | many elements; best-known baseline **0.02%** |
+| 9 | `inputs/landscape-square.svg` | 14 | 7 | merged corridors, dense hatching; **0.73%** |
+| 10 | `inputs/sun-square.svg` | 2 | 1 | single scribble, hairpin tips; raster ~4.2% blunt / vector ~6.3% sharp |
 
-### Environment (verified working on this container)
+The existing Python pipeline (`src/convert_filled_svg_to_stroked_lines.py`) is the
+incumbent to beat; those bolded numbers are its scores. `src/sun_vectorize.py` is
+a working chordal-axis experiment. Read `docs/current-attempt-handoff.md` and
+`docs/sun-vector-handoff.md` for what has already been tried and rejected.
 
-Linux, `python3.11`, `node22`, running as root. The macOS-era commands in the
-old handoffs (`DYLD_LIBRARY_PATH=/opt/homebrew/lib .venv/bin/python ...`) are
-**stale — ignore them**. There is no `.venv` and no `node_modules` at session
-start.
+### Build the synthetic ground-truth corpus first (§12.1)
+
+**Do this before touching your backend.** The real inputs have no ground truth —
+only reconstruction error. Synthetic shapes generated *from known centerlines* let
+you measure true centerline error and isolate exactly which geometric feature
+breaks your backend. Generate filled shapes by stroking known paths, keeping the
+source path:
+
+1. horizontal line · 2. diagonal line · 3. circular arc · 4. S curve ·
+5. tight U curve · 6. closed loop · 7. round cap · 8. butt cap · 9. square cap ·
+10. round join · 11. bevel join · 12. miter join · 13. X crossing kept as separate
+shapes · 14. X crossing boolean-unioned · 15. T junction · 16. Y junction ·
+17. almost-touching parallel lines · 18. small self-overlap · 19. variable-width
+stroke · 20. noisy vectorized boundary
+
+Report §6.1 flags cases 7–9 and 13–16 as the highest-risk area for any backend.
+Run these before the real artwork — a backend that fails case 14 will fail
+`landscape-square.svg` too, and the synthetic case tells you *why* in minutes.
+
+### Metrics (§11) — build this harness second
+
+`src/compare.js` already gives a raster pixel-diff:
 
 ```bash
-# Python stack — all confirmed installable, cairo native lib is already present
-pip3 install numpy scipy scikit-image shapely pillow cairosvg svgpathtools svgelements
-
-# Node stack — sharp, pixelmatch, pngjs, simplify-js are already in package.json
-npm install
-
-# apt works and you are root. potrace installs cleanly:
-apt-get install -y potrace
-# autotrace has NO apt candidate on this image — build from source or skip it.
+node src/compare.js <input.svg> <output.svg> 1200 <diff.png> <side-by-side.png>
 ```
 
-Rasterize with `cairosvg` (Python) or `sharp` (Node); both work.
+Keep it for continuity with the incumbent's numbers, but the report is explicit
+that **re-stroke reconstruction scoring** is the real measure. Implement:
+
+- **IoU** — `area(S_orig ∩ S_recon) / area(S_orig ∪ S_recon)`
+- **Symmetric difference area** — `area(S_orig XOR S_recon)`; the best optimization loss
+- **Boundary distance** — nearest-distance error, report **median and P95** (never max — one pathological point dominates it)
+- **Centerline complexity** — stroke count, branch count, Bézier segment count, total length. Between two results with near-identical geometry error, **prefer the simpler graph**
+- **Width error** — variation in estimated local radius along the centerline
+- **Runtime** per element
+- **Centerline Hausdorff/P95 vs the known source path** — synthetic corpus only
+
+Write `debug/<slug>/metrics.json` from one re-runnable `bench` command, and print
+a table. Never promote a change that regresses an image without saying so.
+
+### Emit the common graph model (§13, Experiment 3)
+
+Every track must serialize its extraction to this shape before pruning, so results
+are comparable across sessions and Track 8's shared layer can consume any backend:
+
+```ts
+interface CenterlineNode { id: string; x: number; y: number; radius?: number }
+interface CenterlineEdge {
+  id: string; from: string; to: string;
+  geometry: Bezier[] | Point[];
+  length: number; medianRadius?: number; sourceElementId?: string;
+}
+```
+
+Dump it as JSON to `debug/<slug>/graphs/<image>.json`. This is a hard requirement,
+not a nicety — it is what makes eight parallel sessions add up to one system.
+
+### Tag every failure (§13, Experiment 2)
+
+Classify each defect with the report's taxonomy, and put the counts in your
+metrics table: `cap artifact` · `join artifact` · `outline noise branch` ·
+`crossing ambiguity` · `disconnected skeleton` · `missing narrow segment` ·
+`wrong endpoint` · `excessive curve complexity` · `raster quantization`.
+
+Shared vocabulary across tracks is how we learn which backend fails where.
+
+### Contact sheets — the visual deliverable
+
+Two kinds, both required:
+
+- **Comparison sheet** — one row per image, four columns:
+  `input | output | diff | overlay` (overlay = recovered centerlines in red over
+  the input fill in grey at 40%), labelled with filename, IoU, and pixel-diff %.
+  Include zoomed crops of the two or three worst regions.
+- **Progress sheet** — for your current focus image, one tile per iteration in
+  chronological order, labelled with a short tag and score, so the trajectory is
+  visible at a glance.
+
+≥400px per tile so individual strokes are legible. HTML is fine and often better,
+but also emit a PNG so it can be viewed without a browser.
+
+Metrics are proxies. **Always look at the rendered output**, and when the numbers
+and your eyes disagree, trust your eyes and say so in your notes.
+
+### Environment — verified working on this container
+
+Linux, `python3.11`, `node22`, running as root. The macOS commands in the older
+handoffs (`DYLD_LIBRARY_PATH=/opt/homebrew/lib .venv/bin/python …`) are **stale —
+ignore them**. No `.venv` and no `node_modules` at session start.
+
+```bash
+# Python — all verified installable; native cairo is already present
+pip3 install numpy scipy scikit-image shapely pillow cairosvg svgelements \
+             pygeoops centerline skan opencv-contrib-python-headless
+
+# Node — sharp/pixelmatch/pngjs/simplify-js already in package.json
+npm install
+# verified available on npm: flo-mat@4.1.0, fit-curve@0.2.0,
+# svg-path-commander@2.3.1, @resvg/resvg-js@2.6.2, paper@0.12.18
+
+# apt works and you are root
+apt-get install -y potrace          # installs cleanly
+# autotrace: NO apt candidate on this image — see Track 2
+# skeleton-tracing: NOT on npm — vendor from GitHub (LingDong-/skeleton-tracing)
+```
+
+`npm install` on this image rewrites `package-lock.json` by stripping `libc`
+fields from optional deps. That is npm-version churn, not a real dependency
+change — **revert it** (`git checkout -- package-lock.json`) rather than commit it.
+
+Use `resvg` (§7.1) for deterministic rasterization where a backend needs pixels —
+the report specifically calls out determinism (§15) as mattering for reproducible
+scoring. `cairosvg` and `sharp` also work.
 
 ### Branch and directory conventions
 
-Each track owns its own branch and its own directories. **Do not write into
-another track's directories**, and do not modify `src/` files that the baseline
-depends on (`src/convert_filled_svg_to_stroked_lines.py`, `src/compare.js`) —
-copy them into your track directory if you need to change them.
+Each track owns its branch and directories. **Do not write into another track's
+directories**, and do not modify the incumbent
+`src/convert_filled_svg_to_stroked_lines.py` or `src/compare.js` — copy them into
+your track directory if you need changes.
 
 ```
-branch:       claude/centerline-<track-slug>
-code:         experiments/<track-slug>/
-artifacts:    debug/<track-slug>/          # contact sheets, diffs, overlays, sweeps
-final SVGs:   outputs/<track-slug>/        # only promoted results
+branch:       claude/centerline-<slug>
+code:         experiments/<slug>/
+artifacts:    debug/<slug>/           # contact sheets, metrics.json, graphs/, NOTES.md
+final SVGs:   outputs/<slug>/         # only promoted results
 ```
 
 Branch from `claude/svg-centerline-stroke-techniques-d0hl0y`.
 
-### The measurement harness you must build first
+### Working rules
 
-`src/compare.js` already exists and does a single-pair comparison:
-
-```bash
-node src/compare.js <input.svg> <output.svg> 1200 <diff.png> <side-by-side.png>
-# prints: differing pixels: N/M = X%   similarity: Y%
-```
-
-Build two things on top of it in `experiments/<track-slug>/`:
-
-1. **`bench`** — runs your converter across every input it currently handles,
-   writes `debug/<track-slug>/metrics.json` (per-image differing-pixel %, path
-   count, runtime, and pass/fail), and prints a table. Re-runnable in one
-   command. This is your regression net: never promote a change that regresses
-   an image without saying so explicitly.
-
-2. **`contact-sheet`** — the visual deliverable, two kinds:
-   - **Comparison sheet**: one row per image, four columns —
-     `input | output | diff | overlay` (overlay = output strokes in red over the
-     input in grey at 40% opacity), each row labelled with the filename and
-     differing-pixel %. This is the artifact that shows how the technique is
-     doing across the sample set.
-   - **Progress sheet**: for your current focus image, one tile per iteration in
-     chronological order, each labelled with a short tag and its score, so the
-     trajectory of the technique is visible at a glance.
-
-   Render at a size where individual strokes are legible (≥400px per tile), and
-   include zoomed crops of the two or three worst regions. An HTML contact sheet
-   is fine and often better than a PNG grid — but also emit a PNG so it can be
-   viewed without a browser.
-
-Pixel-diff % is a proxy, not the goal. A result can score well and still look
-obviously wrong (blunt tips, angular protrusions, knuckle bulges). **Always look
-at the rendered output**, and when the metric and your eyes disagree, trust your
-eyes and say so in your notes.
-
-### Working rules for every track
-
-- **Start with one image.** Get a single end-to-end pass working before
-  generalizing. Do not build the full pipeline before you have seen one result.
+- **Start with one image.** One end-to-end pass before generalizing. Do not build
+  the whole pipeline before seeing a result.
 - **If an image gets hard, move on.** Timebox it, write down precisely what
-  defeated you, and go to the next image on the ladder. Come back later with
-  what you learned from the easier ones. Do not grind.
-- **Keep iterating.** After the first pass, loop: look at the contact sheet →
-  pick the single worst visible defect → form a hypothesis → change one thing →
-  re-bench → record. Many small measured iterations beat one big rewrite.
+  defeated you, go to the next rung. Return later with what the easier ones
+  taught you. Do not grind.
+- **Keep iterating.** Loop: contact sheet → pick the single worst visible defect →
+  hypothesis → change one thing → re-bench → record.
+- **Do not implement sophisticated pruning early** (§13, Experiment 1). The point
+  of the first pass is learning which backend preserves the expected centerline.
+  Pruning is Track 8's job and it will consume your graph JSON.
 - **Commit each meaningful iteration** with the score in the message, e.g.
-  `rail-pair: house-wide 1.42% -> 0.91% (width from rail separation)`. The git
-  log becomes the experiment log.
-- **Keep a running `debug/<track-slug>/NOTES.md`**: what you tried, the number it
-  produced, and — most importantly — *why you think it did that*. Negative
-  results are valuable to the other tracks; record them.
+  `flo-mat: house-wide IoU 0.71 -> 0.88 (cap extension by radius)`. The git log
+  becomes the experiment log.
+- **Keep `debug/<slug>/NOTES.md`**: what you tried, the number, and *why you think
+  it did that*. Negative results are valuable to the other tracks — record them.
 - Push to your branch as you go. Do not open a PR unless asked.
 
-### What "done" looks like for a track
+### What "done" looks like
 
-A pushed branch containing: working code, `metrics.json` across every input you
-attempted, comparison and progress contact sheets, promoted SVGs in
-`outputs/<track-slug>/`, and a `NOTES.md` with an honest verdict — including
-"this approach does not work for X, here is the evidence" if that is the answer.
-A well-evidenced negative result is a successful track.
+A pushed branch with: working code, `metrics.json` across every input attempted,
+graph JSON, comparison + progress contact sheets, promoted SVGs in
+`outputs/<slug>/`, and `NOTES.md` with an honest verdict — including "this backend
+does not work for X, here is the evidence." A well-evidenced negative result is a
+successful track; the report explicitly wants failure modes classified.
 
 ---
 
-## Track 1 — Variable-Width Skeleton (per-path taper recovery)
+## Track 1 — `flo-mat` Vector MAT/SAT
 
-**Branch:** `claude/centerline-taper-width` · **Slug:** `taper-width`
+**Branch:** `claude/centerline-flo-mat` · **Slug:** `flo-mat` · Report §6.1, §18.1 — **Tier 1, rank 1**
 
 ```text
-Read docs/centerline-technique-handoffs.md § Common Setup first, and follow its
-environment, branch, directory, harness, and working rules exactly.
-Your slug is `taper-width`; work on branch claude/centerline-taper-width.
+Read docs/centerline-technique-handoffs.md § Common Setup and
+docs/svg-centerline-stroke-recovery-report.md §6.1 first. Follow Common Setup's
+environment, corpus, metrics, graph-model, branch, directory, contact-sheet and
+working rules exactly. Your slug is `flo-mat`; branch claude/centerline-flo-mat.
 
-TECHNIQUE: Variable-width skeleton — recover stroke width as a function of
-position along each centerline, instead of one width per element.
+BACKEND: flo-mat — analytical Medial Axis Transform + Scale Axis Transform
+computed directly over closed line/quadratic/cubic Bezier loops. npm, MIT, v4.1.0.
 
-The existing baseline (src/convert_filled_svg_to_stroked_lines.py) rasterizes
-each filled element, skeletonizes it (Zhang-Suen), traces the skeleton graph,
-and emits each path with a SINGLE median stroke width. The source drawings are
-made with a pressure-sensitive pen: strokes are fat in the middle and taper to
-needle points at the ends. A single median width simultaneously under-fills the
-fat middles and over-fills the tips, and it can never render a needle tip at all.
-The old handoff lists this as the #1 remaining perceptual gap.
+WHY IT IS RANKED FIRST: it is the only library found that combines the right
+geometry model (Euclidean MAT), SVG-native Bezier input, JS/TS usability, and
+scale-aware pruning (SAT) built in. Our inputs are ALREADY vector, so every raster
+backend throws away information before it starts. flo-mat does not.
 
-THE IDEA: the Euclidean distance transform of the filled mask, sampled at each
-skeleton pixel, IS the local stroke radius. That signal is already computed and
-then thrown away by taking its median. Keep it as a per-vertex width profile and
-render strokes that actually vary in width.
+VERIFIED FOR YOU — read this, it will save you an hour:
+  - flo-mat@4.1.0 installs clean (`npm install flo-mat`) and `require()` works.
+  - THE REPORT'S §6.1 EXAMPLE IS STALE: there is no `getCurveToNext` export in
+    v4.1.0. The real function is `getMatCurveToNext(node)`. Related exports that
+    do exist: findMats, getPathsFromStr, traverseEdges, toScaleAxis, isTerminating,
+    getBranches, getBranchBeziers, getMatCurveBetween, getMatCurvesBetween,
+    beziersToSvgPathStr, loopFromBeziers.
+  - Smoke test that PASSES today — a round-capped horizontal capsule, width 20,
+    true centerline (50,100)->(250,100):
+      d = 'M 50 90 L 250 90 A 10 10 0 0 1 250 110 L 50 110 A 10 10 0 0 1 50 90 Z'
+      getPathsFromStr(d) -> 1 loop; findMats(loops, 3) -> 1 mat;
+      traverseEdges + getMatCurveToNext -> 1 curve: [[60,100],[240,100]]
+  - NOTE WHAT THAT RESULT MEANS: the MAT is correct but INSET BY ONE CAP RADIUS
+    at each end (60 not 50, 240 not 250). This is exactly report §2.3 "caps
+    materially affect the medial axis". Cap extension is therefore your first
+    required post-step, not an edge case — extend each terminal branch outward
+    along its tangent by the local radius. The incumbent pipeline solves the same
+    problem with --calibrate-caps; see docs/current-attempt-handoff.md.
 
 WHAT TO BUILD:
-1. Get the baseline running on this Linux container first (the DYLD/venv
-   commands in docs/current-attempt-handoff.md are stale — see Common Setup).
-   Reproduce the known-good numbers as your control: dinosaur-wide 0.02%,
-   landscape-square 0.73%. If you cannot reproduce them, say so with evidence
-   and use whatever you do get as the control baseline.
-2. Copy the converter into experiments/taper-width/ and extend it to carry a
-   per-vertex radius array alongside each traced centerline.
-3. Smooth the radius profile along the path (the raw DT is noisy and spikes at
-   junctions) and decide how to render it. Three options, try them in order of
-   increasing cost:
-   a. Split each path into K runs of near-constant width (K adaptive, 2-6),
-      emit each run as its own stroke with overlap at the seams so no gap shows.
-   b. Emit the stroke as a filled ribbon polygon built by offsetting the
-      centerline by the radius profile on both sides — note this reintroduces a
-      fill, so only do it if you can justify it; the project requirement is
-      stroked paths, so (a) is the safer target.
-   c. Taper only the terminal segments (last ~15% of each end) to a needle,
-      keeping the interior at median width — cheap, and may capture most of the
-      visual win.
-4. Measure the path-count cost. Splitting multiplies path counts; if a technique
-   triples the file size for 0.1% improvement, record that tradeoff honestly.
+1. Normalize SVG geometry first (§9.2): resolve transforms, flatten nested groups,
+   convert shapes to paths, split subpaths into closed loops, get winding right for
+   holes. svg-path-commander@2.3.1 (§7.2) is on npm and is the report's pick.
+   Getting this stage wrong will look like a flo-mat failure — verify by
+   re-rendering your normalized geometry and diffing it against the original
+   BEFORE you run any MAT.
+2. Run the synthetic corpus (Common Setup) through findMats. Report §6.1 names the
+   exact high-risk cases: round/butt/square caps, 90-degree and acute joins,
+   C curve, loop, unioned X crossing, T junction, near-touching parallels, noisy
+   boundary. This is the go/no-go for the whole track — run it early.
+3. Extract the MAT graph into the common graph model, with radius per node (flo-mat
+   carries it — that is the "T" in MAT, and Track 8 needs it).
+4. Compare raw MAT against toScaleAxis(mat, s) for a sweep of s (the report's
+   example uses 1.5). SAT is the built-in pruning; find where it helps and where it
+   eats real detail. Do NOT hand-roll pruning — that is Track 8.
+5. Cap extension (above), then emit stroked paths and score.
 
-FIRST TARGET: inputs/sun-square.svg — it is a single continuous scribble with the
-most extreme taper in the set, so the effect is maximally visible and there is
-only one element to reason about. Then inputs/landscape-square.svg (dense
-tapered hatching, currently 0.73%), then the ladder.
+FIRST TARGET: the synthetic capsule and cap/join cases, then
+inputs/house-wide.svg (11 paths, long clean strokes), then the ladder.
 
-WATCH FOR: junction radius spikes (the DT balloons where strokes cross, which
-will make a stroke bulge at every crossing — you likely need to clamp or
-interpolate the profile across junction neighbourhoods); and seam artifacts
-where split runs meet.
+WATCH FOR: the report's stated primary risk is behavior at ends and merged
+intersections. Also expect trouble with the boolean-unioned X crossing (case 14) —
+a degree-4 MAT node is ambiguous between "two crossing strokes" and "one four-way
+junction", and flo-mat will not decide for you. Record the failure, tag it
+`crossing ambiguity`, and leave the decision to Track 8.
 
-SUCCESS: visible needle tips and fat middles on the sun and the landscape
-hatching, without regressing dinosaur-wide. Report both the pixel metric and a
-zoomed visual verdict — this technique is expected to win perceptually even if
-the metric barely moves, and that is a legitimate result.
+SUCCESS: an evidenced verdict on the report's top-ranked backend, with the
+synthetic corpus results as the core evidence, plus scores on as much of the real
+ladder as you reach. If flo-mat is as good as the report expects, this becomes the
+production vector backend, so the quality of your graph JSON matters a lot.
 ```
 
 ---
 
-## Track 2 — Vector Chordal-Axis Medial Axis (no rasterization)
+## Track 2 — AutoTrace Centerline Baseline
 
-**Branch:** `claude/centerline-chordal-axis` · **Slug:** `chordal-axis`
+**Branch:** `claude/centerline-autotrace` · **Slug:** `autotrace` · Report §6.2, §18.2 — **Tier 1, rank 2**
 
 ```text
-Read docs/centerline-technique-handoffs.md § Common Setup first, and follow its
-environment, branch, directory, harness, and working rules exactly.
-Your slug is `chordal-axis`; work on branch claude/centerline-chordal-axis.
+Read docs/centerline-technique-handoffs.md § Common Setup and
+docs/svg-centerline-stroke-recovery-report.md §6.2 first. Follow Common Setup's
+environment, corpus, metrics, graph-model, branch, directory, contact-sheet and
+working rules exactly. Your slug is `autotrace`; branch claude/centerline-autotrace.
 
-TECHNIQUE: Reconstruct centerlines in VECTOR space from the outline geometry via
-constrained Delaunay triangulation (chordal axis), with no rasterization step.
+BACKEND: AutoTrace `-centerline` — rasterize, then get SVG centerline paths from
+one command. CLI + C library, mature.
 
-Rasterizing destroys sharp corners: at a hairpin fold the medial axis of a
-rasterized stroke pulls back from the true point, and skeleton + round cap
-renders the fold as a rounded blob instead of a sharp point. Triangulating the
-outline polygon instead gives terminal triangles that point straight INTO the
-sharp corners, so tips are recovered as exact vertices.
+WHY IT MATTERS: the report calls it the best zero-custom-code baseline and says to
+"keep it in the evaluation even if it does not become the production
+architecture." Its job is to tell every other track how much their complexity is
+actually buying. A backend that cannot beat one shell command is not worth
+shipping.
 
-PRIOR ART IN THIS REPO: src/sun_vectorize.py already implements this for
-inputs/sun-square.svg and it works — read it and docs/sun-vector-handoff.md
-before writing anything. It scores ~6.3% on the sun vs the raster pipeline's
-~4.2%, but with SHARP tips, which is the perceptual win. It is standalone and
-hard-codes the sun's 2-path structure (outer ring + scribble).
+PRIOR RESULT, AND WHY IT IS NOT THE LAST WORD: autotrace centerline was already
+tried here (docs/current-attempt-handoff.md) and scored badly — dinosaur 3.10%,
+landscape 15.61% raw; best fixed-width sweep 0.17% and 1.79%. But read the
+diagnosis: "raw autotrace centerline output did not preserve usable stroke
+widths." The GEOMETRY may have been fine and the WIDTH was the failure — and that
+test only ever tried ONE global fixed width per drawing. That is a weak test.
+Your job is to run the strong version of it.
 
-YOUR JOB: generalize it into a real converter that handles arbitrary inputs.
+GETTING THE TOOL — do this first and timebox it hard:
+  - `autotrace` has NO apt candidate on this image (verified: "Package 'autotrace'
+    has no installation candidate"). You must build from source
+    (github.com/autotrace/autotrace — autotools, needs imagemagick/glib dev
+    headers), or find a prebuilt binary.
+  - `apt-get install -y potrace` DOES work, but potrace is outline-only (§8.1) and
+    is NOT a centerline tool — do not substitute it and call it a result.
+  - If the build defeats you after a bounded effort, say so plainly, record the
+    blocker, and pivot to delivering the width-recovery post-pass (below) against
+    the previously-recorded autotrace numbers plus whatever tracer you can run.
+    Do not let a build fight consume the session.
+  - LICENSING (§6.2): the CLI is GPL, the library LGPL. Note which you use — it
+    constrains productionization, and the report flags this deliberately.
 
 WHAT TO BUILD:
-1. Get src/sun_vectorize.py running on this Linux container and reproduce the
-   sun result as your control.
-2. Copy it to experiments/chordal-axis/ and remove the sun-specific assumptions:
-   - Handle N filled elements of arbitrary colour, not a fixed ring+scribble.
-   - Handle paths with holes / multiple subpaths (even-odd and nonzero winding).
-   - Replace the hard-coded ring reconstruction with a general closed-loop case:
-     detect when an element is an annulus (a band with two boundary loops) and
-     take its mid-loop, rather than fitting a circle.
-3. Robustness is the real work here. Bezier and arc flattening tolerance,
-   degenerate slivers, self-intersecting outlines, and near-duplicate boundary
-   points will all break the triangulation. Build in validation and a clear
-   failure mode per element (fall back and report, never crash the run).
-4. Classify triangles by boundary-edge count (terminal=2, sleeve=1, junction=0),
-   build the graph, prune tip-fork spurs, contract fold clusters into single
-   sharp vertices, then trace. That skeleton of the algorithm is already in
-   sun_vectorize.py — reuse it.
+1. A uniform adapter: input SVG -> deterministic raster (resvg, §7.1/§15) ->
+   autotrace -centerline -> centerline paths mapped back into the ORIGINAL SVG
+   coordinate space. The coordinate/scale round-trip is fiddly and is the most
+   common source of misleadingly bad scores. Verify it by overlaying traced
+   centerlines on the source fill and LOOKING at it before you measure anything.
+2. THE ACTUAL NEW IDEA — width recovery: compute the Euclidean distance transform
+   of the source filled mask, sample it along each traced centerline, and take a
+   robust per-path statistic (plus optionally a per-vertex profile). Per-path width
+   measured from the source, instead of one global guess for the whole drawing.
+   This is what the prior evaluation never did.
+3. Sweep raster resolution (§12.3 asks for several) and autotrace's own parameters
+   — corner threshold, error threshold, filter iterations, despeckle — but only
+   AFTER width recovery is in, since the earlier evaluation conflated the two.
+4. Emit the common graph model so results are comparable with the other tracks.
 
-FIRST TARGET: inputs/sun-square.svg (already works — get it green as a control),
-then inputs/butterfly-wide.svg (few junctions, smooth curves — the gentlest test
-of generalized flattening), then inputs/house-wide.svg, then the ladder.
+FIRST TARGET: inputs/house-wide.svg to prove the adapter and the coordinate
+round-trip, then re-run inputs/dinosaur-wide.svg and inputs/landscape-square.svg to
+compare directly against the recorded prior numbers. Beating 0.17% / 1.79% is your
+bar; beating the incumbent's 0.02% / 0.73% is the stretch goal.
 
-WATCH FOR: junction triangles in dense hatching produce a hairball of short
-graph edges; the fold-cluster contraction radius that works on the sun will
-likely need to be a function of local stroke width rather than a constant.
+WATCH FOR: some tracers emit centerlines for thin structures but outlines for thick
+ones, silently mixing both in one file. Detect and report that rather than
+measuring a mixed result. Also tag `raster quantization` failures — resolution
+dependence is this backend's structural weakness and quantifying it is a genuine
+contribution.
 
-SUCCESS: a general converter that beats the raster pipeline on tip sharpness
-across at least three inputs. Expect it to LOSE on pixel-diff while winning
-visually — document both, with zoomed tip crops as the evidence.
+SUCCESS: a defensible number that every other track measures itself against, plus
+a clear verdict on whether off-the-shelf tracing plus our own width recovery is
+competitive. "No, and here are the numbers and crops" is a fully successful result.
 ```
 
 ---
 
-## Track 3 — Outline Rail Pairing
+## Track 3 — scikit-image `medial_axis` + Skan + fit-curve
 
-**Branch:** `claude/centerline-rail-pairing` · **Slug:** `rail-pairing`
+**Branch:** `claude/centerline-skimage-skan` · **Slug:** `skimage-skan` · Report §6.5, §6.7, §7.4, §18.3 — **Tier 1, rank 3**
 
 ```text
-Read docs/centerline-technique-handoffs.md § Common Setup first, and follow its
-environment, branch, directory, harness, and working rules exactly.
-Your slug is `rail-pairing`; work on branch claude/centerline-rail-pairing.
+Read docs/centerline-technique-handoffs.md § Common Setup and
+docs/svg-centerline-stroke-recovery-report.md §6.5, §6.7, §7.4 first. Follow
+Common Setup's environment, corpus, metrics, graph-model, branch, directory,
+contact-sheet and working rules exactly. Your slug is `skimage-skan`; branch
+claude/centerline-skimage-skan.
 
-TECHNIQUE: Treat the filled shape as a ribbon with two opposing boundary "rails".
-Match each point on one rail to the point facing it across the ink on the other
-rail; the centerline is the midpoint sequence and the stroke width is the rail
-separation — both recovered exactly, for free, at every point.
+BACKEND: the report's "best foundation for a sophisticated raster backend" —
+skimage.morphology.medial_axis(..., return_distance=True) for skeleton + local
+radius, Skan to turn the skeleton into a real graph, fit-curve/Paper.js to fit
+clean Beziers at the end.
 
-WHY THIS INSTEAD OF SKELETONIZATION: the known failure of the current pipeline is
-"merged corridors" — where two near-parallel pen passes overlap lengthwise, the
-union skeleton collapses them into ONE line, producing knuckle bulges and sparse
-hatching. A skeleton fundamentally cannot represent two strokes in one blob.
-Rail pairing can, because two parallel passes present four rails, and the correct
-pairing recovers two separate centerlines. This is the #2 remaining gap in
-docs/current-attempt-handoff.md and no prior attempt has tried it.
+WHY THIS BEATS PLAIN THINNING: `return_distance=True` is the whole point (§6.5).
+It hands you the local stroke radius at every skeleton pixel for free. That single
+signal is what makes width-aware pruning (§10) possible — pruning on branch length
+alone removes real detail and keeps ugly artifacts, while pruning on
+`L / (2 * R_med)` (branch length in units of local stroke width) is scale-free and
+actually works. Ordinary thinning (Track 6) cannot do this.
+
+RELATIONSHIP TO THE INCUMBENT: src/convert_filled_svg_to_stroked_lines.py already
+does raster + Zhang-Suen thinning + a hand-rolled tracer, and scores 0.02% /
+0.73%. You are NOT rebuilding it. The differences that justify this track are:
+(a) true Euclidean medial axis instead of morphological thinning, (b) Skan's
+proper graph layer instead of a bespoke tracer, (c) a retained distance field
+feeding principled pruning, (d) Bezier output instead of dense polylines. Read the
+incumbent first so you inherit its hard-won lessons (cap calibration, element-mode
+processing) instead of rediscovering them.
 
 WHAT TO BUILD:
-1. Extract the boundary of each filled element as an ordered polygon (from the
-   SVG path data directly, or by contouring a high-res raster — your call, but
-   vector is cleaner and avoids a resampling stage).
-2. Pair the rails. This is the core research problem; approaches to try:
-   - Normal casting: from each boundary point, cast a ray along the inward
-     normal and record where it exits the shape. Points whose rays land on each
-     other are a rail pair. Cheap and works well on clean parallel-sided runs.
-   - Width-consistency matching: prefer pairings whose separation varies smoothly
-     along the run, which naturally rejects the spurious "across the junction"
-     pairings that normal casting produces at crossings.
-   - Dynamic programming / optimal transport over the two boundary arcs, which
-     handles taper and mild curvature better than greedy matching.
-3. Segment the boundary into rail runs first: split the boundary at high-
-   curvature corners (stroke ends and junction corners), then pair RUNS rather
-   than raw points. This is usually what makes the whole thing tractable.
-4. Emit centerline = midpoints, width = separation (which gives you the taper
-   from Track 1 for free — coordinate with that track's rendering choices via
-   its NOTES.md if it has pushed any).
+1. Deterministic rasterization at high resolution (resvg, §7.1/§15 — determinism
+   matters because your scores must be reproducible). Process each filled element
+   separately; the incumbent learned the hard way that merging same-colour elements
+   wrecks the landscape image.
+2. medial_axis(mask, return_distance=True). Keep BOTH outputs. Compare against
+   skeletonize() on the same masks so you can state what the Euclidean version buys.
+3. Skan (§6.7) -> sparse graph, branches, coordinates. Map it straight into the
+   common graph model with radius per node from the distance field. Skan's
+   `summarize()` gives you branch types and lengths nearly for free.
+4. Bezier fitting with fit-curve@0.2.0 (npm, Schneider fitting) or Paper.js
+   simplify (§7.3, §7.4). Detect genuine corners BEFORE fitting and keep them as C0
+   breaks — over-smoothing sharp pen corners is this stage's classic failure and
+   the sun image will punish it immediately.
+5. Report path complexity and file size alongside geometry error; §11 says prefer
+   the simpler graph when geometry error is comparable, and Bezier output should
+   win big here.
 
-FIRST TARGET: inputs/house-wide.svg — 11 paths, mostly long clean parallel-sided
-strokes, which is the ideal case for rail pairing and will tell you fast whether
-the matching works at all. Then inputs/balloon-tall.svg (long smooth arcs), then
-go straight to inputs/landscape-square.svg because its merged corridors are the
-specific defect this technique exists to fix — that is your real test.
+FIRST TARGET: synthetic corpus cases 1-12 (the medial axis of a known capsule
+should BE the known centerline — if it is not, your rasterization or scale mapping
+is wrong, and you want to find that on a shape you can verify by eye). Then
+inputs/house-wide.svg, then inputs/dinosaur-wide.svg to compare head-to-head with
+the incumbent's 0.02%.
 
-WATCH FOR: junctions are where this breaks. At a crossing the "rails" of one
-stroke are interrupted by the other. Expect to need an explicit junction pass
-that detects interruption, bridges the rail across the gap, and continues. Do
-not try to solve junctions before you have clean straight-run pairing working.
+WATCH FOR: raster medial axis is famously noisy — every tiny boundary bump spawns a
+branch (§10). Resist hand-tuning thresholds to hide it; capture the radius data
+cleanly and let Track 8 do principled pruning. Also expect the classic raster
+`disconnected skeleton` and `raster quantization` failures at low resolution; sweep
+resolution and report the sensitivity.
 
-SUCCESS: two distinct centerlines recovered from a merged corridor in
-landscape-square where the current pipeline produces one. A single zoomed
-before/after crop proving that is worth more than any percentage.
+SUCCESS: a clean, well-instrumented raster backend emitting a proper graph with
+radii — the most likely production fallback if flo-mat (Track 1) proves fragile.
+Quality of the graph JSON and the radius data matters more here than the headline
+pixel score, because Track 8 builds directly on it.
 ```
 
 ---
 
-## Track 4 — Direction-Field Junction Disambiguation (PolyVector-style)
+## Track 4 — PyGeoOps + fitodic Polygon-Voronoi Centerlines
 
-**Branch:** `claude/centerline-frame-field` · **Slug:** `frame-field`
+**Branch:** `claude/centerline-polygon-voronoi` · **Slug:** `polygon-voronoi` · Report §6.3, §6.4, §18.4, §18.9 — **Tier 1 rank 4 + Tier 3 rank 9**
 
 ```text
-Read docs/centerline-technique-handoffs.md § Common Setup first, and follow its
-environment, branch, directory, harness, and working rules exactly.
-Your slug is `frame-field`; work on branch claude/centerline-frame-field.
+Read docs/centerline-technique-handoffs.md § Common Setup and
+docs/svg-centerline-stroke-recovery-report.md §6.3, §6.4, §4.2 first. Follow
+Common Setup's environment, corpus, metrics, graph-model, branch, directory,
+contact-sheet and working rules exactly. Your slug is `polygon-voronoi`; branch
+claude/centerline-polygon-voronoi.
 
-TECHNIQUE: Compute a smooth direction field (a frame field / PolyVector field)
-over the ink region, then trace centerlines by following the field — so that at
-a junction, a stroke continues in the direction the field says it should,
-rather than being decided by local skeleton topology.
+BACKENDS: two Python polygon-centerline APIs, evaluated head-to-head because they
+share an input model and a failure surface:
+  - pygeoops.centerline (Tier 1 rank 4) — the report's "best high-level Python
+    polygon-centerline API found", with densification, branch filtering,
+    simplification, and width-RELATIVE automatic parameters already exposed.
+  - centerline.geometry.Centerline by fitodic (Tier 3 rank 9) — Voronoi over
+    polygons, Shapely API plus a create_centerlines CLI. GIS-oriented, useful as
+    an independent baseline.
 
-The old handoff names this as THE central missing capability: "junction
-disambiguation: deciding how stroke branches should pass through acute turns,
-overlaps, and self-intersections." Every other technique in this project fights
-junctions with local heuristics (paired tracing, overlap-spur folding, tip-corner
-detection). This track attacks it with global information instead.
+Both verified installable: `pip3 install pygeoops centerline`.
 
-THE IDEA (from the line-drawing vectorization literature, e.g. PolyVector fields
-and junction-aware frame fields): near a stroke's interior the ink has one clear
-local orientation; at a crossing it has two. Fit a field that can represent
-one-or-two directions per point (classically via a complex-valued 4-symmetry
-field), regularized to be smooth, and constrained to align with the ink boundary
-tangents. Then a stroke crossing a junction simply follows its own field branch
-straight through, and the ambiguity resolves globally instead of locally.
+WHY THIS TRACK: it is the fastest route to a real number. Neither library needs a
+custom graph layer to produce output, and PyGeoOps' built-in width-relative branch
+filtering is a ready-made comparison point for the pruning logic Track 8 is
+building from scratch. If PyGeoOps' automatic parameters get close to hand-tuned
+pruning, that is a significant finding for the whole project.
+
+THE STRUCTURAL LIMITATION, STATED UP FRONT (§6.3, §4.2): neither is SVG-native.
+Beziers must be flattened to polygons first, so you inherit a flattening-tolerance
+parameter that trades boundary fidelity against Voronoi noise — too coarse and you
+lose the shape, too fine and you get a hairball of spurious branches. Treat that
+tolerance as a first-class swept parameter, not a constant. Voronoi centerlines are
+also approximations built from boundary SAMPLE POINTS rather than the true
+continuous medial axis, so expect systematic deviation on curved strokes. Quantify
+it on the synthetic arcs rather than asserting it.
 
 WHAT TO BUILD:
-1. Rasterize each element to a mask at high scale. Compute boundary tangents and
-   a structure tensor / gradient orientation field over the ink.
-2. Fit the smooth direction field by minimizing (alignment to boundary tangents)
-   + (smoothness), which is a sparse linear or nonlinear least-squares solve —
-   scipy.sparse is available. Start with a SINGLE-direction field, get the whole
-   pipeline end-to-end, and only then upgrade to a two-direction/4-symmetry field
-   for crossings. Do not start with the hard version.
-3. Detect junction regions (where the field's single-direction fit has high
-   residual, or where the mask is locally much wider than the stroke width).
-4. Trace: stream centerlines along the field from stroke endpoints, and at each
-   junction continue along the field branch rather than choosing by graph degree.
-5. Compare directly against the existing --trace-mode paired heuristic on the
-   same images — the whole point is to beat that heuristic at junctions.
+1. SVG -> Shapely polygon conversion: parse paths (svgelements is installed and
+   handles the SVG spec well), flatten curves at a configurable tolerance, resolve
+   holes and winding, build valid Shapely geometry. Validate with
+   `.is_valid`/`buffer(0)` — invalid polygons are the #1 cause of garbage Voronoi
+   output, and the failure is silent.
+2. Run BOTH libraries over the same polygons through one interface so the
+   comparison is apples-to-apples. Expose each library's own knobs (PyGeoOps:
+   densification, min branch length, simplification; fitodic: interpolation
+   distance).
+3. Sweep flattening tolerance x library knobs on the synthetic corpus and report a
+   2-D result surface, not a single number.
+4. Emit the common graph model. Radius is NOT free here the way it is with a true
+   MAT — recover it by sampling distance-to-boundary from the Shapely polygon along
+   the centerline, and say clearly that it is derived rather than native.
 
-FIRST TARGET: inputs/dinosaur-wide.svg — it has the most elements and junctions
-of any input and it has the strongest known baseline (0.02%), so any junction
-improvement or regression shows up immediately against a solid control. If the
-field fitting is slow, develop against a single cropped element first, then
-scale up. Then inputs/landscape-square.svg (dense crossing hatching).
+FIRST TARGET: synthetic cases 1-6 (line, diagonal, arc, S, U, loop) — the pure
+geometry cases where a Voronoi centerline should be near-exact and any error is
+attributable to flattening. Then case 17 (almost-touching parallel lines), which is
+where Voronoi approaches classically produce spurious connecting branches. Then
+inputs/house-wide.svg and up the ladder.
 
-WATCH FOR: this is the most research-heavy track and the most likely to eat time
-without producing output. Timebox the field solver hard. If after a reasonable
-effort the field is not converging to something visibly sensible, fall back to
-"use the field ONLY to score junction continuations in the existing paired
-tracer" — a much smaller change that still tests the core hypothesis and will
-produce a usable result.
+WATCH FOR: GIS libraries assume road/river-shaped polygons and can behave oddly on
+artistic strokes with round caps — the report flags exactly this (§6.3
+"Disadvantages for SVG artwork"). Also watch runtime on dense drawings; Voronoi over
+a finely densified boundary gets expensive fast (§16), so record seconds-per-element.
 
-SUCCESS: a junction that the current pipeline gets wrong (angular protrusion,
-wrong pairing) resolved correctly, shown as a zoomed crop. Also report field
-visualizations in your contact sheets — a rendered field overlay is the fastest
-way to see whether the solve is sane.
+SUCCESS: two more independent baselines on the board with a clear statement of
+where polygon-Voronoi centerlines are and are not adequate for artistic strokes —
+plus a verdict on whether PyGeoOps' automatic width-relative filtering is
+competitive with bespoke pruning, which directly informs Track 8.
 ```
 
 ---
 
-## Track 5 — Gesture Assembly + Bézier Fitting
+## Track 5 — Tegaki Generator, Adapted
 
-**Branch:** `claude/centerline-gesture-bezier` · **Slug:** `gesture-bezier`
+**Branch:** `claude/centerline-tegaki` · **Slug:** `tegaki` · Report §6.9, §18.5 — **Tier 2, rank 5**
 
 ```text
-Read docs/centerline-technique-handoffs.md § Common Setup first, and follow its
-environment, branch, directory, harness, and working rules exactly.
-Your slug is `gesture-bezier`; work on branch claude/centerline-gesture-bezier.
+Read docs/centerline-technique-handoffs.md § Common Setup and
+docs/svg-centerline-stroke-recovery-report.md §6.9 first. Follow Common Setup's
+environment, corpus, metrics, graph-model, branch, directory, contact-sheet and
+working rules exactly. Your slug is `tegaki`; branch claude/centerline-tegaki.
 
-TECHNIQUE: Two coupled ideas about the OUTPUT representation rather than the
-extraction. (1) Assemble fragments into long, continuous, human-plausible
-strokes by minimum-curvature linking across junctions. (2) Fit smooth cubic
-Béziers to the result instead of emitting dense polylines.
+SUBJECT: Tegaki (github.com/gkurt/tegaki) — a TypeScript project whose internal
+generator converts font outlines to animated strokes by flattening, rasterizing,
+skeletonizing, tracing, pruning, estimating width, and ORDERING strokes.
 
-Current output is polylines with one vertex per few skeleton pixels. That is
-both huge and subtly wrong-looking: a hand-drawn stroke is smooth and continuous,
-and the current pipeline chops it into fragments at every junction and then
-renders each fragment as a chain of tiny straight segments. Both handoff docs
-list Bezier fitting as an unimplemented extension, and "preserve or reconstruct
-drawing order" as another.
+WHY THE REPORT SINGLES IT OUT: it is "an unusually relevant full reference
+pipeline" — the only found implementation that solves the ENTIRE problem we have,
+end to end, including the parts every other track defers. It implements several
+skeletonizers side by side (thinning, distance-transform medial axis, and Voronoi
+medial axis), which is a ready-made internal comparison, and it does stroke
+ordering and width estimation, which nothing else on the list does.
 
-THE IDEA: this is offline handwriting / sketch trajectory reconstruction. A human
-drawing a stroke does not stop at a crossing. Given a graph of centerline
-fragments, the correct assembly is the one that continues smoothly: at each
-junction, pair the incoming and outgoing fragments that minimize turn angle and
-curvature discontinuity, producing a small number of long strokes rather than
-many short ones. Then fit each long stroke with a curvature-continuous Bezier
-chain (Schneider-style least-squares fitting with adaptive subdivision at high
-error), which both smooths raster stair-stepping and shrinks the file massively.
+PACKAGING CAVEAT (§6.9, and this shapes the whole track): the generator is an
+INTERNAL CLI/library inside a monorepo, not a published npm dependency. The report
+is explicit that it is best treated as code to STUDY, VENDOR, OR ADAPT — not
+`npm install`ed. Plan for reading and porting, and check its license and honour it
+in anything you vendor (report says MIT — verify against the repo itself).
 
 WHAT TO BUILD:
-1. Take centerline fragments from the existing baseline (run
-   src/convert_filled_svg_to_stroked_lines.py and consume its traced paths, or
-   add a debug dump of the pre-simplification skeleton graph). You are not
-   re-solving extraction — you are re-solving assembly and representation.
-2. Gesture assembly: build the fragment graph, then greedily (or via a matching
-   solve) pair fragments through each junction by minimum turn angle, with a
-   cutoff so genuinely-separate strokes are not welded together. Track how many
-   strokes the drawing decomposes into and sanity-check it against how many
-   strokes a human would plausibly have drawn.
-3. Bezier fitting: implement least-squares cubic fitting with adaptive
-   subdivision on max-error, plus corner detection so that genuine sharp corners
-   are preserved as C0 breaks rather than smoothed into arcs. This corner
-   handling is what makes or breaks the result.
-4. Report file size and path/segment counts alongside pixel metrics — a 10x
-   size reduction at equal fidelity is a real win for this track.
+1. Fetch and read the generator. Before writing any code, produce a written map in
+   NOTES.md of its pipeline stages and the exact algorithm at each: how it
+   flattens, at what resolution it rasterizes, which skeletonizers it offers, how
+   it traces, HOW IT PRUNES, how it estimates width, and how it orders strokes.
+   That map is a deliverable on its own and is directly useful to Tracks 3, 6 and
+   8 — write it for them, not just for you.
+2. Extract the parts that generalize. Priorities in order:
+   a. Its PRUNING heuristics — the report calls pruning the most important custom
+      logic (§10) and this is a working implementation of it. Feed what you learn
+      straight to Track 8.
+   b. Its WIDTH ESTIMATION — nothing else on the list does this natively.
+   c. Its STROKE ORDERING/direction — report §9.8, and Experiment 5. This is the
+      one place stroke semantics already exist in working code.
+   d. Its multiple skeletonizers, as a cheap internal A/B.
+3. Adapt it to our input: it consumes font outlines internally, so the work is
+   giving it arbitrary SVG filled paths. Reuse the normalization stage from Track 1
+   if it has pushed (svg-path-commander), otherwise write a minimal one.
+4. Emit the common graph model, plus stroke order/direction metadata — you will
+   likely be the only track producing the latter, so define the field clearly and
+   document it in NOTES.md.
 
-FIRST TARGET: inputs/balloon-tall.svg — long smooth arcs are exactly where
-polyline output looks worst and Bezier fitting wins most obviously. Then
-inputs/boat-tall.svg, then inputs/dinosaur-wide.svg (does assembly hold up with
-38 elements and many junctions?).
+FIRST TARGET: get ANY output from the adapted generator on a single synthetic
+capsule, then inputs/house-wide.svg. Do not attempt full fidelity to Tegaki's
+behaviour — the goal is to learn whether its approach transfers to artistic pen
+strokes, not to port a monorepo.
 
-WATCH FOR: over-smoothing. The failure mode is rounding off the sharp pen
-corners that Tracks 1 and 2 are working hard to sharpen. Your corner detector
-must run BEFORE fitting, and you should verify tip sharpness visually on every
-iteration, not just the aggregate metric.
+WATCH FOR: this track has the highest ratio of reading to writing, and the highest
+risk of sinking the session into build tooling (Bun, monorepo wiring, TS config).
+Timebox the build hard. If it will not run, the written algorithm map plus a
+from-scratch port of just the pruning and width-estimation logic is STILL a
+successful outcome — say so and deliver that.
 
-SUCCESS: markedly fewer, longer, smoother strokes at equal-or-better pixel
-fidelity and much smaller files, with sharp corners preserved. Include a
-stroke-count and byte-size column in your metrics table.
+SUCCESS: the algorithm map, plus at least one Tegaki-derived technique ported and
+measured against a track that lacks it. Stroke ordering is the stretch goal and
+would be genuinely novel for this project.
 ```
 
 ---
 
-## Track 6 — External Tracers + Width Recovery
+## Track 6 — OpenCV Thinning + `skeleton-tracing`
 
-**Branch:** `claude/centerline-external-tracers` · **Slug:** `external-tracers`
+**Branch:** `claude/centerline-opencv-tracing` · **Slug:** `opencv-tracing` · Report §6.6, §6.8, §18.6, §18.10 — **Tier 2 rank 6 + Tier 3 rank 10**
 
 ```text
-Read docs/centerline-technique-handoffs.md § Common Setup first, and follow its
-environment, branch, directory, harness, and working rules exactly.
-Your slug is `external-tracers`; work on branch claude/centerline-external-tracers.
+Read docs/centerline-technique-handoffs.md § Common Setup and
+docs/svg-centerline-stroke-recovery-report.md §6.6, §6.8, §4.4 first. Follow
+Common Setup's environment, corpus, metrics, graph-model, branch, directory,
+contact-sheet and working rules exactly. Your slug is `opencv-tracing`; branch
+claude/centerline-opencv-tracing.
 
-TECHNIQUE: Use established vectorization engines for the centerline geometry, and
-add the missing piece — per-path stroke width — as a post-pass of our own.
+BACKEND: the speed-and-portability path — cv2.ximgproc.thinning (Zhang-Suen /
+Guo-Hall, Apache-2.0) for the skeleton, and LingDong-'s skeleton-tracing to turn
+the 1-pixel skeleton into polylines.
 
-PRIOR RESULT AND WHY IT IS NOT THE WHOLE STORY: autotrace's -centerline mode was
-tested before and scored badly (dinosaur 3.10%, landscape 15.61% raw; best
-fixed-width sweep 0.17% and 1.79%). But read the diagnosis in
-docs/current-attempt-handoff.md: "raw autotrace centerline output did not
-preserve usable stroke widths." The geometry may have been fine and the WIDTH was
-the failure — and the previous test only ever tried a single global fixed width
-per drawing. That is a weak test of a potentially strong tool.
+WHY IT IS ITS OWN TRACK RATHER THAN A VARIANT OF TRACK 3: the report positions
+these as PRODUCTION primitives, not research ones. Two properties nothing else on
+the list has: (a) OpenCV thinning is very fast and is already present in most
+production stacks; (b) skeleton-tracing has implementations in JavaScript, WASM,
+Python, C/C++, Rust, Swift, C#, Go and Java — so this is the only pipeline that
+ports to the browser or another runtime unchanged. If the project ever needs
+client-side or cross-language centerline extraction, this is the candidate. Your
+job is to find out what that portability COSTS in quality.
 
-THE IDEA: let the external tracer produce centerline geometry, then recover width
-ourselves by sampling the Euclidean distance transform of the original filled
-mask along each traced path. Per-path (or per-vertex) width, measured from the
-source, instead of one global guess.
+THE KNOWN TRADEOFF, STATED UP FRONT (§4.4, §6.6): morphological thinning gives you
+NO distance field. You get a 1-pixel skeleton and nothing else, so width-aware
+pruning (§10) is not available natively and you must recover radius separately
+(sample a distance transform along the traced skeleton — cheap, but derived rather
+than native). Thinning is also more prone to staircase artifacts and to spurious
+short branches at junctions than the Euclidean medial axis. Track 3 is the
+head-to-head comparison; coordinate with its NOTES.md so the two are measured on
+identical masks.
+
+GETTING THE TOOLS:
+  - `pip3 install opencv-contrib-python-headless` — VERIFIED available. You need
+    the CONTRIB build; ximgproc is not in the base opencv package.
+  - skeleton-tracing is NOT on npm (verified). Vendor it from
+    github.com/LingDong-/skeleton-tracing and note its MIT license. Pick the
+    Python or JS binding; if you pick JS, you get the portability story for free.
 
 WHAT TO BUILD:
-1. Get the tools. On this container: `apt-get install -y potrace` works.
-   `autotrace` has NO apt candidate — you will need to build it from source
-   (autotrace/autotrace on GitHub, needs autotools + imagemagick dev headers) or
-   find another route. Timebox the build; if it fights you, proceed with the
-   others and record the blocker.
-   Also evaluate: VTracer (Rust, `cargo install vtracer`, or the npm/wasm build),
-   Inkscape's command-line trace if installable, and potrace itself (which is
-   outline-only, so it is useful here as a CLEAN OUTLINE SOURCE feeding Track
-   3-style processing, not as a centerline tracer).
-2. Build a uniform adapter: input SVG -> raster mask -> tracer -> centerline
-   paths in our coordinate space. Getting the coordinate/scale round-trip exactly
-   right is fiddly and is a common source of misleading bad scores — verify it by
-   overlaying traced centerlines on the input mask before you measure anything.
-3. Width recovery post-pass: compute the EDT of the source mask, sample it along
-   each traced path, take a robust per-path statistic (and optionally a per-vertex
-   profile), and emit stroked paths at that width.
-4. Then sweep the tracer's own parameters (corner threshold, error threshold,
-   filter iterations, despeckle) — but only after width recovery is in, since the
-   previous evaluation conflated the two.
+1. Deterministic rasterization (resvg, §15) per filled element. Use the SAME
+   rasterization settings as Track 3 so the comparison is honest.
+2. cv2.ximgproc.thinning with BOTH THINNING_ZHANGSUEN and THINNING_GUOHALL, and
+   report the difference — the report names both and nobody here has compared them.
+3. skeleton-tracing to polylines. Compare its output against the incumbent's
+   hand-rolled tracer (src/convert_filled_svg_to_stroked_lines.py) on the same
+   skeletons — if a vendored library matches a bespoke tracer, that is worth
+   knowing and simplifies the architecture.
+4. Recover radius by sampling a distance transform along the polylines, so you can
+   still emit the common graph model with radius populated. Flag in your JSON that
+   radius is derived, not native.
+5. Measure RUNTIME carefully and report it prominently (§16). Speed is this track's
+   entire value proposition — if it is not meaningfully faster than Track 3, say so,
+   because that removes its reason to exist.
 
-FIRST TARGET: inputs/house-wide.svg (simplest — proves the adapter and the
-coordinate round-trip), then re-run inputs/dinosaur-wide.svg and
-inputs/landscape-square.svg to compare directly against the recorded prior
-numbers (3.10% / 15.61% raw, 0.17% / 1.79% fixed-width). Beating 0.17% and 1.79%
-is your bar; beating the Python pipeline's 0.02% / 0.73% is the stretch goal.
+FIRST TARGET: synthetic corpus cases 1-6 and 13-16 (the junction cases, where
+thinning's spurious-branch behaviour shows up most clearly and is comparable
+against Track 3's medial axis on identical inputs). Then inputs/house-wide.svg,
+then inputs/dinosaur-wide.svg.
 
-WATCH FOR: some tracers emit centerlines only for thin structures and outlines
-for thick ones, silently mixing the two in one file. Detect and report that
-rather than measuring a mixed result.
+WATCH FOR: thinning artifacts at junctions and at stroke ends (thinning pulls back
+from round caps differently than the medial axis does) — tag them `join artifact`,
+`cap artifact`, and `outline noise branch` so the counts are directly comparable
+with Track 3's.
 
-SUCCESS: a clear, evidenced verdict on whether an off-the-shelf tracer plus our
-width recovery is competitive with the bespoke pipeline. "No, and here are the
-numbers and the crops showing why" is a perfectly good outcome that saves
-everyone else time.
+SUCCESS: a quantified quality-vs-speed-vs-portability tradeoff against Track 3 on
+identical rasterizations, plus a Zhang-Suen vs Guo-Hall verdict. This track wins by
+being decisively measured, not by topping the leaderboard.
 ```
 
 ---
 
-## Track 7 — Raster-Supervised Stroke Optimization (fit by rendering)
+## Track 7 — Native Geometry Engines: Boost.Polygon Voronoi, CGAL, PostGIS
 
-**Branch:** `claude/centerline-fit-by-render` · **Slug:** `fit-by-render`
+**Branch:** `claude/centerline-native-geometry` · **Slug:** `native-geometry` · Report §6.10–6.12, §18.8, §18.11, §18.12 — **Tier 2 rank 8 + Tier 3 ranks 11–12**
 
 ```text
-Read docs/centerline-technique-handoffs.md § Common Setup first, and follow its
-environment, branch, directory, harness, and working rules exactly.
-Your slug is `fit-by-render`; work on branch claude/centerline-fit-by-render.
+Read docs/centerline-technique-handoffs.md § Common Setup and
+docs/svg-centerline-stroke-recovery-report.md §6.10, §6.11, §6.12, §4.5 first.
+Follow Common Setup's environment, corpus, metrics, graph-model, branch, directory,
+contact-sheet and working rules exactly. Your slug is `native-geometry`; branch
+claude/centerline-native-geometry.
 
-TECHNIQUE: Stop trying to DERIVE the centerline geometrically. Instead, propose
-strokes, render them, compare to the target, and optimize the stroke parameters
-to minimize the difference.
+SUBJECT: the three heavyweight geometry engines the report rates as powerful but
+not first choices. Bundled into one track because they share a question — is a
+lower-level, numerically-controlled geometry kernel worth the integration cost? —
+and because two of them are expected to produce the WRONG geometry, which is worth
+establishing cheaply rather than expensively.
 
-Every other track is a forward geometric construction whose errors are only
-discovered at the end, when we measure pixels. This track closes that loop: the
-pixel metric we already use for evaluation becomes the objective function that
-drives the fit. Anything the metric rewards, the optimizer will find — including
-solutions no geometric heuristic would have proposed.
+PRIORITIES — spend your time in this order, and do not let the later ones eat the
+first:
 
-WHAT TO BUILD:
-1. A fast differentiable-or-samplable renderer for stroked paths. Options in
-   increasing order of ambition:
-   a. Analytic coverage: a stroked polyline's coverage of a pixel is a
-      capsule-distance function — render by evaluating distance-to-segment on a
-      grid with numpy. Fast, vectorized, and gives you exact gradients w.r.t.
-      vertex positions and widths analytically. START HERE.
-   b. Finite-difference or CMA-ES / simulated annealing over parameters if you
-      cannot get analytic gradients working. Slower but far simpler.
-   c. A real differentiable vector renderer (diffvg-style) if you want to invest
-      — check installability before committing, and do not let it block you.
-2. Initialization matters more than the optimizer. Seed from the existing
-   baseline's skeleton output (run src/convert_filled_svg_to_stroked_lines.py),
-   then let optimization REFINE vertex positions, widths, and endpoint extents.
-   Random initialization will not converge on drawings this complex.
-3. Optimize per element, not globally, so runs stay fast and failures stay local.
-   Free parameters: vertex positions, per-vertex width, endpoint extension.
-   Add a regularizer penalizing curvature and total vertex count so the optimizer
-   does not shred smooth strokes into noise chasing the last 0.1%.
-4. Watch runtime. Report seconds-per-element; a technique that needs ten minutes
-   per drawing is a different proposition than one that needs two, and that
-   tradeoff is part of the result.
+1. BOOST.POLYGON VORONOI (§6.10, Tier 2 rank 8) — THE MAIN EVENT, ~70% of the
+   session. A C++ point/segment Voronoi kernel. Unlike the polygon-Voronoi
+   libraries in Track 4, it accepts SEGMENT sites rather than only sampled points,
+   which means the Voronoi diagram of a polygon's EDGES is much closer to the true
+   medial axis with far less densification noise. This is the report's route to
+   "a fully controlled native vector implementation if the higher-level libraries
+   prove inadequate", and it is the only track that can give exact numerical
+   control. Build a small C++ tool: read flattened polygon edges (JSON or a simple
+   text format from a Python/Node front-end), construct the segment Voronoi, filter
+   to cells interior to the polygon, emit the medial-axis graph as the common graph
+   model. Boost is apt-installable (`apt-get install -y libboost-dev`); verify
+   before committing, and if it is unavailable, say so and reprioritize.
 
-FIRST TARGET: inputs/house-wide.svg — few elements, simple geometry, fast
-iterations while you get the renderer and optimizer loop correct. Verify your
-renderer against sharp/cairosvg output on a hand-written test SVG BEFORE
-optimizing anything; a subtly wrong renderer will silently optimize toward
-garbage and cost you the whole session. Then inputs/butterfly-wide.svg, then
-inputs/dinosaur-wide.svg to see if it can beat 0.02%.
+2. CGAL STRAIGHT SKELETON 2 (§6.12, Tier 3 rank 12) — BOUNDED EXPERIMENT, ~20%.
+   The report is clear (§4.5, §3) that a straight skeleton is NOT the Euclidean
+   medial axis: it is built from angular bisectors, so it produces straight-line
+   segments and will NOT curve correctly through a curved stroke, and it handles
+   round caps quite differently. Expect it to be wrong for our purpose. The value
+   is CHEAPLY CONFIRMING that with real numbers on the synthetic corpus rather than
+   leaving it as an open question. Run cases 1-6 plus a cap case, show the geometry
+   is systematically wrong, and stop. Do not invest in productionizing it.
 
-WATCH FOR: overfitting to the metric. The optimizer will happily produce wiggly,
-inhuman strokes that score beautifully. Judge every result visually and keep the
-curvature regularizer honest. If the output scores better but looks worse, that
-is a finding about the METRIC and you should write it up — it matters to every
-other track.
+3. POSTGIS CG_ApproximateMedialAxis (§6.11, Tier 3 rank 11) — OPTIONAL, ~10%,
+   ONLY if the first two are done. The report calls it a convenient SQL surface but
+   "too heavy and too straight-skeleton-oriented to recommend solely for this
+   feature", and it shares CGAL's wrong-geometry problem via SFCGAL. Standing up
+   PostGIS to confirm a known conclusion is a poor use of the session. If you skip
+   it, say so explicitly in NOTES.md and cite the reasoning — a documented, reasoned
+   skip is a valid outcome.
 
-SUCCESS: measurable improvement over the seed initialization on at least two
-images, with output that still looks hand-drawn. Also valuable: a per-image
-report of how much headroom the metric shows above the current pipeline, which
-tells everyone else how much is left on the table.
+WHAT TO BUILD: for whichever engines you run, the same shape as every other track —
+SVG -> flattened polygon (reuse Track 4's converter if it has pushed) -> engine ->
+common graph model -> re-stroke -> metrics. Keep the front-end shared across all
+three so the comparison is clean.
+
+FIRST TARGET: synthetic cases 1-6, then the cap cases (7-9). Those alone will
+settle the straight-skeleton question. Then inputs/house-wide.svg with Boost, and
+up the ladder as far as time allows.
+
+WATCH FOR: build tooling is the real risk here — C++ dependency wrangling can
+consume the whole session for zero output. Timebox each build. Get ONE end-to-end
+result from Boost on ONE synthetic shape before adding anything. Report §15 also
+notes native kernels have their own determinism characteristics; record library
+versions and any tolerance settings so results are reproducible.
+
+SUCCESS: a real Boost.Polygon segment-Voronoi medial axis on at least the synthetic
+corpus, with a clear statement of whether the numerical control justifies the
+integration cost — plus a cheap, evidenced burial of the straight-skeleton
+approaches so nobody spends a session on them later. Negative results delivered
+cheaply are the point of this track.
 ```
 
 ---
 
-## Track 8 — Stroke Decomposition Before Centerlining
+## Track 8 — Width-Aware Pruning, Re-Stroke Scoring, and the Common Graph Layer
 
-**Branch:** `claude/centerline-decomposition` · **Slug:** `decomposition`
+**Branch:** `claude/centerline-pruning-scoring` · **Slug:** `pruning-scoring` · Report §10, §11, §13 (Exp 3–4), §19 — **the shared semantic layer**
 
 ```text
-Read docs/centerline-technique-handoffs.md § Common Setup first, and follow its
-environment, branch, directory, harness, and working rules exactly.
-Your slug is `decomposition`; work on branch claude/centerline-decomposition.
+Read docs/centerline-technique-handoffs.md § Common Setup and
+docs/svg-centerline-stroke-recovery-report.md §10, §11, §13 and §19 first. Follow
+Common Setup's environment, corpus, metrics, graph-model, branch, directory,
+contact-sheet and working rules exactly. Your slug is `pruning-scoring`; branch
+claude/centerline-pruning-scoring.
 
-TECHNIQUE: Split each filled element into individual overlapping stroke
-primitives FIRST, then centerline each primitive independently and let them
-overlap in the output.
+SUBJECT: not a backend — the layer every backend needs. The report calls
+width-aware pruning "probably the most important custom logic" (§10) and
+reconstruction-based validation "the single most valuable quality technique to
+add" (§11). §19 says the most important architectural choice in the whole system is
+the COMMON GRAPH LAYER, because once vector and raster extractors emit the same
+nodes/edges/radius metadata, every hard semantic operation — pruning, branch
+pairing, stroke grouping, ordering, validation — is shared and testable
+independently of extraction.
 
-Every current approach centerlines the union of the ink and then tries to undo
-the damage with junction heuristics. But a drawing is not a union — it is a
-sequence of separate pen strokes laid on top of each other. If you can segment
-the filled region back into its constituent strokes before extracting any
-centerline, then each stroke is a simple ribbon with an unambiguous medial axis,
-and junctions stop being a problem entirely because they were never merged.
-This inverts the pipeline order, which is why it is worth a separate track.
+You are building that layer. Tracks 1-7 are your data sources; you are their
+scoring function. Start immediately — do not wait for them.
 
-THE IDEA: at a place where two strokes cross, the union's boundary has four
-distinctive concave corners (the notches where one stroke's edge runs into the
-other's). Those notches are the cut points. Pair them up across the junction —
-respecting stroke-width continuity and direction continuity — cut the region, and
-you have recovered the individual overlapping ribbons. This is a shape-
-decomposition problem (in the spirit of convex/near-convex decomposition and
-occlusion-aware shape completion), applied to ink.
+WHY IT MUST BE SEPARATE: a raw medial axis is hypersensitive to tiny boundary
+irregularities, and generic length-based branch removal either deletes real detail
+or keeps ugly artifacts. Every backend has this problem identically. Solving it
+once, correctly, against a defined graph interface is worth more than seven
+hand-tuned threshold sets.
 
 WHAT TO BUILD:
-1. Junction detection on the filled mask: find regions where the local width is
-   substantially greater than the surrounding stroke width (via the distance
-   transform), and locate the concave boundary corners bounding each such region.
-2. Notch pairing: match concave corners across the junction so each pair forms
-   one cut. Score candidate pairings on cut length, resulting width continuity,
-   and direction continuity of the reconnected pieces. This is the crux.
-3. Cut and reassemble: split the region at the cuts into pieces, then reconnect
-   pieces across each junction into whole strokes (piece A continues into piece C
-   through the junction, B into D). Each reassembled stroke is a simple ribbon.
-4. Centerline each ribbon with whatever is simplest and most reliable — the
-   existing skeletonizer is fine, since the hard case has been removed. Overlap
-   the strokes freely in the output; overlapping is CORRECT here.
-5. A useful sanity check: reconstruct the union from your decomposed strokes and
-   diff it against the original mask. If the decomposition is valid, that
-   reconstruction should be near-perfect independent of centerline quality —
-   which lets you debug decomposition and centerlining separately. Build that
-   check early; it will save you.
+1. THE GRAPH LIBRARY. Implement the §13 CenterlineNode/CenterlineEdge model as a
+   real library with load/save/validate, plus graph ops (terminal branch
+   enumeration, junction detection, branch merging, connected components). Publish
+   the schema early and loudly in debug/pruning-scoring/NOTES.md — the other seven
+   tracks are writing against it, so schema churn is expensive. Ship a validator
+   they can run.
 
-FIRST TARGET: inputs/butterfly-wide.svg — few, clean, well-separated crossings,
-so you can verify notch detection and pairing on cases you can check by eye.
-Then inputs/boat-tall.svg (hatching with real crossings), then
-inputs/landscape-square.svg (dense hatching — the stress test).
+2. WIDTH-AWARE PRUNING (§10.1). For each terminal branch compute:
+       L = arc length;  R_med = median local radius;
+       R_parent = radius near the junction;  dR = radius variation;
+       theta = tangent relationship to the parent path
+   and the NORMALIZED features that make thresholds scale-free:
+       L / (2 * R_med)        # length in units of local stroke width
+       R_med / R_global       # branch scale vs dominant stroke
+       std(R) / mean(R)       # width consistency
+   The key insight: a spur 0.15 stroke widths long is categorically different from
+   a branch 3 stroke widths long, regardless of absolute SVG units. Absolute
+   thresholds are why previous attempts needed per-image tuning.
 
-WATCH FOR: shallow-angle crossings, where two strokes meet at a narrow angle and
-the notches are barely concave or absent entirely; and self-overlap, where one
-stroke doubles back onto itself and "decomposition" would wrongly split a single
-stroke in two. Detect these and fall back to plain skeletonization for that
-element rather than producing garbage — a per-element fallback keeps the whole
-run useful.
+3. RE-STROKE SCORING (§11). Given centerline C and width w, generate
+   S_reconstructed = stroke_to_fill(C, w) and compare against S_original:
+   IoU, symmetric-difference area, boundary distance (median AND P95 — never max),
+   centerline complexity, width error. Do this in VECTOR space where you can
+   (Shapely buffer, or an SVG stroke-to-path conversion) and cross-check against
+   the raster pixel-diff from src/compare.js. Where vector and raster scoring
+   disagree, investigate and write it up — the other tracks are trusting these
+   numbers.
 
-SUCCESS: a crossing correctly decomposed into two continuous strokes, shown as a
-zoomed crop with each recovered stroke in a different colour. That image is the
-deliverable that proves the idea; the pixel metric is secondary here.
+4. PRUNING AS MODEL SELECTION (§10.2) — the most valuable single deliverable.
+   Instead of one hand-tuned threshold, generate candidate skeletons at SEVERAL
+   pruning strengths, re-stroke each, and select the Pareto-optimal result
+   balancing reconstruction fidelity, total centerline length, branch count,
+   control-point count, and width consistency. Then §13 Experiment 4: select the
+   SIMPLEST graph that stays within a chosen reconstruction tolerance. This turns a
+   fiddly hand-tuned constant into an automatic, defensible choice, and it is what
+   lets every backend be evaluated at ITS OWN best setting rather than at whatever
+   threshold someone happened to pick.
+
+5. THE SHARED HARNESS. Since you own scoring, own the leaderboard too: a command
+   that ingests every track's graph JSON from its branch and emits one comparison
+   table plus a cross-backend contact sheet (same image, one column per backend).
+   That artifact is how this whole parallel effort gets read at the end.
+
+6. NOT YET: branch pairing, stroke grouping, direction and order are §13
+   Experiment 5 and explicitly come AFTER centerline geometry is stable. Build the
+   interfaces so they can slot in; do not implement them unless everything above is
+   solid. (Track 5 may bring stroke-ordering logic from Tegaki — coordinate.)
+
+FIRST TARGET: you need input graphs before any backend has pushed, so bootstrap
+from the incumbent — run src/convert_filled_svg_to_stroked_lines.py on
+inputs/house-wide.svg and convert its output into the graph model. That gives you a
+real graph on day one, and its known scores (0.02% dinosaur, 0.73% landscape) are a
+control your scoring must reproduce. Then pull in whichever track has pushed first.
+Validate pruning on synthetic case 20 (noisy vectorized boundary) — it exists
+precisely to generate spurious branches with a known-correct answer.
+
+WATCH FOR: over-pruning that scores well on IoU while deleting real strokes — IoU
+is forgiving of small missing marks. Weight complexity metrics against it and
+always look at the render. Also beware fitting your thresholds to the ten real
+inputs; the synthetic corpus is your held-out check.
+
+SUCCESS: a documented, versioned graph schema the other tracks actually write to; a
+re-stroke scorer everyone trusts; automatic Pareto pruning that beats hand-tuned
+thresholds on at least two backends; and a cross-backend leaderboard. If this track
+works, the project's answer stops depending on which backend anyone happened to
+tune hardest.
 ```
 
 ---
 
-## Cross-track coordination
+## Coordination notes
 
-The tracks are deliberately independent, but three produce results the others
-want:
+The tracks are deliberately independent and none should block on another. Three
+couplings are worth knowing about:
 
-- **Track 1 (taper width)** and **Track 3 (rail pairing)** both produce per-point
-  width. Whichever lands first should write its rendering approach into
-  `debug/<slug>/NOTES.md` so the other can reuse it rather than re-deciding.
-- **Track 7 (fit-by-render)** measures how much headroom the pixel metric has
-  above the current pipeline, and is the most likely to discover that the metric
-  itself is misleading. That finding, if it comes, changes how every other track
-  should judge itself.
-- **Tracks 2, 3, and 8** all attack junctions from different directions
-  (triangulation, rail matching, decomposition). If two of them converge on the
-  same junction taxonomy, that taxonomy is probably right and worth promoting
-  into shared code.
+- **Track 8 is everyone's scoring function.** It publishes the graph schema and the
+  re-stroke scorer. Every other track emits the graph model regardless of whether
+  Track 8 has pushed yet — that is what makes the results add up rather than
+  becoming seven incomparable experiments.
+- **Tracks 3 and 6 are a controlled comparison** (Euclidean medial axis vs
+  morphological thinning). They must use identical rasterization settings for the
+  comparison to mean anything; whichever pushes first records its settings in
+  `NOTES.md` and the other matches them.
+- **Track 5 (Tegaki) produces reusable algorithm knowledge** — its pruning, width
+  estimation, and stroke ordering are the only working reference implementations of
+  those stages we have found. Its written algorithm map is a deliverable for
+  Tracks 3, 6, and 8, not just for itself.
 
-None of them should block on the others.
+Two report conclusions worth carrying into every session: the final architecture is
+expected to be **hybrid** (§19 — flo-mat when it produces a clean vector skeleton,
+raster fallback when MAT topology scores poorly, choosing per shape by
+reconstruction metrics), so a backend that wins on *some* shapes is a success, not a
+loser. And the report's §8 warning applies throughout: Potrace, VTracer and
+ImageTracer solve the wrong problem — they trace boundaries, not centerlines. Do not
+let one drift into an evaluation as if it were a candidate.
