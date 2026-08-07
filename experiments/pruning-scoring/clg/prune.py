@@ -61,6 +61,7 @@ class BranchFeatures:
     # decision support
     spur_factor: float = 1.0
     isolated: bool = False           # whole stroke, not a spur: never prune as noise
+    terminal: bool = True            # has a degree-1 tip (all enumerated branches do)
     dot: bool = False
 
     def to_dict(self) -> dict[str, Any]:
@@ -228,8 +229,14 @@ def prune(
             e = g.edges.get(f.edge_id)
             if e is None:
                 continue
-            if protect_bridges and not f.isolated and g.is_bridge(f.edge_id):
-                # removing it would strand geometry beyond it; leave it alone
+            if protect_bridges and not f.isolated and not f.terminal and \
+                    g.is_bridge(f.edge_id):
+                # removing it would strand geometry beyond it; leave it alone.
+                # Note this can never fire for a true terminal branch: deleting one
+                # only orphans its degree-1 tip, which splits nothing. The guard is
+                # kept for the day a non-terminal branch becomes prunable, but it is
+                # skipped here because is_bridge costs two component scans per call
+                # and would dominate the sweep for no effect.
                 continue
             res.removed_length += e.length
             del g.edges[f.edge_id]
