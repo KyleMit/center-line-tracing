@@ -83,7 +83,8 @@ def reference_geometry(svg_path: str):
 
 
 def run_one(svg_path: str, backend: str, tolerance: float, cfg: dict,
-            truth: dict | None = None, save_prefix: str | None = None) -> dict:
+            truth: dict | None = None, save_prefix: str | None = None,
+            radius_samples: int = 24, variable: bool = False) -> dict:
     """Full pipeline for one SVG at one parameter setting."""
     t_load = time.perf_counter()
     doc = load_svg(svg_path, tolerance=tolerance)
@@ -108,7 +109,7 @@ def run_one(svg_path: str, backend: str, tolerance: float, cfg: dict,
                 continue
             graphs.append(graphmodel.build_graph(
                 res.lines, poly, source_element_id=el.element_id,
-                source_fill=el.fill))
+                source_fill=el.fill, radius_samples=radius_samples))
 
     g = graphmodel.merge_graphs(graphs, meta={
         "backend": backend,
@@ -146,6 +147,14 @@ def run_one(svg_path: str, backend: str, tolerance: float, cfg: dict,
     row["bdist_median"] = round(bd["median"], 4)
     row["bdist_p95"] = round(bd["p95"], 4)
 
+    if variable:
+        # Diagnostic: same centerline, re-stroked from the radius profile
+        # instead of one median radius per edge.
+        rv = graphmodel.restroke_variable(g)
+        row["iou_var"] = round(M.iou(source, rv), 5)
+        row["symdiff_var_frac"] = (round(M.symmetric_difference_area(source, rv)
+                                         / source.area, 5) if source.area else None)
+
     fc = failures.classify(g, source, recon, n_parts, row["avg_width"])
     row["components"] = fc["components"]
     row.update({f"tag_{k.replace(' ', '_')}": v for k, v in fc["tags"].items()})
@@ -170,12 +179,17 @@ def run_one(svg_path: str, backend: str, tolerance: float, cfg: dict,
         with open(sp, "w") as f:
             f.write(_svg_doc(doc, g))
         row["out_svg"] = os.path.relpath(sp, ROOT)
+        if variable:
+            vp = os.path.join(DEBUG, "svg", f"{save_prefix}-varwidth.svg")
+            with open(vp, "w") as f:
+                f.write(_svg_doc(doc, g, variable=True))
+            row["out_svg_var"] = os.path.relpath(vp, ROOT)
     return row
 
 
-def _svg_doc(doc, g) -> str:
+def _svg_doc(doc, g, variable: bool = False) -> str:
     vb = doc.viewbox
-    body = "\n".join("  " + p for p in graphmodel.to_svg_paths(g))
+    body = "\n".join("  " + p for p in graphmodel.to_svg_paths(g, variable=variable))
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" version="1.1" '
         f'viewBox="{vb[0]} {vb[1]} {vb[2]} {vb[3]}" '
@@ -350,11 +364,13 @@ def bench_real(inputs, backend, tolerance, cfg, out_name="metrics.json"):
         full = os.path.join(ROOT, p)
         name = os.path.basename(p)[:-4]
         r = run_one(full, backend, tolerance, cfg,
-                    save_prefix=f"{name}-{backend}")
+                    save_prefix=f"{name}-{backend}",
+                    radius_samples=64, variable=True)
         r["image"] = name
         rows.append(r)
-        print(f"  {name:22s} IoU {r.get('iou')}  edges {r.get('cx_edges')}  "
-              f"{r.get('backend_s')}s  ({r.get('s_per_element')}s/el)", flush=True)
+        print(f"  {name:22s} IoU {r.get('iou')} (var {r.get('iou_var')})  "
+              f"edges {r.get('cx_edges')}  {r.get('backend_s')}s  "
+              f"({r.get('s_per_element')}s/el)", flush=True)
     path = os.path.join(DEBUG, out_name)
     with open(path, "w") as f:
         json.dump(rows, f, indent=1)

@@ -304,17 +304,70 @@ def restroke(graph: Graph, quad_segs: int = 16, min_radius: float = 1e-6):
     return unary_union(parts)
 
 
-def to_svg_paths(graph: Graph, stroke: str | None = None) -> list[str]:
-    """Re-stroked paths, one per edge, in the source element's own fill colour."""
+def restroke_variable(graph: Graph, step: float = 0.5, quad_segs: int = 8):
+    """Re-stroke using the per-edge radius PROFILE instead of one median radius.
+
+    Diagnostic, not a deliverable: it answers "how much of the reconstruction
+    error is the centerline, and how much is the constant-width assumption?".
+    On the two hardest inputs it removes most of the error, which means the
+    extracted axis is better than a median-radius score implies.
+    """
+    from shapely.ops import unary_union
+
+    parts = []
+    for e in graph.edges:
+        if len(e.geometry) < 2 or not e.radii:
+            continue
+        ls = LineString(e.geometry)
+        if ls.length <= 0:
+            continue
+        rr = np.asarray(e.radii, dtype=float)
+        ts = np.linspace(0.0, 1.0, len(rr))
+        n = max(4, int(ls.length / max(step * float(np.median(rr)), 0.5)))
+        for t in np.linspace(0.0, 1.0, n):
+            r = float(np.interp(t, ts, rr))
+            if r <= 0:
+                continue
+            parts.append(ls.interpolate(t, normalized=True).buffer(r, quad_segs=quad_segs))
+    if not parts:
+        from shapely.geometry import Polygon as _P
+
+        return _P()
+    return unary_union(parts)
+
+
+def to_svg_paths(graph: Graph, stroke: str | None = None,
+                 variable: bool = False, chunks: int = 0) -> list[str]:
+    """Re-stroked paths, one per edge, in the source element's own fill colour.
+
+    With ``variable=True`` each edge is split into ``chunks`` overlapping runs,
+    each carrying its own stroke-width sampled from the radius profile.  The
+    output is still ordinary ``<path stroke stroke-width>`` markup, just more
+    of it -- the cost of representing a stroke whose width changes.
+    """
     out = []
     for e in graph.edges:
         if len(e.geometry) < 2:
             continue
-        d = "M " + " L ".join(f"{x:.3f} {y:.3f}" for x, y in e.geometry)
-        w = 2.0 * (e.medianRadius or 0.0)
         col = stroke or e.sourceFill or "#000000"
-        out.append(
-            f'<path d="{d}" fill="none" stroke="{col}" stroke-width="{w:.3f}" '
-            f'stroke-linecap="round" stroke-linejoin="round"/>'
-        )
+        if not variable or not e.radii:
+            d = "M " + " L ".join(f"{x:.3f} {y:.3f}" for x, y in e.geometry)
+            w = 2.0 * (e.medianRadius or 0.0)
+            out.append(
+                f'<path d="{d}" fill="none" stroke="{col}" stroke-width="{w:.3f}" '
+                f'stroke-linecap="round" stroke-linejoin="round"/>')
+            continue
+        ls = LineString(e.geometry)
+        rr = np.asarray(e.radii, dtype=float)
+        k = chunks or max(1, min(len(rr) - 1, int(ls.length / max(2 * np.median(rr), 1))))
+        ts = np.linspace(0.0, 1.0, k + 1)
+        for i in range(k):
+            a, b = ts[i], ts[i + 1]
+            pts = [ls.interpolate(t, normalized=True)
+                   for t in np.linspace(a, b, max(2, int((b - a) * len(e.geometry)) + 2))]
+            d = "M " + " L ".join(f"{p.x:.3f} {p.y:.3f}" for p in pts)
+            r = float(np.interp((a + b) / 2, np.linspace(0, 1, len(rr)), rr))
+            out.append(
+                f'<path d="{d}" fill="none" stroke="{col}" stroke-width="{2*r:.3f}" '
+                f'stroke-linecap="round" stroke-linejoin="round"/>')
     return out

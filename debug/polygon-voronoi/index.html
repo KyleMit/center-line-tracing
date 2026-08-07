@@ -1,0 +1,21 @@
+<!doctype html><meta charset=utf-8><title>polygon-voronoi track artifacts</title>
+<style>body{font:14px/1.6 ui-monospace,Menlo,monospace;margin:28px;max-width:60em}
+h1{font-size:20px} li{margin:3px 0} code{background:#eee;padding:1px 4px}</style>
+<h1>Track 4 &mdash; polygon-Voronoi centerlines (PyGeoOps + fitodic)</h1>
+<p>Start with <a href="NOTES.md">NOTES.md</a> &mdash; verdict, numbers, failure taxonomy,
+and the answer to Track 8's pruning question.</p>
+<h2>Contact sheets</h2>
+<ul>
+<li><a href="contact-comparison-pygeoops.html">Comparison &mdash; 10 real inputs</a> (input | output | diff | overlay, worst-region crops)</li>
+<li><a href="contact-comparison-synthetic.html">Comparison &mdash; 20 synthetic cases</a></li>
+<li><a href="contact-progress-house-wide.html">Progress &mdash; house-wide iteration trajectory</a></li>
+<li><a href="diag-sun-crop.png">Diagnostic &mdash; sun-square hairpin failure, nodes coloured by degree</a></li>
+</ul>
+<h2>Data</h2>
+<ul>
+<li><code>metrics-pygeoops.json</code>, <code>metrics-fitodic.json</code>, <code>metrics-fitodic-filtered.json</code> &mdash; ladder metrics</li>
+<li><code>sweep-synthetic.json</code>, <code>sweep-synth-branch0.json</code>, <code>sweep-real.json</code> &mdash; 2-D parameter surfaces</li>
+<li><code>graphs/*.json</code> &mdash; common graph model (radius is <b>derived</b>; see <code>meta.radiusSource</code>)</li>
+<li><code>synthetic/</code> &mdash; ground-truth corpus + <code>manifest.json</code>, reusable by any track</li>
+<li><code>../../outputs/polygon-voronoi/</code> &mdash; promoted SVGs</li>
+</ul>
