@@ -1,0 +1,24 @@
+{
+ "case": "diagonal-line",
+ "index": 2,
+ "width": 20,
+ "cap": "round",
+ "join": "round",
+ "separateElements": false,
+ "centerlines": [
+  [
+   {
+    "x": 50,
+    "y": 40
+   },
+   {
+    "x": 150,
+    "y": 100
+   },
+   {
+    "x": 250,
+    "y": 160
+   }
+  ]
+ ]
+}

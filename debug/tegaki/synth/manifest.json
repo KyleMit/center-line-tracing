@@ -1,0 +1,102 @@
+[
+ {
+  "index": 1,
+  "name": "horizontal-line",
+  "svg": "debug/tegaki/synth/01-horizontal-line.svg"
+ },
+ {
+  "index": 2,
+  "name": "diagonal-line",
+  "svg": "debug/tegaki/synth/02-diagonal-line.svg"
+ },
+ {
+  "index": 3,
+  "name": "circular-arc",
+  "svg": "debug/tegaki/synth/03-circular-arc.svg"
+ },
+ {
+  "index": 4,
+  "name": "s-curve",
+  "svg": "debug/tegaki/synth/04-s-curve.svg"
+ },
+ {
+  "index": 5,
+  "name": "tight-u",
+  "svg": "debug/tegaki/synth/05-tight-u.svg"
+ },
+ {
+  "index": 6,
+  "name": "closed-loop",
+  "svg": "debug/tegaki/synth/06-closed-loop.svg"
+ },
+ {
+  "index": 7,
+  "name": "round-cap",
+  "svg": "debug/tegaki/synth/07-round-cap.svg"
+ },
+ {
+  "index": 8,
+  "name": "butt-cap",
+  "svg": "debug/tegaki/synth/08-butt-cap.svg"
+ },
+ {
+  "index": 9,
+  "name": "square-cap",
+  "svg": "debug/tegaki/synth/09-square-cap.svg"
+ },
+ {
+  "index": 10,
+  "name": "round-join",
+  "svg": "debug/tegaki/synth/10-round-join.svg"
+ },
+ {
+  "index": 11,
+  "name": "bevel-join",
+  "svg": "debug/tegaki/synth/11-bevel-join.svg"
+ },
+ {
+  "index": 12,
+  "name": "miter-join",
+  "svg": "debug/tegaki/synth/12-miter-join.svg"
+ },
+ {
+  "index": 13,
+  "name": "x-crossing-separate",
+  "svg": "debug/tegaki/synth/13-x-crossing-separate.svg"
+ },
+ {
+  "index": 14,
+  "name": "x-crossing-union",
+  "svg": "debug/tegaki/synth/14-x-crossing-union.svg"
+ },
+ {
+  "index": 15,
+  "name": "t-junction",
+  "svg": "debug/tegaki/synth/15-t-junction.svg"
+ },
+ {
+  "index": 16,
+  "name": "y-junction",
+  "svg": "debug/tegaki/synth/16-y-junction.svg"
+ },
+ {
+  "index": 17,
+  "name": "parallel-close",
+  "svg": "debug/tegaki/synth/17-parallel-close.svg"
+ },
+ {
+  "index": 18,
+  "name": "self-overlap",
+  "svg": "debug/tegaki/synth/18-self-overlap.svg"
+ },
+ {
+  "index": 19,
+  "name": "variable-width",
+  "svg": "debug/tegaki/synth/19-variable-width.svg"
+ },
+ {
+  "index": 20,
+  "name": "noisy-boundary",
+  "svg": "debug/tegaki/synth/20-noisy-boundary.svg"
+ }
+]

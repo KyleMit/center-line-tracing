@@ -1,0 +1,20 @@
+{
+ "case": "s-curve",
+ "index": 4,
+ "width": 20,
+ "cap": "round",
+ "join": "round",
+ "separateElements": false,
+ "centerlines": [
+  [
+   {
+    "x": 40,
+    "y": 150
+   },
+   {
+    "x": 260,
+    "y": 150
+   }
+  ]
+ ]
+}
