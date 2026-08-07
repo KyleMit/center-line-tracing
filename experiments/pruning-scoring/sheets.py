@@ -215,8 +215,6 @@ def main() -> int:
     return 0
 
 
-if __name__ == "__main__":
-    raise SystemExit(main())
 
 
 def worst_region_crops(track: str, image: str, out: Path, *, n: int = 3,
@@ -262,8 +260,9 @@ def worst_region_crops(track: str, image: str, out: Path, *, n: int = 3,
     rows, cell_labels = [], []
     for piece in pieces:
         cx, cy = piece.centroid.x, piece.centroid.y
+        # generous context: a defect is only readable against the strokes around it
         half = max(piece.bounds[2] - piece.bounds[0],
-                   piece.bounds[3] - piece.bounds[1], 40.0) * 1.6 / 2
+                   piece.bounds[3] - piece.bounds[1], 90.0) * 3.0 / 2
         box = (
             int(max(0, (cx - half - vb[0]) * scale)),
             int(max(0, (cy - half - vb[1]) * scale)),
@@ -279,13 +278,32 @@ def worst_region_crops(track: str, image: str, out: Path, *, n: int = 3,
         tb = Image.new("RGB", (sheets.TILE, sheets.TILE), (255, 255, 255))
         ta.paste(ca, ((sheets.TILE - ca.width) // 2, (sheets.TILE - ca.height) // 2))
         tb.paste(cb, ((sheets.TILE - cb.width) // 2, (sheets.TILE - cb.height) // 2))
-        rows.append([ta, tb])
+        # red = source only (missing), blue = reconstruction only (excess)
+        am = ta.convert("L").point(lambda v: 255 if v < 200 else 0)
+        bm = tb.convert("L").point(lambda v: 255 if v < 200 else 0)
+        td = Image.new("RGB", (sheets.TILE, sheets.TILE), (255, 255, 255))
+        px, ap, bp = td.load(), am.load(), bm.load()
+        for yy in range(sheets.TILE):
+            for xx in range(sheets.TILE):
+                a_i, b_i = ap[xx, yy], bp[xx, yy]
+                if a_i and b_i:
+                    px[xx, yy] = (225, 225, 225)
+                elif a_i:
+                    px[xx, yy] = (220, 40, 40)
+                elif b_i:
+                    px[xx, yy] = (40, 90, 220)
+        rows.append([ta, tb, td])
         cell_labels.append([
             f"source  ({cx:.0f}, {cy:.0f})",
             f"recovered  defect area {piece.area:.0f} u²",
+            "red = missing, blue = excess",
         ])
-    sheet = sheets.grid(rows, col_labels=["source fill", "re-stroked centerline"],
+    sheet = sheets.grid(rows,
+                        col_labels=["source fill", "re-stroked centerline", "difference"],
                         cell_labels=cell_labels,
                         title=f"{track} / {image} — worst reconstruction regions")
     sheets.save(sheet, out)
     print(f"wrote {out}")
+
+if __name__ == "__main__":
+    raise SystemExit(main())
