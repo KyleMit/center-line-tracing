@@ -348,3 +348,65 @@ wrong the longest. Three of the four real bugs in this track were in *measuremen
 not in the algorithm being measured, and each produced numbers confident enough to
 publish. That is the argument for the invariant tests and the vector/raster
 cross-check being part of the deliverable rather than scaffolding.
+
+---
+
+## Addendum — path complexity and wobble
+
+Added after the leaderboard, because the leaderboard has a blind spot: reconstruction
+error rewards a path that **wiggles along the outline**, and the product goal is
+"smooth consistent lines as if drawn by a kid on a digital coloring app". A path can
+score well and look nothing like a drawn stroke. `clg/smoothness.py` separates the two.
+
+The measure that matters is **wobble**: RMS perpendicular deviation from the path's own
+low-pass version, cut at one stroke width, with the curvature bias removed, in stroke
+radii. Everything is normalized by stroke width for the same reason the pruning
+threshold is.
+
+Getting it right took two corrections, both of which produced confident wrong answers
+first:
+
+1. **Tangential slide is not wobble.** Smoothing re-parameterizes as well as
+   straightens, and counting the along-path component made a mathematically exact
+   straight line score 0.083 instead of 0. Only the perpendicular component counts.
+2. **Curvature bias is not wobble either.** A Gaussian low-pass pulls a genuinely
+   curved path toward its chord by about σ²κ/2, so an exact arc scored 0.027 — about
+   half what the real drawings scored, which made all eight backends look identical
+   ("slightly restless", 0.052–0.075). Removing the residual's own low-frequency
+   component leaves only the high-frequency part. Calibration after the fix: exact
+   line 0.0000, exact arc 0.0015, tight arc 0.0041, smooth S-curve 0.0005, and
+   injected jitter scales monotonically 0.021 → 0.068 → 0.154.
+
+### Results
+
+| backend | points / width | wobble | reads as |
+|---|---|---|---|
+| incumbent | 0.56 | 0.0250 | smooth |
+| tegaki | 0.83 | 0.0334 | smooth |
+| flo-mat | 1.33 | 0.0292 | smooth |
+| **skimage-skan** | **2.20** | **0.0195** | **drawn in one motion** |
+| opencv-tracing | 5.00 | 0.0204 | smooth |
+| native-geometry | 10.33 | 0.0192 | drawn in one motion |
+| autotrace | 14.04 | 0.0244 | smooth |
+| polygon-voronoi | 15.48 | 0.0175 | drawn in one motion |
+
+On the single ground line of `house-wide` — the same stroke, recovered by all eight —
+the control-point counts are 21 · 36 · 61 · 116 · 336 · 473 · 756 · 1321. A **63×
+spread for identical geometry.**
+
+### What it says
+
+- **The micro-adjustment worry does not hold against skimage-skan.** It is the third
+  smoothest in the set and spends 7× fewer points than the heaviest, while also having
+  the best reconstruction error. Its accuracy comes from placing the line correctly.
+- **Dense is not the same as jittery.** polygon-voronoi, autotrace and native-geometry
+  carry the most points and wobble the *least* — they densely sample a smooth curve.
+  High point count is a file-size and editability problem, and a fitting pass removes
+  it; it is not a "looks unnatural" problem.
+- **Sparse-and-wobbly is the harder failure.** tegaki and flo-mat carry few points but
+  move more between them, and there is no redundant detail to smooth away.
+- **What this does not measure:** wobble is a property of the recovered path, not of
+  how well it matches the line a person drew. The real inputs have no ground-truth
+  centerline, so a path could be beautifully smooth and in the wrong place. Read it
+  together with the error axis — and unifying the synthetic corpora (NOTES §7) is what
+  would close this gap properly.
