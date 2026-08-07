@@ -48,7 +48,7 @@ def _sample_boundary(geom: BaseGeometry, n: int) -> np.ndarray:
     return np.array([[p.x, p.y] for p in pts])
 
 
-def boundary_distance(a: BaseGeometry, b: BaseGeometry, n: int = 1500) -> dict:
+def boundary_distance(a: BaseGeometry, b: BaseGeometry, n: int = 800) -> dict:
     """Symmetric nearest-distance error between two region boundaries."""
     if a.is_empty or b.is_empty:
         return {"median": float("inf"), "p95": float("inf"), "mean": float("inf")}
