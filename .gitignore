@@ -4,3 +4,6 @@ scratch_*.png
 pycache/
 .DS_Store
 .env
+
+__pycache__/
+*.pyc
