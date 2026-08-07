@@ -12,7 +12,7 @@ case "${1:-all}" in
       $B --images $IMGS --label "stat-$s" --mode element --scale 4 --cap-extend --stat "$s"
     done ;;
   scale)  # raster resolution -- this backend's structural weakness (report 12.3)
-    for r in 1 2 3 4 6 8 12; do
+    for r in 1 2 3 4 6 8; do
       $B --images $IMGS --label "scale-$r" --mode element --scale "$r" --cap-extend --stat trimmed
     done ;;
   strokescale)
