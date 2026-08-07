@@ -121,7 +121,7 @@ def score_one(path: Path, *, width_mode: str = "auto") -> dict | None:
 
 def _pair_job(args) -> dict:
     """One (track, image) cell of the leaderboard. Runs in a worker process."""
-    track, image, lambdas, tolerance = args
+    track, image, lambdas, tolerance, with_headroom = args
     t0 = time.time()
     files = graphs_for(track, image)
     if not files:
@@ -152,11 +152,15 @@ def _pair_job(args) -> dict:
     raw_graph = CenterlineGraph.load(REPO / rawest["graph"])
     chosen, cands = select.select(raw_graph, src, lambdas=lambdas, tolerance=tolerance)
 
-    # 3. and selection applied to their best, which shows remaining headroom
-    best_graph = CenterlineGraph.load(REPO / best_pub["graph"])
-    chosen_on_best, cands_on_best = select.select(
-        best_graph, src, lambdas=lambdas, tolerance=tolerance
-    )
+    # 3. optionally, selection applied to their best, which shows remaining headroom.
+    #    Off by default: it doubles the sweep cost, and the controlled pruning
+    #    comparison lives in abtest.py, which holds the backend properly fixed.
+    chosen_on_best, cands_on_best = None, []
+    if with_headroom and best_pub["graph"] != rawest["graph"]:
+        best_graph = CenterlineGraph.load(REPO / best_pub["graph"])
+        chosen_on_best, cands_on_best = select.select(
+            best_graph, src, lambdas=lambdas, tolerance=tolerance
+        )
 
     rec = {
         "track": track,
@@ -202,32 +206,54 @@ def _pair_job(args) -> dict:
     return rec
 
 
+# A shorter sweep than the full DEFAULT_LAMBDAS: the leaderboard runs it 80 times,
+# and candidate dedup means the extra points mostly re-score identical graphs.
+LEADERBOARD_LAMBDAS = (0.0, 0.5, 1.0, 1.5, 2.0, 3.0, 5.0, 10.0)
+
+
 def leaderboard(images: list[str], tracks: list[str], *, jobs: int = 4,
-                lambdas=select.DEFAULT_LAMBDAS, tolerance: float = 0.10) -> dict:
-    work = [(t, i, tuple(lambdas), tolerance) for t in tracks for i in images]
-    results = []
+                lambdas=LEADERBOARD_LAMBDAS, tolerance: float = 0.10,
+                with_headroom: bool = False, out: Path | None = None) -> dict:
+    work = [(t, i, tuple(lambdas), tolerance, with_headroom)
+            for t in tracks for i in images]
+    results: list[dict] = []
     t0 = time.time()
+
+    def snapshot() -> dict:
+        return {
+            "generated": time.strftime("%Y-%m-%d %H:%M:%S"),
+            "seconds": round(time.time() - t0, 1),
+            "complete": len(results) == len(work),
+            "cells": f"{len(results)}/{len(work)}",
+            "images": images,
+            "tracks": tracks,
+            "lambdas": list(lambdas),
+            "tolerance": tolerance,
+            "results": results,
+        }
+
+    def flush() -> None:
+        # Write after every cell. An 80-cell run takes long enough that losing it
+        # all to an interruption is a real cost, and a partial table is still useful.
+        if out is not None:
+            out.parent.mkdir(parents=True, exist_ok=True)
+            out.write_text(json.dumps(snapshot(), indent=1))
+
     if jobs > 1:
         with Pool(jobs) as pool:
             for i, rec in enumerate(pool.imap_unordered(_pair_job, work), 1):
                 results.append(rec)
+                flush()
                 print(f"  [{i}/{len(work)}] {rec['track']}/{rec['image']}: {rec['status']} "
                       f"({rec.get('seconds', 0)}s)", flush=True)
     else:
         for i, w in enumerate(work, 1):
             rec = _pair_job(w)
             results.append(rec)
+            flush()
             print(f"  [{i}/{len(work)}] {rec['track']}/{rec['image']}: {rec['status']}",
                   flush=True)
-    return {
-        "generated": time.strftime("%Y-%m-%d %H:%M:%S"),
-        "seconds": round(time.time() - t0, 1),
-        "images": images,
-        "tracks": tracks,
-        "lambdas": list(lambdas),
-        "tolerance": tolerance,
-        "results": results,
-    }
+    return snapshot()
 
 
 # ------------------------------------------------------------------- reporting
@@ -345,6 +371,8 @@ def main() -> int:
     p_lb.add_argument("--tracks", nargs="*", default=TRACKS + ["incumbent"])
     p_lb.add_argument("--jobs", type=int, default=4)
     p_lb.add_argument("--tolerance", type=float, default=0.10)
+    p_lb.add_argument("--headroom", action="store_true",
+                      help="also run selection on each track's best variant (2x cost)")
     p_lb.add_argument("--out", default=str(DEBUG / "metrics.json"))
 
     args = ap.parse_args()
@@ -392,10 +420,10 @@ def main() -> int:
         return 0
 
     if args.cmd == "leaderboard":
-        data = leaderboard(args.images, args.tracks, jobs=args.jobs,
-                           tolerance=args.tolerance)
         out = Path(args.out)
-        out.parent.mkdir(parents=True, exist_ok=True)
+        data = leaderboard(args.images, args.tracks, jobs=args.jobs,
+                           tolerance=args.tolerance, with_headroom=args.headroom,
+                           out=out)
         out.write_text(json.dumps(data, indent=1))
         md = leaderboard_markdown(data) + summary_markdown(data)
         (DEBUG / "leaderboard.md").write_text(md)
