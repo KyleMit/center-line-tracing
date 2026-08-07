@@ -490,10 +490,20 @@ class CenterlineGraph:
             b_pts = b.points_from(nid)
             a_rad = a.radii_from(nid)
             b_rad = b.radii_from(nid)
-            pts = geom.dedupe(list(reversed(a_pts))[:-1] + b_pts)
+            # Drop the shared vertex only if the two edges really do meet there.
+            # Several backends (tegaki, flo-mat) let edge geometry drift from the
+            # node they both reference - up to 13.7 user units - and dropping a's
+            # endpoint on that assumption deletes real geometry: measured at 997
+            # units^2 lost across 51 fragments from just 2 merges on house-wide.
+            a_rev = list(reversed(a_pts))
+            gap = math.hypot(a_rev[-1][0] - b_pts[0][0], a_rev[-1][1] - b_pts[0][1])
+            coincident = gap <= 1e-6
+            pts = geom.dedupe((a_rev[:-1] if coincident else a_rev) + b_pts)
             if len(pts) < 2:
                 continue
-            rad = (list(reversed(a_rad))[:-1] + b_rad) if (a_rad and b_rad) else []
+            a_rad_rev = list(reversed(a_rad)) if a_rad else []
+            rad = ((a_rad_rev[:-1] if coincident else a_rad_rev) + b_rad) \
+                if (a_rad and b_rad) else []
             if rad and len(rad) != len(pts):
                 rad = geom.resample_profile(rad, len(pts))
             # cubic segments survive the splice, so bezier complexity stays honest

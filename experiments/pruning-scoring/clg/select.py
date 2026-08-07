@@ -105,7 +105,7 @@ def sweep(
     source,
     *,
     lambdas: Sequence[float] = DEFAULT_LAMBDAS,
-    width_mode: str = "median",
+    width_mode: str = "auto",
     keep_dots: bool = True,
     on_candidate: Callable[[Candidate], None] | None = None,
 ) -> list[Candidate]:
@@ -194,7 +194,7 @@ def select(
     *,
     lambdas: Sequence[float] = DEFAULT_LAMBDAS,
     tolerance: float = 0.10,
-    width_mode: str = "median",
+    width_mode: str = "auto",
     max_missing_increase: float = 0.02,
 ) -> tuple[Candidate | None, list[Candidate]]:
     """Sweep, then pick. Returns (chosen, all candidates)."""

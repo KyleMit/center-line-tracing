@@ -267,8 +267,14 @@ def graph_to_svg(
     stroke: str = "#000000",
     background: str | None = None,
     per_edge_color: dict[str, str] | None = None,
+    hairline: float | None = None,
 ) -> str:
-    """Render a centerline graph as stroked paths — the deliverable output form."""
+    """Render a centerline graph as stroked paths — the deliverable output form.
+
+    `hairline` overrides the stroke width with a fixed thin value, which is what an
+    overlay needs: at true stroke width the reconstruction covers the drawing and
+    you cannot see where the centerline actually runs.
+    """
     vb = view_box or graph.view_box or [0, 0, 1000, 1000]
     out = [
         '<?xml version="1.0" encoding="UTF-8" standalone="no"?>',
@@ -284,16 +290,19 @@ def graph_to_svg(
         r = e.median_radius or 0.0
         if r <= 0:
             continue
+        width = hairline if hairline else 2 * r
         color = (per_edge_color or {}).get(e.id, stroke)
         if e.is_dot():
             x, y = e.points[0]
-            out.append(f'<circle cx="{x:.3f}" cy="{y:.3f}" r="{r:.3f}" fill="{color}"/>')
+            out.append(
+                f'<circle cx="{x:.3f}" cy="{y:.3f}" r="{width / 2:.3f}" fill="{color}"/>'
+            )
             continue
         d = " ".join(
             f"{'M' if i == 0 else 'L'} {x:.3f} {y:.3f}" for i, (x, y) in enumerate(e.points)
         )
         out.append(
-            f'<path d="{d}" fill="none" stroke="{color}" stroke-width="{2 * r:.3f}" '
+            f'<path d="{d}" fill="none" stroke="{color}" stroke-width="{width:.3f}" '
             f'stroke-linecap="round" stroke-linejoin="round"/>'
         )
     out.append("</svg>")

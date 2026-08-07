@@ -60,7 +60,7 @@ class ReconMetrics:
     # provenance
     source_area: float = 0.0
     recon_area: float = 0.0
-    width_mode: str = "median"
+    width_mode: str = "auto"
     seconds: float = 0.0
     extras: dict[str, Any] = field(default_factory=dict)
 
@@ -152,7 +152,7 @@ def score_graph(
     graph,
     source,
     *,
-    width_mode: str = "median",
+    width_mode: str = "auto",
     recon=None,
 ) -> ReconMetrics:
     """Full vector-space reconstruction score for one graph against one drawing."""
@@ -273,7 +273,7 @@ def score_with_raster(
     graph,
     source,
     *,
-    width_mode: str = "median",
+    width_mode: str = "auto",
     size: int = 1200,
     svg_out: str | Path | None = None,
     diff_png: str | Path | None = None,

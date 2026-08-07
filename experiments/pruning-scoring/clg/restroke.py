@@ -16,17 +16,24 @@ from . import geom
 # geometry is not itself a measurable source of error at these stroke widths.
 QUAD_SEGS = 16
 
-WIDTH_MODES = ("median", "variable")
+WIDTH_MODES = ("auto", "median", "variable")
 
 
-def edge_to_fill(edge, *, width_mode: str = "median", quad_segs: int = QUAD_SEGS):
-    """Buffer one edge into a filled region."""
+def edge_to_fill(edge, *, width_mode: str = "auto", quad_segs: int = QUAD_SEGS):
+    """Buffer one edge into a filled region.
+
+    width_mode "auto" uses the per-vertex radius profile when the backend supplied
+    one and it actually varies, else a constant median radius. This is the default
+    because a single median is wrong for any edge that spans a width change — and
+    canonicalization CREATES such edges by splicing chains, so scoring a merged
+    graph at constant width penalizes the merge rather than the geometry.
+    """
     r = edge.median_radius
     if edge.is_dot():
         if not r or r <= 0:
             return None
         return Point(edge.points[0]).buffer(r, quad_segs=quad_segs)
-    if width_mode == "variable":
+    if width_mode in ("variable", "auto"):
         radii = edge.radii()
         if radii and len(radii) == len(edge.points) and len(set(radii)) > 1:
             pieces = []
@@ -50,7 +57,7 @@ def edge_to_fill(edge, *, width_mode: str = "median", quad_segs: int = QUAD_SEGS
     return LineString(pts).buffer(r, quad_segs=quad_segs, cap_style=1, join_style=1)
 
 
-def graph_to_fill(graph, *, width_mode: str = "median", quad_segs: int = QUAD_SEGS):
+def graph_to_fill(graph, *, width_mode: str = "auto", quad_segs: int = QUAD_SEGS):
     """S_reconstructed for the whole graph."""
     parts = []
     for e in graph.edges.values():
@@ -65,7 +72,7 @@ def graph_to_fill(graph, *, width_mode: str = "median", quad_segs: int = QUAD_SE
     return out
 
 
-def fill_by_element(graph, *, width_mode: str = "median"):
+def fill_by_element(graph, *, width_mode: str = "auto"):
     """S_reconstructed grouped by sourceElementId, for per-element scoring."""
     groups: dict[str, list] = {}
     for e in graph.edges.values():

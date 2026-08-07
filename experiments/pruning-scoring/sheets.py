@@ -156,7 +156,8 @@ def progress_sheet(graph_path: Path, out: Path, lambdas=None) -> None:
     pairs = [(REPO / svg, CACHE / "input" / f"{Path(svg).stem}.png")]
     for c in cands:
         p = tmp / f"lam{c.lam:.2f}.svg"
-        svgio.write_graph_svg(c.graph, p, view_box=src.view_box)
+        svgio.write_graph_svg(c.graph, p, view_box=src.view_box,
+                              hairline=max(2.0, src.view_box[2] / 300.0))
         pairs.append((p, tmp / f"lam{c.lam:.2f}.png"))
     _render_all(pairs, sheets.TILE * 2)
 

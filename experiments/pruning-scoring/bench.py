@@ -108,7 +108,7 @@ def graphs_for(track: str, image: str) -> list[Path]:
 # ---------------------------------------------------------------------- scoring
 
 
-def score_one(path: Path, *, width_mode: str = "median") -> dict | None:
+def score_one(path: Path, *, width_mode: str = "auto") -> dict | None:
     svg = resolve.resolve_source_svg(path)
     if svg is None:
         return None
