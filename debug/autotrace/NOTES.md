@@ -126,3 +126,34 @@ Two things to read off this table.
 
 That last point is the honest caveat on the headline: this is not a universal
 3.85× — it is 1× on easy art and 3.85× on the hardest image in the set.
+
+## Raster resolution — this backend's structural weakness, quantified
+
+Measured on the synthetic corpus, where true centerline error is knowable
+(`debug/autotrace/synthetic.json`, `experiments/autotrace/synth.py`):
+
+| raster scale (px per user unit) | median centerline error (user units) | error expressed in raster pixels |
+|---|---|---|
+| 1 | 1.065 | 1.07 px |
+| 2 | 0.578 | 1.16 px |
+| 3 | 0.390 | 1.17 px |
+| 4 | 0.317 | 1.27 px |
+| 6 | 0.236 | 1.42 px |
+
+The finding is in the third column: **autotrace's centerline error is
+essentially a constant ~1.1–1.4 raster pixels, independent of resolution.**
+It does not converge to the true centerline as you spend more pixels — it
+converges to "about one pixel", so error in the drawing's own units is purely
+a function of resolution and nothing else. Doubling the raster halves the error
+and roughly quadruples the cost, forever.
+
+That is the precise shape of the `raster quantization` failure for this
+backend, and it is the structural argument for a vector-native backend: a
+vector MAT has no such floor. It also means every accuracy number in this
+document is really a statement about the raster budget, and should be quoted
+with its scale.
+
+Recovered stroke radius degrades the same way but far more gently — median
+absolute radius error is 4.2% at scale 1, 1.7% at scale 3, and 1.0% at scale 6.
+Width recovery is much more robust to coarse rasterisation than geometry is,
+because the distance transform averages over the whole path.
