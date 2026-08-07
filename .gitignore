@@ -4,3 +4,8 @@ scratch_*.png
 pycache/
 .DS_Store
 .env
+
+# opencv-tracing track: compiled vendored library (rebuild via experiments/opencv-tracing/build.sh)
+experiments/opencv-tracing/vendor/skeleton-tracing/c/*.so
+__pycache__/
+debug/opencv-tracing/masks/

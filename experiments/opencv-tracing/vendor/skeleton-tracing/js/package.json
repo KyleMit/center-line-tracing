@@ -1,0 +1,6 @@
+{
+  "name": "skeleton-tracing-vendored-js",
+  "type": "module",
+  "main": "trace_skeleton.vanilla.js",
+  "license": "MIT"
+}
