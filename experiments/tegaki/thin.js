@@ -86,12 +86,17 @@ export function guoHallThin(bitmap, width, height) {
           const p8 = get(x - 1, y);
           const p9 = get(x - 1, y - 1);
 
-          // Guo-Hall naming: p2=N, p3=NE, p4=E, p5=SE, p6=S, p7=SW, p8=W, p9=NW
+          // Guo-Hall naming: p2=N, p3=NE, p4=E, p5=SE, p6=S, p7=SW, p8=W, p9=NW.
+          // These four conditions are transcribed from the reference formulation
+          // (as in OpenCV's ximgproc thinning). Getting the C-term grouping
+          // wrong — pairing !p4 with (p3|p5) instead of !p2 with (p3|p4) —
+          // produced a skeleton that scored 0.62 mean IoU on the synthetic
+          // corpus, so this is worth checking rather than eyeballing.
           const C =
-            (!p4 && (p3 || p5) ? 1 : 0) +
-            (!p6 && (p5 || p7) ? 1 : 0) +
-            (!p8 && (p7 || p9) ? 1 : 0) +
-            (!p2 && (p9 || p3) ? 1 : 0);
+            (!p2 && (p3 || p4) ? 1 : 0) +
+            (!p4 && (p5 || p6) ? 1 : 0) +
+            (!p6 && (p7 || p8) ? 1 : 0) +
+            (!p8 && (p9 || p2) ? 1 : 0);
           if (C !== 1) continue;
 
           const N1 = (p9 || p2 ? 1 : 0) + (p3 || p4 ? 1 : 0) + (p5 || p6 ? 1 : 0) + (p7 || p8 ? 1 : 0);
@@ -99,7 +104,7 @@ export function guoHallThin(bitmap, width, height) {
           const N = Math.min(N1, N2);
           if (N < 2 || N > 3) continue;
 
-          const m = sub === 0 ? (p2 || p3 || !p5) && p4 : (p6 || p7 || !p9) && p8;
+          const m = sub === 0 ? (p6 || p7 || !p9) && p8 : (p2 || p3 || !p5) && p4;
           if (m) continue;
           toDelete.push(y * width + x);
         }

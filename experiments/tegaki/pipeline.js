@@ -14,7 +14,7 @@ import { rasterize, toUserSpace } from './raster.js';
 import { computeInverseDistanceTransform, sampleRadius } from './dt.js';
 import { zhangSuenThin, guoHallThin, leeThin, morphologicalThin, medialAxisThin } from './thin.js';
 import { cleanJunctionClusters, restoreErasedComponents } from './cleanup.js';
-import { traceAndSimplify, pathLength } from './trace.js';
+import { traceAndSimplify, rdpSimplify, pathLength } from './trace.js';
 import { voronoiMedialAxis } from './voronoi.js';
 import { orderStrokes } from './order.js';
 import { buildGraph } from './graph.js';
@@ -46,6 +46,7 @@ export const DEFAULTS = {
   curvatureBias: TRACE_CURVATURE_BIAS,
   thinMaxIterations: THIN_MAX_ITERATIONS,
   junctionCleanupIterations: JUNCTION_CLEANUP_MAX_ITERATIONS,
+  junctionCleanupForMedialAxis: 0, // Tegaki's own setting; set >0 for a controlled A/B
   voronoiSamplingInterval: VORONOI_SAMPLING_INTERVAL,
   mergeMode: 'radius', // 'radius' (ours) | 'tegaki' (0.08 * bitmap) | 'off'
   mergeRadiusFactor: MERGE_RADIUS_FACTOR,
@@ -178,10 +179,24 @@ function skeletonizeElement(element, raster, inverseDT, opts) {
         if (px >= 0 && px < width && py >= 0 && py < height) skeleton[py * width + px] = 1;
       }
     }
+    // ADAPTED: Tegaki's voronoi path bypasses traceAndSimplify entirely, so its
+    // output is never RDP-simplified while every thinning method's is. That made
+    // the complexity half of the A/B meaningless — voronoi looked 20x denser
+    // purely because nobody had simplified it. Apply the same RDP tolerance, and
+    // resample the width profile to the surviving points.
+    const simplified = [];
+    const simplifiedWidths = [];
+    v.polylines.forEach((pl, i) => {
+      const keep = rdpSimplify(pl, opts.rdpTolerance);
+      const idxOf = new Map(pl.map((q, k) => [q, k]));
+      simplified.push(keep);
+      simplifiedWidths.push(keep.map((q) => v.widths[i][idxOf.get(q) ?? 0] ?? v.widths[i][0]));
+    });
+
     return {
       skeleton,
-      polylines: v.polylines,
-      widths: v.widths,
+      polylines: simplified,
+      widths: simplifiedWidths,
       stats: { prunedCount: v.prunedCount, prunedLength: v.prunedLength, collapsed: 0, restored: 0, crossingsSeen: 0, crossingsStopped: 0 },
     };
   }
@@ -194,13 +209,21 @@ function skeletonizeElement(element, raster, inverseDT, opts) {
   };
   const thinFn = thinFns[opts.skeleton] ?? zhangSuenThin;
 
-  let skeleton;
+  // ADAPTED: Tegaki runs junction-cluster cleanup for every thinning method
+  // EXCEPT 'medial-axis', which it applies raw. That confounds the comparison —
+  // measuring 'medial-axis' against 'zhang-suen' in Tegaki's own configuration
+  // compares (distance-ordered thinning) against (Zhang-Suen + cleanup), not
+  // one thinner against another. `junctionCleanupForMedialAxis` lets the same
+  // cleanup run on the distance-ordered skeleton so the A/B is controlled.
+  const thinForCleanup =
+    opts.skeleton === 'medial-axis' ? (b, w, h) => medialAxisThin(b, computeInverseDistanceTransform(b, w, h, opts.dt), w, h) : thinFn;
+  const cleanupOn =
+    opts.skeleton === 'medial-axis' ? opts.junctionCleanupForMedialAxis : opts.junctionCleanupIterations;
+
+  let skeleton = opts.skeleton === 'medial-axis' ? medialAxisThin(bitmap, inverseDT, width, height) : thinFn(bitmap, width, height);
   let collapsed = 0;
-  if (opts.skeleton === 'medial-axis') {
-    skeleton = medialAxisThin(bitmap, inverseDT, width, height);
-  } else {
-    const raw = thinFn(bitmap, width, height);
-    const cleaned = cleanJunctionClusters(raw, inverseDT, width, height, thinFn, opts.junctionCleanupIterations);
+  if (cleanupOn > 0) {
+    const cleaned = cleanJunctionClusters(skeleton, inverseDT, width, height, thinForCleanup, cleanupOn);
     skeleton = cleaned.skeleton;
     collapsed = cleaned.collapsed;
   }
