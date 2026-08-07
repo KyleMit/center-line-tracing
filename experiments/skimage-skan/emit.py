@@ -14,13 +14,52 @@ FIT_JS = HERE / "fit_curve.js"
 REPO = HERE.parent.parent
 
 
+def width_runs(radii: np.ndarray, points: np.ndarray, tol: float,
+               min_len: float) -> list[tuple[int, int]]:
+    """Split an edge into contiguous runs of near-constant radius.
+
+    SVG cannot vary `stroke-width` along one path, so a tapered stroke can only
+    be reproduced by emitting several constant-width sub-paths.  The retained
+    distance field is exactly what makes this possible — this is the payoff of
+    `return_distance=True` at the *emission* stage rather than the pruning one.
+    """
+    n = len(radii)
+    if n < 3:
+        return [(0, n - 1)]
+    seg = np.hypot(*np.diff(points, axis=0).T)
+    s = np.r_[0.0, np.cumsum(seg)]
+    runs: list[tuple[int, int]] = []
+    start = 0
+    lo = hi = float(radii[0])
+    for i in range(1, n):
+        r = float(radii[i])
+        nlo, nhi = min(lo, r), max(hi, r)
+        mid = 0.5 * (nlo + nhi)
+        if mid > 0 and (nhi - nlo) / mid > tol and (s[i] - s[start]) >= min_len:
+            runs.append((start, i))
+            start = i
+            lo = hi = r
+        else:
+            lo, hi = nlo, nhi
+    if start < n - 1:
+        if runs and (s[n - 1] - s[start]) < min_len:
+            runs[-1] = (runs[-1][0], n - 1)     # absorb a too-short tail
+        else:
+            runs.append((start, n - 1))
+    return runs or [(0, n - 1)]
+
+
 def fit_beziers(graph: CenterlineGraph, error_frac: float = 0.06,
-                error_floor: float = 0.25, error_ceiling: float = 3.0) -> int:
+                error_floor: float = 0.25, error_ceiling: float = 3.0,
+                width_mode: str = "constant", width_tol: float = 0.18) -> int:
     """Fit cubics to every edge in place.  Tolerance scales with local radius.
 
     A fat stroke tolerates more fitting error than a thin one for the same
     visual result, so the tolerance is a fraction of the median radius rather
     than an absolute number of user units.
+
+    In `width_mode="piecewise"` each edge is first split into near-constant
+    radius runs and each run is fitted (and later stroked) separately.
     """
     jobs = []
     for edge in graph.edges:
@@ -30,21 +69,49 @@ def fit_beziers(graph: CenterlineGraph, error_frac: float = 0.06,
         err = float(np.clip(error_frac * 2 * r, error_floor, error_ceiling))
         pts = list(edge.fitPoints or edge.geometry)
         corners = list(edge.fitCorners if edge.fitPoints else edge.corners)
+        radii = list(edge.fitRadii if edge.fitPoints else edge.radii)
         if edge.closed and (pts[0] != pts[-1]):
             pts = pts + [pts[0]]
-        jobs.append({"id": edge.id, "points": pts, "corners": corners,
-                     "error": err, "closed": edge.closed})
+            radii = radii + radii[:1]
+        edge.widthRuns = []
+        if width_mode == "piecewise" and len(radii) == len(pts) and len(pts) >= 3:
+            spans = width_runs(np.asarray(radii), np.asarray(pts), width_tol,
+                               min_len=max(1.0, r))
+        else:
+            spans = [(0, len(pts) - 1)]
+        for k, (a, b) in enumerate(spans):
+            sub = pts[a:b + 1]
+            if len(sub) < 2:
+                continue
+            sub_corners = [c - a for c in corners if a < c < b]
+            jobs.append({"id": f"{edge.id}#{k}", "points": sub, "corners": sub_corners,
+                         "error": err, "closed": edge.closed and len(spans) == 1,
+                         "_edge": edge.id,
+                         "_radius": float(np.median(radii[a:b + 1])) if radii else r})
     if not jobs:
         return 0
-    proc = subprocess.run(["node", str(FIT_JS)], input=json.dumps({"jobs": jobs}),
+    payload = {"jobs": [{k: v for k, v in j.items() if not k.startswith("_")}
+                        for j in jobs]}
+    proc = subprocess.run(["node", str(FIT_JS)], input=json.dumps(payload),
                           capture_output=True, text=True, cwd=str(REPO))
     if proc.returncode != 0:
         raise RuntimeError(f"fit-curve failed: {proc.stderr[:2000]}")
     by_id = {r["id"]: r["beziers"] for r in json.loads(proc.stdout)["results"]}
+    edges = {e.id: e for e in graph.edges}
+    for e in graph.edges:
+        e.beziers = []
     total = 0
-    for edge in graph.edges:
-        beziers = by_id.get(edge.id, [])
-        edge.beziers = beziers
+    for job in jobs:
+        edge = edges[job["_edge"]]
+        beziers = by_id.get(job["id"], [])
+        if not beziers:
+            continue
+        edge.widthRuns.append({
+            "bezierStart": len(edge.beziers),
+            "bezierCount": len(beziers),
+            "radius": job["_radius"],
+        })
+        edge.beziers.extend(beziers)
         total += len(beziers)
     return total
 
@@ -83,25 +150,34 @@ def polyline_path_d(points: list[list[float]], closed: bool) -> str:
 def stroked_svg(graph: CenterlineGraph, fills: dict[str, str],
                 use_beziers: bool = True,
                 min_width: float = 0.0, max_width: float = 1e9,
-                width_scale: float = 1.0) -> str:
+                width_scale: float = 1.0, piecewise: bool = False) -> str:
     x, y, w, h = graph.viewBox
     out = [
         '<?xml version="1.0" encoding="UTF-8" standalone="no"?>',
         f'<svg xmlns="http://www.w3.org/2000/svg" version="1.1" '
         f'viewBox="{_fmt(x)} {_fmt(y)} {_fmt(w)} {_fmt(h)}">',
     ]
+
+    def path(d: str, radius: float, colour: str) -> str:
+        width = float(np.clip(2.0 * radius * width_scale, min_width, max_width))
+        return (f'<path d="{d}" fill="none" stroke="{colour}" '
+                f'stroke-width="{_fmt(width)}" stroke-linecap="round" '
+                f'stroke-linejoin="round"/>')
+
     for edge in graph.edges:
+        colour = fills.get(edge.sourceElementId or "", "#000000")
+        if piecewise and use_beziers and len(edge.widthRuns) > 1:
+            for run in edge.widthRuns:
+                start = int(run["bezierStart"])
+                sub = edge.beziers[start:start + int(run["bezierCount"])]
+                d = bezier_path_d(sub, False)
+                if d:
+                    out.append(path(d, float(run["radius"]), colour))
+            continue
         d = (bezier_path_d(edge.beziers, edge.closed) if use_beziers
              else polyline_path_d(edge.geometry, edge.closed))
-        if not d:
-            continue
-        width = float(np.clip(2.0 * (edge.medianRadius or 0.5) * width_scale,
-                              min_width, max_width))
-        colour = fills.get(edge.sourceElementId or "", "#000000")
-        out.append(
-            f'<path d="{d}" fill="none" stroke="{colour}" '
-            f'stroke-width="{_fmt(width)}" stroke-linecap="round" stroke-linejoin="round"/>'
-        )
+        if d:
+            out.append(path(d, edge.medianRadius or 0.5, colour))
     out.append("</svg>")
     return "\n".join(out) + "\n"
 

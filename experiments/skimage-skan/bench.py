@@ -38,18 +38,20 @@ LADDER = ["house-wide", "butterfly-wide", "boat-tall", "island-tall", "balloon-t
 
 def run_one(svg_path: Path, cfg: extract.ExtractConfig, tag: str,
             truth: list | None = None, promote: bool = False,
-            score_pixels: bool = True, use_beziers: bool = True) -> dict:
+            score_pixels: bool = True, use_beziers: bool = True,
+            width_mode: str = "constant") -> dict:
     doc = svgio.load(svg_path)
     t0 = time.perf_counter()
     graph, results = extract.extract_document(doc, cfg)
     t_extract = time.perf_counter() - t0
 
     t0 = time.perf_counter()
-    n_bez = emit.fit_beziers(graph)
+    n_bez = emit.fit_beziers(graph, width_mode=width_mode)
     t_fit = time.perf_counter() - t0
 
     fills = {f"e{e.index}": e.fill for e in doc.elements}
-    svg_text = emit.stroked_svg(graph, fills, use_beziers=use_beziers)
+    svg_text = emit.stroked_svg(graph, fills, use_beziers=use_beziers,
+                                piecewise=width_mode == "piecewise")
     OUTDIR.mkdir(parents=True, exist_ok=True)
     out_svg = OUTDIR / f"{doc.id}__{tag}.svg"
     out_svg.write_text(svg_text)
@@ -76,6 +78,9 @@ def run_one(svg_path: Path, cfg: extract.ExtractConfig, tag: str,
         "graphProblems": problems,
         "failures": [{"element": r.index, "reason": r.failure}
                      for r in results if r.failure],
+        "subpixelElementsDropped": sum(1 for r in results
+                                       if r.failure == "subpixel-element"),
+        "terminalEnds": sum(int(r.extra.get("terminalEnds") or 0) for r in results),
     }
     record.update(M.complexity(graph, out_svg))
     record["polylineBytes"] = len(emit.stroked_svg(graph, fills, use_beziers=False))
@@ -154,6 +159,12 @@ def print_table(records: list[dict], corpus: bool = False) -> None:
         print(" ".join(cells))
 
 
+def _tag(method: str, scale: float, args) -> str:
+    return (f"{method}@{scale:g}"
+            + ("+cap" if args.cap_extend else "")
+            + ("+pw" if args.width_mode == "piecewise" else ""))
+
+
 def cmd_corpus(args) -> list[dict]:
     manifest = json.loads((DEBUG / "corpus" / "corpus.json").read_text())
     records = []
@@ -164,9 +175,9 @@ def cmd_corpus(args) -> list[dict]:
             cfg = extract.ExtractConfig(scale=args.scale, method=method,
                                         cap_extend=args.cap_extend,
                                         simplify_eps=args.simplify_eps)
-            tag = f"{method}@{args.scale:g}" + ("+cap" if args.cap_extend else "")
+            tag = _tag(method, args.scale, args)
             rec = run_one(REPO / case["svg"], cfg, tag, truth=case["truth"],
-                          score_pixels=False)
+                          score_pixels=False, width_mode=args.width_mode)
             rec["corpusCase"] = case["num"]
             rec["notes"] = case["notes"]
             records.append(rec)
@@ -180,9 +191,9 @@ def cmd_inputs(args) -> list[dict]:
             cfg = extract.ExtractConfig(scale=args.scale, method=method,
                                         cap_extend=args.cap_extend,
                                         simplify_eps=args.simplify_eps)
-            tag = f"{method}@{args.scale:g}" + ("+cap" if args.cap_extend else "")
+            tag = _tag(method, args.scale, args)
             records.append(run_one(REPO / "inputs" / f"{name}.svg", cfg, tag,
-                                   promote=args.promote))
+                                   promote=args.promote, width_mode=args.width_mode))
     return records
 
 
@@ -203,16 +214,48 @@ def cmd_sweep(args) -> list[dict]:
                 cfg = extract.ExtractConfig(scale=scale, method=method,
                                             cap_extend=args.cap_extend,
                                             simplify_eps=args.simplify_eps)
-                rec = run_one(src, cfg, f"{method}@{scale:g}", truth=truth,
-                              score_pixels=truth is None)
+                rec = run_one(src, cfg, _tag(method, scale, args), truth=truth,
+                              score_pixels=truth is None, width_mode=args.width_mode)
                 records.append(rec)
     return records
+
+
+def cmd_report(args) -> None:
+    """Re-print stored results without recomputing anything."""
+    store = load_metrics()
+    runs = store["runs"]
+    if args.tag:
+        runs = [r for r in runs if r["tag"] in args.tag.split(",")]
+    real = [r for r in runs if not r.get("corpusCase")]
+    corpus = [r for r in runs if r.get("corpusCase")]
+    if real:
+        order = {n: i for i, n in enumerate(LADDER)}
+        real.sort(key=lambda r: (order.get(r["image"], 99), r["tag"]))
+        print("REAL INPUTS")
+        print_table(real)
+        print()
+    if corpus:
+        corpus.sort(key=lambda r: (r["corpusCase"], r["tag"]))
+        print("SYNTHETIC CORPUS")
+        print_table(corpus, corpus=True)
+        print()
+    totals: dict[str, dict[str, int]] = {}
+    for r in real:
+        for k, v in (r.get("tags") or {}).items():
+            totals.setdefault(r["tag"], {}).setdefault(k, 0)
+            totals[r["tag"]][k] += v
+    if totals:
+        print("FAILURE TAGS (summed over real inputs)")
+        keys = sorted({k for t in totals.values() for k in t})
+        print(f"{'tag':22s}" + "".join(f"{k[:13]:>15s}" for k in keys))
+        for tag, counts in sorted(totals.items()):
+            print(f"{tag:22s}" + "".join(f"{counts.get(k, 0):>15d}" for k in keys))
 
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("command", choices=["corpus", "inputs", "sweep", "all"])
+    ap.add_argument("command", choices=["corpus", "inputs", "sweep", "all", "report"])
     ap.add_argument("--images", default="house-wide")
     ap.add_argument("--cases", default="")
     ap.add_argument("--scale", type=float, default=4.0)
@@ -220,12 +263,18 @@ def main() -> None:
     ap.add_argument("--methods", default="medial-axis")
     ap.add_argument("--simplify-eps", type=float, default=0.15)
     ap.add_argument("--cap-extend", action="store_true")
+    ap.add_argument("--width-mode", choices=["constant", "piecewise"], default="constant")
+    ap.add_argument("--tag", default=None, help="report: filter to these tags")
     ap.add_argument("--promote", action="store_true")
     args = ap.parse_args()
     args.images = [s for s in args.images.split(",") if s]
     args.cases = [s for s in args.cases.split(",") if s]
     args.methods = [s for s in args.methods.split(",") if s]
     args.scales = [float(s) for s in args.scales.split(",") if s]
+
+    if args.command == "report":
+        cmd_report(args)
+        return
 
     store = load_metrics()
     if args.command == "corpus":

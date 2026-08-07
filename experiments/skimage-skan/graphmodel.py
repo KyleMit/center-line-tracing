@@ -59,16 +59,21 @@ class CenterlineEdge:
     radiusCv: float | None = None
     normLength: float | None = None
     closed: bool = False
+    # Contiguous runs of near-constant radius: [{bezierStart, bezierCount,
+    # radius, length}].  Empty when the whole edge is one constant-width run.
+    widthRuns: list[dict[str, float]] = field(default_factory=list)
     # Dense uniform chain used for Bézier fitting only; not serialised (it is
     # `geometry` before simplification, and roughly triples the file size).
     fitPoints: list[list[float]] = field(default_factory=list, repr=False)
     fitCorners: list[int] = field(default_factory=list, repr=False)
+    fitRadii: list[float] = field(default_factory=list, repr=False)
 
     def to_json(self) -> dict[str, Any]:
         d = asdict(self)
         d["from"] = d.pop("from_")
         d.pop("fitPoints", None)
         d.pop("fitCorners", None)
+        d.pop("fitRadii", None)
         return d
 
 

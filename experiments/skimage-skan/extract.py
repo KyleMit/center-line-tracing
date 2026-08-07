@@ -240,12 +240,17 @@ def extract_document(doc: svgio.SvgDoc, cfg: ExtractConfig
     for element, rast in zip(doc.elements, rasters):
         t_el = time.perf_counter()
         mask = rast.mask
+        raw_px = int(mask.sum())
         if cfg.min_object_px > 0:
             mask = remove_small_objects(mask, cfg.min_object_px)
         mask_px = int(mask.sum())
         if mask_px == 0:
+            # Distinguish "this element is a sub-pixel speck in the source" from
+            # "we lost a real stroke": only the latter is a backend failure.
+            reason = "subpixel-element" if raw_px < cfg.min_object_px else "empty-mask"
             results.append(ElementResult(element.index, element.fill, 0, 0, 0,
-                                         time.perf_counter() - t_el, failure="empty-mask"))
+                                         time.perf_counter() - t_el, failure=reason,
+                                         extra={"rawMaskPx": raw_px}))
             continue
 
         skel, dist = skeletonize_mask(mask, cfg.method, cfg.rng_seed)
@@ -281,6 +286,7 @@ def extract_document(doc: svgio.SvgDoc, cfg: ExtractConfig
             return nid
 
         n_paths = 0
+        cap_deltas: list[float] = []
         for i in range(sk.n_paths):
             px = sk.path_coordinates(i)          # (n, 2) float pixel coords, ordered
             if len(px) < max(2, cfg.min_branch_px):
@@ -298,8 +304,13 @@ def extract_document(doc: svgio.SvgDoc, cfg: ExtractConfig
             xs, ys = rast.px_to_svg(smoothed_px[:, 0], smoothed_px[:, 1])
             pts = np.column_stack([xs, ys])
 
-            if cfg.cap_extend and not closed:
-                pts, radii_full = _extend_caps(pts, radii_full, sk, i, mask, rast, cfg)
+            if not closed:
+                # Always *measure* cap mismatch, whether or not we correct it:
+                # how far the outline is past the skeleton end, versus the local
+                # radius.  A round cap gives ~0; a taper or butt cap does not.
+                cap_deltas += _cap_deltas(radii_full, sk, i, mask, cfg)
+                if cfg.cap_extend:
+                    pts, radii_full = _extend_caps(pts, radii_full, sk, i, mask, rast, cfg)
 
             r_med_raw = float(np.median(radii_full)) or 1.0
             step = cfg.resample if cfg.resample > 0 else max(0.5, r_med_raw / 8.0)
@@ -340,6 +351,7 @@ def extract_document(doc: svgio.SvgDoc, cfg: ExtractConfig
                 closed=bool(closed),
                 fitPoints=[[float(a), float(b)] for a, b in dense],
                 fitCorners=list(dense_corners),
+                fitRadii=[float(r) for r in dense_radii],
             ))
             n_paths += 1
 
@@ -350,12 +362,35 @@ def extract_document(doc: svgio.SvgDoc, cfg: ExtractConfig
                    "maskArea": mask_px / (cfg.scale ** 2),
                    "maxRadius": float(dist.max()) / cfg.scale,
                    "maskComponents": int(ndi.label(mask)[1]),
-                   "skeletonComponents": int(ndi.label(skel, np.ones((3, 3)))[1])},
+                   "skeletonComponents": int(ndi.label(skel, np.ones((3, 3)))[1]),
+                   "terminalEnds": len(cap_deltas),
+                   "capArtifacts": int(sum(1 for d in cap_deltas if abs(d) > 0.25)),
+                   "capDeltaMedian": float(np.median(cap_deltas)) if cap_deltas else None},
         ))
 
     graph.meta["rasterSeconds"] = raster_seconds
     graph.meta["elementSeconds"] = float(sum(r.seconds for r in results))
     return graph, results
+
+
+def _cap_deltas(radii: np.ndarray, sk, path_index: int, mask: np.ndarray,
+                cfg: ExtractConfig) -> list[float]:
+    """(outline reach - local radius) / local radius at each terminal end."""
+    px = sk.path_coordinates(path_index)
+    if len(px) < 4:
+        return []
+    out = []
+    for idx, start_rc, dir_rc in (
+        (0, px[0], px[0] - px[3]),
+        (len(px) - 1, px[-1], px[-1] - px[-4]),
+    ):
+        r_local = float(radii[idx]) * cfg.scale
+        if r_local < 1.0:
+            continue
+        reach = _march_to_edge(mask, np.asarray(start_rc, float),
+                               np.asarray(dir_rc, float), limit_px=r_local * 2.5 + 4)
+        out.append((reach - r_local) / r_local)
+    return out
 
 
 def _extend_caps(pts: np.ndarray, radii: np.ndarray, sk, path_index: int,

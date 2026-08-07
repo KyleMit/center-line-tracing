@@ -186,23 +186,30 @@ def failure_tags(graph: CenterlineGraph, results, cfg) -> dict[str, int]:
     for e in graph.edges:
         norm = e.normLength
         is_terminal = deg.get(e.from_, 0) == 1 or deg.get(e.to, 0) == 1
-        if norm is not None and is_terminal and norm < 0.6:
+        if norm is None:
+            continue
+        if is_terminal and 0.2 <= norm < 0.6:
             tags["outline noise branch"] += 1
-        if norm is not None and norm < 0.2:
+        if norm < 0.2:
             tags["raster quantization"] += 1
-        if e.beziers and len(e.geometry) >= 2:
+        # The Y-fan a T junction makes: a short bridge between two junctions.
+        if not is_terminal and norm < 1.0:
+            tags["join artifact"] += 1
+        # "too many curves for the amount of stroke" — only meaningful on edges
+        # that are at least one stroke width long, else every spur trips it.
+        if e.beziers and norm >= 1.0:
             per_unit = len(e.beziers) / max(e.length, 1e-6) * (2 * (e.medianRadius or 1))
             if per_unit > 1.5:
                 tags["excessive curve complexity"] += 1
     # degree-4 nodes: "two crossing strokes" vs "one four-way junction" is
     # genuinely ambiguous and is Track 8's call, not ours.
     tags["crossing ambiguity"] = sum(1 for n in graph.nodes if (n.degree or 0) >= 4)
-    tags["join artifact"] = sum(1 for n in graph.nodes if (n.degree or 0) == 3)
     for r in results:
-        if r.failure == "degenerate-skeleton":
+        if r.failure in ("degenerate-skeleton", "empty-mask"):
             tags["missing narrow segment"] += 1
-        elif r.failure == "empty-mask":
-            tags["missing narrow segment"] += 1
+        # measured during extraction: terminal ends where the outline is more
+        # than 25% of a local radius away from where a round cap would put it
+        tags["cap artifact"] += int(r.extra.get("capArtifacts") or 0)
     # disconnected skeleton: the skeleton fragmented into MORE pieces than the
     # mask itself had.  An element that legitimately contains several separate
     # blobs is not a failure, so the mask component count is the baseline.
