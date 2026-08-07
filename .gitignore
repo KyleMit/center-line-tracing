@@ -3,3 +3,4 @@ node_modules/
 scratch_*.png
 pycache/
 .DS_Store
+.env
