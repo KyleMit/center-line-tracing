@@ -9,11 +9,10 @@
 
 import { DX, DY, degree } from './thin.js';
 
-/** Re-seed bitmap components that thinning erased entirely (i-dots, small marks). */
-export function restoreErasedComponents(bitmap, skeleton, dt, width, height) {
+/** 8-connected component labelling of a binary bitmap. Labels start at 1. */
+export function labelComponents(bitmap, width, height) {
   const labels = new Int32Array(width * height);
   let nextLabel = 1;
-
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const idx = y * width + x;
@@ -38,6 +37,12 @@ export function restoreErasedComponents(bitmap, skeleton, dt, width, height) {
       }
     }
   }
+  return { labels, count: nextLabel };
+}
+
+/** Re-seed bitmap components that thinning erased entirely (i-dots, small marks). */
+export function restoreErasedComponents(bitmap, skeleton, dt, width, height) {
+  const { labels, count: nextLabel } = labelComponents(bitmap, width, height);
 
   const hasSkeleton = new Uint8Array(nextLabel);
   const bestIdx = new Int32Array(nextLabel).fill(-1);
@@ -51,14 +56,14 @@ export function restoreErasedComponents(bitmap, skeleton, dt, width, height) {
       bestIdx[label] = i;
     }
   }
-  let restored = 0;
+  const restoredIdx = [];
   for (let label = 1; label < nextLabel; label++) {
     if (!hasSkeleton[label] && bestIdx[label] >= 0) {
       skeleton[bestIdx[label]] = 1;
-      restored++;
+      restoredIdx.push(bestIdx[label]);
     }
   }
-  return restored;
+  return { restoredIdx, labels };
 }
 
 export function cleanJunctionClusters(skeleton, dt, width, height, thin, maxIterations) {

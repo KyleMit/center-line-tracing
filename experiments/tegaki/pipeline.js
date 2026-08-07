@@ -204,7 +204,7 @@ function skeletonizeElement(element, raster, inverseDT, opts) {
     skeleton = cleaned.skeleton;
     collapsed = cleaned.collapsed;
   }
-  const restored = restoreErasedComponents(bitmap, skeleton, inverseDT, width, height);
+  const { restoredIdx, labels } = restoreErasedComponents(bitmap, skeleton, inverseDT, width, height);
 
   // Global radius of this element, used for the width-relative merge threshold.
   let rSum = 0;
@@ -234,9 +234,35 @@ function skeletonizeElement(element, raster, inverseDT, opts) {
     rtl: opts.rtl,
   });
 
+  // ADAPTED: drop single-point strokes that are tracer residue, keep the ones
+  // that are a whole mark.
+  //
+  // Tegaki keeps every leftover single pixel — in a glyph it is an i-dot — and
+  // paints it at the glyph's AVERAGE stroke width. On a drawing, most of them
+  // are residue left near a junction, and painting each as a disk of average
+  // width put six visible blobs on landscape-square where there is no ink.
+  //
+  // The first discriminator we tried ("was it re-seeded by
+  // restoreErasedComponents?") was wrong in both directions: it dropped real
+  // ink dots on butterfly-wide (a small disk thins to a blob, so it is never
+  // "erased" and never re-seeded) and kept landscape's residue. The right test
+  // is structural — a single point is a real mark only if it is the ONLY thing
+  // representing its connected ink component. If a multi-point stroke already
+  // covers that component, the stray point is residue.
+  // "Tiny" means a single pixel, or a chain under 2 px long — the latter is
+  // what Tegaki's orientPolyline collapses into a dot when start and end are
+  // within 5 px of each other, and on a drawing that collapse is what actually
+  // produced landscape-square's phantom blobs.
+  const componentOf = (p) => labels[Math.round(p.y) * width + Math.round(p.x)] ?? 0;
+  const isTiny = (p) => p.length === 1 || pathLength(p) < 2;
+  const covered = new Set();
+  for (const p of traced.polylines) if (!isTiny(p)) for (const q of p) covered.add(componentOf(q));
+  const polylines = traced.polylines.filter((p) => !isTiny(p) || !covered.has(componentOf(p[0])));
+  const droppedSingles = traced.polylines.length - polylines.length;
+
   return {
     skeleton,
-    polylines: traced.polylines,
+    polylines,
     widths: null,
     rGlobal,
     mergeThreshold,
@@ -246,7 +272,8 @@ function skeletonizeElement(element, raster, inverseDT, opts) {
       pruneThreshold: traced.pruneThreshold,
       tracedCount: traced.tracedCount,
       collapsed,
-      restored,
+      restored: restoredIdx.length,
+      droppedSingles,
       crossingsSeen: traced.crossingsSeen,
       crossingsStopped: traced.crossingsStopped,
     },
