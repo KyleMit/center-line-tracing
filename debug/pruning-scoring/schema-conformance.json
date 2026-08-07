@@ -1,0 +1,2794 @@
+[
+  {
+    "file": "debug/autotrace/graphs/balloon-tall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/autotrace/graphs/boat-tall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/autotrace/graphs/butterfly-wide.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/autotrace/graphs/dinosaur-wide.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/autotrace/graphs/home-wide.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/autotrace/graphs/house-tall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/autotrace/graphs/house-wide.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/autotrace/graphs/island-tall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/autotrace/graphs/landscape-square.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/autotrace/graphs/sun-square.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/01-horizontal-line.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/flo-mat/graphs/02-diagonal-line.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/flo-mat/graphs/03-circular-arc.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/flo-mat/graphs/04-s-curve.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/flo-mat/graphs/05-tight-u-curve.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/flo-mat/graphs/06-closed-loop.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/flo-mat/graphs/07-round-cap.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/flo-mat/graphs/08-butt-cap.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/flo-mat/graphs/09-square-cap.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/flo-mat/graphs/10-round-join-90.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/11-bevel-join-90.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/12-miter-join-90.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/13-x-crossing-separate.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/14-x-crossing-unioned.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/15-t-junction.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/16-y-junction.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/17-near-parallel.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/flo-mat/graphs/18-self-overlap.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/flo-mat/graphs/19-variable-width.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/flo-mat/graphs/20-noisy-boundary.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/21-round-join-acute.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/flo-mat/graphs/22-miter-join-acute.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/flo-mat/graphs/balloon-tall-sat13.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/balloon-tall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/boat-tall-sat13.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/boat-tall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/butterfly-wide-sat13.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/butterfly-wide.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/dinosaur-wide-sat13.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/dinosaur-wide.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/home-wide-sat13.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/home-wide.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/house-tall-sat13.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/house-tall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/house-wide-sat13.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/house-wide.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/island-tall-sat13.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/island-tall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/landscape-square-sat13.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/landscape-square.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/sun-square-sat13.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/flo-mat/graphs/sun-square.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/real/balloon-tall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/real/boat-tall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/real/butterfly-wide.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/real/dinosaur-wide.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/real/home-wide.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/real/house-tall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/real/house-wide.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/real/island-tall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/real/landscape-square.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/real/sun-square.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/01-horizontal-line.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/02-diagonal-line.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/03-circular-arc.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/04-s-curve.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/05-tight-u.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/06-closed-loop.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/07-round-cap.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/08-butt-cap.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/09-square-cap.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/10-round-join.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/11-bevel-join.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/12-miter-join.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/13-x-crossing-separate.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/14-x-crossing-union.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/15-t-junction.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/16-y-junction.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/17-parallel-close.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/18-self-overlap.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/19-variable-width.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/20-noisy-boundary.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/21-shallow-x.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/22-reflex-notch.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/boost/synthetic/23-taper.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/real/boat-tall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/real/butterfly-wide.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/real/house-wide.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-length-mismatch",
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/01-horizontal-line.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/02-diagonal-line.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/03-circular-arc.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-length-mismatch",
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/04-s-curve.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/05-tight-u.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/06-closed-loop.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/07-round-cap.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/08-butt-cap.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/09-square-cap.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/10-round-join.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/11-bevel-join.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/12-miter-join.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/13-x-crossing-separate.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/14-x-crossing-union.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/15-t-junction.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/16-y-junction.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/17-parallel-close.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/18-self-overlap.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/19-variable-width.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/20-noisy-boundary.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/21-shallow-x.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/22-reflex-notch.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/native-geometry/graphs/cgal/synthetic/23-taper.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/butterfly-wide.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/case-01-horizontal-line.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/case-02-diagonal-line.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/case-03-circular-arc.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/case-04-s-curve.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/case-05-tight-u-curve.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/case-06-closed-loop.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/case-07-round-cap.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/case-08-butt-cap.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/case-09-square-cap.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/case-10-round-join.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/case-11-bevel-join.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/case-12-miter-join.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/case-13-x-crossing-separate.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/case-14-x-crossing-union.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/case-15-t-junction.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/case-16-y-junction.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/case-17-near-parallel.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/case-18-self-overlap.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/case-19-variable-width.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/case-20-noisy-boundary.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/dinosaur-wide.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/house-wide.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/opencv-tracing/graphs/landscape-square.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/01-line-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/02-diagonal-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/03-arc-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/04-s-curve-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/05-u-tight-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/06-loop-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/07-cap-round-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/08-cap-butt-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/09-cap-square-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/10-join-round-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/11-join-bevel-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/12-join-miter-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/13-x-separate-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/14-x-union-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/15-t-junction-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/16-y-junction-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/17-parallel-near-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/18-self-overlap-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/19-variable-width-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/20-noisy-boundary-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/balloon-tall-fitodic+filter.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/balloon-tall-fitodic.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/balloon-tall-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/boat-tall-fitodic+filter.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/boat-tall-fitodic.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/boat-tall-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/butterfly-wide-fitodic+filter.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/butterfly-wide-fitodic.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/butterfly-wide-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/dinosaur-wide-fitodic+filter.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/dinosaur-wide-fitodic.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/dinosaur-wide-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/home-wide-fitodic+filter.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/home-wide-fitodic.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/home-wide-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/house-tall-fitodic+filter.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/house-tall-fitodic.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/house-tall-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/house-wide-fitodic+filter.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/house-wide-fitodic.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/house-wide-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/island-tall-fitodic+filter.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/island-tall-fitodic.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/island-tall-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/landscape-square-fitodic+filter.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/landscape-square-fitodic.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/landscape-square-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/sun-square-fitodic+filter.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/sun-square-fitodic.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/polygon-voronoi/graphs/sun-square-pygeoops.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "schema-missing"
+    ]
+  },
+  {
+    "file": "debug/skimage-skan/graphs/01-horizontal-line__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/01-horizontal-line__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/01-horizontal-line__skeletonize@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/02-diagonal-line__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/02-diagonal-line__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/02-diagonal-line__skeletonize@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/03-circular-arc__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/03-circular-arc__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/03-circular-arc__skeletonize@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/04-s-curve__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/04-s-curve__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/04-s-curve__skeletonize@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/05-tight-u__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/05-tight-u__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/05-tight-u__skeletonize@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/06-closed-loop__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/06-closed-loop__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/06-closed-loop__skeletonize@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/07-round-cap__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/07-round-cap__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/07-round-cap__skeletonize@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/08-butt-cap__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/08-butt-cap__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/08-butt-cap__skeletonize@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/09-square-cap__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/09-square-cap__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/09-square-cap__skeletonize@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/10-round-join__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/10-round-join__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/10-round-join__skeletonize@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/11-bevel-join__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/11-bevel-join__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/11-bevel-join__skeletonize@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/12-miter-join__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/12-miter-join__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/12-miter-join__skeletonize@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/13-x-separate__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/13-x-separate__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/13-x-separate__skeletonize@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/14-x-union__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/14-x-union__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/14-x-union__skeletonize@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/15-t-junction__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/15-t-junction__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/15-t-junction__skeletonize@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/16-y-junction__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/16-y-junction__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/16-y-junction__skeletonize@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/17-near-parallel__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/17-near-parallel__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/17-near-parallel__skeletonize@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/18-self-overlap__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/18-self-overlap__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/18-self-overlap__skeletonize@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/19-variable-width__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/19-variable-width__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/19-variable-width__skeletonize@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/20-noisy-boundary__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/20-noisy-boundary__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/20-noisy-boundary__skeletonize@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/balloon-tall__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/balloon-tall__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/boat-tall__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/boat-tall__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/butterfly-wide__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/butterfly-wide__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/dinosaur-wide__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/dinosaur-wide__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/dinosaur-wide__skeletonize@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/home-wide__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/home-wide__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/house-tall__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/house-tall__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/house-wide__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/house-wide__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/house-wide__skeletonize@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/island-tall__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/island-tall__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/landscape-square__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/landscape-square__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/landscape-square__skeletonize@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/sun-square__medial-axis@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/sun-square__medial-axis@4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/skimage-skan/graphs/sun-square__skeletonize@4+pw.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/balloon-tall.baseline.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/balloon-tall.final.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/balloon-tall.guo-hall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/balloon-tall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/balloon-tall.nodots.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/balloon-tall.prune-none.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/balloon-tall.prune-tegaki-length.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/balloon-tall.prune-tegaki-width.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/boat-tall.baseline.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/boat-tall.final.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/boat-tall.guo-hall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/boat-tall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/boat-tall.nodots.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/boat-tall.prune-none.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/boat-tall.prune-tegaki-length.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/boat-tall.prune-tegaki-width.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/butterfly-wide.baseline.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/butterfly-wide.final.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/butterfly-wide.guo-hall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/butterfly-wide.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/butterfly-wide.nodots.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/butterfly-wide.prune-none.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/butterfly-wide.prune-tegaki-length.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/butterfly-wide.prune-tegaki-width.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/dinosaur-wide.baseline.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/dinosaur-wide.final.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/dinosaur-wide.guo-hall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/dinosaur-wide.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/dinosaur-wide.lee.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/dinosaur-wide.medial-axis.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/dinosaur-wide.nodots.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/dinosaur-wide.prune-none.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/dinosaur-wide.prune-tegaki-length.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/dinosaur-wide.prune-tegaki-width.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/dinosaur-wide.sweep-0.5.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/dinosaur-wide.sweep-0.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/dinosaur-wide.sweep-1.5.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/dinosaur-wide.sweep-1.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/dinosaur-wide.sweep-2.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/dinosaur-wide.sweep-3.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/dinosaur-wide.sweep-4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/dinosaur-wide.sweep-6.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/dinosaur-wide.voronoi.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/dinosaur-wide.zhang-suen.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/home-wide.baseline.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/home-wide.final.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/home-wide.guo-hall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/home-wide.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/home-wide.nodots.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/home-wide.prune-none.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/home-wide.prune-tegaki-length.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/home-wide.prune-tegaki-width.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/house-tall.baseline.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-tall.final.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-tall.guo-hall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-tall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-tall.nodots.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-tall.prune-none.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-tall.prune-tegaki-length.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-tall.prune-tegaki-width.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-wide.baseline.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-wide.final.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-wide.guo-hall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-wide.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-wide.lee.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-wide.medial-axis.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-wide.nodots.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-wide.nojc-none.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-wide.nojc-tegaki-length.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-wide.nojc-tegaki-width.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-wide.prune-none.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-wide.prune-tegaki-length.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-wide.prune-tegaki-width.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-wide.scale1.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-wide.scale2.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-wide.scale3.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-wide.scale4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-wide.voronoi.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/house-wide.zhang-suen.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/island-tall.baseline.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/island-tall.final.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/island-tall.guo-hall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/island-tall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/island-tall.nodots.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/island-tall.prune-none.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/island-tall.prune-tegaki-length.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/island-tall.prune-tegaki-width.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.baseline.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.final.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.guo-hall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.nodots.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.nojc-none.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.nojc-tegaki-length.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.nojc-tegaki-width.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.prune-none.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.prune-tegaki-length.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.prune-tegaki-width.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.scale1.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.scale2.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.scale3.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.scale4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.sweep-0.5.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.sweep-0.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.sweep-1.5.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.sweep-1.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.sweep-2.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.sweep-3.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.sweep-4.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/landscape-square.sweep-6.json",
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "edge-endpoint-drift"
+    ]
+  },
+  {
+    "file": "debug/tegaki/graphs/sun-square.baseline.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/sun-square.final.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/sun-square.guo-hall.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/sun-square.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/sun-square.nodots.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/sun-square.prune-none.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/sun-square.prune-tegaki-length.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  {
+    "file": "debug/tegaki/graphs/sun-square.prune-tegaki-width.json",
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  }
+]
