@@ -159,6 +159,10 @@ error status and code: [`docs/errors.md`](docs/errors.md).
 The common ask — a flat, few-color icon (a PNG export of a logo, an app icon, a sticker) traced to a
 clean SVG with the white background dropped. Two passes, and only the second costs anything.
 
+**This recipe is for filled regions that abut, not for strokes.** Line art made of consistent-width
+pen strokes needs three of its five settings changed — see
+[Recipe: pen-stroke line art](#recipe-colored-pen-stroke-line-art--transparent-background-svg).
+
 **Pass 1, free — discover the real colors.** Trace in test mode with retention and read the fills
 back out:
 
@@ -245,6 +249,91 @@ Not worth changing for icons: `output.svg.fixed_size` (the `false` default gives
 and `processing.palette` snapping for colors that are *already* flat — on synthetic art, snapping
 each color to itself is a verified no-op. Snapping earns its keep on anti-aliased or photographic
 sources, or when the output must use exact brand hexes rather than sampled approximations.
+
+## Recipe: colored pen-stroke line art → transparent-background SVG
+
+The other common ask — a drawing made of *strokes* rather than filled regions: a few saturated colors
+laid down at one pen width on a plain ground. It looks like a near-neighbor of the icon case and it
+is not. **Three of the five settings above are wrong for it, and the two that carry over earn their
+place for different reasons than the ones stated there.**
+
+Established on the seven drawings traced into `inputs/` — 1,087–1,662 px wide, six hues each, pen
+width held to within a pixel across a whole image at 14–22 px. Their source PNGs were removed once
+traced; `git log --all -- 'inputs/*.png'` still has them if a figure below needs re-checking.
+
+| Setting                         | Flat icons                       | Pen strokes                         | Why they differ                                                                                                                                                        |
+| ------------------------------- | -------------------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `processing.max_colors`         | `2`                              | **`0`** (unlimited) — don't cap     | A discovery pass returns exactly the artwork's hues and white, with no intermediate blends. There is nothing for a cap to clean up, and a cap can only merge two hues. |
+| `processing.shapes.min_area_px` | Raise it to kill speckle         | **Leave the `0.125` default**       | The smallest real features are sub-stroke dots — flower centers, a door knob, eyes, sand specks. On chunky icons nothing that small is ever real; here it always is.  |
+| `processing.palette`            | Snap colors, then drop white     | **Drop white only** — no snapping   | The nearest ink color measured 0.52–0.62 from white, over 10× the 0.05 tolerance. Snapping has nothing to fix on art the tracer already quantizes cleanly.             |
+| `output.gap_filler.enabled`     | `false` — "the biggest win"      | `false`, but it is nearly free      | Right answer, wrong reason. Strokes on a ground barely abut: leaving it on added **18** stroke elements, not the hundreds it adds to an icon.                          |
+| `output.shape_stacking`         | `stacked` — 275→150 KB           | `stacked`, but it barely matters    | Measured both: identical shape counts, and `cutouts` produced two extra loops out of 157. There is no stack of overlapping fills to flatten in line art.               |
+
+The keeper call, for a white-ground source:
+
+```bash
+node tools/vectorize/vectorize.mjs drawing.png \
+  --out drawing.svg --production \
+  --param 'processing.palette=#FFFFFF -> #00000000 ~ 0.05;' \
+  --param output.gap_filler.enabled=false \
+  --param output.shape_stacking=stacked \
+  --param output.group_by=none
+```
+
+`processing.max_colors` and `processing.shapes.min_area_px` are absent on purpose — their defaults
+are the right values, and setting them is how this recipe goes wrong. A source that already carries
+an alpha channel gets no `processing.palette` rule either: there is no white to drop, and the
+transparent ground survives untouched.
+
+### The boundary lands at 50% coverage
+
+The measurement that makes every other number here trustworthy. Compare a trace to its source at a
+naive ink threshold (`min(rgb) <= 200`) and the strokes look ~2 px thin, which reads as the tracer
+eroding thin geometry. It is not: compare at the source's own **half-coverage contour**
+(`min(rgb) <= 128` for saturated ink on white) and the medians land on top of each other.
+
+| Image           | Source median | Traced median | IoU at 50% coverage |
+| --------------- | ------------- | ------------- | ------------------- |
+| `balloon-tall`  | 12.65 px      | 12.65 px      | 0.9862              |
+| `boat-tall`     | 14.00 px      | 14.00 px      | 0.9875              |
+| `home-wide`     | 14.56 px      | 14.56 px      | 0.9935              |
+| `house-wide`    | 21.26 px      | 21.63 px      | 0.9925              |
+
+Pick the comparison threshold before concluding anything about stroke fidelity — the wrong one
+manufactures a defect that isn't there. For an alpha source, mask on alpha rather than on color: a
+composited threshold reports the alpha halo as hundreds of speckle components (550 against a true 12
+on `home-wide`).
+
+### What else the seven traces settled
+
+* **No stroke was severed at a crossing.** Connected-component counts matched the source on all
+  seven — 20/20, 19/19, 10/10, 12/12, 20/20, 13/13, 16/16. A mast crossing a sail, a stem crossing a
+  ground line: nothing split, nothing fused. This is the property that matters most downstream, since
+  a severed stroke becomes two centerline segments with a gap.
+* **Test-mode shape counts are not a preview, and the inflation is far worse than for bytes.** The
+  watermark is knocked out of the artwork's own geometry, fragmenting it: `balloon-tall` came back as
+  **157** artwork shapes in test mode and **28** in production. The existing gotcha covers byte
+  counts; shape counts are inflated by the same mechanism and by a comparable factor.
+* **Primitive recognition cannot help a stroked ring, structurally.** A stroked circle is an annulus,
+  and a shape has one positive loop — so a ring can never be a native `<circle>`. Across seven
+  drawings full of circles, the only `<circle>` elements produced were a butterfly's two *solid*
+  eyes. This is narrower than the "primitives are a lottery" note in the icon batch: for stroke art
+  the odds on any outlined shape are zero, not low.
+* **Overlap translucency is flattened.** Where two strokes of one color cross, the source shows a
+  darker blend from its own alpha compositing; the trace resolves the crossing to a single opaque
+  fill. Visible on `island-tall`'s palm trunk. It is the one place these traces are deliberately not
+  a pixel copy, and no parameter changes it.
+* **Color lands within 6/255.** Mean per-channel deviation over shared ink ran 3.02–5.54 — the
+  tracer picking one flat hue where the source averages an anti-aliased ramp. The same effect is why
+  IoU tops out near 0.99 rather than at 1.
+
+### Sizing, and when the defaults stop being safe
+
+These sources were all ~1.5 MP, comfortably under the `input.max_pixels` default of 2,097,252, so
+nothing was shrunk and the traces came back at native `viewBox` dimensions. **Check this before
+trusting the recipe on a larger source**: the default shrink would thin every stroke and blur the
+crossings, which is exactly the geometry that must survive. Raise `input.max_pixels` toward its
+3,145,828 ceiling, or pre-shrink deliberately, rather than letting the default decide.
 
 ## Choosing parameters for Splotch-shaped work
 
