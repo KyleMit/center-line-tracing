@@ -40,12 +40,12 @@ path that wiggles along the outline. Always read error together with
 |---|---|
 | Branch | `claude/centerline-track8-handoff-d6mrkw` (off `main` after PR #11 merged) |
 | Schema | `centerline-graph/1`, **frozen**, published in `debug/pruning-scoring/SCHEMA.md` |
-| Conformance | 460/460 track graph files, plus 50/50 scale-sweep graphs |
+| Conformance | 461/461 track graph files, plus 149/149 scale-sweep graphs |
 | Leaderboard | **80/80 cells**, `debug/pruning-scoring/leaderboard.md` |
 | A/B | **30 cells across 3 backends**, `debug/pruning-scoring/abtest.md` |
 | Complexity | 73 graphs, `debug/pruning-scoring/smoothness.md` |
-| Raster scale | 10 drawings × 5 scales, `debug/pruning-scoring/scalesweep.md` |
-| Ground truth | 20 truth cases × 5 scales, `debug/pruning-scoring/scalesweep-corpus.md` |
+| Raster scale | 49/50 cells (10 drawings × 5 scales), `debug/pruning-scoring/scalesweep.md` |
+| Ground truth | 100/100 cells (20 truth cases × 5 scales), `debug/pruning-scoring/scalesweep-corpus.md` |
 | Tests | `python3 experiments/pruning-scoring/test_clg.py` — all invariants hold |
 
 ### Commands
@@ -116,7 +116,7 @@ polygon-voronoi, and both are the drawings with fine scribbled detail.
 
 **Automatic pruning beats hand-tuned thresholds, and against a genuinely tuned
 backend it wins on error too.** Against flo-mat's SAT s=1.3 and tegaki's own rule it
-buys 23–35% simpler graphs for +0–8% error. Against polygon-voronoi's PyGeoOps
+buys 16–35% simpler graphs for +0–8% error. Against polygon-voronoi's PyGeoOps
 width-relative filtering it is better on **10 of 10** images — 5 dominating outright,
 5 at lower error — and a sweep candidate beat the hand-tuned answer on 10 of 10. See
 `abtest.md`.
@@ -195,8 +195,8 @@ reconstruction error keeps falling to scale 8. NOTES §10.
 - **The container suspends between turns.** Long background jobs barely advance
   while you wait on them — run benches in the foreground, and note that
   `bench.py leaderboard` and `scalesweep.py` both write after every cell so a partial
-  run survives. Budget for it: `scalesweep.py --scales 16` needs ~40 min on
-  `dinosaur-wide` alone.
+  run survives. Budget for it: `scalesweep.py --scales 16` did not finish
+  `dinosaur-wide` in 45 minutes, which is the one missing cell of fifty.
 
 ## Feedback owed to the other tracks
 

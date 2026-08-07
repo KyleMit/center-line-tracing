@@ -422,9 +422,16 @@ def report(data: dict) -> str:
             f"| {_f(med([r['auto']['edges'] for r in rows]), '6.0f')} "
             f"| {_f(med([r['extractSeconds'] for r in rows]), '6.1f')} |")
 
+    # Absent cells and failed cells are different things and both need saying, or a
+    # `--` in the table reads as "not interesting" rather than "not measured".
+    absent = [(i, s) for i in images for s in scales if (i, s) not in by
+              and not any(r["image"] == i and r["scale"] == s for r in data["results"])]
     failed = [r for r in data["results"] if r.get("status") != "ok"]
-    if failed:
-        lines.append("\n## Cells that did not produce a result\n")
+    if absent or failed:
+        lines.append("\n## Cells with no result\n")
+        for i, s in absent:
+            lines.append(f"- `{i}@{s:g}` — never completed; see NOTES Addendum 2 §8 "
+                         "on scale-16 extraction cost.")
         for r in failed:
             lines.append(f"- `{r['image']}@{r['scale']:g}` — {r['status']}: "
                          f"{r.get('error', '')}")

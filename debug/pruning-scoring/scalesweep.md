@@ -1,6 +1,6 @@
 # skimage-skan raster scale, swept and auto-pruned
 
-Generated 2026-08-07 21:44:41 · 435.1s · `medial-axis` + piecewise width · pruning λ 0.0..10.0, selected automatically per cell.
+Generated 2026-08-07 21:52:44 · 917.9s · `medial-axis` + piecewise width · pruning λ 0.0..10.0, selected automatically per cell.
 
 Error is symmetric difference as a fraction of source ink, measured *after* automatic width-aware pruning — so a scale is judged on what survives cleanup, not on its raw skeleton. Lower is better.
 
@@ -17,7 +17,7 @@ Error is symmetric difference as a fraction of source ink, measured *after* auto
 | home-wide | 0.0473 | 0.0282 | 0.0243 | 0.0225 | **0.0224** |
 | house-tall | 0.0443 | 0.0294 | 0.0184 | **0.0175** | 0.0187 |
 | dinosaur-wide | 0.0391 | 0.0211 | 0.0162 | **0.0157** |   --   |
-| landscape-square | 0.0313 | **0.0244** | 0.0268 | 0.0279 |   --   |
+| landscape-square | 0.0313 | **0.0244** | 0.0268 | 0.0279 | 0.0286 |
 | sun-square | 0.0321 | **0.0246** | 0.0390 | 0.0447 | 0.0412 |
 
 ## Wobble after auto-pruning (product goal: lower is smoother)
@@ -32,7 +32,7 @@ Error is symmetric difference as a fraction of source ink, measured *after* auto
 | home-wide | 0.0298 | 0.0237 | 0.0247 | **0.0167** | 0.0185 |
 | house-tall | 0.0335 | 0.0295 | 0.0228 | **0.0198** | 0.0212 |
 | dinosaur-wide | 0.0235 | 0.0159 | 0.0121 | **0.0107** |   --   |
-| landscape-square | 0.0363 | 0.0219 | **0.0174** | 0.0178 |   --   |
+| landscape-square | 0.0363 | 0.0219 | 0.0174 | 0.0178 | **0.0173** |
 | sun-square | 0.0455 | 0.0186 | 0.0126 | **0.0123** | 0.0129 |
 
 ## Control points per stroke width (editability; lower is leaner)
@@ -47,7 +47,7 @@ Error is symmetric difference as a fraction of source ink, measured *after* auto
 | home-wide |   3.29 |   3.63 |   2.43 |   1.76 | **  1.75** |
 | house-tall |   3.66 |   3.66 |   2.59 |   2.22 | **  2.18** |
 | dinosaur-wide |   3.55 |   3.18 |   1.83 | **  1.32** |   --   |
-| landscape-square |   4.15 |   3.10 |   1.72 | **  1.58** |   --   |
+| landscape-square |   4.15 |   3.10 |   1.72 |   1.58 | **  1.57** |
 | sun-square |   4.56 |   3.95 |   2.24 | **  2.08** |   2.12 |
 
 ## Branches kept after auto-pruning
@@ -62,7 +62,7 @@ Error is symmetric difference as a fraction of source ink, measured *after* auto
 | home-wide |     64 |     76 | **    40** |    127 |    198 |
 | house-tall |     53 | **    52** |    104 |    139 |    190 |
 | dinosaur-wide | **    63** |     88 |     99 |    152 |   --   |
-| landscape-square |    285 |    262 | **   184** |    196 |   --   |
+| landscape-square |    285 |    262 | **   184** |    196 |    189 |
 | sun-square |     70 |     48 | **    30** | **    30** |     43 |
 
 ## Selected pruning strength λ
@@ -77,7 +77,7 @@ Error is symmetric difference as a fraction of source ink, measured *after* auto
 | home-wide |  0.00 |  0.00 | ** 1.00** |  0.00 |  0.00 |
 | house-tall | ** 3.00** |  1.00 |  0.00 |  0.00 |  0.00 |
 | dinosaur-wide | ** 1.00** |  0.00 |  0.00 |  0.00 |   --   |
-| landscape-square | ** 0.50** | ** 0.50** | ** 0.50** | ** 0.50** |   --   |
+| landscape-square | ** 0.50** | ** 0.50** | ** 0.50** | ** 0.50** | ** 0.50** |
 | sun-square | ** 1.50** | ** 1.50** |  1.00 |  1.00 | ** 1.50** |
 
 ## Extraction seconds
@@ -92,7 +92,7 @@ Error is symmetric difference as a fraction of source ink, measured *after* auto
 | home-wide | **    2.5** |     2.5 |     4.7 |    12.3 |    63.9 |
 | house-tall | **    2.9** |     3.3 |     6.2 |    20.1 |   103.2 |
 | dinosaur-wide | **    3.9** |     5.3 |    17.1 |    75.8 |   --   |
-| landscape-square | **    4.3** |     6.2 |    21.5 |   112.0 |   --   |
+| landscape-square | **    4.3** |     6.2 |    21.5 |   112.0 |   545.4 |
 | sun-square |     0.9 | **    0.9** |     2.9 |     9.6 |    46.5 |
 
 ## Medians across all drawings
@@ -103,4 +103,8 @@ Error is symmetric difference as a fraction of source ink, measured *after* auto
 | 2 | 10 | 0.0252 | 0.0242 | 0.0237 |   3.49 |     52 |    3.4 |
 | 4 | 10 | 0.0205 | 0.0188 | 0.0215 |   2.24 |     62 |    9.2 |
 | 8 | 10 | 0.0188 | 0.0176 | 0.0178 |   1.76 |     76 |   31.1 |
-| 16 | 8 | 0.0187 | 0.0176 | 0.0197 |   2.06 |     93 |  117.5 |
+| 16 | 9 | 0.0187 | 0.0176 | 0.0185 |   1.75 |     93 |  117.5 |
+
+## Cells with no result
+
+- `dinosaur-wide@16` — never completed; see NOTES Addendum 2 §8 on scale-16 extraction cost.

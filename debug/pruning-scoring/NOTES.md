@@ -219,6 +219,12 @@ automatic width-relative parameters, which was an open question in the handoff.
   undone because each track generated its own corpus with its own geometry, and a
   fair truth comparison needs the corpora unified first. **That is the single most
   useful next step for this layer.**
+  *Partly addressed since:* `clg.metrics.centerline_error` now lives in the shared
+  layer and has been run against one track's corpus (Addendum 2 §10), which is what
+  showed that raster scale improves reconstruction error past the point where it
+  stops improving where the line actually sits. The measurement exists; corpus
+  unification is still the missing piece, so the next step is unchanged in substance
+  and smaller in scope.
 * **The re-stroke model is round-cap, round-join, and per-vertex width.** Backends
   that intend butt or square caps are scored against a model they did not target.
   The synthetic cap cases (7–9) exist to quantify that and I did not get to them.
@@ -242,16 +248,22 @@ pruning stage differs. Automatic selection always starts from that track's
 **unpruned** graph, and complexity is measured after canonicalization on both sides
 so the comparison is like for like.
 
-| backend | images | auto dominates | auto simpler at same error | tie | hand-tuned better |
-|---|---|---|---|---|---|
-| flo-mat (vs SAT s=1.3) | 9 | 1 | 7 | 0 | 1 |
-| tegaki (vs its own width rule) | 9 | 0 | 8 | 1 | 0 |
+| backend | images | auto dominates | auto lower error | auto simpler at same error | tie | hand-tuned better |
+|---|---|---|---|---|---|---|
+| flo-mat (vs SAT s=1.3) | 10 | 1 | 0 | 8 | 0 | 1 |
+| tegaki (vs its own width rule) | 10 | 0 | 0 | 9 | 1 | 0 |
+| polygon-voronoi (vs PyGeoOps filtering) | 10 | 5 | 5 | 0 | 0 | 0 |
 
-On flo-mat the trade is consistent and worthwhile: **23–35% simpler graphs for
+On flo-mat the trade is consistent and worthwhile: **16–35% simpler graphs for
 +0–8% reconstruction error**, and on `home-wide` automatic pruning strictly
 dominates — **−24% error** *and* a simpler graph, because SAT at s=1.3 over-pruned
-that image. A candidate somewhere in the sweep beat SAT outright on 4 of 9 images,
+that image. A candidate somewhere in the sweep beat SAT outright on 4 of 10 images,
 so there is headroom the selection rule leaves on the table.
+
+The polygon-voronoi row was added later and is the strongest evidence here — see
+Addendum 2 §12. It is the only pair where the hand-tuned side is a genuinely tuned,
+width-relative filter rather than an under-powered rule, and automatic pruning wins
+on **error** there, not merely on simplicity.
 
 On tegaki the gains are small (2–6% simpler), and the honest reason is that
 **tegaki's published pruning is very nearly a no-op** — its `prune-none` and
@@ -259,12 +271,14 @@ On tegaki the gains are small (2–6% simpler), and the honest reason is that
 is really "automatic pruning vs no pruning", and it is not evidence about Tegaki's
 algorithm.
 
-`landscape-square` is excluded from the A/B: the sweep did not finish on it within
-the session. See the runtime note below.
+`landscape-square` was originally excluded from the A/B because the sweep did not
+finish on it. It is included now; the metric that made it impossible is fixed in
+Addendum 2 §11.
 
 ### The cross-backend leaderboard
 
-[`leaderboard.md`](./leaderboard.md), 79 of 80 cells. Every backend is shown at
+[`leaderboard.md`](./leaderboard.md), **80 of 80 cells** (79 when this was first
+written; the missing one is filled — Addendum 2 §11–12). Every backend is shown at
 **its own automatically selected pruning strength**, which is the point — no
 backend is penalized for a threshold someone else picked. Ranked by median
 symmetric difference as a fraction of source ink:
@@ -277,7 +291,7 @@ symmetric difference as a fraction of source ink:
 | autotrace | 10 | 0.0448 | 0.0363 | 0.0523 |
 | flo-mat | 10 | 0.0589 | 0.0341 | 0.0989 |
 | tegaki | 10 | 0.0622 | 0.0410 | 0.1354 |
-| polygon-voronoi | 9 | 0.0690 | **0.0118** | 0.1049 |
+| polygon-voronoi | 10 | 0.0690 | **0.0118** | 0.1049 |
 | incumbent | 10 | 0.1325 | 0.0849 | 0.2104 |
 
 Three things need saying about this table, because it is easy to misread.
@@ -292,7 +306,10 @@ if the goal is "the recovered stroke geometry is right", it is not the leader.
 **polygon-voronoi has the best single score in the whole table (0.0118) and a
 middling median.** That is the §19 hybrid argument in one row: it is the right
 backend for some shapes and the wrong one for others, and per-shape selection by
-reconstruction metric would beat any single choice.
+reconstruction metric would beat any single choice. With the eightieth cell filled
+it also wins `landscape-square` at 0.0159, so the argument now rests on two
+drawings rather than one, and best-backend-per-drawing improves on skimage-skan
+alone by 14% instead of 7%.
 
 **opencv-tracing's 4 images are not comparable to the others' 10.** It published
 real-input graphs for only four; its median is over the easier subset.
@@ -307,6 +324,13 @@ render says *what* went wrong. Same for the progress sheet at λ=10: the sun's r
 disappear exactly where error jumps from 0.042 to 0.117.
 
 ### A runtime failure worth recording
+
+> **This diagnosis was wrong, and the correction is in Addendum 2 §11.** Kept as
+> written because the mistake is the useful part: it was confident enough to become
+> the next session's task list, and nobody had profiled it. On that graph
+> `merge_chains` takes 0.0 s and performs zero merges. The real cost was unindexed
+> point-to-boundary distance in the *scoring*, 97 s per `score_graph`. Indexing it
+> was a 13× speedup on that cell and 4× on the whole leaderboard.
 
 `polygon-voronoi/landscape-square` never completed a sweep. Its graph is over 1 MB
 with many thousands of edges, and the cost is in **canonicalization, not scoring**:
@@ -448,11 +472,24 @@ rather than a metric artifact — the addendum above exists precisely because er
 alone rewards a path that wiggles along the outline, and here the smoothness axis
 moves the same way as the error axis instead of against it.
 
+It is not an artifact of the selection rule either. The same improvement is there in
+the **unpruned** column — median error at λ=0 goes 0.0188 (scale 4) → 0.0176 (scale
+8) — so the gain comes from the extraction, and automatic pruning merely does not
+throw it away. That check matters because the selector is free to trade error for
+simplicity, and a scale that happened to suit its tolerance would look better for the
+wrong reason.
+
 Scale 16 does not continue the trend. Over the nine drawings that completed all five
 scales, error is flat (0.0187 vs 0.0188), **wobble is worse than scale 8** (0.0185 vs
 0.0178), points per width is identical (1.75 vs 1.76), and extraction is 5.8× slower
 (117.5 s vs 20.3 s median). skimage-skan's own notes nominated scale 16 as the
 experiment to run; the answer is no.
+
+One caveat on cost, because it is worse than the medians suggest: `dinosaur-wide` at
+scale 16 did not finish in **45 minutes** and is the one missing cell of fifty. The
+medians above are over the nine that completed. Rasterizing per element at 16 px per
+unit puts `medial_axis` on masks large enough that the cost stops tracking the median.
+That is a further practical argument against scale 16, not just a gap in the table.
 
 ### 9. Two drawings want a *lower* scale, and they are the two this backend is worst on
 
@@ -488,10 +525,18 @@ every scale. Branches surviving automatic pruning:
 | branches before pruning | 20 | 23 | 43 | 106 | 201 |
 | **branches after pruning** | **1** | 4 | 4 | **21** | **59** |
 
-Pruning does not keep up. It removes 95% of the spurious branches at scale 1 and 71%
-at scale 16, but the absolute count it leaves behind grows by 15× across the sweep.
-Scale 8 is still the right default — the accuracy and smoothness gains in §8 are
-real and measured — but it is right *despite* the cleanup argument, not because of it.
+Pruning does not keep up. The true answer is one branch, so the spurious survivors
+are 0 · 3 · 3 · 20 · 58 across the five scales. In *proportional* terms pruning looks
+like it is holding — it removes 100% of the spurious branches at scale 1 and still
+71% at scale 16 — but what reaches the output is what matters, and that grows without
+bound. Scale 8 is still the right default; the accuracy and smoothness gains in §8
+are real and measured. It is right *despite* the cleanup argument, not because of it.
+
+There is a corroborating signal in the selection rule itself: on `house-tall`,
+`dinosaur-wide` and `home-wide` the selector picks **λ=0** at scale 8 — it declines to
+prune at all — where at scale 1 it picks 3.0, 1.0 and 0.0. So at high resolution the
+rule is not merely failing to remove enough, it is often deciding there is nothing
+worth removing. Whatever is wrong is in the decision, not only in the threshold.
 
 Ground truth also tempers §8 in a second way. Median distance to the true centerline
 over the 20 cases: 0.2511 (s1) · 0.1897 (s2) · **0.1363 (s4)** · **0.1332 (s8)** ·
