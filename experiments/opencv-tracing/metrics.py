@@ -37,11 +37,13 @@ def restroke_mask(graph, constant_width: bool = True) -> np.ndarray:
     """Rasterize `stroke_to_fill(centerline, width)` on the element's own grid.
 
     Round caps and joins are reproduced by stamping a disc at every densified
-    sample, which is exactly what an SVG round-capped stroke is.
+    sample, which is exactly what an SVG round-capped stroke is. Each edge is
+    stamped inside its own bounding box rather than the full element crop —
+    without that, scoring a 38-element drawing costs one full-mask distance
+    transform per edge and dominates the whole benchmark.
     """
     h, w = graph.raster.mask.shape
     out = np.zeros((h, w), dtype=bool)
-    yy, xx = np.mgrid[0:h, 0:w]
 
     stamps = []
     for edge in graph.edges:
@@ -65,16 +67,33 @@ def restroke_mask(graph, constant_width: bool = True) -> np.ndarray:
     if not stamps:
         return out
 
-    # Disc stamping via a distance transform is far cheaper than per-disc masks
-    # when the radius is constant per edge, so do it that way per edge.
+    # Threshold a distance transform seeded at the samples: exact on the pixel
+    # grid, with no rasterization approximation of its own. Restricted to each
+    # edge's own bounding box — the unrestricted version costs a full-mask
+    # transform per edge and dominated the whole benchmark on the 38-element
+    # dinosaur.
+    #
+    # Stamping with cv2.circle(shift=3) instead is much faster but disagrees
+    # with this by up to 0.002 IoU (see NOTES.md); since the bounded transform
+    # is fast enough, correctness wins.
     for dense, radii in stamps:
-        seeds = np.ones((h, w), dtype=np.uint8)
-        px = np.clip(np.round(dense[:, 0]).astype(int), 0, w - 1)
-        py = np.clip(np.round(dense[:, 1]).astype(int), 0, h - 1)
+        pad = int(np.ceil(radii.max())) + 2
+        x0 = max(0, int(np.floor(dense[:, 0].min())) - pad)
+        x1 = min(w, int(np.ceil(dense[:, 0].max())) + pad + 1)
+        y0 = max(0, int(np.floor(dense[:, 1].min())) - pad)
+        y1 = min(h, int(np.ceil(dense[:, 1].max())) + pad + 1)
+        if x1 <= x0 or y1 <= y0:
+            continue
+
+        lw, lh = x1 - x0, y1 - y0
+        px = np.clip(np.round(dense[:, 0]).astype(int) - x0, 0, lw - 1)
+        py = np.clip(np.round(dense[:, 1]).astype(int) - y0, 0, lh - 1)
+        window = out[y0:y1, x0:x1]
+
         if np.allclose(radii, radii[0]):
+            seeds = np.ones((lh, lw), dtype=np.uint8)
             seeds[py, px] = 0
-            dt = ndimage.distance_transform_edt(seeds)
-            out |= dt <= radii[0]
+            window |= ndimage.distance_transform_edt(seeds) <= radii[0]
         else:
             # Variable radius: bucket samples by radius and union the buckets.
             order = np.argsort(radii)
@@ -82,11 +101,10 @@ def restroke_mask(graph, constant_width: bool = True) -> np.ndarray:
             for bucket in buckets:
                 if len(bucket) == 0:
                     continue
-                seeds = np.ones((h, w), dtype=np.uint8)
+                seeds = np.ones((lh, lw), dtype=np.uint8)
                 seeds[py[bucket], px[bucket]] = 0
-                dt = ndimage.distance_transform_edt(seeds)
-                out |= dt <= float(np.max(radii[bucket]))
-    del yy, xx
+                window |= (ndimage.distance_transform_edt(seeds)
+                           <= float(np.max(radii[bucket])))
     return out
 
 

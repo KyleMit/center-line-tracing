@@ -131,8 +131,8 @@ def run_one(target: dict, config: dict, save_artifacts: bool = False) -> dict:
                                     weights=[r["originalArea"] for r in recon])),
             "symDiffArea": float(sum(r["symDiffArea"] for r in recon)),
             "symDiffFraction": float(sum(r["symDiffArea"] for r in recon) / orig) if orig else 0.0,
-            "boundaryMedian": float(np.median([r["boundaryMedian"] for r in recon])),
-            "boundaryP95": float(np.percentile([r["boundaryP95"] for r in recon], 95)),
+            "boundaryMedian": float(np.nanmedian([r["boundaryMedian"] for r in recon])),
+            "boundaryP95": float(np.nanpercentile([r["boundaryP95"] for r in recon], 95)),
         }
 
     # Constant width per edge is the shape Common Setup asks for. The variable
@@ -235,12 +235,17 @@ def speed_comparison(targets: list[dict], scale: float, repeats: int = 3) -> dic
 # tracer agreement (the portability claim)
 # ---------------------------------------------------------------------------
 
-def tracer_agreement(targets: list[dict], config: dict) -> dict:
+def tracer_agreement(targets: list[dict], config: dict,
+                     py_pixel_budget: int = 2_000_000) -> dict:
     """Do the C, Python and JS ports of skeleton-tracing return the same polylines?
 
     If they do, "this pipeline ports to the browser unchanged" is a fact rather
     than a hope. Compared as sorted vertex multisets so polyline ordering does
     not count as a difference.
+
+    `st-py` is upstream's own "super slow ... just for reference" implementation
+    and is skipped above `py_pixel_budget` — it is minutes per megapixel, and
+    checking it on the small targets already establishes the invariant.
     """
     def signature(polys):
         return sorted(tuple(map(tuple, p)) for p in polys)
@@ -251,8 +256,12 @@ def tracer_agreement(targets: list[dict], config: dict) -> dict:
             target["path"].read_text(), MASKS / target["name"] / f"s{config['scale']:g}",
             config["scale"])
         skeletons = [pipeline.thin(r.mask, config["thinning"]) for r in rasters]
+        pixels = sum(s.size for s in skeletons)
         ref = [signature(tracers.st_c(s, csize=config["csize"])) for s in skeletons]
         for label, fn in (("st-py", tracers.st_py), ("st-js", tracers.st_js)):
+            if label == "st-py" and pixels > py_pixel_budget:
+                report.setdefault(label, {})[target["name"]] = None
+                continue
             same = all(signature(fn(s, csize=config["csize"])) == r
                        for s, r in zip(skeletons, ref))
             report.setdefault(label, {})[target["name"]] = same
