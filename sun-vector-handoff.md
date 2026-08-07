@@ -15,8 +15,6 @@ fold as a rounded blob instead of a sharp point:
 /            /
 ```
 
-See `debug/sun/tip3way.png` (input | raster | vector) for the exact defect.
-
 ## Approach
 
 `sun_vectorize.py` reconstructs the pen centerline **in vector space** from the
@@ -43,24 +41,11 @@ The outer ring (path 0) is reconstructed as its actual wavy mid-loop between the
 two edge loops (`ring_centerline`), which matches the hand-drawn ring far better
 than a fitted circle.
 
-## The five input variants
+## Sample
 
-`inputs/sun-*.svg` are the same drawing with different outline primitives:
-
-| file | path commands | vector metric* |
-|------|---------------|----------------|
-| sun-1 | arcs + cubics + quadratics (A/C/Q) | 7.38% |
-| sun-2, sun-3 | cubics + quadratics (C/Q) | 6.70% |
-| sun-4 | quadratic-dominant (Q) | 6.78% |
-| sun-5 | **pure polylines (L)** | **6.26%** |
-
-\* differing pixels vs input at 1200px; lower is better.
-
-**Recommendation: sun-5 (pure polylines) is the strongest starting point.** It
-is already an exact polygon, so there is no bezier/arc flattening approximation,
-and it scores best. All variants work through the flattener; sun-1's arcs incur
-the most flattening error. (Note: the raster pipeline is blind to this
-distinction — it rasterizes first, so all five collapse to identical pixels.)
+`inputs/sun.svg` is a pure-polyline outline, so it is already an exact polygon
+and does not introduce bezier/arc flattening error. Its generated result is
+`outputs/sun.svg`.
 
 ## Tradeoff vs the raster pipeline
 
@@ -70,24 +55,15 @@ distinction — it rasterizes first, so all five collapse to identical pixels.)
 The vector output costs a couple points of pixel-diff (thin-hatching edge
 penalty + the reconstructed snake reads slightly busier, since it exposes the
 true single continuous stroke) while fixing the perceptual defect the raster
-cannot. For the sun family the sharp tips are the point, so `outputs/sun-*.svg`
-were generated with the vector engine.
+cannot. The sample output is therefore generated with the vector engine.
 
 ## Usage
 
 ```bash
 DYLD_LIBRARY_PATH=/opt/homebrew/lib .venv/bin/python sun_vectorize.py \
-    inputs/sun-5.svg --output outputs/sun-5.svg
+    inputs/sun.svg --output outputs/sun.svg
 # deps: numpy scipy shapely  (shapely was pip-installed into .venv)
 ```
-
-## Prototype trail (debug/sun/)
-
-- `chordal.py` / `chordal2.py` / `chordal3.py` — incremental prototypes;
-  superseded by the consolidated top-level `sun_vectorize.py`.
-- `chordal-overlay.png` — outline + recovered axis + detected tip corners.
-- `tip3way.png` — input vs raster vs vector at one fold.
-- `montage.png` — input vs vector output for all five variants.
 
 ## Not done yet / next steps
 
