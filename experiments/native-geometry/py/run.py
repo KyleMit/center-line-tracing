@@ -137,7 +137,7 @@ def process(svg_path, engine="boost", prune_k=1.0, flatness=0.05, opts=None, tag
     return {"row": row, "graph": graph, "width": w, "height": h, "orig": orig, "recon": recon}
 
 
-def write_artifacts(result, engine, subdir):
+def write_artifacts(result, engine, subdir, simplify_tol=0.0):
     graph, row = result["graph"], result["row"]
     gdir = os.path.join(DEBUG, "graphs", engine, subdir)
     rdir = os.path.join(DEBUG, "restroke", engine, subdir)
@@ -152,7 +152,7 @@ def write_artifacts(result, engine, subdir):
             "boost_version": "1.83.0" if engine == "boost" else None,
         },
     )
-    svg = restroke_svg(graph, result["width"], result["height"])
+    svg = restroke_svg(graph, result["width"], result["height"], simplify_tol=simplify_tol)
     with open(os.path.join(rdir, row["name"] + ".svg"), "w") as f:
         f.write(svg)
 
@@ -187,7 +187,7 @@ def bench(args):
             continue
         if res is None:
             continue
-        write_artifacts(res, args.engine, subdir)
+        write_artifacts(res, args.engine, subdir, opts.get("simplify", 0.0))
         rows.append(res["row"])
         r = res["row"]
         cl = r.get("centerline_recovered_to_truth", {})
@@ -239,7 +239,7 @@ def main():
             opts["min_component"] = args.min_component
         res = process(args.svg, args.engine, args.prune, args.flatness, opts, args.tag)
         sub = "synthetic" if "/synthetic/" in args.svg else "real"
-        write_artifacts(res, args.engine, sub)
+        write_artifacts(res, args.engine, sub, opts.get("simplify", 0.0))
         print(json.dumps(res["row"], indent=1))
 
     o.set_defaults(func=one)

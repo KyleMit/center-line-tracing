@@ -57,6 +57,7 @@ python3 py/run.py bench --set real --engine boost
 | parabola discretization | 0.1 user units chord tolerance | Voronoi edges between a point site and a segment site are parabolic arcs |
 | clearance filter | `r_eps = 0.25` user units | |
 | tip pruning | `k = 1.0` (drop leaf chains shorter than the clearance radius at their anchor) | swept, see §5 |
+| output simplification | RDP 0.1 user units, applied only when writing the stroke path | graph JSON keeps full precision; see §5 |
 
 Runs are deterministic: same input → byte-identical graph JSON. Nothing samples,
 nothing seeds an RNG, and no metric is measured on pixels.
@@ -87,7 +88,9 @@ The two IoU columns are the most important number this track produced.
   union of inscribed discs using the per-point clearance radius the kernel
   computes. It measures the geometry engine alone.
 * **IoU (stroke)** re-fills from the deliverable — one `<path>` per graph edge at
-  one constant `stroke-width` (`2 × median radius`), round caps and joins.
+  one constant `stroke-width` (`2 × median radius`), round caps and joins, with
+  the polyline simplified at 0.1 px. The table above is the unsimplified run;
+  simplification costs 0.0005 mean IoU and 4.4× the file size.
 
 **The engine is not the bottleneck.** At 0.989–0.997 MAT IoU, the axis and its
 radius function describe the artwork almost exactly; every visible defect in the
@@ -223,6 +226,7 @@ whether SFCGAL's approximation post-processes the skeleton differently from a ra
 | Degenerate-blob fallback | a dot's medial axis is a single point, so the Voronoi has no interior edge at all; emit a zero-length round-capped stroke at the inscribed centre | yes |
 | Tip extension along the tangent ("cap extension by radius", §9.6) | **no-op, +0.0002 IoU.** The Voronoi axis of a round-capped stroke already ends exactly at the cap centre; there is nothing to extend. This technique is for raster/thinning backends whose skeletons stop short — it is not needed here | off by default (`--no-extend`), code kept |
 | Stroke width = 40th / 25th percentile of edge radii instead of median | worse everywhere: real mean IoU 0.9636 → 0.9622 (p40) → 0.9541 (p25) | rejected, median kept |
+| Polyline simplification (RDP) at 0.1 px before writing the stroke path | promoted output 1.5 MB → 340 kB (4.4×) for −0.0005 mean IoU; 0.3 px costs −0.004 | **0.1 px, adopted for the promoted SVGs** |
 | Tip prune sweep on sun-square, `k ∈ {0, 0.5, 1, 2, 4}` | IoU 0.9114 / 0.9042 / **0.9135** / 0.9108 / 0.8662 with 151 / 69 / **32** / 30 / 24 strokes. `k=1` is both the best score and 5× simpler than no pruning | `k=1.0` |
 
 Progress sheet for the sweep: `progress/progress-sun-square.png`.
