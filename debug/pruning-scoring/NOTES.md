@@ -230,3 +230,121 @@ automatic width-relative parameters, which was an open question in the handoff.
   normalized across a candidate set before blending, so complexity comparisons are
   meaningful *within* one sweep and only roughly meaningful across backends with
   different geometry encodings (beziers vs dense polylines).
+
+---
+
+## Results
+
+### The controlled A/B: automatic pruning vs each track's own pruning
+
+[`abtest.md`](./abtest.md). Same backend, same rasterization, same tracing — only the
+pruning stage differs. Automatic selection always starts from that track's
+**unpruned** graph, and complexity is measured after canonicalization on both sides
+so the comparison is like for like.
+
+| backend | images | auto dominates | auto simpler at same error | tie | hand-tuned better |
+|---|---|---|---|---|---|
+| flo-mat (vs SAT s=1.3) | 9 | 1 | 7 | 0 | 1 |
+| tegaki (vs its own width rule) | 9 | 0 | 8 | 1 | 0 |
+
+On flo-mat the trade is consistent and worthwhile: **23–35% simpler graphs for
++0–8% reconstruction error**, and on `home-wide` automatic pruning strictly
+dominates — **−24% error** *and* a simpler graph, because SAT at s=1.3 over-pruned
+that image. A candidate somewhere in the sweep beat SAT outright on 4 of 9 images,
+so there is headroom the selection rule leaves on the table.
+
+On tegaki the gains are small (2–6% simpler), and the honest reason is that
+**tegaki's published pruning is very nearly a no-op** — its `prune-none` and
+`prune-tegaki-length` graphs are byte-identical on all ten images. So that column
+is really "automatic pruning vs no pruning", and it is not evidence about Tegaki's
+algorithm.
+
+`landscape-square` is excluded from the A/B: the sweep did not finish on it within
+the session. See the runtime note below.
+
+### The cross-backend leaderboard
+
+[`leaderboard.md`](./leaderboard.md), 79 of 80 cells. Every backend is shown at
+**its own automatically selected pruning strength**, which is the point — no
+backend is penalized for a threshold someone else picked. Ranked by median
+symmetric difference as a fraction of source ink:
+
+| backend | images | median err | best | worst |
+|---|---|---|---|---|
+| skimage-skan | 10 | **0.0188** | 0.0142 | 0.0380 |
+| opencv-tracing | 4 | 0.0265 | 0.0204 | 0.0272 |
+| native-geometry | 10 | 0.0268 | 0.0196 | 0.0900 |
+| autotrace | 10 | 0.0448 | 0.0363 | 0.0523 |
+| flo-mat | 10 | 0.0589 | 0.0341 | 0.0989 |
+| tegaki | 10 | 0.0622 | 0.0410 | 0.1354 |
+| polygon-voronoi | 9 | 0.0690 | **0.0118** | 0.1049 |
+| incumbent | 10 | 0.1325 | 0.0849 | 0.2104 |
+
+Three things need saying about this table, because it is easy to misread.
+
+**The incumbent ranking is not a contradiction of its 0.02%.** It is the same
+finding as §3 above from the other side: the incumbent's error is a sub-pixel halo
+that a canvas-relative colour pixel-diff at 1200px barely registers and an
+ink-relative symmetric difference registers fully. Both numbers are correct. If the
+goal is "looks right to a person at normal zoom", the incumbent is still excellent;
+if the goal is "the recovered stroke geometry is right", it is not the leader.
+
+**polygon-voronoi has the best single score in the whole table (0.0118) and a
+middling median.** That is the §19 hybrid argument in one row: it is the right
+backend for some shapes and the wrong one for others, and per-shape selection by
+reconstruction metric would beat any single choice.
+
+**opencv-tracing's 4 images are not comparable to the others' 10.** It published
+real-input graphs for only four; its median is over the easier subset.
+
+### Always look at the render
+
+The [cross-backend sheet](./cross-backend-sheet.png) catches something no number in
+the table does: on `house-wide`, polygon-voronoi at its selected λ=2.0 **has lost
+the sun** — the grey disc at top-left has no red centerline over it. Its error for
+that cell (0.1130) is the worst in the row, so the metric does flag it, but only the
+render says *what* went wrong. Same for the progress sheet at λ=10: the sun's rays
+disappear exactly where error jumps from 0.042 to 0.117.
+
+### A runtime failure worth recording
+
+`polygon-voronoi/landscape-square` never completed a sweep. Its graph is over 1 MB
+with many thousands of edges, and the cost is in **canonicalization, not scoring**:
+`merge_chains` re-queues neighbours with an `endpoint not in queue` list scan, which
+is O(V²) in the worst case, and pruning re-canonicalizes every pass for every λ. On
+normal graphs this is invisible; on that one it is fatal. The fix is a set-backed
+queue and an incremental degree map — straightforward, and the first thing to do if
+this layer is productionized. Recorded rather than hidden because the same cost
+lands on any track that feeds a very dense graph through this code.
+
+---
+
+## Verdict
+
+The report's §19 claim — that the common graph layer is the most important
+architectural choice — held up better than expected, and for a reason I did not
+anticipate. It is not mainly about *sharing* pruning across backends; it is that
+**the operation which makes pruning work at all is a graph operation none of the
+backends perform**. Canonicalizing degree-2 chains is what turns "λ = one stroke
+width" from a threshold that means eight different things into a threshold that
+means one. Without it, the same λ that cleans a noisy medial axis to a single
+correct centerline instead destroys the drawing.
+
+Width-aware pruning as specified in §10.1 works, and the normalized length
+`L / (2 R_med)` does nearly all the work — the radius, width-consistency and
+tangent-continuity modifiers only break ties. On held-out labelled data the decision
+boundary is monotone in normalized length, and λ ≈ 2 removes every noise spur while
+keeping every real branch.
+
+Pruning as model selection (§10.2) delivers what it promised, with a caveat worth
+being precise about: it rarely finds *lower* error than a well-tuned threshold, and
+that is not its job. It reliably finds a **substantially simpler graph at
+equivalent error, automatically, per image, per backend** — and occasionally it
+catches a hand-tuned threshold over-pruning and beats it outright. That is the
+defensible-choice property the handoff asked for.
+
+The re-stroke scorer is the piece I would trust most and also the piece that was
+wrong the longest. Three of the four real bugs in this track were in *measurement*,
+not in the algorithm being measured, and each produced numbers confident enough to
+publish. That is the argument for the invariant tests and the vector/raster
+cross-check being part of the deliverable rather than scaffolding.

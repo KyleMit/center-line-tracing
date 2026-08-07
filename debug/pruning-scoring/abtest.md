@@ -1,60 +1,44 @@
 # Automatic pruning vs hand-tuned pruning — controlled A/B
 
-Generated 2026-08-07 18:01:32 · selection tolerance 5%
+Same backend, same rasterization, same tracing; **only the pruning stage differs**. Automatic pruning always starts from that track's UNPRUNED graph.
 
-Same backend, same everything upstream; only the pruning stage differs. `err` is symmetric difference / source ink area. `cx` is a complexity index (branches + control points / 100). Automatic pruning starts from the **unpruned** graph.
+* **err** — symmetric difference / source ink area (lower is better)
+* **cx** — complexity index (branches + control points / 100), measured **after canonicalization on both sides** so the comparison is like for like
+* **Δerr / Δcx** — automatic vs that track's own pruning
+* **reachable** — the lowest error any candidate in the sweep achieved: what width-aware pruning could reach with a perfect selection rule
 
 
 ## flo-mat
 
-| image | unpruned err / cx | hand-tuned err / cx | auto err / cx | auto λ | verdict |
-|---|---|---|---|---|---|
-| house-wide | 0.0563 / 285.0 | 0.0553 / 305.6 | 0.0588 / 44.0 | 0.00 | hand-tuned-better |
-| butterfly-wide | 0.1020 / 348.9 | 0.1023 / 350.0 | 0.1163 / 32.8 | 1.25 | hand-tuned-better |
-| boat-tall | 0.0755 / 367.2 | 0.0752 / 380.6 | 0.0797 / 40.0 | 0.75 | hand-tuned-better |
-| island-tall | 0.0634 / 446.3 | 0.0628 / 469.0 | 0.0712 / 53.2 | 2.50 | hand-tuned-better |
-| balloon-tall | 0.0962 / 426.0 | 0.0958 / 442.5 | 0.1004 / 72.8 | 1.00 | auto-simpler-same-error |
-| home-wide | 0.0555 / 431.8 | 0.0697 / 421.5 | 0.0604 / 96.8 | 0.00 | auto-dominates |
-| house-tall | 0.0513 / 638.9 | 0.0516 / 652.3 | 0.0503 / 83.8 | 0.25 | auto-dominates |
-| dinosaur-wide | 0.0540 / 476.2 | 0.0543 / 493.7 | 0.0657 / 72.1 | 0.75 | hand-tuned-better |
-| landscape-square | 0.0669 / 742.6 | 0.0666 / 727.2 | 0.0811 / 201.2 | 0.50 | hand-tuned-better |
-| sun-square | 0.0422 / 280.7 | 0.0422 / 280.7 | 0.0860 / 37.6 | 1.00 | hand-tuned-better |
-
-**3/10 images: automatic pruning wins or ties favourably.**
-
+| image | unpruned err / cx | hand-tuned err / cx | auto err / cx | λ | Δerr | Δcx | reachable |
+|---|---|---|---|---|---|---|---|
+| balloon-tall | 0.0919 / 89.0 | 0.0913 / 101.5 | 0.0938 / 72.8 | 1.00 | +3% | -28% | 0.0918 |
+| boat-tall | 0.0727 / 47.2 | 0.0722 / 61.6 | 0.0743 / 40.0 | 0.75 | +3% | -35% | 0.0725 |
+| butterfly-wide | 0.0989 / 42.9 | 0.0990 / 45.0 | 0.1024 / 32.8 | 1.25 | +3% | -27% | 0.0988 |
+| dinosaur-wide | 0.0499 / 77.2 | 0.0501 / 94.7 | 0.0501 / 73.2 | 0.50 | +0% | -23% | 0.0498 |
+| home-wide | 0.0498 / 96.8 | 0.0653 / 83.5 | 0.0498 / 96.8 | 0.00 | -24% | +16% | 0.0498 |
+| house-tall | 0.0459 / 89.9 | 0.0458 / 100.3 | 0.0479 / 71.6 | 0.50 | +5% | -29% | 0.0458 |
+| house-wide | 0.0516 / 44.0 | 0.0501 / 61.6 | 0.0540 / 42.0 | 1.50 | +8% | -32% | 0.0515 |
+| island-tall | 0.0606 / 60.3 | 0.0600 / 75.0 | 0.0624 / 53.2 | 2.50 | +4% | -29% | 0.0605 |
+| sun-square | 0.0341 / 39.7 | 0.0341 / 39.7 | 0.0341 / 39.7 | 0.00 | +0% | +0% | 0.0341 |
 
 ## tegaki
 
-| image | unpruned err / cx | hand-tuned err / cx | auto err / cx | auto λ | verdict |
-|---|---|---|---|---|---|
-| house-wide | 0.0492 / 29.7 | 0.0492 / 29.7 | 0.0564 / 27.7 | 0.00 | hand-tuned-better |
-| butterfly-wide | 0.0637 / 21.9 | 0.0637 / 21.9 | 0.0668 / 20.9 | 4.00 | auto-simpler-same-error |
-| boat-tall | 0.0543 / 31.1 | 0.0543 / 31.1 | 0.0543 / 30.1 | 0.00 | auto-simpler-same-error |
-| island-tall | 0.0548 / 37.1 | 0.0548 / 37.1 | 0.0564 / 36.0 | 0.00 | auto-simpler-same-error |
-| balloon-tall | 0.0627 / 52.2 | 0.0627 / 52.2 | 0.0644 / 48.2 | 2.50 | auto-simpler-same-error |
-| home-wide | 0.0622 / 36.9 | 0.0622 / 36.9 | 0.0637 / 35.9 | 2.00 | auto-simpler-same-error |
-| house-tall | 0.0618 / 43.2 | 0.0618 / 43.2 | 0.0622 / 41.1 | 2.50 | auto-simpler-same-error |
-| dinosaur-wide | 0.0725 / 53.7 | 0.0725 / 53.7 | 0.0748 / 51.6 | 4.00 | auto-simpler-same-error |
-| landscape-square | 0.1189 / 96.0 | 0.1189 / 96.0 | 0.1228 / 84.6 | 5.00 | auto-simpler-same-error |
-| sun-square | 0.1380 / 17.6 | 0.1380 / 17.6 | 0.1380 / 17.6 | 0.00 | tie |
+| image | unpruned err / cx | hand-tuned err / cx | auto err / cx | λ | Δerr | Δcx | reachable |
+|---|---|---|---|---|---|---|---|
+| balloon-tall | 0.0627 / 51.2 | 0.0627 / 51.2 | 0.0645 / 48.2 | 2.50 | +3% | -6% | 0.0627 |
+| boat-tall | 0.0543 / 30.1 | 0.0543 / 30.1 | 0.0543 / 30.1 | 0.00 | +0% | +0% | 0.0543 |
+| butterfly-wide | 0.0637 / 21.9 | 0.0637 / 21.9 | 0.0668 / 20.9 | 4.00 | +5% | -5% | 0.0637 |
+| dinosaur-wide | 0.0725 / 52.7 | 0.0725 / 52.7 | 0.0747 / 51.6 | 4.00 | +3% | -2% | 0.0725 |
+| home-wide | 0.0622 / 36.9 | 0.0622 / 36.9 | 0.0637 / 35.9 | 2.00 | +2% | -3% | 0.0622 |
+| house-tall | 0.0618 / 43.2 | 0.0618 / 43.2 | 0.0622 / 41.1 | 2.50 | +1% | -5% | 0.0618 |
+| house-wide | 0.0492 / 27.7 | 0.0492 / 27.7 | 0.0492 / 27.7 | 0.00 | +0% | +0% | 0.0492 |
+| island-tall | 0.0548 / 36.1 | 0.0548 / 36.1 | 0.0548 / 36.1 | 0.00 | +0% | +0% | 0.0548 |
+| sun-square | 0.1380 / 17.6 | 0.1380 / 17.6 | 0.1380 / 17.6 | 0.00 | +0% | +0% | 0.1380 |
 
-**8/10 images: automatic pruning wins or ties favourably.**
+## Summary
 
-
-## polygon-voronoi
-
-| image | unpruned err / cx | hand-tuned err / cx | auto err / cx | auto λ | verdict |
-|---|---|---|---|---|---|
-| house-wide | 0.1106 / 330.4 | 0.1142 / 120.5 | 0.1154 / 121.0 | 0.75 | tie |
-| butterfly-wide | 0.0208 / 334.3 | 0.0309 / 122.3 | 0.0208 / 334.3 | 0.00 | auto-lower-error |
-| boat-tall | 0.0774 / 325.4 | 0.0825 / 131.5 | 0.0811 / 144.4 | 0.50 | auto-lower-error |
-| island-tall | 0.0740 / 392.3 | 0.0797 / 132.9 | 0.0740 / 392.3 | 0.00 | auto-lower-error |
-| balloon-tall | 0.1004 / 403.7 | 0.1072 / 157.3 | 0.1023 / 216.8 | 0.25 | auto-lower-error |
-| home-wide | 0.1164 / 343.1 | 0.1202 / 103.5 | 0.1214 / 141.7 | 0.50 | tie |
-| house-tall | 0.0600 / 509.4 | 0.0654 / 157.0 | 0.0600 / 509.4 | 0.00 | auto-lower-error |
-| dinosaur-wide | 0.0557 / 402.1 | 0.0569 / 212.4 | 0.0560 / 210.1 | 1.25 | auto-dominates |
-| landscape-square | 0.0481 / 1148.7 | 0.0602 / 390.6 | 0.0481 / 1148.7 | 0.00 | auto-lower-error |
-| sun-square | 0.0788 / 205.9 | 0.0806 / 65.7 | 0.0801 / 65.7 | 1.00 | auto-dominates |
-
-**8/10 images: automatic pruning wins or ties favourably.**
-
+| backend | images | auto dominates | auto lower error | auto simpler at same error | simpler within 5% | tie | hand-tuned better | a sweep candidate beat hand-tuned |
+|---|---|---|---|---|---|---|---|---|
+| flo-mat | 9 | 1 | 0 | 7 | 6 | 0 | 1 | 4 |
+| tegaki | 9 | 0 | 0 | 8 | 5 | 1 | 0 | 1 |
