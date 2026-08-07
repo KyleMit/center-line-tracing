@@ -514,6 +514,13 @@ class CenterlineGraph:
                 beziers=bez,
                 extra={**b.extra, **a.extra},
             )
+            # provenance: which original edge ids this spliced branch contains.
+            # Needed to tell "this branch was pruned away" from "this branch was
+            # merged into its neighbour and kept the neighbour's id".
+            new.extra["mergedFrom"] = sorted(
+                (set(a.extra.get("mergedFrom", [])) | {a.id}
+                 | set(b.extra.get("mergedFrom", [])) | {b.id}) - {new.id}
+            )
             del self.edges[a_id]
             del self.edges[b_id]
             self.edges[new.id] = new

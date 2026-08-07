@@ -297,3 +297,90 @@ def score_with_raster(
 
 def load_metrics(path: str | Path) -> dict:
     return json.loads(Path(path).read_text())
+
+
+def _write_silhouette_svg(geom_obj, view_box, path) -> str:
+    p = Path(path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    d = svgio.polygon_to_path_d(geom_obj)
+    vb = view_box
+    p.write_text(
+        '<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n'
+        f'<svg xmlns="http://www.w3.org/2000/svg" version="1.1" '
+        f'viewBox="{vb[0]:.2f} {vb[1]:.2f} {vb[2]:.2f} {vb[3]:.2f}">'
+        f'<path d="{d}" fill="#000000" fill-rule="evenodd"/></svg>'
+    )
+    return str(p)
+
+
+def raster_ink_diff(
+    graph,
+    source,
+    *,
+    size: int | None = None,
+    scale: float = 1.0,
+    workdir: str | Path | None = None,
+) -> dict | None:
+    """Colour-independent raster cross-check of the vector score.
+
+    src/compare.js diffs COLOUR on a fixed canvas, so a re-emitted black
+    centerline SVG scores ~3.7% against a coloured input purely because the ink is
+    the wrong colour, and the canvas denominator changes with aspect ratio. This
+    renders both the source fill and the re-stroked reconstruction as black
+    silhouettes at the drawing's own resolution and reports the differing-ink
+    fraction of SOURCE ink — the direct raster analogue of `sym_diff_ratio`.
+
+    Any gap between the two is rasterization: quantization plus antialiasing at
+    the boundary. That gap is the number to quote when vector and raster scoring
+    are said to agree or disagree.
+    """
+    import numpy as np
+    from PIL import Image
+
+    vb = source.view_box
+    if size is None:
+        size = int(round(max(vb[2], vb[3]) * scale))
+    size = max(64, min(size, 4096))
+
+    tmpdir = Path(workdir) if workdir else Path(tempfile.mkdtemp(prefix="clg-raster-"))
+    tmpdir.mkdir(parents=True, exist_ok=True)
+    src_svg = _write_silhouette_svg(source.polygon, vb, tmpdir / "source.svg")
+    rec = restroke.graph_to_fill(graph)
+    if rec.is_empty:
+        return None
+    rec_svg = _write_silhouette_svg(rec, vb, tmpdir / "recon.svg")
+
+    jobs = [
+        {"svg": src_svg, "png": str(tmpdir / "source.png"), "width": size},
+        {"svg": rec_svg, "png": str(tmpdir / "recon.png"), "width": size},
+    ]
+    spec = tmpdir / "jobs.json"
+    spec.write_text(json.dumps(jobs))
+    out = subprocess.run(
+        ["node", str(REPO / "experiments" / "pruning-scoring" / "render.mjs"), str(spec)],
+        capture_output=True, text=True, cwd=REPO, timeout=600,
+    )
+    if out.returncode != 0:
+        return None
+    try:
+        a = np.asarray(Image.open(tmpdir / "source.png").convert("L")) < 128
+        b = np.asarray(Image.open(tmpdir / "recon.png").convert("L")) < 128
+    except Exception:  # noqa: BLE001
+        return None
+    if a.shape != b.shape:
+        return None
+    src_ink = int(a.sum())
+    if src_ink == 0:
+        return None
+    missing = int((a & ~b).sum())
+    extra = int((b & ~a).sum())
+    inter = int((a & b).sum())
+    union = int((a | b).sum())
+    return {
+        "size": size,
+        "sourceInkPx": src_ink,
+        "symDiffRatio": (missing + extra) / src_ink,
+        "missingRatio": missing / src_ink,
+        "extraRatio": extra / src_ink,
+        "iou": inter / max(union, 1),
+    }
