@@ -4,7 +4,7 @@
  "image": "case-17-near-parallel",
  "units": "svg user units",
  "backend": {
-  "skeletonizer": "cv2.ximgproc.thinning(zhangsuen)",
+  "skeletonizer": "cv2.ximgproc.thinning(guohall)",
   "opencv": "5.0.0",
   "tracer": "st-c",
   "tracerSource": "LingDong-/skeleton-tracing @ f5dd65e (MIT), vendored",
@@ -62,19 +62,19 @@
      139.375
     ],
     [
-     246.625,
+     249.625,
      139.375
     ],
     [
-     245.875,
+     248.875,
      139.875
     ],
     [
-     53.875,
+     51.125,
      139.875
     ],
     [
-     53.375,
+     50.625,
      139.375
     ],
     [
@@ -85,10 +85,10 @@
    "geometryType": "polyline",
    "length": 200.296,
    "medianRadius": 10.0,
-   "radiusStd": 0.0323,
+   "radiusStd": 0.0326,
    "radii": [
     9.4033,
-    9.5,
+    9.4637,
     10.0,
     10.0,
     9.5,
@@ -108,19 +108,19 @@
      162.375
     ],
     [
-     246.625,
+     249.625,
      162.375
     ],
     [
-     245.875,
+     248.875,
      162.875
     ],
     [
-     53.875,
+     51.125,
      162.875
     ],
     [
-     53.375,
+     50.625,
      162.375
     ],
     [
@@ -131,10 +131,10 @@
    "geometryType": "polyline",
    "length": 200.296,
    "medianRadius": 10.0,
-   "radiusStd": 0.0323,
+   "radiusStd": 0.0326,
    "radii": [
     9.4033,
-    9.5,
+    9.4637,
     10.0,
     10.0,
     9.5,

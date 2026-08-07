@@ -157,7 +157,12 @@ def comparison_sheet(rows: list, out_stem: Path, title: str):
         strip = [
             label_tile(_fit(_flatten(src)), row["name"], "input fill"),
             label_tile(_fit(_flatten(rec)), f"IoU {row['iou']:.4f}", "re-stroked output"),
-            label_tile(_fit(diff), f"pixel diff {pct:.2f}%", "red=input only, blue=output only"),
+            # NOTE: this is a coarse 900px preview diff computed here, NOT the
+            # incumbent's src/compare.js number at 1200px. They are not
+            # comparable — compare.js numbers live in debug/opencv-tracing/
+            # pixel-diff.json and in NOTES.md.
+            label_tile(_fit(diff), f"preview diff {pct:.2f}% (900px)",
+                       "red=input only, blue=output only"),
             label_tile(_fit(over), row.get("tagline", ""), "centerlines over fill"),
         ]
         crops = worst_crops(diff_mask, src, rec)
@@ -172,7 +177,7 @@ def comparison_sheet(rows: list, out_stem: Path, title: str):
 
         html_rows.append(
             f"<tr><th>{row['name']}</th><td>IoU {row['iou']:.4f}</td>"
-            f"<td>sym {row['sym'] * 100:.2f}%</td><td>diff {pct:.2f}%</td>"
+            f"<td>sym {row['sym'] * 100:.2f}%</td><td>preview diff {pct:.2f}%</td>"
             f"<td>{row.get('tagline', '')}</td></tr>")
 
     if tiles:

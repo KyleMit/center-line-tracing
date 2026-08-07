@@ -41,9 +41,13 @@ MASKS = DEBUG / "masks"
 REAL_LADDER = ["house-wide", "dinosaur-wide", "butterfly-wide", "landscape-square",
                "sun-square"]
 
+# Guo-Hall, not Zhang-Suen. OpenCV's THINNING_ZHANGSUEN does not return an 8-thin
+# skeleton on curved strokes — see thinness.py and NOTES.md §4.6. Reconstruction
+# IoU barely notices, but the skeleton GRAPH is unusable, which matters for every
+# downstream consumer (Skan, Track 8's pruning, the incumbent's own tracer).
 DEFAULT_CONFIG = {
     "scale": 4.0,
-    "thinning": "zhangsuen",
+    "thinning": "guohall",
     "tracer": "st-c",
     "csize": 10,
     "simplify_px": 0.5,
@@ -210,21 +214,35 @@ def speed_comparison(targets: list[dict], scale: float, repeats: int = 3) -> dic
         results[label] = {"seconds": seconds,
                           "megapixels_per_s": (total_px / 1e6) / seconds}
 
-    # Tracers, on skeletons produced by the default thinner.
+    # Tracers, on skeletons produced by the default thinner. The two pure-script
+    # implementations are orders of magnitude slower than the C one, so they get
+    # their own pixel budgets rather than being allowed to dominate the run;
+    # `budgets` records what each one was actually measured on.
     skeletons = [pipeline.thin(m, "zhangsuen") for m in masks]
+    budgets = {"st-c": None, "st-js": 12_000_000, "bespoke": 12_000_000,
+               "st-py": 500_000}
     tracer_results = {}
     for label, fn in (("st-c", tracers.st_c), ("st-js", tracers.st_js),
                       ("bespoke", tracers.bespoke), ("st-py", tracers.st_py)):
-        if label == "st-py" and total_px > 4_000_000:
-            tracer_results[label] = {"seconds": None,
-                                     "note": "skipped: pure-Python reference is O(minutes) here"}
+        budget = budgets[label]
+        subset, subset_px = [], 0
+        for s in skeletons:
+            if budget is not None and subset_px + s.size > budget:
+                continue
+            subset.append(s)
+            subset_px += s.size
+        if not subset:
+            tracer_results[label] = {"seconds": None, "measuredMegapixels": 0.0,
+                                     "note": "no mask fit the budget"}
             continue
         t0 = time.perf_counter()
-        for s in skeletons:
+        for s in subset:
             fn(s)
         elapsed = time.perf_counter() - t0
         tracer_results[label] = {"seconds": elapsed,
-                                 "megapixels_per_s": (total_px / 1e6) / elapsed}
+                                 "measuredMegapixels": subset_px / 1e6,
+                                 "measuredMasks": len(subset),
+                                 "megapixels_per_s": (subset_px / 1e6) / elapsed}
 
     return {"maskMegapixels": total_px / 1e6, "maskCount": len(masks),
             "repeats": repeats, "skimage": skimage.__version__,
@@ -236,19 +254,39 @@ def speed_comparison(targets: list[dict], scale: float, repeats: int = 3) -> dic
 # ---------------------------------------------------------------------------
 
 def tracer_agreement(targets: list[dict], config: dict,
-                     py_pixel_budget: int = 2_000_000) -> dict:
-    """Do the C, Python and JS ports of skeleton-tracing return the same polylines?
+                     py_pixel_budget: int = 500_000) -> dict:
+    """How closely do the C, Python and JS ports of skeleton-tracing agree?
 
-    If they do, "this pipeline ports to the browser unchanged" is a fact rather
-    than a hope. Compared as sorted vertex multisets so polyline ordering does
-    not count as a difference.
+    This is the portability claim, and a boolean is not enough to state it. The
+    ports turn out NOT to be bit-identical on curved or noisy skeletons, so what
+    gets recorded is: exact-match, polyline-count match, vertex counts, and the
+    symmetric max/P95 deviation in pixels. "Same topology, within a pixel or two"
+    and "identical output" are very different promises to make about a pipeline
+    that is supposed to run unchanged in another runtime.
 
     `st-py` is upstream's own "super slow ... just for reference" implementation
-    and is skipped above `py_pixel_budget` — it is minutes per megapixel, and
-    checking it on the small targets already establishes the invariant.
+    and is skipped above `py_pixel_budget`.
     """
+    from scipy.spatial import cKDTree
+
     def signature(polys):
         return sorted(tuple(map(tuple, p)) for p in polys)
+
+    def compare(a, b):
+        exact = signature(a) == signature(b)
+        pa = np.vstack([np.asarray(p, float) for p in a]) if a else np.zeros((0, 2))
+        pb = np.vstack([np.asarray(p, float) for p in b]) if b else np.zeros((0, 2))
+        if len(pa) == 0 or len(pb) == 0:
+            deviation = {"maxPx": float("nan"), "p95Px": float("nan")}
+        else:
+            d1 = cKDTree(pb).query(pa)[0]
+            d2 = cKDTree(pa).query(pb)[0]
+            both = np.concatenate([d1, d2])
+            deviation = {"maxPx": float(both.max()),
+                         "p95Px": float(np.percentile(both, 95))}
+        return {"exact": exact, "polylines": [len(a), len(b)],
+                "vertices": [int(len(pa)), int(len(pb))],
+                "samePolylineCount": len(a) == len(b), **deviation}
 
     report = {}
     for target in targets:
@@ -257,14 +295,21 @@ def tracer_agreement(targets: list[dict], config: dict,
             config["scale"])
         skeletons = [pipeline.thin(r.mask, config["thinning"]) for r in rasters]
         pixels = sum(s.size for s in skeletons)
-        ref = [signature(tracers.st_c(s, csize=config["csize"])) for s in skeletons]
+        ref = [tracers.st_c(s, csize=config["csize"]) for s in skeletons]
+
         for label, fn in (("st-py", tracers.st_py), ("st-js", tracers.st_js)):
             if label == "st-py" and pixels > py_pixel_budget:
                 report.setdefault(label, {})[target["name"]] = None
                 continue
-            same = all(signature(fn(s, csize=config["csize"])) == r
-                       for s, r in zip(skeletons, ref))
-            report.setdefault(label, {})[target["name"]] = same
+            per_element = [compare(r, fn(s, csize=config["csize"]))
+                           for s, r in zip(skeletons, ref)]
+            finite = [c["maxPx"] for c in per_element if c["maxPx"] == c["maxPx"]]
+            report.setdefault(label, {})[target["name"]] = {
+                "exact": all(c["exact"] for c in per_element),
+                "samePolylineCount": all(c["samePolylineCount"] for c in per_element),
+                "maxDeviationPx": max(finite) if finite else float("nan"),
+                "elements": per_element,
+            }
     return report
 
 
@@ -273,7 +318,7 @@ def tracer_agreement(targets: list[dict], config: dict,
 # ---------------------------------------------------------------------------
 
 MATRICES = {
-    "thinning": [{"thinning": v} for v in ("zhangsuen", "guohall")],
+    "thinning": [{"thinning": v} for v in ("guohall", "zhangsuen")],
     "tracer": [{"tracer": v} for v in ("st-c", "st-js", "bespoke")],
     "caps": [{"cap_extend": v} for v in ("none", "round", "boundary")],
     "csize": [{"csize": v} for v in (5, 10, 20, 40)],
@@ -314,7 +359,22 @@ def main():
     targets = resolve_targets(args.targets)
     configs = expand(args.matrix)
 
-    runs = []
+    out = Path(args.out)
+    out.parent.mkdir(parents=True, exist_ok=True)
+
+    payload = {
+        "slug": "opencv-tracing",
+        "defaultConfig": DEFAULT_CONFIG,
+        "classifierRules": M.CLASSIFIER_RULES,
+        "runs": [],
+    }
+
+    def flush():
+        out.write_text(json.dumps(payload, indent=1))
+
+    # Written after every run, not once at the end: the full matrix over the real
+    # ladder takes tens of minutes and an all-or-nothing write throws away
+    # everything if it is interrupted.
     for target in targets:
         for config in configs:
             t0 = time.perf_counter()
@@ -322,27 +382,17 @@ def main():
                              save_artifacts=args.save and config == DEFAULT_CONFIG)
             result["configLabel"] = config_label(config)
             result["wallClock_s"] = time.perf_counter() - t0
-            runs.append(result)
+            payload["runs"].append(result)
             print(_row(result))
+            flush()
 
-    payload = {
-        "slug": "opencv-tracing",
-        "defaultConfig": DEFAULT_CONFIG,
-        "classifierRules": M.CLASSIFIER_RULES,
-        "runs": runs,
-    }
     if args.speed:
         payload["speed"] = speed_comparison(targets, DEFAULT_CONFIG["scale"])
+        flush()
     if args.agreement:
         payload["tracerAgreement"] = tracer_agreement(targets, DEFAULT_CONFIG)
+        flush()
 
-    out = Path(args.out)
-    out.parent.mkdir(parents=True, exist_ok=True)
-    existing = json.loads(out.read_text()) if out.exists() and args.out.endswith(".json") \
-        and out.stat().st_size else {}
-    if existing.get("runs") and not args.targets and not args.matrix:
-        pass
-    out.write_text(json.dumps(payload, indent=1))
     print(f"\nwrote {out}")
 
     if args.speed:
@@ -369,13 +419,15 @@ def _print_speed(speed: dict):
     for label, entry in speed["skeletonizers"].items():
         print(f"  {label:<45} {entry['seconds']:7.3f}s  "
               f"{entry['megapixels_per_s']:8.2f} Mpx/s")
-    print("Tracers:")
+    print("Tracers (each measured on as many masks as its own budget allowed):")
     for label, entry in speed["tracers"].items():
         if entry.get("seconds") is None:
             print(f"  {label:<45} {entry['note']}")
         else:
             print(f"  {label:<45} {entry['seconds']:7.3f}s  "
-                  f"{entry['megapixels_per_s']:8.2f} Mpx/s")
+                  f"{entry['megapixels_per_s']:8.2f} Mpx/s  "
+                  f"(on {entry['measuredMegapixels']:.1f} Mpx / "
+                  f"{entry['measuredMasks']} masks)")
 
 
 if __name__ == "__main__":

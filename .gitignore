@@ -9,3 +9,5 @@ pycache/
 experiments/opencv-tracing/vendor/skeleton-tracing/c/*.so
 __pycache__/
 debug/opencv-tracing/masks/
+debug/opencv-tracing/sheets/_render/
+debug/opencv-tracing/sheets/_progress/

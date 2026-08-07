@@ -26,13 +26,21 @@ HAIR = DEBUG / "hairline"
 
 # The iteration trajectory, in the order it actually happened. Each entry is
 # what changed, so the progress sheet reads as an experiment log.
+# Steps 1-4 pin thinning explicitly to Zhang-Suen because that is what they
+# actually ran on; step 5 is the switch to Guo-Hall that later became the default.
+# Without the pin, steps 1-4 would silently inherit the new default and step 5
+# would be a duplicate of step 4.
 PROGRESS = [
-    ("raw thinning + skeleton-tracing", {"cap_extend": "none", "simplify_px": 0.0}),
-    ("cap extension to the boundary (WORSE)", {"cap_extend": "boundary", "simplify_px": 0.0}),
-    ("cap extension to boundary - R", {"cap_extend": "round", "simplify_px": 0.0}),
-    ("+ 0.5px Douglas-Peucker cleanup", {"cap_extend": "round", "simplify_px": 0.5}),
-    ("Guo-Hall instead of Zhang-Suen", {"cap_extend": "round", "simplify_px": 0.5,
-                                        "thinning": "guohall"}),
+    ("raw thinning + skeleton-tracing (Zhang-Suen)",
+     {"thinning": "zhangsuen", "cap_extend": "none", "simplify_px": 0.0}),
+    ("cap extension to the boundary (WORSE)",
+     {"thinning": "zhangsuen", "cap_extend": "boundary", "simplify_px": 0.0}),
+    ("cap extension to boundary - R",
+     {"thinning": "zhangsuen", "cap_extend": "round", "simplify_px": 0.0}),
+    ("+ 0.5px Douglas-Peucker cleanup",
+     {"thinning": "zhangsuen", "cap_extend": "round", "simplify_px": 0.5}),
+    ("Guo-Hall (8-thin skeleton) — the default",
+     {"thinning": "guohall", "cap_extend": "round", "simplify_px": 0.5}),
 ]
 
 
@@ -120,10 +128,16 @@ def main():
     sheets.progress_sheet(entries, OUT / "progress-house-wide",
                           f"opencv-tracing — iteration trajectory on {focus}")
 
-    # Pixel-diff continuity numbers against the incumbent's own harness.
-    diffs = {row["name"]: _pixel_diff(row["input_svg"], row["output_svg"])
-             for row in real_rows}
-    (DEBUG / "pixel-diff.json").write_text(json.dumps(diffs, indent=1))
+    # Pixel-diff continuity numbers against the incumbent's own harness. Merged
+    # into pixel-diff.json under the run's thinner, so the per-thinner comparison
+    # written by the thinning sweep is not clobbered.
+    out = DEBUG / "pixel-diff.json"
+    diffs = json.loads(out.read_text()) if out.exists() else {}
+    thinner = bench.DEFAULT_CONFIG["thinning"]
+    for row in real_rows:
+        entry = diffs.setdefault(row["name"], {})
+        entry[thinner] = {"pixelDiffPct": _pixel_diff(row["input_svg"], row["output_svg"])}
+    out.write_text(json.dumps(diffs, indent=1))
     print(json.dumps(diffs, indent=1))
 
 

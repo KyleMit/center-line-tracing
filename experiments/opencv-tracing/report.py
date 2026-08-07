@@ -55,7 +55,12 @@ def thinning_table(runs):
             "|---|---:|---:|---:|---:|---:|---:|---:|---|"]
     zs_wins = gh_wins = 0
     for name, configs in by_target.items():
-        zs, gh = configs.get("default"), configs.get("thinning=guohall")
+        # Whichever thinner is the default carries the "default" label, so look
+        # up both by explicit name and fall back to the default label.
+        zs = configs.get("thinning=zhangsuen") or configs.get("default")
+        gh = configs.get("thinning=guohall") or configs.get("default")
+        if zs is gh:
+            continue
         if not zs or not gh:
             continue
         a = _get(zs, "reconstruction", "iou")
@@ -87,7 +92,10 @@ def real_table(runs, pixel_diff: dict):
         if run["kind"] != "real" or run["configLabel"] != "default":
             continue
         tags = ", ".join(f"{k} {v}" for k, v in run["tags"].items() if v) or "—"
-        diff = pixel_diff.get(run["target"], float("nan"))
+        entry = pixel_diff.get(run["target"], {})
+        # pixel-diff.json holds one entry per thinner; pick the run's own.
+        diff = entry.get(run["config"]["thinning"], {}).get("pixelDiffPct", float("nan")) \
+            if isinstance(entry, dict) else entry
         rows.append(
             f"| {run['target']} | {run['elements']} "
             f"| {_get(run, 'reconstruction', 'iou'):.4f} "
@@ -114,7 +122,12 @@ def speed_table(speed):
         else:
             rows.append(f"| trace | `{label}` | {entry['seconds']:.3f} "
                         f"| {entry['megapixels_per_s']:.1f} "
-                        f"| {entry['seconds'] / base:.2f}x |")
+                        f"| measured on {entry['measuredMegapixels']:.1f} Mpx |")
+    rows.append("")
+    rows.append("Tracers are compared by throughput (Mpx/s), not by wall time: each "
+                "is measured on as many masks as its own budget allowed, because the "
+                "pure-script implementations cannot process the full set in "
+                "reasonable time.")
     return "\n".join(rows)
 
 
@@ -132,13 +145,17 @@ def variable_width_table(runs):
 
 
 def main():
-    payload = json.loads((DEBUG / "metrics.json").read_text())
+    import sys
+    source = Path(sys.argv[1]) if len(sys.argv) > 1 else DEBUG / "metrics.json"
+    payload = json.loads(source.read_text())
     runs = payload["runs"]
     pixel_diff = {}
     if (DEBUG / "pixel-diff.json").exists():
         pixel_diff = json.loads((DEBUG / "pixel-diff.json").read_text())
 
-    print("### Synthetic corpus — default config (Zhang-Suen, st-c, cap=round)\n")
+    cfg = payload.get("defaultConfig", {})
+    print(f"### Synthetic corpus — default config "
+          f"({cfg.get('thinning')}, {cfg.get('tracer')}, cap={cfg.get('cap_extend')})\n")
     print(corpus_table(runs))
     print("\n### Zhang-Suen vs Guo-Hall, identical masks\n")
     print(thinning_table(runs))
@@ -151,16 +168,17 @@ def main():
         print(speed_table(payload["speed"]))
     if "tracerAgreement" in payload:
         print("\n### Cross-runtime agreement\n")
+        print("| runtime | target | bit-identical | same polyline count | "
+              "max deviation (px) |")
+        print("|---|---|---|---|---:|")
         for label, per_target in payload["tracerAgreement"].items():
-            checked = {k: v for k, v in per_target.items() if v is not None}
-            agree = sum(1 for v in checked.values() if v)
-            skipped = len(per_target) - len(checked)
-            note = f" ({skipped} skipped as too slow)" if skipped else ""
-            print(f"- `{label}` vs `st-c`: identical polylines on "
-                  f"**{agree}/{len(checked)}** targets{note}")
-            for name, ok in checked.items():
-                if not ok:
-                    print(f"  - MISMATCH on {name}")
+            for name, entry in per_target.items():
+                if entry is None:
+                    print(f"| `{label}` | {name} | skipped (too slow) | — | — |")
+                    continue
+                print(f"| `{label}` | {name} | {'yes' if entry['exact'] else '**no**'} "
+                      f"| {'yes' if entry['samePolylineCount'] else '**no**'} "
+                      f"| {entry['maxDeviationPx']:.2f} |")
 
 
 if __name__ == "__main__":

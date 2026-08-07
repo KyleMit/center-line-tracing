@@ -1,0 +1,3571 @@
+{
+ "slug": "opencv-tracing",
+ "defaultConfig": {
+  "scale": 4.0,
+  "thinning": "zhangsuen",
+  "tracer": "st-c",
+  "csize": 10,
+  "simplify_px": 0.5,
+  "cap_extend": "round"
+ },
+ "classifierRules": {
+  "outline noise branch": "terminal edge with L/(2*R_med) < 0.75 whose far end is NOT within 1.5*R_med of a junction node (i.e. a spur off a plain stroke wall, not off a junction)",
+  "join artifact": "terminal edge with L/(2*R_med) < 1.5 whose far end IS within 2.5*R_med of a junction node \u2014 the classic thinning spur thrown off a Y/T/X centre",
+  "cap artifact": "degree-1 endpoint that stops more than 1.25*R_med short of the shape's tip, measured by marching outward along the terminal tangent. A correctly terminated round cap exits at exactly R_med (the cap circle's centre), so this counts thinning pull-back and nothing else. NOTE: the distance-transform value at the tip does NOT work as a test \u2014 it equals R all along the stroke axis and so cannot discriminate.",
+  "crossing ambiguity": "node of degree >= 4",
+  "disconnected skeleton": "connected components of the traced graph in excess of the mask's own connected-component count",
+  "missing narrow segment": "mask connected component of area > 4*R_global^2 that contains no skeleton pixel",
+  "excessive curve complexity": "edge carrying more than 6 vertices per stroke width, i.e. vertexCount / (L / (2*R_med)) > 6",
+  "raster quantization": "edge longer than 4*R_med that, after a 0.5px Douglas-Peucker pass, still needs a direction change more often than every 7 pixels (vertices/L_px > 0.15) \u2014 the staircase signature of a thinned skeleton"
+ },
+ "runs": [
+  {
+   "target": "case-01-horizontal-line",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 102144,
+   "runtime": {
+    "rasterize_s": 0.12297955699978047,
+    "extract_s": 0.01771068500011097,
+    "thin_s": 0.011739391999981308,
+    "trace_s": 0.0014517059998979676,
+    "distance_s": 0.000765023999974801,
+    "graph_s": 0.0012783600000147999,
+    "cap_extend_s": 0.002451569000186282,
+    "total_s": 0.14069024199989144,
+    "extract_s_per_element": 0.01771068500011097,
+    "extract_us_per_megapixel": 0.01771068500011097
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 6,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 200.29599460005255,
+    "medianRadius": 10.0,
+    "widthErrorCv": 0.0032259822747027255
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9810173555606304,
+    "symDiffArea": 83.125,
+    "symDiffFraction": 0.019268660176170606,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.5
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9810173555606304,
+    "symDiffArea": 83.125,
+    "symDiffFraction": 0.019268660176170606,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.5
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.1523159826934157,
+    "centerlineToGtP95": 0.17630667090402152,
+    "gtToCenterlineMedian": 0.12654732780359448,
+    "gtToCenterlineP95": 0.13140577480664287,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "default",
+   "wallClock_s": 0.35996126200006984
+  },
+  {
+   "target": "case-01-horizontal-line",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 102144,
+   "runtime": {
+    "rasterize_s": 0.11384741399979248,
+    "extract_s": 0.015179130999968038,
+    "thin_s": 0.009816694000164716,
+    "trace_s": 0.001943371999914234,
+    "distance_s": 0.0006033180002305016,
+    "graph_s": 0.0011002229998666735,
+    "cap_extend_s": 0.001656658000229072,
+    "total_s": 0.12902654499976052,
+    "extract_s_per_element": 0.015179130999968038,
+    "extract_us_per_megapixel": 0.015179130999968038
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 6,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 200.29599460005255,
+    "medianRadius": 10.0,
+    "widthErrorCv": 0.003261461562187426
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9827330115113257,
+    "symDiffArea": 75.5625,
+    "symDiffFraction": 0.01751564673157163,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.5
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9827330115113257,
+    "symDiffArea": 75.5625,
+    "symDiffFraction": 0.01751564673157163,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.5
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.15042606874125422,
+    "centerlineToGtP95": 0.17471523022522784,
+    "gtToCenterlineMedian": 0.12654732780359448,
+    "gtToCenterlineP95": 0.13104579300484942,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 0.18404674899966267
+  },
+  {
+   "target": "case-02-diagonal-line",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 725504,
+   "runtime": {
+    "rasterize_s": 0.1321561559998372,
+    "extract_s": 0.06551402299965048,
+    "thin_s": 0.052463377000094624,
+    "trace_s": 0.007822079999641574,
+    "distance_s": 0.0024897399998735636,
+    "graph_s": 0.0012049179999849002,
+    "cap_extend_s": 0.0014887400002407958,
+    "total_s": 0.1976701789994877,
+    "extract_s_per_element": 0.06551402299965048,
+    "extract_us_per_megapixel": 0.06551402299965048
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 4,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 261.5976820422198,
+    "medianRadius": 9.992623623173975,
+    "widthErrorCv": 0.003792825257073083
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9932335544004302,
+    "symDiffArea": 37.75,
+    "symDiffFraction": 0.006803027572535592,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 0.25
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9922175507648269,
+    "symDiffArea": 43.5,
+    "symDiffFraction": 0.007839250315372139,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 0.25
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.06356520274088397,
+    "centerlineToGtP95": 0.06714950347665762,
+    "gtToCenterlineMedian": 0.06305829069343129,
+    "gtToCenterlineP95": 0.06548135775307815,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "default",
+   "wallClock_s": 0.8680180129999826
+  },
+  {
+   "target": "case-02-diagonal-line",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 725504,
+   "runtime": {
+    "rasterize_s": 0.13040558299962868,
+    "extract_s": 0.1158421840000301,
+    "thin_s": 0.10119692100033717,
+    "trace_s": 0.008219027999984974,
+    "distance_s": 0.002818461000060779,
+    "graph_s": 0.0015282839999599673,
+    "cap_extend_s": 0.002030577000368794,
+    "total_s": 0.24624776699965878,
+    "extract_s_per_element": 0.1158421840000301,
+    "extract_us_per_megapixel": 0.1158421840000301
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 46,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 262.4072570276932,
+    "medianRadius": 9.966217803292931,
+    "widthErrorCv": 0.005174883273534546
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9908804046191029,
+    "symDiffArea": 50.9375,
+    "symDiffFraction": 0.009179581906649846,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 0.25
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9906781557743957,
+    "symDiffArea": 52.0625,
+    "symDiffFraction": 0.009382321138943954,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 0.25
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.10863144547705911,
+    "centerlineToGtP95": 0.17137518228380907,
+    "gtToCenterlineMedian": 0.08332405891467609,
+    "gtToCenterlineP95": 0.15402696483072326,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 0.9493772779997016
+  },
+  {
+   "target": "case-03-circular-arc",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 324864,
+   "runtime": {
+    "rasterize_s": 0.11586088000012751,
+    "extract_s": 0.04366724900000918,
+    "thin_s": 0.03562051299968516,
+    "trace_s": 0.003686395999920933,
+    "distance_s": 0.0015337589998125623,
+    "graph_s": 0.0011746509999284171,
+    "cap_extend_s": 0.0016111579998323577,
+    "total_s": 0.1595281290001367,
+    "extract_s_per_element": 0.04366724900000918,
+    "extract_us_per_megapixel": 0.04366724900000918
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 66,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 245.48159322749416,
+    "medianRadius": 9.919671171577615,
+    "widthErrorCv": 0.008065667260164017
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9867286710785189,
+    "symDiffArea": 69.5625,
+    "symDiffFraction": 0.013386574937156465,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 0.3535533905932738
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9849605258457471,
+    "symDiffArea": 78.9375,
+    "symDiffFraction": 0.015190695548633079,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 0.25
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.10211821481199487,
+    "centerlineToGtP95": 0.32944416632020834,
+    "gtToCenterlineMedian": 0.07018820521909039,
+    "gtToCenterlineP95": 0.31851629015015653,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "default",
+   "wallClock_s": 0.3601037210000868
+  },
+  {
+   "target": "case-03-circular-arc",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 324864,
+   "runtime": {
+    "rasterize_s": 0.12522528499994223,
+    "extract_s": 0.055524077999962174,
+    "thin_s": 0.04691137499958131,
+    "trace_s": 0.0038796280000497063,
+    "distance_s": 0.0015044189999571245,
+    "graph_s": 0.001289291999910347,
+    "cap_extend_s": 0.001898411999718519,
+    "total_s": 0.1807493629999044,
+    "extract_s_per_element": 0.055524077999962174,
+    "extract_us_per_megapixel": 0.055524077999962174
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 60,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 245.06250977409337,
+    "medianRadius": 9.871318939934115,
+    "widthErrorCv": 0.010803915756654871
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9781575090265613,
+    "symDiffArea": 114.5625,
+    "symDiffFraction": 0.022046353872244205,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.5590169943749475
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9771920630761535,
+    "symDiffArea": 119.6875,
+    "symDiffFraction": 0.023032606473184752,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.5590169943749475
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.1652055019221895,
+    "centerlineToGtP95": 0.36755765719189815,
+    "gtToCenterlineMedian": 0.152452781058504,
+    "gtToCenterlineP95": 0.3610665911743248,
+    "gtCoverageFraction": 0.9959141981613892
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 0.38662423099958687
+  },
+  {
+   "target": "case-04-s-curve",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 758784,
+   "runtime": {
+    "rasterize_s": 0.19630698600030883,
+    "extract_s": 0.11287468399996214,
+    "thin_s": 0.09765130699997826,
+    "trace_s": 0.008791423999809922,
+    "distance_s": 0.00309401100003015,
+    "graph_s": 0.0013643789998241118,
+    "cap_extend_s": 0.001914123999995354,
+    "total_s": 0.30918167000027097,
+    "extract_s_per_element": 0.11287468399996214,
+    "extract_us_per_megapixel": 0.11287468399996214
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 71,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 296.48518066395985,
+    "medianRadius": 9.920308456686772,
+    "widthErrorCv": 0.00936824746874707
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9874446527583869,
+    "symDiffArea": 78.6875,
+    "symDiffFraction": 0.012645259785261593,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 0.25
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.985034081297577,
+    "symDiffArea": 94.0,
+    "symDiffFraction": 0.015106013278024969,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 0.25
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.11382819979728752,
+    "centerlineToGtP95": 0.3425213465570458,
+    "gtToCenterlineMedian": 0.07715221687517701,
+    "gtToCenterlineP95": 0.3365176320868166,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "default",
+   "wallClock_s": 1.1120940099999643
+  },
+  {
+   "target": "case-04-s-curve",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 758784,
+   "runtime": {
+    "rasterize_s": 0.16424974899973677,
+    "extract_s": 0.14180616000021473,
+    "thin_s": 0.1261941550001211,
+    "trace_s": 0.008817808000003424,
+    "distance_s": 0.003338113999689085,
+    "graph_s": 0.0014225999998416228,
+    "cap_extend_s": 0.0019713029996637488,
+    "total_s": 0.3060559089999515,
+    "extract_s_per_element": 0.14180616000021473,
+    "extract_us_per_megapixel": 0.14180616000021473
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 81,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 296.8529243799747,
+    "medianRadius": 9.895122841017535,
+    "widthErrorCv": 0.01277197408894881
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9807372602112431,
+    "symDiffArea": 120.9375,
+    "symDiffFraction": 0.01943493064692707,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 0.5590169943749475
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9802844375441636,
+    "symDiffArea": 123.8125,
+    "symDiffFraction": 0.019896949670058155,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.5590169943749475
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.144232720586246,
+    "centerlineToGtP95": 0.4620753127680701,
+    "gtToCenterlineMedian": 0.12894207383662987,
+    "gtToCenterlineP95": 0.45981601704500025,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 1.198657426000409
+  },
+  {
+   "target": "case-05-tight-u-curve",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 385024,
+   "runtime": {
+    "rasterize_s": 0.13519108699983917,
+    "extract_s": 0.05827106399965487,
+    "thin_s": 0.04383223800004998,
+    "trace_s": 0.006446589000006497,
+    "distance_s": 0.0024388110000472807,
+    "graph_s": 0.0019325370003571152,
+    "cap_extend_s": 0.00356011399981071,
+    "total_s": 0.19346215099949404,
+    "extract_s_per_element": 0.05827106399965487,
+    "extract_us_per_megapixel": 0.05827106399965487
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 59,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 377.53708303193014,
+    "medianRadius": 10.0,
+    "widthErrorCv": 0.018432305616627915
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9773725886416504,
+    "symDiffArea": 180.5625,
+    "symDiffFraction": 0.02299591661293789,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.5590169943749475
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9767143856670047,
+    "symDiffArea": 185.125,
+    "symDiffFraction": 0.023576983387858092,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.75
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.14559664945741083,
+    "centerlineToGtP95": 0.6348786636727368,
+    "gtToCenterlineMedian": 0.132119733724604,
+    "gtToCenterlineP95": 0.6294352056991166,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "default",
+   "wallClock_s": 0.5634791130000849
+  },
+  {
+   "target": "case-05-tight-u-curve",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 385024,
+   "runtime": {
+    "rasterize_s": 0.15387614000019312,
+    "extract_s": 0.08290477099990312,
+    "thin_s": 0.07015119200013942,
+    "trace_s": 0.005861689999619557,
+    "distance_s": 0.0026198290001957503,
+    "graph_s": 0.001948682000147528,
+    "cap_extend_s": 0.0022591219999412715,
+    "total_s": 0.23678091100009624,
+    "extract_s_per_element": 0.08290477099990312,
+    "extract_us_per_megapixel": 0.08290477099990312
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 54,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 377.5067971705957,
+    "medianRadius": 10.0,
+    "widthErrorCv": 0.017112327153139303
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9804541354562925,
+    "symDiffArea": 155.75,
+    "symDiffFraction": 0.01983586853563213,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.5590169943749475
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9795686361196198,
+    "symDiffArea": 161.75,
+    "symDiffFraction": 0.020600011143746367,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.7071067811865476
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.161165471179752,
+    "centerlineToGtP95": 0.5217448232395685,
+    "gtToCenterlineMedian": 0.1266261434968931,
+    "gtToCenterlineP95": 0.5180184640866565,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 0.5507680600003368
+  },
+  {
+   "target": "case-06-closed-loop",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 627264,
+   "runtime": {
+    "rasterize_s": 0.13755978200015306,
+    "extract_s": 0.08620868200023324,
+    "thin_s": 0.07090447099972153,
+    "trace_s": 0.010618361000069854,
+    "distance_s": 0.0026238620002914104,
+    "graph_s": 0.00198175400009859,
+    "cap_extend_s": 9.38400035011e-06,
+    "total_s": 0.2237684640003863,
+    "extract_s_per_element": 0.08620868200023324,
+    "extract_us_per_megapixel": 0.08620868200023324
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 1,
+    "vertexCount": 160,
+    "terminalNodes": 0,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 535.0571828082971,
+    "medianRadius": 9.898921477743407,
+    "widthErrorCv": 0.012775976433894604
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 2
+   },
+   "reconstruction": {
+    "iou": 0.9833955419123035,
+    "symDiffArea": 178.5,
+    "symDiffFraction": 0.016729049150368144,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 0.5
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9819992806673551,
+    "symDiffArea": 193.9375,
+    "symDiffFraction": 0.018175854171425893,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 0.5
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.12336730432340423,
+    "centerlineToGtP95": 0.45467803668989265,
+    "gtToCenterlineMedian": 0.10828380898349013,
+    "gtToCenterlineP95": 0.45013095761921823,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "default",
+   "wallClock_s": 0.7418922309998379
+  },
+  {
+   "target": "case-06-closed-loop",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 627264,
+   "runtime": {
+    "rasterize_s": 0.1591589690001456,
+    "extract_s": 0.12418871899990336,
+    "thin_s": 0.10753879300000335,
+    "trace_s": 0.007973494999987452,
+    "distance_s": 0.002637292000144953,
+    "graph_s": 0.0015214770000966382,
+    "cap_extend_s": 0.004457004999949277,
+    "total_s": 0.28334768800004895,
+    "extract_s_per_element": 0.12418871899990336,
+    "extract_us_per_megapixel": 0.12418871899990336
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 176,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 565.2917846820142,
+    "medianRadius": 9.874738812735947,
+    "widthErrorCv": 0.011418257791551442
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 2,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 1,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9801092224566936,
+    "symDiffArea": 214.4375,
+    "symDiffFraction": 0.020097117519227277,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.3535533905932738
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.980546619134568,
+    "symDiffArea": 209.75,
+    "symDiffFraction": 0.01965780425372391,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.5590169943749475
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.16599883669032875,
+    "centerlineToGtP95": 0.4239830178997113,
+    "gtToCenterlineMedian": 0.14752971062336473,
+    "gtToCenterlineP95": 0.3987349617569636,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 0.7603100270002869
+  },
+  {
+   "target": "case-07-round-cap",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 122304,
+   "runtime": {
+    "rasterize_s": 0.10434041899998192,
+    "extract_s": 0.027551417000267975,
+    "thin_s": 0.022025834000032773,
+    "trace_s": 0.0010816860003615147,
+    "distance_s": 0.0006370420001076127,
+    "graph_s": 0.001068044000021473,
+    "cap_extend_s": 0.0027125289998366497,
+    "total_s": 0.1318918360002499,
+    "extract_s_per_element": 0.027551417000267975,
+    "extract_us_per_megapixel": 0.027551417000267975
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 6,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 140.0088458214465,
+    "medianRadius": 17.0,
+    "widthErrorCv": 0.0011929208650633156
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9883391491735671,
+    "symDiffArea": 66.625,
+    "symDiffFraction": 0.011755624172915747,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.3535533905932738
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9883391491735671,
+    "symDiffArea": 66.625,
+    "symDiffFraction": 0.011755624172915747,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.3535533905932738
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.14168069545224757,
+    "centerlineToGtP95": 0.3750056716362328,
+    "gtToCenterlineMedian": 0.12870369916782345,
+    "gtToCenterlineP95": 0.3750014315164998,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "default",
+   "wallClock_s": 0.19701557799999136
+  },
+  {
+   "target": "case-07-round-cap",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 122304,
+   "runtime": {
+    "rasterize_s": 0.10357747199986989,
+    "extract_s": 0.026754040000014356,
+    "thin_s": 0.021720477999679133,
+    "trace_s": 0.0009219280000252184,
+    "distance_s": 0.0006872720000501431,
+    "graph_s": 0.0010590750002847926,
+    "cap_extend_s": 0.0023346940001829353,
+    "total_s": 0.13033151199988424,
+    "extract_s_per_element": 0.026754040000014356,
+    "extract_us_per_megapixel": 0.026754040000014356
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 6,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 140.0088458214465,
+    "medianRadius": 17.0,
+    "widthErrorCv": 0.0013063084360355685
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9890578837947259,
+    "symDiffArea": 62.5,
+    "symDiffFraction": 0.011027790030877812,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.3535533905932738
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9890578837947259,
+    "symDiffArea": 62.5,
+    "symDiffFraction": 0.011027790030877812,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.3535533905932738
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.14038541877962815,
+    "centerlineToGtP95": 0.17450231264504806,
+    "gtToCenterlineMedian": 0.12832659704876517,
+    "gtToCenterlineP95": 0.13905028642468298,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 0.19236440600025162
+  },
+  {
+   "target": "case-08-butt-cap",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 99456,
+   "runtime": {
+    "rasterize_s": 0.10712339200017595,
+    "extract_s": 0.03196071699994718,
+    "thin_s": 0.026816319999852567,
+    "trace_s": 0.0009652849998929014,
+    "distance_s": 0.0006151170000521233,
+    "graph_s": 0.0012796579999303503,
+    "cap_extend_s": 0.0022575139996661164,
+    "total_s": 0.13908410900012314,
+    "extract_s_per_element": 0.03196071699994718,
+    "extract_us_per_megapixel": 0.03196071699994718
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 6,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 106.03708640941704,
+    "medianRadius": 17.0,
+    "widthErrorCv": 0.0012185755804806245
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9400109640535673,
+    "symDiffArea": 287.25,
+    "symDiffFraction": 0.060346638655462186,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 4.650268809434569
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9400109640535673,
+    "symDiffArea": 287.25,
+    "symDiffFraction": 0.060346638655462186,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 4.650268809434569
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.1402438630901458,
+    "centerlineToGtP95": 0.17503394578221312,
+    "gtToCenterlineMedian": 0.13044643750481316,
+    "gtToCenterlineP95": 13.567683341307756,
+    "gtCoverageFraction": 0.768270944741533
+   },
+   "configLabel": "default",
+   "wallClock_s": 0.19038627500003713
+  },
+  {
+   "target": "case-08-butt-cap",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 99456,
+   "runtime": {
+    "rasterize_s": 0.10671372200022233,
+    "extract_s": 0.029669830999864644,
+    "thin_s": 0.024798244000066916,
+    "trace_s": 0.000743302000046242,
+    "distance_s": 0.0006679349999103579,
+    "graph_s": 0.0010915769998973701,
+    "cap_extend_s": 0.0023446909999620402,
+    "total_s": 0.13638355300008698,
+    "extract_s_per_element": 0.029669830999864644,
+    "extract_us_per_megapixel": 0.029669830999864644
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 6,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 106.03708640941704,
+    "medianRadius": 17.0,
+    "widthErrorCv": 0.0012171465514417485
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9400623915001372,
+    "symDiffArea": 287.0,
+    "symDiffFraction": 0.060294117647058824,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 4.650268809434569
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9400623915001372,
+    "symDiffArea": 287.0,
+    "symDiffFraction": 0.060294117647058824,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 4.650268809434569
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.1401969656968543,
+    "centerlineToGtP95": 0.1748890398623119,
+    "gtToCenterlineMedian": 0.13038737072657194,
+    "gtToCenterlineP95": 13.567683341307756,
+    "gtCoverageFraction": 0.768270944741533
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 0.18645068499972695
+  },
+  {
+   "target": "case-09-square-cap",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 122304,
+   "runtime": {
+    "rasterize_s": 0.10730050699976346,
+    "extract_s": 0.03359361999991961,
+    "thin_s": 0.02825418600014018,
+    "trace_s": 0.000984298000275885,
+    "distance_s": 0.0006610279997403268,
+    "graph_s": 0.0011942010000893788,
+    "cap_extend_s": 0.0024767750001046807,
+    "total_s": 0.14089412699968307,
+    "extract_s_per_element": 0.03359361999991961,
+    "extract_us_per_megapixel": 0.03359361999991961
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 6,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 140.0088458214465,
+    "medianRadius": 17.0,
+    "widthErrorCv": 0.0011649443721700405
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.95022519921469,
+    "symDiffArea": 296.3125,
+    "symDiffFraction": 0.05008662947937796,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 4.5
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.95022519921469,
+    "symDiffArea": 296.3125,
+    "symDiffFraction": 0.05008662947937796,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 4.5
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.14043259080639436,
+    "centerlineToGtP95": 0.17464697658324868,
+    "gtToCenterlineMedian": 0.12832659704876517,
+    "gtToCenterlineP95": 0.13912741601471285,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "default",
+   "wallClock_s": 0.20140398199964693
+  },
+  {
+   "target": "case-09-square-cap",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 122304,
+   "runtime": {
+    "rasterize_s": 0.10882548199970188,
+    "extract_s": 0.02491649600005985,
+    "thin_s": 0.02005930699988312,
+    "trace_s": 0.0009987140001612715,
+    "distance_s": 0.0005928049999965879,
+    "graph_s": 0.0009385530001964071,
+    "cap_extend_s": 0.0023030150000522553,
+    "total_s": 0.13374197799976173,
+    "extract_s_per_element": 0.02491649600005985,
+    "extract_us_per_megapixel": 0.02491649600005985
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 6,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 140.0088458214465,
+    "medianRadius": 17.0,
+    "widthErrorCv": 0.0011639072889869672
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9502351755417436,
+    "symDiffArea": 296.25,
+    "symDiffFraction": 0.05007606490872211,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 4.5
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9502351755417436,
+    "symDiffArea": 296.25,
+    "symDiffFraction": 0.05007606490872211,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 4.5
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.14038541877962815,
+    "centerlineToGtP95": 0.17450231264504806,
+    "gtToCenterlineMedian": 0.12832659704876517,
+    "gtToCenterlineP95": 0.13905028642468298,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 0.20066593900037333
+  },
+  {
+   "target": "case-10-round-join",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 506544,
+   "runtime": {
+    "rasterize_s": 0.11938179800017679,
+    "extract_s": 0.08314964500004862,
+    "thin_s": 0.07258534999982658,
+    "trace_s": 0.005094438999549311,
+    "distance_s": 0.0018695619996833557,
+    "graph_s": 0.0011847229998238618,
+    "cap_extend_s": 0.0023751710000396997,
+    "total_s": 0.2025314430002254,
+    "extract_s_per_element": 0.08314964500004862,
+    "extract_us_per_megapixel": 0.08314964500004862
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 12,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 276.4164725648221,
+    "medianRadius": 15.0,
+    "widthErrorCv": 0.022034862374073278
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9621633219570742,
+    "symDiffArea": 352.6875,
+    "symDiffFraction": 0.03812219640058369,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 3.0516389039334255
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9615947427233545,
+    "symDiffArea": 360.875,
+    "symDiffFraction": 0.039007188023563746,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 2.9154759474226504
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.1422988476623366,
+    "centerlineToGtP95": 0.604568941693349,
+    "gtToCenterlineMedian": 0.12945084747940128,
+    "gtToCenterlineP95": 7.3068471941265045,
+    "gtCoverageFraction": 0.8655394524959742
+   },
+   "configLabel": "default",
+   "wallClock_s": 0.5451688470002409
+  },
+  {
+   "target": "case-10-round-join",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 506544,
+   "runtime": {
+    "rasterize_s": 0.12021837900010723,
+    "extract_s": 0.1442727950002336,
+    "thin_s": 0.13244939600008365,
+    "trace_s": 0.004861500000060914,
+    "distance_s": 0.0024308280003424443,
+    "graph_s": 0.0014723039998898457,
+    "cap_extend_s": 0.003019761999894399,
+    "total_s": 0.26449117400034083,
+    "extract_s_per_element": 0.1442727950002336,
+    "extract_us_per_megapixel": 0.1442727950002336
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 11,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 272.29313592854226,
+    "medianRadius": 15.0,
+    "widthErrorCv": 0.021443878688030035
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9498826841858282,
+    "symDiffArea": 467.25,
+    "symDiffFraction": 0.05050532346106037,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 4.949747468305833
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9478279529512748,
+    "symDiffArea": 486.25,
+    "symDiffFraction": 0.052559044479273634,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 5.129571132170798
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.14876970329485045,
+    "centerlineToGtP95": 2.0031115030989977,
+    "gtToCenterlineMedian": 0.1272318164817129,
+    "gtToCenterlineP95": 7.365585534462172,
+    "gtCoverageFraction": 0.822866344605475
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 0.593789691999973
+  },
+  {
+   "target": "case-11-bevel-join",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 506544,
+   "runtime": {
+    "rasterize_s": 0.1192472259999704,
+    "extract_s": 0.08718287100009547,
+    "thin_s": 0.07706480299975738,
+    "trace_s": 0.005198019000090426,
+    "distance_s": 0.0017285819999415253,
+    "graph_s": 0.0012124310001127014,
+    "cap_extend_s": 0.0019392640001569816,
+    "total_s": 0.20643009700006587,
+    "extract_s_per_element": 0.08718287100009547,
+    "extract_us_per_megapixel": 0.08718287100009547
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 13,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 274.11836933354283,
+    "medianRadius": 15.0,
+    "widthErrorCv": 0.009994523402430535
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9610890213524333,
+    "symDiffArea": 360.25,
+    "symDiffFraction": 0.03921888820847792,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 3.25
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.959650596337981,
+    "symDiffArea": 375.3125,
+    "symDiffFraction": 0.04085867864189971,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 3.0
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.14656232018020665,
+    "centerlineToGtP95": 1.6091487375787388,
+    "gtToCenterlineMedian": 0.12857115030044688,
+    "gtToCenterlineP95": 7.307670221781002,
+    "gtCoverageFraction": 0.8285024154589372
+   },
+   "configLabel": "default",
+   "wallClock_s": 0.5456829310001012
+  },
+  {
+   "target": "case-11-bevel-join",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 506544,
+   "runtime": {
+    "rasterize_s": 0.12576129499984745,
+    "extract_s": 0.10490081599982659,
+    "thin_s": 0.09482133900019107,
+    "trace_s": 0.00492742400001589,
+    "distance_s": 0.0017747440001585346,
+    "graph_s": 0.0012477519999265496,
+    "cap_extend_s": 0.0020933920000061335,
+    "total_s": 0.23066211099967404,
+    "extract_s_per_element": 0.10490081599982659,
+    "extract_us_per_megapixel": 0.10490081599982659
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 11,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 272.29313592854226,
+    "medianRadius": 15.0,
+    "widthErrorCv": 0.021443878688030035
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9566420913338195,
+    "symDiffArea": 401.375,
+    "symDiffFraction": 0.043695992379397156,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 3.75
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9545749250344435,
+    "symDiffArea": 420.375,
+    "symDiffFraction": 0.04576444172280057,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 4.0
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.14876970329485045,
+    "centerlineToGtP95": 2.0031115030989977,
+    "gtToCenterlineMedian": 0.1272318164817129,
+    "gtToCenterlineP95": 7.365585534462172,
+    "gtCoverageFraction": 0.822866344605475
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 0.5703105949996825
+  },
+  {
+   "target": "case-12-miter-join",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 506544,
+   "runtime": {
+    "rasterize_s": 0.12321663500006252,
+    "extract_s": 0.085765573000117,
+    "thin_s": 0.07510467599968251,
+    "trace_s": 0.0050023390003843815,
+    "distance_s": 0.0020406309999998484,
+    "graph_s": 0.0013259349998406833,
+    "cap_extend_s": 0.0022490510000352515,
+    "total_s": 0.20898220800017953,
+    "extract_s_per_element": 0.085765573000117,
+    "extract_us_per_megapixel": 0.085765573000117
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 8,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 279.49327187964406,
+    "medianRadius": 15.0,
+    "widthErrorCv": 0.0057239395730557755
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9634180489626112,
+    "symDiffArea": 342.9375,
+    "symDiffFraction": 0.036875,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 3.5
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9638316454767889,
+    "symDiffArea": 339.0625,
+    "symDiffFraction": 0.036458333333333336,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 3.5
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.1407038916156065,
+    "centerlineToGtP95": 0.1745071845591695,
+    "gtToCenterlineMedian": 0.1285950876237719,
+    "gtToCenterlineP95": 7.306831549634026,
+    "gtCoverageFraction": 0.9049919484702094
+   },
+   "configLabel": "default",
+   "wallClock_s": 0.5507930130002023
+  },
+  {
+   "target": "case-12-miter-join",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 506544,
+   "runtime": {
+    "rasterize_s": 0.11986638700000185,
+    "extract_s": 0.14897629200004303,
+    "thin_s": 0.13707827500002168,
+    "trace_s": 0.0050127419999626,
+    "distance_s": 0.003403672000331426,
+    "graph_s": 0.0012152470003456983,
+    "cap_extend_s": 0.002205767999839736,
+    "total_s": 0.2688426790000449,
+    "extract_s_per_element": 0.14897629200004303,
+    "extract_us_per_megapixel": 0.14897629200004303
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 11,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 272.29313592854226,
+    "medianRadius": 15.0,
+    "widthErrorCv": 0.021443878688030035
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.944966854734371,
+    "symDiffArea": 515.75,
+    "symDiffFraction": 0.05545698924731183,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 4.949747468305833
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9429211864067566,
+    "symDiffArea": 534.75,
+    "symDiffFraction": 0.0575,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 5.129571132170798
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.14876970329485045,
+    "centerlineToGtP95": 2.0031115030989977,
+    "gtToCenterlineMedian": 0.1272318164817129,
+    "gtToCenterlineP95": 7.365585534462172,
+    "gtCoverageFraction": 0.822866344605475
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 0.6086149170000681
+  },
+  {
+   "target": "case-13-x-crossing-separate",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 2,
+   "rasterPixels": 1384448,
+   "runtime": {
+    "rasterize_s": 0.180271305000133,
+    "extract_s": 0.1390881580000496,
+    "thin_s": 0.11331918800033236,
+    "trace_s": 0.015234581000186154,
+    "distance_s": 0.004949818999648414,
+    "graph_s": 0.0022149109995552863,
+    "cap_extend_s": 0.0032774800001789117,
+    "total_s": 0.3193594630001826,
+    "extract_s_per_element": 0.0695440790000248,
+    "extract_us_per_megapixel": 0.1004647036219848
+   },
+   "complexity": {
+    "edgeCount": 2,
+    "nodeCount": 4,
+    "vertexCount": 11,
+    "terminalNodes": 4,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 509.11064288599584,
+    "medianRadius": 10.010821183029872,
+    "widthErrorCv": 0.002702059450514367
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9986291903299747,
+    "symDiffArea": 14.8125,
+    "symDiffFraction": 0.001371781811446564,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 0.0
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.998675933286741,
+    "symDiffArea": 14.3125,
+    "symDiffFraction": 0.0013254769401741062,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 0.0
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.063530674031823,
+    "centerlineToGtP95": 0.11967863126107736,
+    "gtToCenterlineMedian": 0.03024009540796776,
+    "gtToCenterlineP95": 0.05828407155132791,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "default",
+   "wallClock_s": 1.63030515499986
+  },
+  {
+   "target": "case-13-x-crossing-separate",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 2,
+   "rasterPixels": 1384448,
+   "runtime": {
+    "rasterize_s": 0.18662435200030814,
+    "extract_s": 0.23781803100018806,
+    "thin_s": 0.2122866200002136,
+    "trace_s": 0.014537179999479122,
+    "distance_s": 0.0050979059997189324,
+    "graph_s": 0.00241069100002278,
+    "cap_extend_s": 0.0034051489997182216,
+    "total_s": 0.4244423830004962,
+    "extract_s_per_element": 0.11890901550009403,
+    "extract_us_per_megapixel": 0.17177823291318134
+   },
+   "complexity": {
+    "edgeCount": 2,
+    "nodeCount": 4,
+    "vertexCount": 10,
+    "terminalNodes": 4,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 509.0198156387499,
+    "medianRadius": 10.010810183874533,
+    "widthErrorCv": 0.0026917622263688355
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9986231313926044,
+    "symDiffArea": 14.875,
+    "symDiffFraction": 0.0013775699203556215,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 0.0
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9988085460791912,
+    "symDiffArea": 12.875,
+    "symDiffFraction": 0.00119235043526579,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 0.0
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.06292166180372567,
+    "centerlineToGtP95": 0.12186394905694417,
+    "gtToCenterlineMedian": 0.03474375462158516,
+    "gtToCenterlineP95": 0.06102821668562695,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 1.6591225529996336
+  },
+  {
+   "target": "case-14-x-crossing-union",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 692224,
+   "runtime": {
+    "rasterize_s": 0.12305961399988519,
+    "extract_s": 0.11876727699973344,
+    "thin_s": 0.09831893000000491,
+    "trace_s": 0.008613883999714744,
+    "distance_s": 0.002339830999972037,
+    "graph_s": 0.0031160329999693204,
+    "cap_extend_s": 0.0063224169998647994,
+    "total_s": 0.24182689099961863,
+    "extract_s_per_element": 0.11876727699973344,
+    "extract_us_per_megapixel": 0.11876727699973344
+   },
+   "complexity": {
+    "edgeCount": 6,
+    "nodeCount": 7,
+    "vertexCount": 28,
+    "terminalNodes": 5,
+    "junctionNodes": 2,
+    "degree4PlusNodes": 1,
+    "totalLength": 531.2340635141572,
+    "medianRadius": 10.014542579997718,
+    "widthErrorCv": 0.03938718631178817
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 1,
+    "cap artifact": 1,
+    "crossing ambiguity": 1,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 1,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9852011213247278,
+    "symDiffArea": 156.0625,
+    "symDiffFraction": 0.015007452639676892,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 0.3535533905932738
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9000411219807809,
+    "symDiffArea": 1154.625,
+    "symDiffFraction": 0.1110323107991153,
+    "boundaryMedian": 0.3535533905932738,
+    "boundaryP95": 3.490153388112797
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.07376862221030234,
+    "centerlineToGtP95": 0.18123065797589732,
+    "gtToCenterlineMedian": 0.038561008573969324,
+    "gtToCenterlineP95": 0.06212460284750068,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "default",
+   "wallClock_s": 0.7625309760001073
+  },
+  {
+   "target": "case-14-x-crossing-union",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 692224,
+   "runtime": {
+    "rasterize_s": 0.19220566199965106,
+    "extract_s": 0.1152670510000462,
+    "thin_s": 0.09751700800006802,
+    "trace_s": 0.008185289000266494,
+    "distance_s": 0.002494721000402933,
+    "graph_s": 0.0029547180001827655,
+    "cap_extend_s": 0.004055334999975457,
+    "total_s": 0.30747271299969725,
+    "extract_s_per_element": 0.1152670510000462,
+    "extract_us_per_megapixel": 0.1152670510000462
+   },
+   "complexity": {
+    "edgeCount": 5,
+    "nodeCount": 6,
+    "vertexCount": 21,
+    "terminalNodes": 4,
+    "junctionNodes": 2,
+    "degree4PlusNodes": 0,
+    "totalLength": 509.0192977514139,
+    "medianRadius": 10.014861693870852,
+    "widthErrorCv": 0.04545649783712636
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 1,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9986184609655154,
+    "symDiffArea": 14.375,
+    "symDiffFraction": 0.0013823444561977113,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 0.0
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.8556162932413183,
+    "symDiffArea": 1754.8125,
+    "symDiffFraction": 0.16874819694201365,
+    "boundaryMedian": 1.6007810593582121,
+    "boundaryP95": 3.473110997362451
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.06351506740519557,
+    "centerlineToGtP95": 0.12143000034606724,
+    "gtToCenterlineMedian": 0.014878155024252326,
+    "gtToCenterlineP95": 0.060778087092712124,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 0.8006082130000323
+  },
+  {
+   "target": "case-15-t-junction",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 612864,
+   "runtime": {
+    "rasterize_s": 0.134787394000341,
+    "extract_s": 0.07321913799978574,
+    "thin_s": 0.05972415099995487,
+    "trace_s": 0.005971329999738373,
+    "distance_s": 0.0023589430002175504,
+    "graph_s": 0.0021197299997766095,
+    "cap_extend_s": 0.0030022079999980633,
+    "total_s": 0.20800653200012675,
+    "extract_s_per_element": 0.07321913799978574,
+    "extract_us_per_megapixel": 0.07321913799978574
+   },
+   "complexity": {
+    "edgeCount": 3,
+    "nodeCount": 4,
+    "vertexCount": 15,
+    "terminalNodes": 3,
+    "junctionNodes": 1,
+    "degree4PlusNodes": 0,
+    "totalLength": 340.8196302585733,
+    "medianRadius": 10.0,
+    "widthErrorCv": 0.013765332024382931
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 1
+   },
+   "reconstruction": {
+    "iou": 0.9815650144553972,
+    "symDiffArea": 132.3125,
+    "symDiffFraction": 0.01871199264601895,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.5
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9600633536564597,
+    "symDiffArea": 293.125,
+    "symDiffFraction": 0.04145453259793523,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 1.25
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.13988268348946734,
+    "centerlineToGtP95": 0.17522818117849331,
+    "gtToCenterlineMedian": 0.13520587561688757,
+    "gtToCenterlineP95": 0.13971169603732522,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "default",
+   "wallClock_s": 0.41273816399962016
+  },
+  {
+   "target": "case-15-t-junction",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 612864,
+   "runtime": {
+    "rasterize_s": 0.12715865999962261,
+    "extract_s": 0.11599029099988911,
+    "thin_s": 0.1027186989999791,
+    "trace_s": 0.0062051830000200425,
+    "distance_s": 0.0023803950002729835,
+    "graph_s": 0.0025053660001503886,
+    "cap_extend_s": 0.0021313380002538906,
+    "total_s": 0.24314895099951173,
+    "extract_s_per_element": 0.11599029099988911,
+    "extract_us_per_megapixel": 0.11599029099988911
+   },
+   "complexity": {
+    "edgeCount": 3,
+    "nodeCount": 4,
+    "vertexCount": 17,
+    "terminalNodes": 3,
+    "junctionNodes": 1,
+    "degree4PlusNodes": 0,
+    "totalLength": 337.9514915675205,
+    "medianRadius": 10.0,
+    "widthErrorCv": 0.018020407325050683
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 1
+   },
+   "reconstruction": {
+    "iou": 0.9808086535525798,
+    "symDiffArea": 137.5,
+    "symDiffFraction": 0.019445622967048506,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.5
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9698386457956639,
+    "symDiffArea": 218.9375,
+    "symDiffFraction": 0.030962735115259512,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.75
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.14165545329711593,
+    "centerlineToGtP95": 0.8100825292908055,
+    "gtToCenterlineMedian": 0.12901892689044447,
+    "gtToCenterlineP95": 1.3967044388178314,
+    "gtCoverageFraction": 0.9427312775330396
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 0.45198828499997035
+  },
+  {
+   "target": "case-16-y-junction",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 656496,
+   "runtime": {
+    "rasterize_s": 0.13275899999962348,
+    "extract_s": 0.09720584999968196,
+    "thin_s": 0.08198920899985751,
+    "trace_s": 0.007463900000402646,
+    "distance_s": 0.002777630999844405,
+    "graph_s": 0.0021652099999300845,
+    "cap_extend_s": 0.002739368999755243,
+    "total_s": 0.22996484999930544,
+    "extract_s_per_element": 0.09720584999968196,
+    "extract_us_per_megapixel": 0.09720584999968196
+   },
+   "complexity": {
+    "edgeCount": 3,
+    "nodeCount": 4,
+    "vertexCount": 50,
+    "terminalNodes": 3,
+    "junctionNodes": 1,
+    "degree4PlusNodes": 0,
+    "totalLength": 345.41939921047253,
+    "medianRadius": 9.930156526655589,
+    "widthErrorCv": 0.020461766709664486
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 3
+   },
+   "reconstruction": {
+    "iou": 0.9885882109759879,
+    "symDiffArea": 82.8125,
+    "symDiffFraction": 0.011508129516398,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 0.3535533905932738
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9858585338210293,
+    "symDiffArea": 102.9375,
+    "symDiffFraction": 0.01430482212340189,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 0.25
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.09705789509475235,
+    "centerlineToGtP95": 0.9373860580783437,
+    "gtToCenterlineMedian": 0.06036479266540341,
+    "gtToCenterlineP95": 0.8713103317275611,
+    "gtCoverageFraction": 0.9524838012958964
+   },
+   "configLabel": "default",
+   "wallClock_s": 0.5647874279998177
+  },
+  {
+   "target": "case-16-y-junction",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 656496,
+   "runtime": {
+    "rasterize_s": 0.1303650829995604,
+    "extract_s": 0.11812524499964638,
+    "thin_s": 0.09927570599984392,
+    "trace_s": 0.011632933999862871,
+    "distance_s": 0.0026084819996867736,
+    "graph_s": 0.00220082799978627,
+    "cap_extend_s": 0.002358916000048339,
+    "total_s": 0.24849032799920678,
+    "extract_s_per_element": 0.11812524499964638,
+    "extract_us_per_megapixel": 0.11812524499964638
+   },
+   "complexity": {
+    "edgeCount": 3,
+    "nodeCount": 4,
+    "vertexCount": 24,
+    "terminalNodes": 3,
+    "junctionNodes": 1,
+    "degree4PlusNodes": 0,
+    "totalLength": 346.00786679059183,
+    "medianRadius": 9.931247037850897,
+    "widthErrorCv": 0.022791866123126305
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 3
+   },
+   "reconstruction": {
+    "iou": 0.9850670520330658,
+    "symDiffArea": 108.5,
+    "symDiffFraction": 0.015077821011673152,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 0.5
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9701942567567567,
+    "symDiffArea": 220.5625,
+    "symDiffFraction": 0.030650708727070593,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 1.0
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.1229107953920128,
+    "centerlineToGtP95": 0.7489334168156444,
+    "gtToCenterlineMedian": 0.11049865116229152,
+    "gtToCenterlineP95": 0.7165674809308987,
+    "gtCoverageFraction": 0.9870410367170627
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 0.597554338000009
+  },
+  {
+   "target": "case-17-near-parallel",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 2,
+   "rasterPixels": 204288,
+   "runtime": {
+    "rasterize_s": 0.1438424899997699,
+    "extract_s": 0.03421362800008865,
+    "thin_s": 0.02359413499971197,
+    "trace_s": 0.0020925359999637294,
+    "distance_s": 0.0015283650000128546,
+    "graph_s": 0.0024514950005141145,
+    "cap_extend_s": 0.004490884000460937,
+    "total_s": 0.17805611799985854,
+    "extract_s_per_element": 0.017106814000044324,
+    "extract_us_per_megapixel": 0.03421362800008865
+   },
+   "complexity": {
+    "edgeCount": 2,
+    "nodeCount": 4,
+    "vertexCount": 12,
+    "terminalNodes": 4,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 400.5919892001051,
+    "medianRadius": 10.0,
+    "widthErrorCv": 0.0032259822747027255
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9810173555606304,
+    "symDiffArea": 166.25,
+    "symDiffFraction": 0.019268660176170606,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.5
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9810173555606304,
+    "symDiffArea": 166.25,
+    "symDiffFraction": 0.019268660176170606,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.5
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.1523159826934157,
+    "centerlineToGtP95": 0.1763140444102152,
+    "gtToCenterlineMedian": 0.12654732780359448,
+    "gtToCenterlineP95": 0.13140577480664287,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "default",
+   "wallClock_s": 0.2809579119998489
+  },
+  {
+   "target": "case-17-near-parallel",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 2,
+   "rasterPixels": 204288,
+   "runtime": {
+    "rasterize_s": 0.13641527599975234,
+    "extract_s": 0.049494151000089914,
+    "thin_s": 0.04105333999996219,
+    "trace_s": 0.0017483639994679834,
+    "distance_s": 0.0015389430000141147,
+    "graph_s": 0.002104686999700789,
+    "cap_extend_s": 0.002994880999722227,
+    "total_s": 0.18590942699984225,
+    "extract_s_per_element": 0.024747075500044957,
+    "extract_us_per_megapixel": 0.049494151000089914
+   },
+   "complexity": {
+    "edgeCount": 2,
+    "nodeCount": 4,
+    "vertexCount": 12,
+    "terminalNodes": 4,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 400.5919892001051,
+    "medianRadius": 10.0,
+    "widthErrorCv": 0.003261461562187426
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9827330115113257,
+    "symDiffArea": 151.125,
+    "symDiffFraction": 0.01751564673157163,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.5
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9827330115113257,
+    "symDiffArea": 151.125,
+    "symDiffFraction": 0.01751564673157163,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 0.5
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.15042606874125422,
+    "centerlineToGtP95": 0.17472253519254227,
+    "gtToCenterlineMedian": 0.12654732780359448,
+    "gtToCenterlineP95": 0.13104579300484942,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 0.28329874499968355
+  },
+  {
+   "target": "case-18-self-overlap",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 432000,
+   "runtime": {
+    "rasterize_s": 0.1250130859998535,
+    "extract_s": 0.09138666700027898,
+    "thin_s": 0.07791073600037635,
+    "trace_s": 0.004683850999754213,
+    "distance_s": 0.0021977569999762636,
+    "graph_s": 0.003473982999821601,
+    "cap_extend_s": 0.0030727789999218658,
+    "total_s": 0.21639975300013248,
+    "extract_s_per_element": 0.09138666700027898,
+    "extract_us_per_megapixel": 0.09138666700027898
+   },
+   "complexity": {
+    "edgeCount": 7,
+    "nodeCount": 7,
+    "vertexCount": 107,
+    "terminalNodes": 3,
+    "junctionNodes": 3,
+    "degree4PlusNodes": 0,
+    "totalLength": 408.18566389747645,
+    "medianRadius": 10.0,
+    "widthErrorCv": 0.1060993556856832
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 1,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 3,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9634718052618347,
+    "symDiffArea": 308.75,
+    "symDiffFraction": 0.036937064923994886,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 1.4142135623730951
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9092317374255701,
+    "symDiffArea": 820.3125,
+    "symDiffFraction": 0.09813744476263823,
+    "boundaryMedian": 0.5,
+    "boundaryP95": 4.422951503238533
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.17540464153864904,
+    "centerlineToGtP95": 3.6424153838982853,
+    "gtToCenterlineMedian": 0.2201996898926008,
+    "gtToCenterlineP95": 5.361234112027189,
+    "gtCoverageFraction": 0.7550052687038988
+   },
+   "configLabel": "default",
+   "wallClock_s": 0.4797437879997233
+  },
+  {
+   "target": "case-18-self-overlap",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 432000,
+   "runtime": {
+    "rasterize_s": 0.12362312000004749,
+    "extract_s": 0.1348753380002563,
+    "thin_s": 0.11647253199998886,
+    "trace_s": 0.004690191000008781,
+    "distance_s": 0.001777526999831025,
+    "graph_s": 0.00448641699995278,
+    "cap_extend_s": 0.007399198999792134,
+    "total_s": 0.2584984580003038,
+    "extract_s_per_element": 0.1348753380002563,
+    "extract_us_per_megapixel": 0.1348753380002563
+   },
+   "complexity": {
+    "edgeCount": 9,
+    "nodeCount": 10,
+    "vertexCount": 114,
+    "terminalNodes": 6,
+    "junctionNodes": 4,
+    "degree4PlusNodes": 0,
+    "totalLength": 458.80558503988647,
+    "medianRadius": 11.653733968948185,
+    "widthErrorCv": 0.10297326064640504
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 2,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 5,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.946378012319441,
+    "symDiffArea": 465.1875,
+    "symDiffFraction": 0.05565234296139553,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 2.75
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9286823794764131,
+    "symDiffArea": 628.4375,
+    "symDiffFraction": 0.07518262911149161,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 3.010398644698074
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.2882532824044395,
+    "centerlineToGtP95": 3.5267388385866885,
+    "gtToCenterlineMedian": 0.3283793716822505,
+    "gtToCenterlineP95": 4.458956502465503,
+    "gtCoverageFraction": 0.726027397260274
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 0.5370956179999666
+  },
+  {
+   "target": "case-19-variable-width",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 140448,
+   "runtime": {
+    "rasterize_s": 0.12516594899989286,
+    "extract_s": 0.02661453500013522,
+    "thin_s": 0.02103330099998857,
+    "trace_s": 0.0011654840000119293,
+    "distance_s": 0.0007264220002980437,
+    "graph_s": 0.0010867339997275849,
+    "cap_extend_s": 0.0025710190002428135,
+    "total_s": 0.15178048400002808,
+    "extract_s_per_element": 0.02661453500013522,
+    "extract_us_per_megapixel": 0.02661453500013522
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 5,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 183.7724872757231,
+    "medianRadius": 10.361358545723386,
+    "widthErrorCv": 0.34866113616546274
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.7136945311007831,
+    "symDiffArea": 1405.3125,
+    "symDiffFraction": 0.329967861702596,
+    "boundaryMedian": 3.25,
+    "boundaryP95": 6.020797289396148
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9358174014826375,
+    "symDiffArea": 287.875,
+    "symDiffFraction": 0.06759314969989581,
+    "boundaryMedian": 0.5590169943749475,
+    "boundaryP95": 1.346291201783626
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.14129814661538018,
+    "centerlineToGtP95": 0.3776183357797485,
+    "gtToCenterlineMedian": 0.1311610064681372,
+    "gtToCenterlineP95": 0.13966758252650638,
+    "gtCoverageFraction": 0.9889042995839112
+   },
+   "configLabel": "default",
+   "wallClock_s": 0.22749036200002593
+  },
+  {
+   "target": "case-19-variable-width",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 140448,
+   "runtime": {
+    "rasterize_s": 0.11976008700003149,
+    "extract_s": 0.027437818000180414,
+    "thin_s": 0.023258280999925773,
+    "trace_s": 0.0010975400000461377,
+    "distance_s": 0.0006760239998584439,
+    "graph_s": 0.0010074760002680705,
+    "cap_extend_s": 0.0013734190001741808,
+    "total_s": 0.1471979050002119,
+    "extract_s_per_element": 0.027437818000180414,
+    "extract_us_per_megapixel": 0.027437818000180414
+   },
+   "complexity": {
+    "edgeCount": 1,
+    "nodeCount": 2,
+    "vertexCount": 5,
+    "terminalNodes": 2,
+    "junctionNodes": 0,
+    "degree4PlusNodes": 0,
+    "totalLength": 186.21911304760988,
+    "medianRadius": 10.442973361807173,
+    "widthErrorCv": 0.35795527264286214
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 0,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 0,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.7077572479336754,
+    "symDiffArea": 1445.25,
+    "symDiffFraction": 0.3393452005341708,
+    "boundaryMedian": 3.2596012026013246,
+    "boundaryP95": 6.25
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9405701178648906,
+    "symDiffArea": 268.8125,
+    "symDiffFraction": 0.06311726809797044,
+    "boundaryMedian": 0.5,
+    "boundaryP95": 1.0
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.14005236468978166,
+    "centerlineToGtP95": 0.1530107313067433,
+    "gtToCenterlineMedian": 0.13510405829730157,
+    "gtToCenterlineP95": 0.1394862403893542,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 0.21851250999998229
+  },
+  {
+   "target": "case-20-noisy-boundary",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 541406,
+   "runtime": {
+    "rasterize_s": 0.12154892199987444,
+    "extract_s": 0.07551955500002805,
+    "thin_s": 0.05937719199982894,
+    "trace_s": 0.006310414999916247,
+    "distance_s": 0.0030578269997931784,
+    "graph_s": 0.00464943899987702,
+    "cap_extend_s": 0.002078081000036036,
+    "total_s": 0.1970684769999025,
+    "extract_s_per_element": 0.07551955500002805,
+    "extract_us_per_megapixel": 0.07551955500002805
+   },
+   "complexity": {
+    "edgeCount": 8,
+    "nodeCount": 9,
+    "vertexCount": 121,
+    "terminalNodes": 6,
+    "junctionNodes": 3,
+    "degree4PlusNodes": 1,
+    "totalLength": 321.57809276611886,
+    "medianRadius": 8.526759757252687,
+    "widthErrorCv": 0.314082409967153
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 5,
+    "cap artifact": 0,
+    "crossing ambiguity": 1,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 3,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.9128364182091045,
+    "symDiffArea": 544.5,
+    "symDiffFraction": 0.09338221107466718,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 4.5
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9594106374289215,
+    "symDiffArea": 242.25,
+    "symDiffFraction": 0.04154608013377066,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 1.6007810593582121
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.3439592613202137,
+    "centerlineToGtP95": 7.68892011908005,
+    "gtToCenterlineMedian": 0.21994548450120344,
+    "gtToCenterlineP95": 0.8197161686439662,
+    "gtCoverageFraction": 0.993963782696177
+   },
+   "configLabel": "default",
+   "wallClock_s": 0.48924992199999906
+  },
+  {
+   "target": "case-20-noisy-boundary",
+   "kind": "synthetic",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 1,
+   "rasterPixels": 541406,
+   "runtime": {
+    "rasterize_s": 0.1278578159999597,
+    "extract_s": 0.11535044199990807,
+    "thin_s": 0.09120376800001395,
+    "trace_s": 0.0063027809997038275,
+    "distance_s": 0.0024224369999501505,
+    "graph_s": 0.013673532999746385,
+    "cap_extend_s": 0.0016778399999566318,
+    "total_s": 0.24320825799986778,
+    "extract_s_per_element": 0.11535044199990807,
+    "extract_us_per_megapixel": 0.11535044199990807
+   },
+   "complexity": {
+    "edgeCount": 29,
+    "nodeCount": 30,
+    "vertexCount": 188,
+    "terminalNodes": 16,
+    "junctionNodes": 14,
+    "degree4PlusNodes": 0,
+    "totalLength": 403.50981698354383,
+    "medianRadius": 6.07037496009422,
+    "widthErrorCv": 0.2786441455170215
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 16,
+    "cap artifact": 0,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 15,
+    "raster quantization": 0,
+    "wrong endpoint": 0
+   },
+   "reconstruction": {
+    "iou": 0.8993637658814575,
+    "symDiffArea": 644.5625,
+    "symDiffFraction": 0.11054301455613437,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 4.562071897723665
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9621761711960198,
+    "symDiffArea": 227.125,
+    "symDiffFraction": 0.03895212982614102,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 1.118033988749895
+   },
+   "centerline": {
+    "centerlineToGtMedian": 0.4616558389200297,
+    "centerlineToGtP95": 9.548482026015863,
+    "gtToCenterlineMedian": 0.2789647130330068,
+    "gtToCenterlineP95": 0.6647173255001996,
+    "gtCoverageFraction": 1.0
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 0.5112556099998073
+  },
+  {
+   "target": "house-wide",
+   "kind": "real",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 19,
+   "rasterPixels": 15177937,
+   "runtime": {
+    "rasterize_s": 1.2020950639998773,
+    "extract_s": 2.2181559579998975,
+    "thin_s": 1.8456762409996372,
+    "trace_s": 0.23302943900034734,
+    "distance_s": 0.07672757499994987,
+    "graph_s": 0.03285204000076192,
+    "cap_extend_s": 0.029029433998857712,
+    "total_s": 3.420251021999775,
+    "extract_s_per_element": 0.11674505042104724,
+    "extract_us_per_megapixel": 0.14614344215553784
+   },
+   "complexity": {
+    "edgeCount": 36,
+    "nodeCount": 49,
+    "vertexCount": 2060,
+    "terminalNodes": 37,
+    "junctionNodes": 10,
+    "degree4PlusNodes": 1,
+    "totalLength": 8619.678777372304,
+    "medianRadius": 10.5,
+    "widthErrorCv": 0.07398236991282074
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 3,
+    "cap artifact": 0,
+    "crossing ambiguity": 1,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 9,
+    "raster quantization": 0
+   },
+   "reconstruction": {
+    "iou": 0.9652591602302216,
+    "symDiffArea": 6592.75,
+    "symDiffFraction": 0.03578756805758364,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 4.043195443645305
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9563499096008184,
+    "symDiffArea": 8455.625,
+    "symDiffFraction": 0.04589985289248123,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 3.480090082779358
+   },
+   "configLabel": "default",
+   "wallClock_s": 15.657576032000179
+  },
+  {
+   "target": "house-wide",
+   "kind": "real",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 19,
+   "rasterPixels": 15177937,
+   "runtime": {
+    "rasterize_s": 1.1967922969997744,
+    "extract_s": 2.9374309339996216,
+    "thin_s": 2.5554914040008043,
+    "trace_s": 0.2320651330005603,
+    "distance_s": 0.07295463300079064,
+    "graph_s": 0.03827625100075238,
+    "cap_extend_s": 0.037682928000322136,
+    "total_s": 4.134223230999396,
+    "extract_s_per_element": 0.15460162810524325,
+    "extract_us_per_megapixel": 0.1935329507560627
+   },
+   "complexity": {
+    "edgeCount": 48,
+    "nodeCount": 62,
+    "vertexCount": 2245,
+    "terminalNodes": 45,
+    "junctionNodes": 16,
+    "degree4PlusNodes": 1,
+    "totalLength": 8724.450684141015,
+    "medianRadius": 10.5,
+    "widthErrorCv": 0.0829529660888267
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 9,
+    "cap artifact": 4,
+    "crossing ambiguity": 1,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 22,
+    "raster quantization": 0
+   },
+   "reconstruction": {
+    "iou": 0.962450347991923,
+    "symDiffArea": 7163.6875,
+    "symDiffFraction": 0.038886800492891616,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 3.986771132487869
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9563297855392893,
+    "symDiffArea": 8442.5625,
+    "symDiffFraction": 0.04582894543993833,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 3.747104640277892
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 14.902709357000276
+  },
+  {
+   "target": "dinosaur-wide",
+   "kind": "real",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 33,
+   "rasterPixels": 33698187,
+   "runtime": {
+    "rasterize_s": 2.326184610999917,
+    "extract_s": 5.331106277999879,
+    "thin_s": 3.5757734829990113,
+    "trace_s": 1.4446786650005379,
+    "distance_s": 0.20461102699937328,
+    "graph_s": 0.05668471800026964,
+    "cap_extend_s": 0.0479375640006765,
+    "total_s": 7.657290888999796,
+    "extract_s_per_element": 0.16154867509090542,
+    "extract_us_per_megapixel": 0.15820157559217887
+   },
+   "complexity": {
+    "edgeCount": 75,
+    "nodeCount": 104,
+    "vertexCount": 3789,
+    "terminalNodes": 81,
+    "junctionNodes": 23,
+    "degree4PlusNodes": 0,
+    "totalLength": 14138.335240849272,
+    "medianRadius": 7.5,
+    "widthErrorCv": 0.11469361908428707
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 6,
+    "cap artifact": 2,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 16,
+    "raster quantization": 0
+   },
+   "reconstruction": {
+    "iou": 0.9621400814227732,
+    "symDiffArea": 8601.625,
+    "symDiffFraction": 0.03898259908731104,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 1.724698751445449
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9603548479797814,
+    "symDiffArea": 9031.8125,
+    "symDiffFraction": 0.040932210567103826,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 1.6759247114818825
+   },
+   "configLabel": "default",
+   "wallClock_s": 48.740263054000025
+  },
+  {
+   "target": "dinosaur-wide",
+   "kind": "real",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 33,
+   "rasterPixels": 33698187,
+   "runtime": {
+    "rasterize_s": 2.3553328440002588,
+    "extract_s": 6.726924069000233,
+    "thin_s": 4.889617712000927,
+    "trace_s": 1.5227221900004224,
+    "distance_s": 0.20870309600059045,
+    "graph_s": 0.06274031500015553,
+    "cap_extend_s": 0.04204348900157129,
+    "total_s": 9.082256913000492,
+    "extract_s_per_element": 0.20384618390909798,
+    "extract_us_per_megapixel": 0.19962272952548554
+   },
+   "complexity": {
+    "edgeCount": 88,
+    "nodeCount": 118,
+    "vertexCount": 4134,
+    "terminalNodes": 89,
+    "junctionNodes": 29,
+    "degree4PlusNodes": 0,
+    "totalLength": 14220.79805674995,
+    "medianRadius": 7.0795979729619525,
+    "widthErrorCv": 0.13866779082035496
+   },
+   "tags": {
+    "outline noise branch": 1,
+    "join artifact": 12,
+    "cap artifact": 2,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 17,
+    "raster quantization": 0
+   },
+   "reconstruction": {
+    "iou": 0.9638290035603616,
+    "symDiffArea": 8231.6875,
+    "symDiffFraction": 0.03730604084978474,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 2.59536265901931
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9624046774877306,
+    "symDiffArea": 8616.5,
+    "symDiffFraction": 0.03905001264712372,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 2.093966412480738
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 52.59496734200002
+  },
+  {
+   "target": "butterfly-wide",
+   "kind": "real",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 13,
+   "rasterPixels": 22603199,
+   "runtime": {
+    "rasterize_s": 1.3253640500001893,
+    "extract_s": 4.4667935779998515,
+    "thin_s": 3.881567396999799,
+    "trace_s": 0.3828977409993968,
+    "distance_s": 0.13452024500020343,
+    "graph_s": 0.03203153000049497,
+    "cap_extend_s": 0.035027254999931756,
+    "total_s": 5.792157628000041,
+    "extract_s_per_element": 0.34359950599998856,
+    "extract_us_per_megapixel": 0.1976177610080702
+   },
+   "complexity": {
+    "edgeCount": 37,
+    "nodeCount": 45,
+    "vertexCount": 2826,
+    "terminalNodes": 30,
+    "junctionNodes": 14,
+    "degree4PlusNodes": 0,
+    "totalLength": 10038.30266240481,
+    "medianRadius": 9.34040013608529,
+    "widthErrorCv": 0.08926922927296653
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 8,
+    "cap artifact": 12,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 1,
+    "excessive curve complexity": 13,
+    "raster quantization": 0
+   },
+   "reconstruction": {
+    "iou": 0.9575637729090978,
+    "symDiffArea": 8087.6875,
+    "symDiffFraction": 0.04299118701098243,
+    "boundaryMedian": 0.0,
+    "boundaryP95": 3.715812131091392
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9293413982254132,
+    "symDiffArea": 14265.3125,
+    "symDiffFraction": 0.07582918077109252,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 5.360635491575365
+   },
+   "configLabel": "default",
+   "wallClock_s": 23.40667365499985
+  },
+  {
+   "target": "butterfly-wide",
+   "kind": "real",
+   "config": {
+    "scale": 4.0,
+    "thinning": "guohall",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 13,
+   "rasterPixels": 22603199,
+   "runtime": {
+    "rasterize_s": 1.3132055299997774,
+    "extract_s": 5.64438903700011,
+    "thin_s": 5.0612026199992215,
+    "trace_s": 0.37258974300084446,
+    "distance_s": 0.14790686900005312,
+    "graph_s": 0.03202990699946895,
+    "cap_extend_s": 0.02984002200037139,
+    "total_s": 6.957594566999887,
+    "extract_s_per_element": 0.43418377207693154,
+    "extract_us_per_megapixel": 0.24971638027874332
+   },
+   "complexity": {
+    "edgeCount": 39,
+    "nodeCount": 46,
+    "vertexCount": 2970,
+    "terminalNodes": 29,
+    "junctionNodes": 15,
+    "degree4PlusNodes": 0,
+    "totalLength": 10022.642466701098,
+    "medianRadius": 9.337393032249405,
+    "widthErrorCv": 0.10436293186068375
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 8,
+    "cap artifact": 4,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 18,
+    "raster quantization": 0
+   },
+   "reconstruction": {
+    "iou": 0.9578358660112568,
+    "symDiffArea": 8041.25,
+    "symDiffFraction": 0.042744342255071364,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 4.080709178246753
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9291850556767997,
+    "symDiffArea": 14190.5625,
+    "symDiffFraction": 0.07543183712631508,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 4.946345398285281
+   },
+   "configLabel": "thinning=guohall",
+   "wallClock_s": 24.921577007999986
+  },
+  {
+   "target": "landscape-square",
+   "kind": "real",
+   "config": {
+    "scale": 4.0,
+    "thinning": "zhangsuen",
+    "tracer": "st-c",
+    "csize": 10,
+    "simplify_px": 0.5,
+    "cap_extend": "round"
+   },
+   "elements": 14,
+   "rasterPixels": 48147881,
+   "runtime": {
+    "rasterize_s": 2.4039714020000247,
+    "extract_s": 8.023052344000007,
+    "thin_s": 6.508434882001438,
+    "trace_s": 1.1025265170001148,
+    "distance_s": 0.23914683399971182,
+    "graph_s": 0.09587182799941729,
+    "cap_extend_s": 0.07519969800023318,
+    "total_s": 10.427023746000032,
+    "extract_s_per_element": 0.5730751674285719,
+    "extract_us_per_megapixel": 0.1666335501659981
+   },
+   "complexity": {
+    "edgeCount": 175,
+    "nodeCount": 186,
+    "vertexCount": 6176,
+    "terminalNodes": 104,
+    "junctionNodes": 82,
+    "degree4PlusNodes": 0,
+    "totalLength": 27507.245829313386,
+    "medianRadius": 11.415963469035148,
+    "widthErrorCv": 0.13335037911882328
+   },
+   "tags": {
+    "outline noise branch": 0,
+    "join artifact": 41,
+    "cap artifact": 2,
+    "crossing ambiguity": 0,
+    "disconnected skeleton": 0,
+    "missing narrow segment": 0,
+    "excessive curve complexity": 59,
+    "raster quantization": 1
+   },
+   "reconstruction": {
+    "iou": 0.9498283600267523,
+    "symDiffArea": 31617.75,
+    "symDiffFraction": 0.05216346540521746,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 5.087095629201993
+   },
+   "reconstructionVariableWidth": {
+    "iou": 0.9551258073072143,
+    "symDiffArea": 28532.875,
+    "symDiffFraction": 0.04707398970432412,
+    "boundaryMedian": 0.25,
+    "boundaryP95": 5.9333390873175
+   },
+   "configLabel": "default",
+   "wallClock_s": 86.92159215099991
+  }
+ ],
+ "speed": {
+  "maskMegapixels": 3.703182,
+  "maskCount": 7,
+  "repeats": 3,
+  "skimage": "0.26.0",
+  "skeletonizers": {
+   "cv2.ximgproc.thinning(ZHANGSUEN)": {
+    "seconds": 0.386485454999729,
+    "megapixels_per_s": 9.581685292665403
+   },
+   "cv2.ximgproc.thinning(GUOHALL)": {
+    "seconds": 0.4836730109996097,
+    "megapixels_per_s": 7.656375104218888
+   },
+   "skimage.medial_axis(return_distance=True)": {
+    "seconds": 0.6833154810001361,
+    "megapixels_per_s": 5.419432316358222
+   },
+   "skimage.skeletonize(method='zhang')": {
+    "seconds": 0.269902853000076,
+    "megapixels_per_s": 13.720425548813882
+   },
+   "skimage.skeletonize(method='lee')": {
+    "seconds": 0.7720649610000692,
+    "megapixels_per_s": 4.796464270575372
+   },
+   "cv2.distanceTransform (radius recovery)": {
+    "seconds": 0.013012780999815732,
+    "megapixels_per_s": 284.580367567274
+   }
+  },
+  "tracers": {
+   "st-c": {
+    "seconds": 0.04338373700011289,
+    "measuredMegapixels": 3.703182,
+    "measuredMasks": 7,
+    "megapixels_per_s": 85.35876012687345
+   },
+   "st-js": {
+    "seconds": 0.9171247660001427,
+    "measuredMegapixels": 3.703182,
+    "measuredMasks": 7,
+    "megapixels_per_s": 4.037817031319187
+   },
+   "bespoke": {
+    "seconds": 0.1502023069997449,
+    "measuredMegapixels": 3.703182,
+    "measuredMasks": 7,
+    "megapixels_per_s": 24.65462797456426
+   },
+   "st-py": {
+    "seconds": 5.209830378999868,
+    "measuredMegapixels": 0.427008,
+    "measuredMasks": 2,
+    "megapixels_per_s": 0.08196197744195519
+   }
+  }
+ },
+ "speedTargets": [
+  "case-01-horizontal-line",
+  "case-03-circular-arc",
+  "case-04-s-curve",
+  "case-06-closed-loop",
+  "case-14-x-crossing-union",
+  "case-16-y-junction",
+  "case-20-noisy-boundary"
+ ],
+ "tracerAgreement": {
+  "st-py": {
+   "case-01-horizontal-line": {
+    "exact": true,
+    "samePolylineCount": true,
+    "maxDeviationPx": 0.0,
+    "elements": [
+     {
+      "exact": true,
+      "polylines": [
+       1,
+       1
+      ],
+      "vertices": [
+       256,
+       256
+      ],
+      "samePolylineCount": true,
+      "maxPx": 0.0,
+      "p95Px": 0.0
+     }
+    ]
+   },
+   "case-03-circular-arc": {
+    "exact": false,
+    "samePolylineCount": true,
+    "maxDeviationPx": 0.0,
+    "elements": [
+     {
+      "exact": false,
+      "polylines": [
+       1,
+       1
+      ],
+      "vertices": [
+       262,
+       262
+      ],
+      "samePolylineCount": true,
+      "maxPx": 0.0,
+      "p95Px": 0.0
+     }
+    ]
+   },
+   "case-04-s-curve": null,
+   "case-06-closed-loop": null,
+   "case-14-x-crossing-union": null,
+   "case-16-y-junction": null,
+   "case-20-noisy-boundary": null
+  },
+  "st-js": {
+   "case-01-horizontal-line": {
+    "exact": true,
+    "samePolylineCount": true,
+    "maxDeviationPx": 0.0,
+    "elements": [
+     {
+      "exact": true,
+      "polylines": [
+       1,
+       1
+      ],
+      "vertices": [
+       256,
+       256
+      ],
+      "samePolylineCount": true,
+      "maxPx": 0.0,
+      "p95Px": 0.0
+     }
+    ]
+   },
+   "case-03-circular-arc": {
+    "exact": false,
+    "samePolylineCount": true,
+    "maxDeviationPx": 5.0,
+    "elements": [
+     {
+      "exact": false,
+      "polylines": [
+       1,
+       1
+      ],
+      "vertices": [
+       262,
+       262
+      ],
+      "samePolylineCount": true,
+      "maxPx": 5.0,
+      "p95Px": 0.0
+     }
+    ]
+   },
+   "case-04-s-curve": {
+    "exact": false,
+    "samePolylineCount": true,
+    "maxDeviationPx": 2.8284271247461903,
+    "elements": [
+     {
+      "exact": false,
+      "polylines": [
+       1,
+       1
+      ],
+      "vertices": [
+       320,
+       318
+      ],
+      "samePolylineCount": true,
+      "maxPx": 2.8284271247461903,
+      "p95Px": 0.0
+     }
+    ]
+   },
+   "case-06-closed-loop": {
+    "exact": false,
+    "samePolylineCount": true,
+    "maxDeviationPx": 1.4142135623730951,
+    "elements": [
+     {
+      "exact": false,
+      "polylines": [
+       1,
+       1
+      ],
+      "vertices": [
+       586,
+       586
+      ],
+      "samePolylineCount": true,
+      "maxPx": 1.4142135623730951,
+      "p95Px": 0.0
+     }
+    ]
+   },
+   "case-14-x-crossing-union": {
+    "exact": true,
+    "samePolylineCount": true,
+    "maxDeviationPx": 0.0,
+    "elements": [
+     {
+      "exact": true,
+      "polylines": [
+       6,
+       6
+      ],
+      "vertices": [
+       550,
+       550
+      ],
+      "samePolylineCount": true,
+      "maxPx": 0.0,
+      "p95Px": 0.0
+     }
+    ]
+   },
+   "case-16-y-junction": {
+    "exact": true,
+    "samePolylineCount": true,
+    "maxDeviationPx": 0.0,
+    "elements": [
+     {
+      "exact": true,
+      "polylines": [
+       3,
+       3
+      ],
+      "vertices": [
+       368,
+       368
+      ],
+      "samePolylineCount": true,
+      "maxPx": 0.0,
+      "p95Px": 0.0
+     }
+    ]
+   },
+   "case-20-noisy-boundary": {
+    "exact": false,
+    "samePolylineCount": false,
+    "maxDeviationPx": 4.47213595499958,
+    "elements": [
+     {
+      "exact": false,
+      "polylines": [
+       8,
+       7
+      ],
+      "vertices": [
+       346,
+       340
+      ],
+      "samePolylineCount": false,
+      "maxPx": 4.47213595499958,
+      "p95Px": 1.0
+     }
+    ]
+   }
+  }
+ }
+}

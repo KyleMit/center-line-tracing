@@ -90,10 +90,15 @@ def restroke_mask(graph, constant_width: bool = True) -> np.ndarray:
         py = np.clip(np.round(dense[:, 1]).astype(int) - y0, 0, lh - 1)
         window = out[y0:y1, x0:x1]
 
-        if np.allclose(radii, radii[0]):
+        # Sub-pixel radius variation cannot change the rasterized result, so
+        # treat it as constant and take the one-transform path. Without this,
+        # every real-image edge takes the 12-transform variable-radius path even
+        # though its radius wobbles by a fraction of a pixel — which is what made
+        # the noisier Guo-Hall dinosaur run take tens of minutes to score.
+        if float(np.max(radii) - np.min(radii)) < 0.5:
             seeds = np.ones((lh, lw), dtype=np.uint8)
             seeds[py, px] = 0
-            window |= ndimage.distance_transform_edt(seeds) <= radii[0]
+            window |= ndimage.distance_transform_edt(seeds) <= float(np.median(radii))
         else:
             # Variable radius: bucket samples by radius and union the buckets.
             order = np.argsort(radii)

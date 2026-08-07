@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0.0 0.0 300.0 300.0">
-<path d="M 149.375 150.375 L 142.875 156.875 L 142.875 157.125 L 60.625 239.375 L 60.105 239.896" fill="none" stroke="#e01414" stroke-width="0.750" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M 240.147 60.106 L 239.625 60.625 L 238.875 61.125 L 157.125 142.875 L 155.375 144.375 L 151.375 148.375 L 150.125 149.875" fill="none" stroke="#e01414" stroke-width="0.750" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M 240.145 239.895 L 239.625 239.375 L 238.875 238.875 L 150.375 150.375 L 150.125 149.875" fill="none" stroke="#e01414" stroke-width="0.750" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M 150.125 149.875 L 149.625 149.625 L 149.375 150.375" fill="none" stroke="#e01414" stroke-width="0.750" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M 164.343 135.407 L 149.625 150.125 L 149.375 150.375" fill="none" stroke="#e01414" stroke-width="0.750" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M 149.375 150.375 L 149.375 149.375 L 60.875 60.875 L 61.125 60.375 L 60.435 59.671" fill="none" stroke="#e01414" stroke-width="0.750" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 150.375 149.875 L 150.375 149.625 L 237.875 62.125 L 238.625 61.625 L 240.162 60.088" fill="none" stroke="#e01414" stroke-width="0.750" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 240.116 239.870 L 238.625 238.375 L 237.875 237.875 L 151.125 151.125 L 150.375 149.875" fill="none" stroke="#e01414" stroke-width="0.750" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 149.625 149.875 L 148.625 151.375 L 61.625 238.375 L 60.093 239.916" fill="none" stroke="#e01414" stroke-width="0.750" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 150.375 149.875 L 150.125 150.125 L 149.625 149.875" fill="none" stroke="#e01414" stroke-width="0.750" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 149.625 149.875 L 149.625 149.625 L 61.625 61.625 L 60.091 60.087" fill="none" stroke="#e01414" stroke-width="0.750" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
