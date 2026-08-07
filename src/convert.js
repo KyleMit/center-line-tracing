@@ -11,7 +11,7 @@
 //   6. simplify polylines (Ramer-Douglas-Peucker via simplify-js)
 //   7. emit <path fill="none" stroke=color stroke-width=w d=...>
 //
-// Usage: node convert.js [inputs/landscape-square.svg] [outputs/landscape-square.svg]
+// Usage: node src/convert.js [inputs/landscape-square.svg] [outputs/landscape-square.svg]
 
 const fs = require('fs');
 const path = require('path');

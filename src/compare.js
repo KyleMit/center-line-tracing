@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Render two SVGs to the same canvas and report pixel similarity.
-// Usage: node compare.js a.svg b.svg [size] [diff.png] [side-by-side.png]
+// Usage: node src/compare.js a.svg b.svg [size] [diff.png] [side-by-side.png]
 const sharp = require('sharp');
 const { PNG } = require('pngjs');
 const pixelmatch = require('pixelmatch').default || require('pixelmatch');

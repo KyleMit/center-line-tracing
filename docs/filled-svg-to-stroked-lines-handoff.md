@@ -25,13 +25,13 @@ This matters because many drawing apps, editors, animation tools, and kid-art pi
 The current standalone Node.js implementation is:
 
 ```text
-convert-filled-svg-to-stroked-lines.mjs
+src/convert-filled-svg-to-stroked-lines.mjs
 ```
 
 It is an ES module script intended to be run directly with Node:
 
 ```bash
-node convert-filled-svg-to-stroked-lines.mjs input.svg --output output-lines.svg
+node src/convert-filled-svg-to-stroked-lines.mjs input.svg --output output-lines.svg
 ```
 
 Runtime dependencies:
@@ -102,7 +102,7 @@ The script follows this pipeline:
 The script starts with `parseArgs(process.argv)`. It accepts:
 
 ```bash
-node convert-filled-svg-to-stroked-lines.mjs input.svg --output output.svg
+node src/convert-filled-svg-to-stroked-lines.mjs input.svg --output output.svg
 ```
 
 Supported options:
@@ -458,7 +458,7 @@ A more advanced version could use alpha-aware compositing, perceptual color dist
 Use a lower simplification tolerance:
 
 ```bash
-node convert-filled-svg-to-stroked-lines.mjs input.svg \
+node src/convert-filled-svg-to-stroked-lines.mjs input.svg \
   --output output.svg \
   --simplify-epsilon 1.0
 ```
@@ -470,7 +470,7 @@ This produces more path points and a closer visual match.
 Use a higher simplification tolerance:
 
 ```bash
-node convert-filled-svg-to-stroked-lines.mjs input.svg \
+node src/convert-filled-svg-to-stroked-lines.mjs input.svg \
   --output output.svg \
   --simplify-epsilon 4.0
 ```
@@ -482,7 +482,7 @@ This produces fewer points, but curves may look more angular.
 Lower `min-object-size` and `min-path-length`:
 
 ```bash
-node convert-filled-svg-to-stroked-lines.mjs input.svg \
+node src/convert-filled-svg-to-stroked-lines.mjs input.svg \
   --output output.svg \
   --min-object-size 4 \
   --min-path-length 4
@@ -495,7 +495,7 @@ This helps preserve dots, tiny rays, small marks, or short decorative details.
 Increase `min-object-size` and `min-path-length`:
 
 ```bash
-node convert-filled-svg-to-stroked-lines.mjs input.svg \
+node src/convert-filled-svg-to-stroked-lines.mjs input.svg \
   --output output.svg \
   --min-object-size 50 \
   --min-path-length 25
@@ -508,7 +508,7 @@ This helps if the output contains many small stray paths.
 Use min and max stroke width clamps:
 
 ```bash
-node convert-filled-svg-to-stroked-lines.mjs input.svg \
+node src/convert-filled-svg-to-stroked-lines.mjs input.svg \
   --output output.svg \
   --min-stroke-width 4 \
   --max-stroke-width 22

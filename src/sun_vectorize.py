@@ -2,7 +2,7 @@
 """Vector (non-raster) reconstruction of a filled scribble-sun SVG into
 stroked lines, with *sharp* zigzag tips.
 
-Unlike the raster skeleton pipeline (convert_filled_svg_to_stroked_lines.py),
+Unlike the raster skeleton pipeline (src/convert_filled_svg_to_stroked_lines.py),
 this reads the filled outline's path data directly and recovers the pen
 centerline from a triangulation-based (chordal-axis) medial axis. Terminal
 triangles point straight into the outline's sharp corners, so the zigzag
@@ -14,7 +14,7 @@ outline of a single continuous pen stroke). Handles L/Q/C/A/Z path data. The
 sample uses pure polylines, so there is no curve-flattening approximation.
 
 Usage:
-    DYLD_LIBRARY_PATH=/opt/homebrew/lib .venv/bin/python sun_vectorize.py \
+    DYLD_LIBRARY_PATH=/opt/homebrew/lib .venv/bin/python src/sun_vectorize.py \
         inputs/sun-square.svg --output outputs/sun-square.svg
 
 Dependencies: numpy, scipy, shapely.

@@ -2,7 +2,7 @@
 
 ## Problem this solves
 
-The raster skeleton pipeline (`convert_filled_svg_to_stroked_lines.py`) blunts
+The raster skeleton pipeline (`src/convert_filled_svg_to_stroked_lines.py`) blunts
 sharp zigzag tips. At a hairpin fold, the medial axis of the outlined stroke
 pulls back from the true point, and skeletonization + round caps render the
 fold as a rounded blob instead of a sharp point:
@@ -17,7 +17,7 @@ fold as a rounded blob instead of a sharp point:
 
 ## Approach
 
-`sun_vectorize.py` reconstructs the pen centerline **in vector space** from the
+`src/sun_vectorize.py` reconstructs the pen centerline **in vector space** from the
 filled outline's path data (no rasterization), using a triangulation
 (chordal-axis) medial axis. Terminal triangles of the triangulated ribbon
 point straight into the outline's sharp corners, so the fold tips are recovered
@@ -60,7 +60,7 @@ cannot. The sample output is therefore generated with the vector engine.
 ## Usage
 
 ```bash
-DYLD_LIBRARY_PATH=/opt/homebrew/lib .venv/bin/python sun_vectorize.py \
+DYLD_LIBRARY_PATH=/opt/homebrew/lib .venv/bin/python src/sun_vectorize.py \
     inputs/sun-square.svg --output outputs/sun-square.svg
 # deps: numpy scipy shapely  (shapely was pip-installed into .venv)
 ```

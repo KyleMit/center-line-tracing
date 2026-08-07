@@ -9,7 +9,7 @@ segments colored pixels by fill color, skeletonizes each colored region to a
 SVG whose paths use stroke/stroke-width with fill="none".
 
 Example:
-    python convert_filled_svg_to_stroked_lines.py large-image-drawing.svg \
+    python src/convert_filled_svg_to_stroked_lines.py large-image-drawing.svg \
         --output large-image-drawing-lines.svg
 
 Install dependencies:

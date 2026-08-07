@@ -23,7 +23,7 @@ The output is useful when the downstream drawing system expects actual line path
 The working Python script is named:
 
 ```bash
-convert_filled_svg_to_stroked_lines.py
+src/convert_filled_svg_to_stroked_lines.py
 ```
 
 The script was built for SVGs generated from simple digital line drawings, where each stroke has been converted by the generator into a filled outline/ribbon. It is not a general-purpose SVG semantic converter. Instead, it performs a raster-based centerline reconstruction.
@@ -39,14 +39,14 @@ pip install cairosvg pillow numpy scikit-image opencv-python
 Run the converter:
 
 ```bash
-python convert_filled_svg_to_stroked_lines.py large-image-drawing.svg \
+python src/convert_filled_svg_to_stroked_lines.py large-image-drawing.svg \
   --output large-image-drawing-lines.svg
 ```
 
 The default settings were the ones used to produce the cleaner earlier output:
 
 ```bash
-python convert_filled_svg_to_stroked_lines.py large-image-drawing.svg \
+python src/convert_filled_svg_to_stroked_lines.py large-image-drawing.svg \
   --output large-image-drawing-lines.svg
 ```
 
@@ -401,7 +401,7 @@ Important styling choices:
 ## Current CLI Options
 
 ```bash
-python convert_filled_svg_to_stroked_lines.py input.svg \
+python src/convert_filled_svg_to_stroked_lines.py input.svg \
   --output output.svg \
   --alpha-threshold 48 \
   --min-object-size 20 \
@@ -522,7 +522,7 @@ A future version could support oversampling.
 Try:
 
 ```bash
-python convert_filled_svg_to_stroked_lines.py input.svg \
+python src/convert_filled_svg_to_stroked_lines.py input.svg \
   --output output.svg \
   --alpha-threshold 24 \
   --min-object-size 8 \
@@ -544,7 +544,7 @@ Why this helps:
 Try:
 
 ```bash
-python convert_filled_svg_to_stroked_lines.py input.svg \
+python src/convert_filled_svg_to_stroked_lines.py input.svg \
   --output output.svg \
   --alpha-threshold 64 \
   --min-object-size 50 \
@@ -882,7 +882,7 @@ This script is not ideal for:
 ```bash
 pip install cairosvg pillow numpy scikit-image opencv-python
 
-python convert_filled_svg_to_stroked_lines.py large-image-drawing.svg \
+python src/convert_filled_svg_to_stroked_lines.py large-image-drawing.svg \
   --output large-image-drawing-lines.svg
 ```
 
@@ -902,7 +902,7 @@ segments colored pixels by fill color, skeletonizes each colored region to a
 SVG whose paths use stroke/stroke-width with fill="none".
 
 Example:
-    python convert_filled_svg_to_stroked_lines.py large-image-drawing.svg \
+    python src/convert_filled_svg_to_stroked_lines.py large-image-drawing.svg \
         --output large-image-drawing-lines.svg
 
 Install dependencies:

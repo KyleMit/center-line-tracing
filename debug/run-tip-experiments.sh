@@ -5,16 +5,16 @@ set -e
 cd "$(dirname "$0")/.."
 PY="DYLD_LIBRARY_PATH=/opt/homebrew/lib .venv/bin/python"
 
-eval $PY -m py_compile convert_filled_svg_to_stroked_lines.py && echo "compile OK"
+eval $PY -m py_compile src/convert_filled_svg_to_stroked_lines.py && echo "compile OK"
 
 common="--mode elements --scale 4 --simplify-epsilon 0 --max-stroke-width 30 \
   --skeleton-method zhang --trace-mode paired --overlap-spur-max 80"
 
 run() {
   name=$1; input=$2; shift 2
-  eval $PY convert_filled_svg_to_stroked_lines.py "inputs/$input.svg" \
+  eval $PY src/convert_filled_svg_to_stroked_lines.py "inputs/$input.svg" \
     --output "debug/$input-$name.svg" $common "$@" >/dev/null
-  node compare.js "inputs/$input.svg" "debug/$input-$name.svg" 1200 \
+  node src/compare.js "inputs/$input.svg" "debug/$input-$name.svg" 1200 \
     "debug/$input-$name-diff.png" | grep differing | sed "s|^|$input/$name: |"
 }
 

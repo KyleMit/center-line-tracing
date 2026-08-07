@@ -33,7 +33,7 @@ This is the central gap: the converter is good at matching raster coverage, but 
 The best current implementation is the Python converter:
 
 ```text
-convert_filled_svg_to_stroked_lines.py
+src/convert_filled_svg_to_stroked_lines.py
 ```
 
 It uses a raster-first pipeline:
@@ -51,7 +51,7 @@ It uses a raster-first pipeline:
 The promoted command (both inputs use the same settings now):
 
 ```bash
-DYLD_LIBRARY_PATH=/opt/homebrew/lib .venv/bin/python convert_filled_svg_to_stroked_lines.py inputs/landscape-square.svg \
+DYLD_LIBRARY_PATH=/opt/homebrew/lib .venv/bin/python src/convert_filled_svg_to_stroked_lines.py inputs/landscape-square.svg \
   --output outputs/landscape-square.svg \
   --mode elements \
   --scale 4 \
@@ -117,7 +117,7 @@ node debug/crop-compare.js <a.svg> <b.svg> <cx> <cy> <size> <out.png>
 Pixel comparisons use:
 
 ```bash
-node compare.js <input.svg> <output.svg> 1200 <diff.png> <side-by-side.png>
+node src/compare.js <input.svg> <output.svg> 1200 <diff.png> <side-by-side.png>
 ```
 
 Current final output checks:
@@ -150,7 +150,7 @@ Useful debug comparison files:
 The initial script was:
 
 ```text
-convert-filled-svg-to-stroked-lines.mjs
+src/convert-filled-svg-to-stroked-lines.mjs
 ```
 
 It used a raster centerline approach and worked acceptably for the dinosaur compared with the target from the earlier ChatGPT session, but it produced patchier landscape output and larger visible gaps.
@@ -271,7 +271,7 @@ The virtual environment is ignored by Git.
 Node comparison tooling uses:
 
 ```bash
-node compare.js ...
+node src/compare.js ...
 ```
 
 The comparison script renders both SVGs to the same square canvas, runs `pixelmatch`, and optionally writes diff and side-by-side PNGs.
