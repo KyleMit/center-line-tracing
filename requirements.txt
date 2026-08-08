@@ -1,0 +1,9 @@
+# python3 -m pip install -r requirements.txt
+# Versions are floors, not pins. Verified on Python 3.11 with scikit-image 0.26.
+numpy
+scipy
+scikit-image>=0.23
+shapely>=2.0
+pillow
+svgelements
+skan

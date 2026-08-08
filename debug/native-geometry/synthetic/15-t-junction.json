@@ -1,1 +1,0 @@
-{"id": "15", "name": "t-junction", "radius": 8.0, "cap": "round", "join": "round", "variable_width": false, "boundary_noise": 0.0, "centerlines": [[[80, 100], [320, 100]], [[200, 100], [200, 260]]]}

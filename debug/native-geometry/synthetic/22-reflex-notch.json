@@ -1,1 +1,0 @@
-{"id": "22", "name": "reflex-notch", "radius": 8.0, "cap": "round", "join": "mitre", "variable_width": false, "boundary_noise": 0.0, "centerlines": [[[60, 200], [200, 100], [340, 200]]]}

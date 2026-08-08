@@ -1,25 +1,19 @@
 {
-  "name": "svg-fill-to-path",
+  "name": "center-line-tracing",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
+  "description": "Trace filled SVG artwork to centerline strokes (scikit-image medial axis + Skan + Bezier fitting)",
   "license": "ISC",
   "type": "commonjs",
+  "scripts": {
+    "trace": "python3 src/run.py",
+    "sheet": "node src/render_pairs.mjs && python3 src/build_contact_sheet.py",
+    "test": "python3 src/test_clg.py"
+  },
   "dependencies": {
     "@resvg/resvg-js": "^2.6.2",
-    "d3-delaunay": "^6.0.4",
     "fit-curve": "^0.2.0",
-    "flo-mat": "^4.1.0",
-    "paper": "^0.12.18",
     "pixelmatch": "^7.2.0",
     "pngjs": "^7.0.0",
-    "sharp": "^0.35.2",
-    "simplify-js": "^1.2.4",
-    "svg-path-commander": "^2.3.1"
+    "sharp": "^0.35.2"
   }
 }
