@@ -1,1 +1,0 @@
-{"id": "16", "name": "y-junction", "radius": 8.0, "cap": "round", "join": "round", "variable_width": false, "boundary_noise": 0.0, "centerlines": [[[200, 260], [200, 160]], [[200, 160], [110, 60]], [[200, 160], [290, 60]]]}

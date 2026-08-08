@@ -1,1 +1,0 @@
-{"id": "10", "name": "round-join", "radius": 8.0, "cap": "round", "join": "round", "variable_width": false, "boundary_noise": 0.0, "centerlines": [[[80, 240], [200, 80], [320, 240]]]}
