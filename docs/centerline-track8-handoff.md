@@ -5,10 +5,25 @@
 Read this doc first, then [`debug/pruning-scoring/NOTES.md`](../debug/pruning-scoring/NOTES.md)
 — the two addenda at the end of NOTES are the recent work.
 
-## Look at these two first
+## Look at these first
 
-Both were built from the measured data in this repo and are the fastest way to
-understand where things stand:
+All four were built from the measured data in this repo and are the fastest way to
+understand where things stand. Start with the contact sheet if you want to know
+whether the output is any good, and the findings report if you want to know why.
+
+**Current — built from the data as it stands today:**
+
+- **Contact sheet — the recommended output, wiped against the original**
+  All ten drawings at the recommended raster scale, with a drag-to-wipe comparison
+  and a difference view that subtracts one from the other.
+  <https://claude.ai/code/artifact/d5205b7c-8bef-4694-afc6-0e5303a40c11>
+  Regenerate the images first: `recommended.py`, then `sheet_assets.mjs`.
+- **Findings report — the raster-scale sweep and what it overturned**
+  The scale result on all three axes, the ground-truth negative result, and the two
+  measurement defects behind them. Mirrors NOTES Addendum 2.
+  <https://claude.ai/code/artifact/78a4c76e-a0d0-45b1-b323-95720c721919>
+
+**Older — still useful, now slightly stale:**
 
 - **Cross-backend leaderboard** — ranking, per-drawing heatmap, tuning headroom
   <https://claude.ai/code/artifact/d1c6eb2b-7f9f-4784-82bc-92ef556b3044>
@@ -16,10 +31,9 @@ understand where things stand:
   points shown, plus wobble and accuracy-vs-complexity
   <https://claude.ai/code/artifact/97a73c4a-f49a-45b2-a562-1deeaac1d157>
 
-They regenerate from `debug/pruning-scoring/metrics.json` and
-`debug/pruning-scoring/smoothness.json`; if you re-run the benches, rebuild them.
-Both are now slightly stale: the leaderboard gained its 80th cell and four
-incumbent cells were corrected (NOTES §11–12).
+The last two regenerate from `debug/pruning-scoring/metrics.json` and
+`smoothness.json`, and predate the 80th leaderboard cell and the four corrected
+incumbent cells (NOTES §11–12). Rebuild them when you next touch the benches.
 
 ---
 
@@ -60,6 +74,8 @@ python3 experiments/pruning-scoring/abreport.py                    # <- ALWAYS a
 python3 experiments/pruning-scoring/smoothness_report.py           # complexity + wobble
 python3 experiments/pruning-scoring/scalesweep.py --jobs 3         # raster scale, real drawings
 python3 experiments/pruning-scoring/scalesweep.py --corpus --jobs 3  # raster scale, ground truth
+python3 experiments/pruning-scoring/recommended.py                 # emit the recommended output
+node    experiments/pruning-scoring/sheet_assets.mjs               # render it against the source
 python3 experiments/pruning-scoring/synthprune.py                  # held-out pruning corpus
 python3 experiments/pruning-scoring/sheets.py cross                # contact sheet
 ```
@@ -171,6 +187,16 @@ reconstruction error keeps falling to scale 8. NOTES §10.
   before it was caught, always in the flattering direction. Two consecutive runs now
   produce identical scores; if you add a track, check that its inputs are not under
   `debug/pruning-scoring/graphs/`.
+- **Never write experiment graphs into a track's `debug/<track>/graphs/`.** Same
+  mistake, other direction. The leaderboard picks each track's *rawest published
+  variant* as the pruning input, by edge count — so dropping a scale-16 graph into
+  `debug/skimage-skan/graphs/` silently re-points that whole row at a config the
+  track never published, and nothing warns you. `scalesweep.py` writes under
+  `debug/pruning-scoring/` for exactly this reason; don't tidy it back.
+- **A before/after render must differ by one thing only.** Both sides of every
+  contact-sheet pair go through the same rasterizer at the same pixel size on the
+  same ground. Otherwise the mismatch appears as a seam at the wipe line and reads as
+  a flaw in the output rather than in the render.
 - **Profile before believing a written-down diagnosis — including one in this file.**
   The previous handoff said `polygon-voronoi/landscape-square` never finished because
   `merge_chains` is O(V²). It is not: on that graph `merge_chains` takes 0.0 s and
