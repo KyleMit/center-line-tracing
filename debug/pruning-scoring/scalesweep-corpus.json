@@ -1,0 +1,5823 @@
+{
+ "generated": "2026-08-07 22:04:51",
+ "seconds": 43.5,
+ "scales": [
+  1.0,
+  2.0,
+  4.0,
+  8.0,
+  16.0
+ ],
+ "lambdas": [
+  0.0,
+  0.5,
+  1.0,
+  1.5,
+  2.0,
+  3.0,
+  5.0,
+  10.0
+ ],
+ "results": [
+  {
+   "case": "01-horizontal-line",
+   "num": 1,
+   "notes": "capsule; MAT must be the segment",
+   "radius": 10.0,
+   "scale": 1.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/01-horizontal-line__s1.json",
+   "extractSeconds": 4.19,
+   "seconds": 4.64,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.2562907028623161,
+    "centerlineP95": 0.5008980503824598,
+    "centerlineHausdorff": 1.5811388300841898,
+    "recoveredToTruthP95": 0.5000141328773153,
+    "truthToRecoveredP95": 0.5014548964632054
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.2562907028623161,
+    "centerlineP95": 0.5008980503824598,
+    "centerlineHausdorff": 1.5811388300841898,
+    "recoveredToTruthP95": 0.5000141328773153,
+    "truthToRecoveredP95": 0.5014548964632054
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.033824,
+    "iou": 0.966673,
+    "missingRatio": 0.018907,
+    "extraRatio": 0.014917,
+    "boundaryP95": 1.5195,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 75,
+    "totalLength": 199.87,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 7.50473,
+    "turning_per_width": 0.66601,
+    "reversals_per_width": 3.00189,
+    "wiggle": 0.02002,
+    "measured_length": 199.874,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "01-horizontal-line",
+   "num": 1,
+   "notes": "capsule; MAT must be the segment",
+   "radius": 10.0,
+   "scale": 2.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/01-horizontal-line__s2.json",
+   "extractSeconds": 4.18,
+   "seconds": 4.66,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.16834527722473497,
+    "centerlineP95": 0.2892167158808532,
+    "centerlineHausdorff": 0.7905694150420949,
+    "recoveredToTruthP95": 0.28960381305728655,
+    "truthToRecoveredP95": 0.2881270233546008
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.16834527722473497,
+    "centerlineP95": 0.2892167158808532,
+    "centerlineHausdorff": 0.7905694150420949,
+    "recoveredToTruthP95": 0.28960381305728655,
+    "truthToRecoveredP95": 0.2881270233546008
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.014808,
+    "iou": 0.985302,
+    "missingRatio": 0.007296,
+    "extraRatio": 0.007512,
+    "boundaryP95": 0.4524,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 73,
+    "totalLength": 200.56,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 7.27944,
+    "turning_per_width": 0.38056,
+    "reversals_per_width": 2.09408,
+    "wiggle": 0.01035,
+    "measured_length": 200.565,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "01-horizontal-line",
+   "num": 1,
+   "notes": "capsule; MAT must be the segment",
+   "radius": 10.0,
+   "scale": 4.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/01-horizontal-line__s4.json",
+   "extractSeconds": 0.29,
+   "seconds": 0.32,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.09207836139937561,
+    "centerlineP95": 0.1499482520638915,
+    "centerlineHausdorff": 0.1767766952966369,
+    "recoveredToTruthP95": 0.1499482520638915,
+    "truthToRecoveredP95": 0.1499482520638915
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.09207836139937561,
+    "centerlineP95": 0.1499482520638915,
+    "centerlineHausdorff": 0.1767766952966369,
+    "recoveredToTruthP95": 0.1499482520638915,
+    "truthToRecoveredP95": 0.1499482520638915
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.006958,
+    "iou": 0.993064,
+    "missingRatio": 0.003792,
+    "extraRatio": 0.003166,
+    "boundaryP95": 0.1951,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 42,
+    "totalLength": 200.07,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 4.19849,
+    "turning_per_width": 0.20482,
+    "reversals_per_width": 0.19993,
+    "wiggle": 0.0057,
+    "measured_length": 200.072,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "01-horizontal-line",
+   "num": 1,
+   "notes": "capsule; MAT must be the segment",
+   "radius": 10.0,
+   "scale": 8.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/01-horizontal-line__s8.json",
+   "extractSeconds": 0.39,
+   "seconds": 0.41,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.1976049807699022,
+    "centerlineP95": 0.25218284124343104,
+    "centerlineHausdorff": 0.25830663542238447,
+    "recoveredToTruthP95": 0.25195790121768297,
+    "truthToRecoveredP95": 0.2522009406677966
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.1976049807699022,
+    "centerlineP95": 0.25218284124343104,
+    "centerlineHausdorff": 0.25830663542238447,
+    "recoveredToTruthP95": 0.25195790121768297,
+    "truthToRecoveredP95": 0.2522009406677966
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.007556,
+    "iou": 0.992452,
+    "missingRatio": 0.006437,
+    "extraRatio": 0.00112,
+    "boundaryP95": 0.2223,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 2,
+    "totalLength": 199.75,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.19949,
+    "turning_per_width": 0.0,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.0,
+    "measured_length": 199.75,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "01-horizontal-line",
+   "num": 1,
+   "notes": "capsule; MAT must be the segment",
+   "radius": 10.0,
+   "scale": 16.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/01-horizontal-line__s16.json",
+   "extractSeconds": 0.96,
+   "seconds": 0.98,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.14364635918150215,
+    "centerlineP95": 0.2415872403792579,
+    "centerlineHausdorff": 0.25253648408396273,
+    "recoveredToTruthP95": 0.2415872403792579,
+    "truthToRecoveredP95": 0.24164196880936734
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.14364635918150215,
+    "centerlineP95": 0.2415872403792579,
+    "centerlineHausdorff": 0.25253648408396273,
+    "recoveredToTruthP95": 0.2415872403792579,
+    "truthToRecoveredP95": 0.24164196880936734
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.003599,
+    "iou": 0.996403,
+    "missingRatio": 0.003273,
+    "extraRatio": 0.000325,
+    "boundaryP95": 0.0713,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 2,
+    "totalLength": 199.94,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.19958,
+    "turning_per_width": 0.0,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.0,
+    "measured_length": 199.938,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "02-diagonal-line",
+   "num": 2,
+   "notes": "tests raster staircase bias",
+   "radius": 10.0,
+   "scale": 1.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/02-diagonal-line__s1.json",
+   "extractSeconds": 0.23,
+   "seconds": 0.25,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.21053722402935907,
+    "centerlineP95": 0.24713003833362643,
+    "centerlineHausdorff": 0.7099352083112972,
+    "recoveredToTruthP95": 0.24702900988417803,
+    "truthToRecoveredP95": 0.2471370171874993
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.21053722402935907,
+    "centerlineP95": 0.24713003833362643,
+    "centerlineHausdorff": 0.7099352083112972,
+    "recoveredToTruthP95": 0.24702900988417803,
+    "truthToRecoveredP95": 0.2471370171874993
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.020423,
+    "iou": 0.979593,
+    "missingRatio": 0.019612,
+    "extraRatio": 0.000811,
+    "boundaryP95": 0.8062,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 7,
+    "totalLength": 223.28,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.61754,
+    "turning_per_width": 0.02421,
+    "reversals_per_width": 0.08822,
+    "wiggle": 0.00398,
+    "measured_length": 223.284,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "02-diagonal-line",
+   "num": 2,
+   "notes": "tests raster staircase bias",
+   "radius": 10.0,
+   "scale": 2.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/02-diagonal-line__s2.json",
+   "extractSeconds": 0.24,
+   "seconds": 0.25,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.20183680815557425,
+    "centerlineP95": 0.20183680815557759,
+    "centerlineHausdorff": 0.3507249634685241,
+    "recoveredToTruthP95": 0.20183680815557759,
+    "truthToRecoveredP95": 0.20183680815557759
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.20183680815557425,
+    "centerlineP95": 0.20183680815557759,
+    "centerlineHausdorff": 0.3507249634685241,
+    "recoveredToTruthP95": 0.20183680815557759,
+    "truthToRecoveredP95": 0.20183680815557759
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.016829,
+    "iou": 0.983182,
+    "missingRatio": 0.016225,
+    "extraRatio": 0.000604,
+    "boundaryP95": 0.464,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 2,
+    "totalLength": 223.61,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.17627,
+    "turning_per_width": 0.0,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.0,
+    "measured_length": 223.607,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "02-diagonal-line",
+   "num": 2,
+   "notes": "tests raster staircase bias",
+   "radius": 10.0,
+   "scale": 4.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/02-diagonal-line__s4.json",
+   "extractSeconds": 0.32,
+   "seconds": 0.33,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.13983951479946471,
+    "centerlineP95": 0.18822016555239046,
+    "centerlineHausdorff": 0.19487052036927557,
+    "recoveredToTruthP95": 0.1880958284256882,
+    "truthToRecoveredP95": 0.1880958284256882
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.13983951479946471,
+    "centerlineP95": 0.18822016555239046,
+    "centerlineHausdorff": 0.19487052036927557,
+    "recoveredToTruthP95": 0.1880958284256882,
+    "truthToRecoveredP95": 0.1880958284256882
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.007672,
+    "iou": 0.992366,
+    "missingRatio": 0.002704,
+    "extraRatio": 0.004968,
+    "boundaryP95": 0.1698,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 4,
+    "totalLength": 223.51,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.3575,
+    "turning_per_width": 0.0049,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.00103,
+    "measured_length": 223.508,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "02-diagonal-line",
+   "num": 2,
+   "notes": "tests raster staircase bias",
+   "radius": 10.0,
+   "scale": 8.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/02-diagonal-line__s8.json",
+   "extractSeconds": 0.72,
+   "seconds": 0.74,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.16792199665293642,
+    "centerlineP95": 0.24244031748181652,
+    "centerlineHausdorff": 0.250705859613328,
+    "recoveredToTruthP95": 0.2422497357828333,
+    "truthToRecoveredP95": 0.24244652539790312
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.16792199665293642,
+    "centerlineP95": 0.24244031748181652,
+    "centerlineHausdorff": 0.250705859613328,
+    "recoveredToTruthP95": 0.2422497357828333,
+    "truthToRecoveredP95": 0.24244652539790312
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.00249,
+    "iou": 0.99751,
+    "missingRatio": 0.002274,
+    "extraRatio": 0.000216,
+    "boundaryP95": 0.1019,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 2,
+    "totalLength": 223.44,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.1788,
+    "turning_per_width": 0.0,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.0,
+    "measured_length": 223.439,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "02-diagonal-line",
+   "num": 2,
+   "notes": "tests raster staircase bias",
+   "radius": 10.0,
+   "scale": 16.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/02-diagonal-line__s16.json",
+   "extractSeconds": 2.84,
+   "seconds": 2.86,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.041012193308824656,
+    "centerlineP95": 0.04101219330884476,
+    "centerlineHausdorff": 0.04101219330884476,
+    "recoveredToTruthP95": 0.04101219330884476,
+    "truthToRecoveredP95": 0.04101219330884476
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.041012193308824656,
+    "centerlineP95": 0.04101219330884476,
+    "centerlineHausdorff": 0.04101219330884476,
+    "recoveredToTruthP95": 0.04101219330884476,
+    "truthToRecoveredP95": 0.04101219330884476
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.003395,
+    "iou": 0.996605,
+    "missingRatio": 0.003389,
+    "extraRatio": 7e-06,
+    "boundaryP95": 0.0706,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 2,
+    "totalLength": 223.61,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.17833,
+    "turning_per_width": 0.0,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.0,
+    "measured_length": 223.607,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "03-circular-arc",
+   "num": 3,
+   "notes": "constant curvature",
+   "radius": 10.0,
+   "scale": 1.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/03-circular-arc__s1.json",
+   "extractSeconds": 0.22,
+   "seconds": 0.3,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.19744186791576665,
+    "centerlineP95": 0.4986805860936177,
+    "centerlineHausdorff": 1.1459710642071141,
+    "recoveredToTruthP95": 0.49996774425761636,
+    "truthToRecoveredP95": 0.495243440296296
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.19744186791576665,
+    "centerlineP95": 0.4986805860936177,
+    "centerlineHausdorff": 1.1459710642071141,
+    "recoveredToTruthP95": 0.49996774425761636,
+    "truthToRecoveredP95": 0.495243440296296
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.021258,
+    "iou": 0.978955,
+    "missingRatio": 0.011133,
+    "extraRatio": 0.010125,
+    "boundaryP95": 0.5219,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 58,
+    "totalLength": 270.45,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 4.26991,
+    "turning_per_width": 0.38264,
+    "reversals_per_width": 1.03067,
+    "wiggle": 0.01238,
+    "measured_length": 270.446,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "03-circular-arc",
+   "num": 3,
+   "notes": "constant curvature",
+   "radius": 10.0,
+   "scale": 2.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/03-circular-arc__s2.json",
+   "extractSeconds": 0.24,
+   "seconds": 0.32,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.21231182610740712,
+    "centerlineP95": 0.3232192474808917,
+    "centerlineHausdorff": 0.49884835371083236,
+    "recoveredToTruthP95": 0.3229828160893158,
+    "truthToRecoveredP95": 0.3232259779284071
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.21231182610740712,
+    "centerlineP95": 0.3232192474808917,
+    "centerlineHausdorff": 0.49884835371083236,
+    "recoveredToTruthP95": 0.3229828160893158,
+    "truthToRecoveredP95": 0.3232259779284071
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.015891,
+    "iou": 0.984169,
+    "missingRatio": 0.012121,
+    "extraRatio": 0.00377,
+    "boundaryP95": 0.3704,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 47,
+    "totalLength": 268.37,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 3.48308,
+    "turning_per_width": 0.23603,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.00633,
+    "measured_length": 268.365,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "03-circular-arc",
+   "num": 3,
+   "notes": "constant curvature",
+   "radius": 10.0,
+   "scale": 4.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/03-circular-arc__s4.json",
+   "extractSeconds": 0.3,
+   "seconds": 0.38,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.07487999238351446,
+    "centerlineP95": 0.12961843557489539,
+    "centerlineHausdorff": 0.14312886167626476,
+    "recoveredToTruthP95": 0.12959629776051285,
+    "truthToRecoveredP95": 0.12959629776051285
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.07487999238351446,
+    "centerlineP95": 0.12961843557489539,
+    "centerlineHausdorff": 0.14312886167626476,
+    "recoveredToTruthP95": 0.12959629776051285,
+    "truthToRecoveredP95": 0.12959629776051285
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.007642,
+    "iou": 0.99238,
+    "missingRatio": 0.00479,
+    "extraRatio": 0.002851,
+    "boundaryP95": 0.1439,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 37,
+    "totalLength": 268.63,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 2.75308,
+    "turning_per_width": 0.18203,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.00476,
+    "measured_length": 268.629,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "03-circular-arc",
+   "num": 3,
+   "notes": "constant curvature",
+   "radius": 10.0,
+   "scale": 8.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/03-circular-arc__s8.json",
+   "extractSeconds": 0.61,
+   "seconds": 0.79,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.0535206361132927,
+    "centerlineP95": 0.0956053624380275,
+    "centerlineHausdorff": 0.12019966429476432,
+    "recoveredToTruthP95": 0.09560002313030647,
+    "truthToRecoveredP95": 0.09560002313030647
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.0535206361132927,
+    "centerlineP95": 0.0956053624380275,
+    "centerlineHausdorff": 0.12019966429476432,
+    "recoveredToTruthP95": 0.09560002313030647,
+    "truthToRecoveredP95": 0.09560002313030647
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.005171,
+    "iou": 0.994836,
+    "missingRatio": 0.00367,
+    "extraRatio": 0.001501,
+    "boundaryP95": 0.1122,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 34,
+    "totalLength": 268.81,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 2.5261,
+    "turning_per_width": 0.17895,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.00428,
+    "measured_length": 268.813,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "03-circular-arc",
+   "num": 3,
+   "notes": "constant curvature",
+   "radius": 10.0,
+   "scale": 16.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/03-circular-arc__s16.json",
+   "extractSeconds": 2.62,
+   "seconds": 2.71,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.05359404115952131,
+    "centerlineP95": 0.10247105380974464,
+    "centerlineHausdorff": 0.11512590643636725,
+    "recoveredToTruthP95": 0.10246495523726185,
+    "truthToRecoveredP95": 0.10246495523726185
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.05359404115952131,
+    "centerlineP95": 0.10247105380974464,
+    "centerlineHausdorff": 0.11512590643636725,
+    "recoveredToTruthP95": 0.10246495523726185,
+    "truthToRecoveredP95": 0.10246495523726185
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.005287,
+    "iou": 0.994723,
+    "missingRatio": 0.003321,
+    "extraRatio": 0.001966,
+    "boundaryP95": 0.1078,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 33,
+    "totalLength": 268.76,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 2.45301,
+    "turning_per_width": 0.17636,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.00433,
+    "measured_length": 268.761,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "04-s-curve",
+   "num": 4,
+   "notes": "inflection",
+   "radius": 10.0,
+   "scale": 1.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/04-s-curve__s1.json",
+   "extractSeconds": 0.24,
+   "seconds": 0.32,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.1791493586751436,
+    "centerlineP95": 0.3801383109010058,
+    "centerlineHausdorff": 0.7071195089940696,
+    "recoveredToTruthP95": 0.37930836243928284,
+    "truthToRecoveredP95": 0.38097116670299014
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.1791493586751436,
+    "centerlineP95": 0.3801383109010058,
+    "centerlineHausdorff": 0.7071195089940696,
+    "recoveredToTruthP95": 0.37930836243928284,
+    "truthToRecoveredP95": 0.38097116670299014
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.019534,
+    "iou": 0.98063,
+    "missingRatio": 0.011041,
+    "extraRatio": 0.008494,
+    "boundaryP95": 0.6531,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 68,
+    "totalLength": 259.57,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 5.23943,
+    "turning_per_width": 0.52728,
+    "reversals_per_width": 2.31152,
+    "wiggle": 0.01508,
+    "measured_length": 259.57,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "04-s-curve",
+   "num": 4,
+   "notes": "inflection",
+   "radius": 10.0,
+   "scale": 2.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/04-s-curve__s2.json",
+   "extractSeconds": 0.25,
+   "seconds": 0.33,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.20259465501161267,
+    "centerlineP95": 0.2598991061150558,
+    "centerlineHausdorff": 0.353578845521062,
+    "recoveredToTruthP95": 0.25911045590168275,
+    "truthToRecoveredP95": 0.25978262821328624
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.20259465501161267,
+    "centerlineP95": 0.2598991061150558,
+    "centerlineHausdorff": 0.353578845521062,
+    "recoveredToTruthP95": 0.25911045590168275,
+    "truthToRecoveredP95": 0.25978262821328624
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.010952,
+    "iou": 0.989068,
+    "missingRatio": 0.009103,
+    "extraRatio": 0.001849,
+    "boundaryP95": 0.3261,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 45,
+    "totalLength": 259.0,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 3.46203,
+    "turning_per_width": 0.28225,
+    "reversals_per_width": 0.38467,
+    "wiggle": 0.00682,
+    "measured_length": 259.001,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "04-s-curve",
+   "num": 4,
+   "notes": "inflection",
+   "radius": 10.0,
+   "scale": 4.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/04-s-curve__s4.json",
+   "extractSeconds": 0.32,
+   "seconds": 0.39,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.11739764051983596,
+    "centerlineP95": 0.1765498610544316,
+    "centerlineHausdorff": 0.18866652308666657,
+    "recoveredToTruthP95": 0.1765128292409265,
+    "truthToRecoveredP95": 0.1765128292409265
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.11739764051983596,
+    "centerlineP95": 0.1765498610544316,
+    "centerlineHausdorff": 0.18866652308666657,
+    "recoveredToTruthP95": 0.1765128292409265,
+    "truthToRecoveredP95": 0.1765128292409265
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.006244,
+    "iou": 0.993765,
+    "missingRatio": 0.004748,
+    "extraRatio": 0.001496,
+    "boundaryP95": 0.1527,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 33,
+    "totalLength": 259.26,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 2.54091,
+    "turning_per_width": 0.20326,
+    "reversals_per_width": 0.077,
+    "wiggle": 0.00499,
+    "measured_length": 259.256,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "04-s-curve",
+   "num": 4,
+   "notes": "inflection",
+   "radius": 10.0,
+   "scale": 8.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/04-s-curve__s8.json",
+   "extractSeconds": 0.77,
+   "seconds": 0.85,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.06937136972469028,
+    "centerlineP95": 0.12759748605826826,
+    "centerlineHausdorff": 0.14378169576024424,
+    "recoveredToTruthP95": 0.12759212314107565,
+    "truthToRecoveredP95": 0.12759212314107565
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.06937136972469028,
+    "centerlineP95": 0.12759748605826826,
+    "centerlineHausdorff": 0.14378169576024424,
+    "recoveredToTruthP95": 0.12759212314107565,
+    "truthToRecoveredP95": 0.12759212314107565
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.005486,
+    "iou": 0.994524,
+    "missingRatio": 0.003701,
+    "extraRatio": 0.001785,
+    "boundaryP95": 0.1181,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 31,
+    "totalLength": 259.14,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 2.39059,
+    "turning_per_width": 0.1986,
+    "reversals_per_width": 0.07712,
+    "wiggle": 0.00435,
+    "measured_length": 259.143,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "04-s-curve",
+   "num": 4,
+   "notes": "inflection",
+   "radius": 10.0,
+   "scale": 16.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/04-s-curve__s16.json",
+   "extractSeconds": 3.07,
+   "seconds": 3.25,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.04994759913423279,
+    "centerlineP95": 0.11155844582372022,
+    "centerlineHausdorff": 0.16127871792343704,
+    "recoveredToTruthP95": 0.11150922491055906,
+    "truthToRecoveredP95": 0.11150922491055906
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.04994759913423279,
+    "centerlineP95": 0.11155844582372022,
+    "centerlineHausdorff": 0.16127871792343704,
+    "recoveredToTruthP95": 0.11150922491055906,
+    "truthToRecoveredP95": 0.11150922491055906
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.005219,
+    "iou": 0.994791,
+    "missingRatio": 0.003289,
+    "extraRatio": 0.00193,
+    "boundaryP95": 0.108,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 32,
+    "totalLength": 259.21,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 2.46731,
+    "turning_per_width": 0.19761,
+    "reversals_per_width": 0.0771,
+    "wiggle": 0.00449,
+    "measured_length": 259.21,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "05-tight-u",
+   "num": 5,
+   "notes": "curvature radius ~3x stroke radius",
+   "radius": 10.0,
+   "scale": 1.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/05-tight-u__s1.json",
+   "extractSeconds": 0.21,
+   "seconds": 0.28,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.2294125436808008,
+    "centerlineP95": 0.37311165852972555,
+    "centerlineHausdorff": 1.5811388300841898,
+    "recoveredToTruthP95": 0.3607446842531564,
+    "truthToRecoveredP95": 0.4053453404027167
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.2294125436808008,
+    "centerlineP95": 0.37311165852972555,
+    "centerlineHausdorff": 1.5811388300841898,
+    "recoveredToTruthP95": 0.3607446842531564,
+    "truthToRecoveredP95": 0.4053453404027167
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.039772,
+    "iou": 0.960532,
+    "missingRatio": 0.032073,
+    "extraRatio": 0.007699,
+    "boundaryP95": 1.2843,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 24,
+    "totalLength": 98.15,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 4.89052,
+    "turning_per_width": 0.66274,
+    "reversals_per_width": 0.40754,
+    "wiggle": 0.02637,
+    "measured_length": 98.149,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "05-tight-u",
+   "num": 5,
+   "notes": "curvature radius ~3x stroke radius",
+   "radius": 10.0,
+   "scale": 2.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/05-tight-u__s2.json",
+   "extractSeconds": 0.22,
+   "seconds": 0.29,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.24589777915212926,
+    "centerlineP95": 0.2918950001295296,
+    "centerlineHausdorff": 0.7905694150420949,
+    "recoveredToTruthP95": 0.2893619158243679,
+    "truthToRecoveredP95": 0.293034389616575
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.24589777915212926,
+    "centerlineP95": 0.2918950001295296,
+    "centerlineHausdorff": 0.7905694150420949,
+    "recoveredToTruthP95": 0.2893619158243679,
+    "truthToRecoveredP95": 0.293034389616575
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.019674,
+    "iou": 0.980373,
+    "missingRatio": 0.017258,
+    "extraRatio": 0.002416,
+    "boundaryP95": 0.6185,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 25,
+    "totalLength": 99.07,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 5.03977,
+    "turning_per_width": 0.63332,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.02071,
+    "measured_length": 99.072,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "05-tight-u",
+   "num": 5,
+   "notes": "curvature radius ~3x stroke radius",
+   "radius": 10.0,
+   "scale": 4.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/05-tight-u__s4.json",
+   "extractSeconds": 0.23,
+   "seconds": 0.3,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.09420263294917308,
+    "centerlineP95": 0.1596711472849281,
+    "centerlineHausdorff": 0.39528470752104744,
+    "recoveredToTruthP95": 0.15747679417677574,
+    "truthToRecoveredP95": 0.16011930178738254
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.09420263294917308,
+    "centerlineP95": 0.1596711472849281,
+    "centerlineHausdorff": 0.39528470752104744,
+    "recoveredToTruthP95": 0.15747679417677574,
+    "truthToRecoveredP95": 0.16011930178738254
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.011424,
+    "iou": 0.988596,
+    "missingRatio": 0.009733,
+    "extraRatio": 0.001691,
+    "boundaryP95": 0.3244,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 25,
+    "totalLength": 99.76,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 4.9998,
+    "turning_per_width": 0.60066,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.01873,
+    "measured_length": 99.764,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "05-tight-u",
+   "num": 5,
+   "notes": "curvature radius ~3x stroke radius",
+   "radius": 10.0,
+   "scale": 8.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/05-tight-u__s8.json",
+   "extractSeconds": 0.31,
+   "seconds": 0.48,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.05390885030286016,
+    "centerlineP95": 0.14238127601884246,
+    "centerlineHausdorff": 0.4415178365592926,
+    "recoveredToTruthP95": 0.1415589517081238,
+    "truthToRecoveredP95": 0.14296613795454988
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.05390885030286016,
+    "centerlineP95": 0.14238127601884246,
+    "centerlineHausdorff": 0.4415178365592926,
+    "recoveredToTruthP95": 0.1415589517081238,
+    "truthToRecoveredP95": 0.14296613795454988
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.01209,
+    "iou": 0.987928,
+    "missingRatio": 0.010582,
+    "extraRatio": 0.001509,
+    "boundaryP95": 0.3569,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 27,
+    "totalLength": 99.6,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 5.41697,
+    "turning_per_width": 0.59077,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.01972,
+    "measured_length": 99.597,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "05-tight-u",
+   "num": 5,
+   "notes": "curvature radius ~3x stroke radius",
+   "radius": 10.0,
+   "scale": 16.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/05-tight-u__s16.json",
+   "extractSeconds": 0.68,
+   "seconds": 0.75,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.14874988367775313,
+    "centerlineP95": 0.26600194468310107,
+    "centerlineHausdorff": 0.34539397794402305,
+    "recoveredToTruthP95": 0.2646292890752801,
+    "truthToRecoveredP95": 0.26600194468310107
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.14874988367775313,
+    "centerlineP95": 0.26600194468310107,
+    "centerlineHausdorff": 0.34539397794402305,
+    "recoveredToTruthP95": 0.2646292890752801,
+    "truthToRecoveredP95": 0.26600194468310107
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.010125,
+    "iou": 0.989895,
+    "missingRatio": 0.008095,
+    "extraRatio": 0.002031,
+    "boundaryP95": 0.1711,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 25,
+    "totalLength": 99.94,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 5.0006,
+    "turning_per_width": 0.59392,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.01844,
+    "measured_length": 99.938,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "06-closed-loop",
+   "num": 6,
+   "notes": "no endpoints; cyclic branch",
+   "radius": 10.0,
+   "scale": 1.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/06-closed-loop__s1.json",
+   "extractSeconds": 0.25,
+   "seconds": 0.35,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.18145741194736512,
+    "centerlineP95": 0.3633158558568925,
+    "centerlineHausdorff": 0.5741851345922957,
+    "recoveredToTruthP95": 0.3636934048606606,
+    "truthToRecoveredP95": 0.36183769026584683
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.18145741194736512,
+    "centerlineP95": 0.3633158558568925,
+    "centerlineHausdorff": 0.5741851345922957,
+    "recoveredToTruthP95": 0.3636934048606606,
+    "truthToRecoveredP95": 0.36183769026584683
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.014199,
+    "iou": 0.985931,
+    "missingRatio": 0.005001,
+    "extraRatio": 0.009198,
+    "boundaryP95": 0.4057,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 92,
+    "totalLength": 391.41,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 4.70096,
+    "turning_per_width": 0.51385,
+    "reversals_per_width": 1.32853,
+    "wiggle": 0.01461,
+    "measured_length": 391.409,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "06-closed-loop",
+   "num": 6,
+   "notes": "no endpoints; cyclic branch",
+   "radius": 10.0,
+   "scale": 2.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/06-closed-loop__s2.json",
+   "extractSeconds": 0.3,
+   "seconds": 0.4,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.15165731017273495,
+    "centerlineP95": 0.24385922359003534,
+    "centerlineHausdorff": 0.3210581245741058,
+    "recoveredToTruthP95": 0.24555453988978174,
+    "truthToRecoveredP95": 0.24350064678411734
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.15165731017273495,
+    "centerlineP95": 0.24385922359003534,
+    "centerlineHausdorff": 0.3210581245741058,
+    "recoveredToTruthP95": 0.24555453988978174,
+    "truthToRecoveredP95": 0.24350064678411734
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.007153,
+    "iou": 0.992865,
+    "missingRatio": 0.004575,
+    "extraRatio": 0.002578,
+    "boundaryP95": 0.198,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 85,
+    "totalLength": 390.46,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 4.3451,
+    "turning_per_width": 0.34509,
+    "reversals_per_width": 0.10224,
+    "wiggle": 0.00855,
+    "measured_length": 390.463,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "06-closed-loop",
+   "num": 6,
+   "notes": "no endpoints; cyclic branch",
+   "radius": 10.0,
+   "scale": 4.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/06-closed-loop__s4.json",
+   "extractSeconds": 0.33,
+   "seconds": 0.43,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.12918744755364486,
+    "centerlineP95": 0.15407235007902323,
+    "centerlineHausdorff": 0.18288485411724292,
+    "recoveredToTruthP95": 0.1540951682533933,
+    "truthToRecoveredP95": 0.15390230352615494
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.12918744755364486,
+    "centerlineP95": 0.15407235007902323,
+    "centerlineHausdorff": 0.18288485411724292,
+    "recoveredToTruthP95": 0.1540951682533933,
+    "truthToRecoveredP95": 0.15390230352615494
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.00412,
+    "iou": 0.995887,
+    "missingRatio": 0.002457,
+    "extraRatio": 0.001664,
+    "boundaryP95": 0.1036,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 64,
+    "totalLength": 389.6,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 3.28281,
+    "turning_per_width": 0.31411,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.00632,
+    "measured_length": 389.598,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "06-closed-loop",
+   "num": 6,
+   "notes": "no endpoints; cyclic branch",
+   "radius": 10.0,
+   "scale": 8.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/06-closed-loop__s8.json",
+   "extractSeconds": 0.71,
+   "seconds": 0.8,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.13292066965698507,
+    "centerlineP95": 0.24379099973368518,
+    "centerlineHausdorff": 0.25661176410472947,
+    "recoveredToTruthP95": 0.2436866154708794,
+    "truthToRecoveredP95": 0.24380402324736028
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.13292066965698507,
+    "centerlineP95": 0.24379099973368518,
+    "centerlineHausdorff": 0.25661176410472947,
+    "recoveredToTruthP95": 0.2436866154708794,
+    "truthToRecoveredP95": 0.24380402324736028
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.004069,
+    "iou": 0.995937,
+    "missingRatio": 0.002468,
+    "extraRatio": 0.001602,
+    "boundaryP95": 0.092,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 65,
+    "totalLength": 389.49,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 3.33637,
+    "turning_per_width": 0.3161,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.00574,
+    "measured_length": 389.489,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "06-closed-loop",
+   "num": 6,
+   "notes": "no endpoints; cyclic branch",
+   "radius": 10.0,
+   "scale": 16.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/06-closed-loop__s16.json",
+   "extractSeconds": 3.03,
+   "seconds": 3.12,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.13897376750866192,
+    "centerlineP95": 0.24353365393731433,
+    "centerlineHausdorff": 0.2617014644091783,
+    "recoveredToTruthP95": 0.24344358330907614,
+    "truthToRecoveredP95": 0.24354356595316745
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.13897376750866192,
+    "centerlineP95": 0.24353365393731433,
+    "centerlineHausdorff": 0.2617014644091783,
+    "recoveredToTruthP95": 0.24344358330907614,
+    "truthToRecoveredP95": 0.24354356595316745
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.004804,
+    "iou": 0.995205,
+    "missingRatio": 0.002838,
+    "extraRatio": 0.001967,
+    "boundaryP95": 0.0913,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 65,
+    "totalLength": 389.42,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 3.3363,
+    "turning_per_width": 0.31644,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.00569,
+    "measured_length": 389.42,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "07-round-cap",
+   "num": 7,
+   "notes": "MAT should reach the true ends",
+   "radius": 10.0,
+   "scale": 1.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/07-round-cap__s1.json",
+   "extractSeconds": 0.22,
+   "seconds": 0.24,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.251063283927939,
+    "centerlineP95": 0.5095046561156533,
+    "centerlineHausdorff": 2.5495097567963922,
+    "recoveredToTruthP95": 0.5094641872536428,
+    "truthToRecoveredP95": 0.5095376332774797
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.251063283927939,
+    "centerlineP95": 0.5095046561156533,
+    "centerlineHausdorff": 2.5495097567963922,
+    "recoveredToTruthP95": 0.5094641872536428,
+    "truthToRecoveredP95": 0.5095376332774797
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.045582,
+    "iou": 0.955089,
+    "missingRatio": 0.030633,
+    "extraRatio": 0.014949,
+    "boundaryP95": 2.318,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 53,
+    "totalLength": 138.01,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 7.68071,
+    "turning_per_width": 0.7994,
+    "reversals_per_width": 3.18822,
+    "wiggle": 0.02437,
+    "measured_length": 138.008,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "07-round-cap",
+   "num": 7,
+   "notes": "MAT should reach the true ends",
+   "radius": 10.0,
+   "scale": 2.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/07-round-cap__s2.json",
+   "extractSeconds": 0.22,
+   "seconds": 0.25,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.20187292536073465,
+    "centerlineP95": 0.3016857079332283,
+    "centerlineHausdorff": 0.3535533905932738,
+    "recoveredToTruthP95": 0.3016857079332283,
+    "truthToRecoveredP95": 0.30116694911301994
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.20187292536073465,
+    "centerlineP95": 0.3016857079332283,
+    "centerlineHausdorff": 0.3535533905932738,
+    "recoveredToTruthP95": 0.3016857079332283,
+    "truthToRecoveredP95": 0.30116694911301994
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.015269,
+    "iou": 0.984861,
+    "missingRatio": 0.006674,
+    "extraRatio": 0.008595,
+    "boundaryP95": 0.3527,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 53,
+    "totalLength": 140.73,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 7.53205,
+    "turning_per_width": 0.53257,
+    "reversals_per_width": 2.70017,
+    "wiggle": 0.01242,
+    "measured_length": 140.732,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "07-round-cap",
+   "num": 7,
+   "notes": "MAT should reach the true ends",
+   "radius": 10.0,
+   "scale": 4.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/07-round-cap__s4.json",
+   "extractSeconds": 0.24,
+   "seconds": 0.26,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.10131127975555868,
+    "centerlineP95": 0.14841920940425882,
+    "centerlineHausdorff": 0.39528470752104744,
+    "recoveredToTruthP95": 0.1478895417415629,
+    "truthToRecoveredP95": 0.14865275354038976
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.10131127975555868,
+    "centerlineP95": 0.14841920940425882,
+    "centerlineHausdorff": 0.39528470752104744,
+    "recoveredToTruthP95": 0.1478895417415629,
+    "truthToRecoveredP95": 0.14865275354038976
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.010715,
+    "iou": 0.989319,
+    "missingRatio": 0.007543,
+    "extraRatio": 0.003172,
+    "boundaryP95": 0.3918,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 20,
+    "totalLength": 139.35,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 2.87037,
+    "turning_per_width": 0.13493,
+    "reversals_per_width": 0.14352,
+    "wiggle": 0.00552,
+    "measured_length": 139.355,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "07-round-cap",
+   "num": 7,
+   "notes": "MAT should reach the true ends",
+   "radius": 10.0,
+   "scale": 8.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/07-round-cap__s8.json",
+   "extractSeconds": 0.31,
+   "seconds": 0.33,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.19881076550704294,
+    "centerlineP95": 0.19958267253319575,
+    "centerlineHausdorff": 0.3181006130141957,
+    "recoveredToTruthP95": 0.19957715777690282,
+    "truthToRecoveredP95": 0.1995829789095514
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.19881076550704294,
+    "centerlineP95": 0.19958267253319575,
+    "centerlineHausdorff": 0.3181006130141957,
+    "recoveredToTruthP95": 0.19957715777690282,
+    "truthToRecoveredP95": 0.1995829789095514
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.009349,
+    "iou": 0.990668,
+    "missingRatio": 0.007493,
+    "extraRatio": 0.001856,
+    "boundaryP95": 0.323,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 2,
+    "totalLength": 139.5,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.28614,
+    "turning_per_width": 0.0,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.0,
+    "measured_length": 139.5,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "07-round-cap",
+   "num": 7,
+   "notes": "MAT should reach the true ends",
+   "radius": 10.0,
+   "scale": 16.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/07-round-cap__s16.json",
+   "extractSeconds": 0.66,
+   "seconds": 0.68,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.14354439956161197,
+    "centerlineP95": 0.24181742310002022,
+    "centerlineHausdorff": 0.25280393903698356,
+    "recoveredToTruthP95": 0.24181742310002022,
+    "truthToRecoveredP95": 0.2418958739670189
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.14354439956161197,
+    "centerlineP95": 0.24181742310002022,
+    "centerlineHausdorff": 0.25280393903698356,
+    "recoveredToTruthP95": 0.24181742310002022,
+    "truthToRecoveredP95": 0.2418958739670189
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.003791,
+    "iou": 0.99621,
+    "missingRatio": 0.003475,
+    "extraRatio": 0.000316,
+    "boundaryP95": 0.0736,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 2,
+    "totalLength": 139.94,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.28515,
+    "turning_per_width": 0.0,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.0,
+    "measured_length": 139.938,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "08-butt-cap",
+   "num": 8,
+   "notes": "expect MAT retraction by ~R",
+   "radius": 10.0,
+   "scale": 1.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/08-butt-cap__s1.json",
+   "extractSeconds": 0.26,
+   "seconds": 0.29,
+   "rawEdges": 5,
+   "autoEdges": 1,
+   "lam": 1.0,
+   "rawTruth": {
+    "centerlineMedian": 0.31262115705658866,
+    "centerlineP95": 6.902895098514455,
+    "centerlineHausdorff": 9.500000169035529,
+    "recoveredToTruthP95": 8.01564851747882,
+    "truthToRecoveredP95": 4.605078757566533
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.27093318117018717,
+    "centerlineP95": 3.0184031915653917,
+    "centerlineHausdorff": 9.513148795220223,
+    "recoveredToTruthP95": 0.5184756441938843,
+    "truthToRecoveredP95": 6.033305186221926
+   },
+   "autoRecon": {
+    "lam": 1.0,
+    "error": 0.048153,
+    "iou": 0.952671,
+    "missingRatio": 0.030738,
+    "extraRatio": 0.017415,
+    "boundaryP95": 1.8116,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 49,
+    "totalLength": 122.84,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 1.0,
+     "removed": 4,
+     "removedLength": 52.554,
+     "passes": 1,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 7.97805,
+    "turning_per_width": 0.97644,
+    "reversals_per_width": 3.7448,
+    "wiggle": 0.02542,
+    "measured_length": 122.837,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "08-butt-cap",
+   "num": 8,
+   "notes": "expect MAT retraction by ~R",
+   "radius": 10.0,
+   "scale": 2.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/08-butt-cap__s2.json",
+   "extractSeconds": 0.25,
+   "seconds": 0.28,
+   "rawEdges": 5,
+   "autoEdges": 1,
+   "lam": 1.0,
+   "rawTruth": {
+    "centerlineMedian": 0.18960208013660818,
+    "centerlineP95": 7.083988612045294,
+    "centerlineHausdorff": 9.75320460156558,
+    "recoveredToTruthP95": 8.242593330343034,
+    "truthToRecoveredP95": 4.6057095133436485
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.1708501869361729,
+    "centerlineP95": 3.236372827925181,
+    "centerlineHausdorff": 9.75320460156558,
+    "recoveredToTruthP95": 0.27374176965808905,
+    "truthToRecoveredP95": 6.267534217248106
+   },
+   "autoRecon": {
+    "lam": 1.0,
+    "error": 0.037518,
+    "iou": 0.96277,
+    "missingRatio": 0.029765,
+    "extraRatio": 0.007753,
+    "boundaryP95": 2.0884,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 50,
+    "totalLength": 121.62,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 1.0,
+     "removed": 4,
+     "removedLength": 54.54,
+     "passes": 1,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 8.22253,
+    "turning_per_width": 0.36897,
+    "reversals_per_width": 1.80896,
+    "wiggle": 0.01006,
+    "measured_length": 121.617,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "08-butt-cap",
+   "num": 8,
+   "notes": "expect MAT retraction by ~R",
+   "radius": 10.0,
+   "scale": 4.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/08-butt-cap__s4.json",
+   "extractSeconds": 0.25,
+   "seconds": 0.27,
+   "rawEdges": 5,
+   "autoEdges": 1,
+   "lam": 1.0,
+   "rawTruth": {
+    "centerlineMedian": 0.23297825789492113,
+    "centerlineP95": 7.157529362277631,
+    "centerlineHausdorff": 9.87579110755184,
+    "recoveredToTruthP95": 8.367246494352765,
+    "truthToRecoveredP95": 4.607983133436644
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.2178045163109124,
+    "centerlineP95": 3.3540326039817483,
+    "centerlineHausdorff": 9.87579110755184,
+    "recoveredToTruthP95": 0.265469052595612,
+    "truthToRecoveredP95": 6.3887681039554876
+   },
+   "autoRecon": {
+    "lam": 1.0,
+    "error": 0.034496,
+    "iou": 0.965621,
+    "missingRatio": 0.031084,
+    "extraRatio": 0.003413,
+    "boundaryP95": 2.3367,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 27,
+    "totalLength": 120.51,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 1.0,
+     "removed": 4,
+     "removedLength": 55.558,
+     "passes": 1,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 4.48088,
+    "turning_per_width": 0.21198,
+    "reversals_per_width": 0.66383,
+    "wiggle": 0.0064,
+    "measured_length": 120.512,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "08-butt-cap",
+   "num": 8,
+   "notes": "expect MAT retraction by ~R",
+   "radius": 10.0,
+   "scale": 8.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/08-butt-cap__s8.json",
+   "extractSeconds": 0.3,
+   "seconds": 0.32,
+   "rawEdges": 5,
+   "autoEdges": 1,
+   "lam": 1.0,
+   "rawTruth": {
+    "centerlineMedian": 0.0893029385919975,
+    "centerlineP95": 7.169671280937663,
+    "centerlineHausdorff": 9.938193397192473,
+    "recoveredToTruthP95": 8.439629175877789,
+    "truthToRecoveredP95": 4.54794598034293
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.08170941481335289,
+    "centerlineP95": 3.4403513234955,
+    "centerlineHausdorff": 9.938193397192473,
+    "recoveredToTruthP95": 0.11174771226232748,
+    "truthToRecoveredP95": 6.4508428353676734
+   },
+   "autoRecon": {
+    "lam": 1.0,
+    "error": 0.035434,
+    "iou": 0.964663,
+    "missingRatio": 0.032693,
+    "extraRatio": 0.002741,
+    "boundaryP95": 2.4251,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 2,
+    "totalLength": 120.12,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 1.0,
+     "removed": 4,
+     "removedLength": 56.038,
+     "passes": 1,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.33299,
+    "turning_per_width": 0.0,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.0,
+    "measured_length": 120.125,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "08-butt-cap",
+   "num": 8,
+   "notes": "expect MAT retraction by ~R",
+   "radius": 10.0,
+   "scale": 16.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/08-butt-cap__s16.json",
+   "extractSeconds": 0.6,
+   "seconds": 0.61,
+   "rawEdges": 5,
+   "autoEdges": 1,
+   "lam": 1.0,
+   "rawTruth": {
+    "centerlineMedian": 0.048709626249980466,
+    "centerlineP95": 7.199387728809042,
+    "centerlineHausdorff": 9.969048199301671,
+    "recoveredToTruthP95": 8.491652106607935,
+    "truthToRecoveredP95": 4.577446636695179
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.04007754058542007,
+    "centerlineP95": 3.4709306746732853,
+    "centerlineHausdorff": 9.969048199301671,
+    "recoveredToTruthP95": 0.07001238051501518,
+    "truthToRecoveredP95": 6.481618955740381
+   },
+   "autoRecon": {
+    "lam": 1.0,
+    "error": 0.031766,
+    "iou": 0.968256,
+    "missingRatio": 0.03108,
+    "extraRatio": 0.000686,
+    "boundaryP95": 2.4685,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 2,
+    "totalLength": 120.06,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 1.0,
+     "removed": 4,
+     "removedLength": 56.304,
+     "passes": 1,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.33316,
+    "turning_per_width": 0.0,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.0,
+    "measured_length": 120.063,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "09-square-cap",
+   "num": 9,
+   "notes": "expect corner spurs at both ends",
+   "radius": 10.0,
+   "scale": 1.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/09-square-cap__s1.json",
+   "extractSeconds": 0.22,
+   "seconds": 0.25,
+   "rawEdges": 5,
+   "autoEdges": 1,
+   "lam": 1.0,
+   "rawTruth": {
+    "centerlineMedian": 0.26280869089862885,
+    "centerlineP95": 9.232850442705269,
+    "centerlineHausdorff": 13.435028842544403,
+    "recoveredToTruthP95": 11.095750902693451,
+    "truthToRecoveredP95": 0.4784454920916859
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.24373744950047765,
+    "centerlineP95": 0.4840117667327519,
+    "centerlineHausdorff": 0.7071067811865476,
+    "recoveredToTruthP95": 0.4873877249797746,
+    "truthToRecoveredP95": 0.4784454920916859
+   },
+   "autoRecon": {
+    "lam": 1.0,
+    "error": 0.043171,
+    "iou": 0.95754,
+    "missingRatio": 0.02642,
+    "extraRatio": 0.016751,
+    "boundaryP95": 1.7699,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 54,
+    "totalLength": 143.36,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 1.0,
+     "removed": 4,
+     "removedLength": 52.554,
+     "passes": 1,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 7.53332,
+    "turning_per_width": 0.67113,
+    "reversals_per_width": 3.34814,
+    "wiggle": 0.01868,
+    "measured_length": 143.363,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "09-square-cap",
+   "num": 9,
+   "notes": "expect corner spurs at both ends",
+   "radius": 10.0,
+   "scale": 2.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/09-square-cap__s2.json",
+   "extractSeconds": 0.23,
+   "seconds": 0.26,
+   "rawEdges": 5,
+   "autoEdges": 1,
+   "lam": 1.0,
+   "rawTruth": {
+    "centerlineMedian": 0.16967850434110257,
+    "centerlineP95": 9.516823548648318,
+    "centerlineHausdorff": 13.788582233137676,
+    "recoveredToTruthP95": 11.460125378759649,
+    "truthToRecoveredP95": 0.2735436820565202
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.14664616537837452,
+    "centerlineP95": 0.27392834343006717,
+    "centerlineHausdorff": 0.3535533905932738,
+    "recoveredToTruthP95": 0.2744413167448449,
+    "truthToRecoveredP95": 0.2735436820565202
+   },
+   "autoRecon": {
+    "lam": 1.0,
+    "error": 0.034012,
+    "iou": 0.966232,
+    "missingRatio": 0.026776,
+    "extraRatio": 0.007235,
+    "boundaryP95": 1.8865,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 49,
+    "totalLength": 141.49,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 1.0,
+     "removed": 4,
+     "removedLength": 54.54,
+     "passes": 1,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 6.92619,
+    "turning_per_width": 0.41409,
+    "reversals_per_width": 1.97891,
+    "wiggle": 0.01115,
+    "measured_length": 141.492,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "09-square-cap",
+   "num": 9,
+   "notes": "expect corner spurs at both ends",
+   "radius": 10.0,
+   "scale": 4.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/09-square-cap__s4.json",
+   "extractSeconds": 0.27,
+   "seconds": 0.29,
+   "rawEdges": 5,
+   "autoEdges": 1,
+   "lam": 1.0,
+   "rawTruth": {
+    "centerlineMedian": 0.09380803513665814,
+    "centerlineP95": 9.701074623034891,
+    "centerlineHausdorff": 13.965358928434314,
+    "recoveredToTruthP95": 11.63832540926735,
+    "truthToRecoveredP95": 0.1394920455706192
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.08539307474837882,
+    "centerlineP95": 0.1394920455706192,
+    "centerlineHausdorff": 0.1767766952966369,
+    "recoveredToTruthP95": 0.1394920455706192,
+    "truthToRecoveredP95": 0.1394920455706192
+   },
+   "autoRecon": {
+    "lam": 1.0,
+    "error": 0.030666,
+    "iou": 0.969426,
+    "missingRatio": 0.027659,
+    "extraRatio": 0.003007,
+    "boundaryP95": 2.267,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 24,
+    "totalLength": 140.42,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 1.0,
+     "removed": 4,
+     "removedLength": 55.558,
+     "passes": 1,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 3.41834,
+    "turning_per_width": 0.11841,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.00547,
+    "measured_length": 140.419,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "09-square-cap",
+   "num": 9,
+   "notes": "expect corner spurs at both ends",
+   "radius": 10.0,
+   "scale": 8.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/09-square-cap__s8.json",
+   "extractSeconds": 0.31,
+   "seconds": 0.33,
+   "rawEdges": 5,
+   "autoEdges": 1,
+   "lam": 1.0,
+   "rawTruth": {
+    "centerlineMedian": 0.052483036648105545,
+    "centerlineP95": 9.830256724180785,
+    "centerlineHausdorff": 14.054454382863822,
+    "recoveredToTruthP95": 11.701451149778071,
+    "truthToRecoveredP95": 0.08331289230784705
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.04399775527383147,
+    "centerlineP95": 0.08331289230784701,
+    "centerlineHausdorff": 0.08768124086713856,
+    "recoveredToTruthP95": 0.08331289230784705,
+    "truthToRecoveredP95": 0.08331289230784705
+   },
+   "autoRecon": {
+    "lam": 1.0,
+    "error": 0.029065,
+    "iou": 0.970977,
+    "missingRatio": 0.027636,
+    "extraRatio": 0.001429,
+    "boundaryP95": 2.3375,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 2,
+    "totalLength": 140.12,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 1.0,
+     "removed": 4,
+     "removedLength": 56.038,
+     "passes": 1,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.28546,
+    "turning_per_width": 0.0,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.0,
+    "measured_length": 140.125,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "09-square-cap",
+   "num": 9,
+   "notes": "expect corner spurs at both ends",
+   "radius": 10.0,
+   "scale": 16.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/09-square-cap__s16.json",
+   "extractSeconds": 0.68,
+   "seconds": 0.69,
+   "rawEdges": 5,
+   "autoEdges": 1,
+   "lam": 1.0,
+   "rawTruth": {
+    "centerlineMedian": 0.02639865316431999,
+    "centerlineP95": 9.926872502942143,
+    "centerlineHausdorff": 14.098295003297377,
+    "recoveredToTruthP95": 11.72693725439249,
+    "truthToRecoveredP95": 0.04165644615390971
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.021998877636923275,
+    "centerlineP95": 0.04165644615390969,
+    "centerlineHausdorff": 0.043840620433574305,
+    "recoveredToTruthP95": 0.04165644615390971,
+    "truthToRecoveredP95": 0.04165644615390971
+   },
+   "autoRecon": {
+    "lam": 1.0,
+    "error": 0.027989,
+    "iou": 0.972031,
+    "missingRatio": 0.027292,
+    "extraRatio": 0.000697,
+    "boundaryP95": 2.3037,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 2,
+    "totalLength": 140.06,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 1.0,
+     "removed": 4,
+     "removedLength": 56.304,
+     "passes": 1,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.28559,
+    "turning_per_width": 0.0,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.0,
+    "measured_length": 140.063,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "10-round-join",
+   "num": 10,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 1.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/10-round-join__s1.json",
+   "extractSeconds": 0.22,
+   "seconds": 0.26,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.25419539105010763,
+    "centerlineP95": 0.705421194167722,
+    "centerlineHausdorff": 2.928756610350504,
+    "recoveredToTruthP95": 0.5659265435320608,
+    "truthToRecoveredP95": 0.9004878857066743
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.25419539105010763,
+    "centerlineP95": 0.705421194167722,
+    "centerlineHausdorff": 2.928756610350504,
+    "recoveredToTruthP95": 0.5659265435320608,
+    "truthToRecoveredP95": 0.9004878857066743
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.038209,
+    "iou": 0.962472,
+    "missingRatio": 0.020043,
+    "extraRatio": 0.018166,
+    "boundaryP95": 1.3659,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 73,
+    "totalLength": 206.47,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 7.07125,
+    "turning_per_width": 0.87886,
+    "reversals_per_width": 2.80912,
+    "wiggle": 0.04646,
+    "measured_length": 206.47,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "10-round-join",
+   "num": 10,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 2.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/10-round-join__s2.json",
+   "extractSeconds": 0.24,
+   "seconds": 0.28,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.1919048461729521,
+    "centerlineP95": 0.5718767909836182,
+    "centerlineHausdorff": 2.715462423390562,
+    "recoveredToTruthP95": 0.41895595195862784,
+    "truthToRecoveredP95": 0.7468971873077461
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.1919048461729521,
+    "centerlineP95": 0.5718767909836182,
+    "centerlineHausdorff": 2.715462423390562,
+    "recoveredToTruthP95": 0.41895595195862784,
+    "truthToRecoveredP95": 0.7468971873077461
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.021678,
+    "iou": 0.978511,
+    "missingRatio": 0.012904,
+    "extraRatio": 0.008773,
+    "boundaryP95": 1.0612,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 65,
+    "totalLength": 206.36,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 6.29964,
+    "turning_per_width": 0.48718,
+    "reversals_per_width": 1.16301,
+    "wiggle": 0.03915,
+    "measured_length": 206.361,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "10-round-join",
+   "num": 10,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 4.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/10-round-join__s4.json",
+   "extractSeconds": 0.28,
+   "seconds": 0.31,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.16075551548379907,
+    "centerlineP95": 0.4519736161657531,
+    "centerlineHausdorff": 2.5752876266749642,
+    "recoveredToTruthP95": 0.34532501274650806,
+    "truthToRecoveredP95": 0.5971080153821183
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.16075551548379907,
+    "centerlineP95": 0.4519736161657531,
+    "centerlineHausdorff": 2.5752876266749642,
+    "recoveredToTruthP95": 0.34532501274650806,
+    "truthToRecoveredP95": 0.5971080153821183
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.012757,
+    "iou": 0.987303,
+    "missingRatio": 0.00809,
+    "extraRatio": 0.004667,
+    "boundaryP95": 0.5669,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 41,
+    "totalLength": 206.39,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 3.973,
+    "turning_per_width": 0.2839,
+    "reversals_per_width": 0.0969,
+    "wiggle": 0.03922,
+    "measured_length": 206.393,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "10-round-join",
+   "num": 10,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 8.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/10-round-join__s8.json",
+   "extractSeconds": 0.48,
+   "seconds": 0.51,
+   "rawEdges": 3,
+   "autoEdges": 3,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.13324609977698765,
+    "centerlineP95": 0.5483923662243559,
+    "centerlineHausdorff": 1.6888713244148923,
+    "recoveredToTruthP95": 0.4821199360002464,
+    "truthToRecoveredP95": 0.6409573748397729
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.13324609977698765,
+    "centerlineP95": 0.5483923662243559,
+    "centerlineHausdorff": 1.6888713244148923,
+    "recoveredToTruthP95": 0.4821199360002464,
+    "truthToRecoveredP95": 0.6409573748397729
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.008787,
+    "iou": 0.991252,
+    "missingRatio": 0.004321,
+    "extraRatio": 0.004466,
+    "boundaryP95": 0.445,
+    "edges": 3,
+    "strokes": 1,
+    "controlPoints": 10,
+    "totalLength": 207.78,
+    "widthCv": 0.0085,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 3,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.78906,
+    "turning_per_width": 0.05556,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.00696,
+    "measured_length": 206.545,
+    "coverage": 0.99405,
+    "branches": 2
+   }
+  },
+  {
+   "case": "10-round-join",
+   "num": 10,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 16.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/10-round-join__s16.json",
+   "extractSeconds": 1.93,
+   "seconds": 1.95,
+   "rawEdges": 3,
+   "autoEdges": 3,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.1274058672491827,
+    "centerlineP95": 0.6053841899153768,
+    "centerlineHausdorff": 1.7191571357360413,
+    "recoveredToTruthP95": 0.5225805932231451,
+    "truthToRecoveredP95": 0.6119518044647078
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.1274058672491827,
+    "centerlineP95": 0.6053841899153768,
+    "centerlineHausdorff": 1.7191571357360413,
+    "recoveredToTruthP95": 0.5225805932231451,
+    "truthToRecoveredP95": 0.6119518044647078
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.007025,
+    "iou": 0.993007,
+    "missingRatio": 0.002485,
+    "extraRatio": 0.00454,
+    "boundaryP95": 0.5003,
+    "edges": 3,
+    "strokes": 1,
+    "controlPoints": 10,
+    "totalLength": 208.27,
+    "widthCv": 0.00878,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 3,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.78671,
+    "turning_per_width": 0.05631,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.00708,
+    "measured_length": 206.683,
+    "coverage": 0.99236,
+    "branches": 2
+   }
+  },
+  {
+   "case": "11-bevel-join",
+   "num": 11,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 1.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/11-bevel-join__s1.json",
+   "extractSeconds": 0.22,
+   "seconds": 0.26,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.23353396842304,
+    "centerlineP95": 0.6688253027994417,
+    "centerlineHausdorff": 3.3825596629713077,
+    "recoveredToTruthP95": 0.5997653984668236,
+    "truthToRecoveredP95": 0.9277312859646812
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.23353396842304,
+    "centerlineP95": 0.6688253027994417,
+    "centerlineHausdorff": 3.3825596629713077,
+    "recoveredToTruthP95": 0.5997653984668236,
+    "truthToRecoveredP95": 0.9277312859646812
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.033648,
+    "iou": 0.966885,
+    "missingRatio": 0.017544,
+    "extraRatio": 0.016104,
+    "boundaryP95": 1.3678,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 81,
+    "totalLength": 206.16,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 7.85794,
+    "turning_per_width": 0.93529,
+    "reversals_per_width": 2.91035,
+    "wiggle": 0.04299,
+    "measured_length": 206.161,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "11-bevel-join",
+   "num": 11,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 2.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/11-bevel-join__s2.json",
+   "extractSeconds": 0.24,
+   "seconds": 0.27,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.1802660420642765,
+    "centerlineP95": 0.5327412416587128,
+    "centerlineHausdorff": 3.372850164479784,
+    "recoveredToTruthP95": 0.3465098634238067,
+    "truthToRecoveredP95": 0.744079142888716
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.1802660420642765,
+    "centerlineP95": 0.5327412416587128,
+    "centerlineHausdorff": 3.372850164479784,
+    "recoveredToTruthP95": 0.3465098634238067,
+    "truthToRecoveredP95": 0.744079142888716
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.018094,
+    "iou": 0.982051,
+    "missingRatio": 0.01,
+    "extraRatio": 0.008094,
+    "boundaryP95": 0.7927,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 75,
+    "totalLength": 206.27,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 7.27216,
+    "turning_per_width": 0.43899,
+    "reversals_per_width": 1.35747,
+    "wiggle": 0.03633,
+    "measured_length": 206.266,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "11-bevel-join",
+   "num": 11,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 4.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/11-bevel-join__s4.json",
+   "extractSeconds": 0.27,
+   "seconds": 0.3,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.11757487174852037,
+    "centerlineP95": 0.39528470752104744,
+    "centerlineHausdorff": 3.3703152955152293,
+    "recoveredToTruthP95": 0.21895392842301353,
+    "truthToRecoveredP95": 0.6026300933049592
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.11757487174852037,
+    "centerlineP95": 0.39528470752104744,
+    "centerlineHausdorff": 3.3703152955152293,
+    "recoveredToTruthP95": 0.21895392842301353,
+    "truthToRecoveredP95": 0.6026300933049592
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.011115,
+    "iou": 0.988929,
+    "missingRatio": 0.007189,
+    "extraRatio": 0.003925,
+    "boundaryP95": 0.3913,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 30,
+    "totalLength": 205.78,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 2.91576,
+    "turning_per_width": 0.23315,
+    "reversals_per_width": 0.09719,
+    "wiggle": 0.03597,
+    "measured_length": 205.778,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "11-bevel-join",
+   "num": 11,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 8.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/11-bevel-join__s8.json",
+   "extractSeconds": 0.48,
+   "seconds": 0.5,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.19356401471606266,
+    "centerlineP95": 0.4461876744885646,
+    "centerlineHausdorff": 3.3673025161104144,
+    "recoveredToTruthP95": 0.33854139420145424,
+    "truthToRecoveredP95": 0.576352230373947
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.19356401471606266,
+    "centerlineP95": 0.4461876744885646,
+    "centerlineHausdorff": 3.3673025161104144,
+    "recoveredToTruthP95": 0.33854139420145424,
+    "truthToRecoveredP95": 0.576352230373947
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.008744,
+    "iou": 0.991288,
+    "missingRatio": 0.005064,
+    "extraRatio": 0.003679,
+    "boundaryP95": 0.373,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 10,
+    "totalLength": 205.76,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 1.00833,
+    "turning_per_width": 0.15832,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.03741,
+    "measured_length": 205.765,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "11-bevel-join",
+   "num": 11,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 16.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/11-bevel-join__s16.json",
+   "extractSeconds": 1.82,
+   "seconds": 1.84,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.18319175031374219,
+    "centerlineP95": 0.4672600982039929,
+    "centerlineHausdorff": 3.38944258924086,
+    "recoveredToTruthP95": 0.32687870447840234,
+    "truthToRecoveredP95": 0.5931054665853746
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.18319175031374219,
+    "centerlineP95": 0.4672600982039929,
+    "centerlineHausdorff": 3.38944258924086,
+    "recoveredToTruthP95": 0.32687870447840234,
+    "truthToRecoveredP95": 0.5931054665853746
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.005073,
+    "iou": 0.994932,
+    "missingRatio": 0.003969,
+    "extraRatio": 0.001104,
+    "boundaryP95": 0.282,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 10,
+    "totalLength": 206.08,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 1.01127,
+    "turning_per_width": 0.15896,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.03694,
+    "measured_length": 206.078,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "12-miter-join",
+   "num": 12,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 1.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/12-miter-join__s1.json",
+   "extractSeconds": 0.24,
+   "seconds": 0.31,
+   "rawEdges": 3,
+   "autoEdges": 1,
+   "lam": 1.0,
+   "rawTruth": {
+    "centerlineMedian": 0.26782810990910894,
+    "centerlineP95": 1.1925308057869106,
+    "centerlineHausdorff": 13.6048361424928,
+    "recoveredToTruthP95": 2.150620412504968,
+    "truthToRecoveredP95": 0.705421194167722
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.2635396991875976,
+    "centerlineP95": 0.6301132684587547,
+    "centerlineHausdorff": 1.9701769993143152,
+    "recoveredToTruthP95": 0.5480881505162413,
+    "truthToRecoveredP95": 0.8750429247474771
+   },
+   "autoRecon": {
+    "lam": 1.0,
+    "error": 0.040865,
+    "iou": 0.959829,
+    "missingRatio": 0.023592,
+    "extraRatio": 0.017272,
+    "boundaryP95": 1.4952,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 74,
+    "totalLength": 206.91,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 1.0,
+     "removed": 1,
+     "removedLength": 15.556,
+     "passes": 1,
+     "keptEdges": 1,
+     "merges": 1
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 7.15273,
+    "turning_per_width": 0.98245,
+    "reversals_per_width": 2.70644,
+    "wiggle": 0.04848,
+    "measured_length": 206.914,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "12-miter-join",
+   "num": 12,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 2.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/12-miter-join__s2.json",
+   "extractSeconds": 0.24,
+   "seconds": 0.31,
+   "rawEdges": 3,
+   "autoEdges": 1,
+   "lam": 1.0,
+   "rawTruth": {
+    "centerlineMedian": 0.24048110950789212,
+    "centerlineP95": 1.1768236195631365,
+    "centerlineHausdorff": 13.958363020294387,
+    "recoveredToTruthP95": 2.31682341209896,
+    "truthToRecoveredP95": 0.5643067549320547
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.1897314287364303,
+    "centerlineP95": 0.5364471255141544,
+    "centerlineHausdorff": 2.437982397282828,
+    "recoveredToTruthP95": 0.352710597083861,
+    "truthToRecoveredP95": 0.7905694150420949
+   },
+   "autoRecon": {
+    "lam": 1.0,
+    "error": 0.026728,
+    "iou": 0.973527,
+    "missingRatio": 0.017083,
+    "extraRatio": 0.009645,
+    "boundaryP95": 0.7993,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 76,
+    "totalLength": 207.04,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 1.0,
+     "removed": 1,
+     "removedLength": 16.263,
+     "passes": 1,
+     "keptEdges": 1,
+     "merges": 1
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 7.34154,
+    "turning_per_width": 0.50492,
+    "reversals_per_width": 1.25579,
+    "wiggle": 0.03996,
+    "measured_length": 207.041,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "12-miter-join",
+   "num": 12,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 4.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/12-miter-join__s4.json",
+   "extractSeconds": 0.29,
+   "seconds": 0.33,
+   "rawEdges": 3,
+   "autoEdges": 1,
+   "lam": 1.0,
+   "rawTruth": {
+    "centerlineMedian": 0.130841142977626,
+    "centerlineP95": 1.1484437136629373,
+    "centerlineHausdorff": 14.13512695653787,
+    "recoveredToTruthP95": 2.519313499500955,
+    "truthToRecoveredP95": 0.5609678564849812
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.19190599244438517,
+    "centerlineP95": 0.5699532815363125,
+    "centerlineHausdorff": 2.1409146271476365,
+    "recoveredToTruthP95": 0.39850533771877356,
+    "truthToRecoveredP95": 0.6899686944787924
+   },
+   "autoRecon": {
+    "lam": 1.0,
+    "error": 0.019538,
+    "iou": 0.980572,
+    "missingRatio": 0.013896,
+    "extraRatio": 0.005642,
+    "boundaryP95": 1.2712,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 40,
+    "totalLength": 206.72,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 1.0,
+     "removed": 1,
+     "removedLength": 16.263,
+     "passes": 1,
+     "keptEdges": 1,
+     "merges": 1
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 3.87006,
+    "turning_per_width": 0.3253,
+    "reversals_per_width": 0.77401,
+    "wiggle": 0.04017,
+    "measured_length": 206.715,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "12-miter-join",
+   "num": 12,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 8.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/12-miter-join__s8.json",
+   "extractSeconds": 0.48,
+   "seconds": 0.51,
+   "rawEdges": 3,
+   "autoEdges": 1,
+   "lam": 1.0,
+   "rawTruth": {
+    "centerlineMedian": 0.1388670911100343,
+    "centerlineP95": 1.1413155534621364,
+    "centerlineHausdorff": 14.224216100597204,
+    "recoveredToTruthP95": 2.4811786225829127,
+    "truthToRecoveredP95": 0.512045734551743
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.0758807534829776,
+    "centerlineP95": 0.46459075821547274,
+    "centerlineHausdorff": 2.3123199336973754,
+    "recoveredToTruthP95": 0.30022510565785454,
+    "truthToRecoveredP95": 0.6389932497627882
+   },
+   "autoRecon": {
+    "lam": 1.0,
+    "error": 0.016749,
+    "iou": 0.983308,
+    "missingRatio": 0.013314,
+    "extraRatio": 0.003435,
+    "boundaryP95": 1.9096,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 7,
+    "totalLength": 206.53,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 1.0,
+     "removed": 1,
+     "removedLength": 16.44,
+     "passes": 1,
+     "keptEdges": 1,
+     "merges": 1
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.67786,
+    "turning_per_width": 0.15228,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.04031,
+    "measured_length": 206.533,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "12-miter-join",
+   "num": 12,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 16.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/12-miter-join__s16.json",
+   "extractSeconds": 1.97,
+   "seconds": 2.0,
+   "rawEdges": 3,
+   "autoEdges": 1,
+   "lam": 1.0,
+   "rawTruth": {
+    "centerlineMedian": 0.1323179900884786,
+    "centerlineP95": 1.2016490074295478,
+    "centerlineHausdorff": 14.268053644857346,
+    "recoveredToTruthP95": 2.8049467689544842,
+    "truthToRecoveredP95": 0.5298811237147079
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.1453484121926254,
+    "centerlineP95": 0.4582926709103671,
+    "centerlineHausdorff": 2.316023603880233,
+    "recoveredToTruthP95": 0.32721394234013984,
+    "truthToRecoveredP95": 0.649498606158741
+   },
+   "autoRecon": {
+    "lam": 1.0,
+    "error": 0.013948,
+    "iou": 0.986085,
+    "missingRatio": 0.011529,
+    "extraRatio": 0.002419,
+    "boundaryP95": 1.957,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 7,
+    "totalLength": 206.68,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 1.0,
+     "removed": 1,
+     "removedLength": 16.529,
+     "passes": 1,
+     "keptEdges": 1,
+     "merges": 1
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.67738,
+    "turning_per_width": 0.15211,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.0398,
+    "measured_length": 206.679,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "13-x-separate",
+   "num": 13,
+   "notes": "two elements; each MAT is clean",
+   "radius": 10.0,
+   "scale": 1.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/13-x-separate__s1.json",
+   "extractSeconds": 0.36,
+   "seconds": 0.4,
+   "rawEdges": 2,
+   "autoEdges": 2,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.1870681464433149,
+    "centerlineP95": 0.32159373568066135,
+    "centerlineHausdorff": 0.7085209947489173,
+    "recoveredToTruthP95": 0.3229853736230531,
+    "truthToRecoveredP95": 0.32092175229436726
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.1870681464433149,
+    "centerlineP95": 0.32159373568066135,
+    "centerlineHausdorff": 0.7085209947489173,
+    "recoveredToTruthP95": 0.3229853736230531,
+    "truthToRecoveredP95": 0.32092175229436726
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.018314,
+    "iou": 0.981861,
+    "missingRatio": 0.008641,
+    "extraRatio": 0.009673,
+    "boundaryP95": 0.6981,
+    "edges": 2,
+    "strokes": 2,
+    "controlPoints": 91,
+    "totalLength": 412.81,
+    "widthCv": 0.0006,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 2,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 4.38911,
+    "turning_per_width": 0.41924,
+    "reversals_per_width": 2.50801,
+    "wiggle": 0.01164,
+    "measured_length": 412.805,
+    "coverage": 1.0,
+    "branches": 2
+   }
+  },
+  {
+   "case": "13-x-separate",
+   "num": 13,
+   "notes": "two elements; each MAT is clean",
+   "radius": 10.0,
+   "scale": 2.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/13-x-separate__s2.json",
+   "extractSeconds": 0.33,
+   "seconds": 0.36,
+   "rawEdges": 2,
+   "autoEdges": 2,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.21975589620140534,
+    "centerlineP95": 0.2594037644820285,
+    "centerlineHausdorff": 0.3549676041556436,
+    "recoveredToTruthP95": 0.2590201365824517,
+    "truthToRecoveredP95": 0.25967160322122423
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.21975589620140534,
+    "centerlineP95": 0.2594037644820285,
+    "centerlineHausdorff": 0.3549676041556436,
+    "recoveredToTruthP95": 0.2590201365824517,
+    "truthToRecoveredP95": 0.25967160322122423
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.008975,
+    "iou": 0.991048,
+    "missingRatio": 0.006337,
+    "extraRatio": 0.002638,
+    "boundaryP95": 0.3461,
+    "edges": 2,
+    "strokes": 2,
+    "controlPoints": 43,
+    "totalLength": 410.61,
+    "widthCv": 5e-05,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 2,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 2.09476,
+    "turning_per_width": 0.10254,
+    "reversals_per_width": 0.29229,
+    "wiggle": 0.00507,
+    "measured_length": 410.609,
+    "coverage": 1.0,
+    "branches": 2
+   }
+  },
+  {
+   "case": "13-x-separate",
+   "num": 13,
+   "notes": "two elements; each MAT is clean",
+   "radius": 10.0,
+   "scale": 4.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/13-x-separate__s4.json",
+   "extractSeconds": 0.46,
+   "seconds": 0.49,
+   "rawEdges": 2,
+   "autoEdges": 2,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.14459588353237415,
+    "centerlineP95": 0.23837863063516562,
+    "centerlineHausdorff": 0.25190914383933233,
+    "recoveredToTruthP95": 0.2384256412737064,
+    "truthToRecoveredP95": 0.23799248139806364
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.14459588353237415,
+    "centerlineP95": 0.23837863063516562,
+    "centerlineHausdorff": 0.25190914383933233,
+    "recoveredToTruthP95": 0.2384256412737064,
+    "truthToRecoveredP95": 0.23799248139806364
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.005799,
+    "iou": 0.99421,
+    "missingRatio": 0.004176,
+    "extraRatio": 0.001623,
+    "boundaryP95": 0.1734,
+    "edges": 2,
+    "strokes": 2,
+    "controlPoints": 8,
+    "totalLength": 411.95,
+    "widthCv": 0.00271,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 2,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.38669,
+    "turning_per_width": 0.00526,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.00107,
+    "measured_length": 411.95,
+    "coverage": 1.0,
+    "branches": 2
+   }
+  },
+  {
+   "case": "13-x-separate",
+   "num": 13,
+   "notes": "two elements; each MAT is clean",
+   "radius": 10.0,
+   "scale": 8.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/13-x-separate__s8.json",
+   "extractSeconds": 1.06,
+   "seconds": 1.09,
+   "rawEdges": 2,
+   "autoEdges": 2,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.08626702730473862,
+    "centerlineP95": 0.08626702730476876,
+    "centerlineHausdorff": 0.08841379982785984,
+    "recoveredToTruthP95": 0.08626702730476876,
+    "truthToRecoveredP95": 0.08626702730476876
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.08626702730473862,
+    "centerlineP95": 0.08626702730476876,
+    "centerlineHausdorff": 0.08841379982785984,
+    "recoveredToTruthP95": 0.08626702730476876,
+    "truthToRecoveredP95": 0.08626702730476876
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.004388,
+    "iou": 0.995613,
+    "missingRatio": 0.004317,
+    "extraRatio": 7.1e-05,
+    "boundaryP95": 0.1225,
+    "edges": 2,
+    "strokes": 2,
+    "controlPoints": 4,
+    "totalLength": 411.66,
+    "widthCv": 0.00216,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 2,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.19363,
+    "turning_per_width": 0.0,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.0,
+    "measured_length": 411.656,
+    "coverage": 1.0,
+    "branches": 2
+   }
+  },
+  {
+   "case": "13-x-separate",
+   "num": 13,
+   "notes": "two elements; each MAT is clean",
+   "radius": 10.0,
+   "scale": 16.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/13-x-separate__s16.json",
+   "extractSeconds": 4.94,
+   "seconds": 4.96,
+   "rawEdges": 2,
+   "autoEdges": 2,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.03539342223519208,
+    "centerlineP95": 0.043881890923005075,
+    "centerlineHausdorff": 0.04666904755830386,
+    "recoveredToTruthP95": 0.04387948115536461,
+    "truthToRecoveredP95": 0.04387948115536461
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.03539342223519208,
+    "centerlineP95": 0.043881890923005075,
+    "centerlineHausdorff": 0.04666904755830386,
+    "recoveredToTruthP95": 0.04387948115536461,
+    "truthToRecoveredP95": 0.04387948115536461
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.00345,
+    "iou": 0.996551,
+    "missingRatio": 0.003329,
+    "extraRatio": 0.000121,
+    "boundaryP95": 0.0731,
+    "edges": 2,
+    "strokes": 2,
+    "controlPoints": 4,
+    "totalLength": 411.76,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 2,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.19372,
+    "turning_per_width": 0.0,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.0,
+    "measured_length": 411.764,
+    "coverage": 1.0,
+    "branches": 2
+   }
+  },
+  {
+   "case": "14-x-union",
+   "num": 14,
+   "notes": "degree-4 node: crossing ambiguity",
+   "radius": 10.0,
+   "scale": 1.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/14-x-union__s1.json",
+   "extractSeconds": 0.24,
+   "seconds": 0.28,
+   "rawEdges": 5,
+   "autoEdges": 5,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.19543754268802788,
+    "centerlineP95": 2.1949791035727926,
+    "centerlineHausdorff": 3.7102378358916486,
+    "recoveredToTruthP95": 2.256773351033719,
+    "truthToRecoveredP95": 2.1107163756633356
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.19543754268802788,
+    "centerlineP95": 2.1949791035727926,
+    "centerlineHausdorff": 3.7102378358916486,
+    "recoveredToTruthP95": 2.256773351033719,
+    "truthToRecoveredP95": 2.1107163756633356
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.023135,
+    "iou": 0.977256,
+    "missingRatio": 0.005947,
+    "extraRatio": 0.017187,
+    "boundaryP95": 0.7832,
+    "edges": 5,
+    "strokes": 1,
+    "controlPoints": 90,
+    "totalLength": 406.36,
+    "widthCv": 0.04519,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 5,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 4.2358,
+    "turning_per_width": 0.41649,
+    "reversals_per_width": 2.04182,
+    "wiggle": 0.01586,
+    "measured_length": 391.069,
+    "coverage": 0.96237,
+    "branches": 4
+   }
+  },
+  {
+   "case": "14-x-union",
+   "num": 14,
+   "notes": "degree-4 node: crossing ambiguity",
+   "radius": 10.0,
+   "scale": 2.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/14-x-union__s2.json",
+   "extractSeconds": 0.25,
+   "seconds": 0.28,
+   "rawEdges": 5,
+   "autoEdges": 5,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.11843213936317784,
+    "centerlineP95": 2.015045743969314,
+    "centerlineHausdorff": 3.523628596912284,
+    "recoveredToTruthP95": 2.129337317140781,
+    "truthToRecoveredP95": 1.9618248802520803
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.11843213936317784,
+    "centerlineP95": 2.015045743969314,
+    "centerlineHausdorff": 3.523628596912284,
+    "recoveredToTruthP95": 2.129337317140781,
+    "truthToRecoveredP95": 1.9618248802520803
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.013388,
+    "iou": 0.98673,
+    "missingRatio": 0.004474,
+    "extraRatio": 0.008914,
+    "boundaryP95": 0.4778,
+    "edges": 5,
+    "strokes": 1,
+    "controlPoints": 37,
+    "totalLength": 402.34,
+    "widthCv": 0.05045,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 5,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 1.5551,
+    "turning_per_width": 0.12417,
+    "reversals_per_width": 0.1036,
+    "wiggle": 0.01177,
+    "measured_length": 387.662,
+    "coverage": 0.96351,
+    "branches": 4
+   }
+  },
+  {
+   "case": "14-x-union",
+   "num": 14,
+   "notes": "degree-4 node: crossing ambiguity",
+   "radius": 10.0,
+   "scale": 4.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/14-x-union__s4.json",
+   "extractSeconds": 0.32,
+   "seconds": 0.35,
+   "rawEdges": 5,
+   "autoEdges": 5,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.214032889238044,
+    "centerlineP95": 1.9381341237329734,
+    "centerlineHausdorff": 3.3590255158927924,
+    "recoveredToTruthP95": 1.9845265770471743,
+    "truthToRecoveredP95": 1.9258063233617113
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.214032889238044,
+    "centerlineP95": 1.9381341237329734,
+    "centerlineHausdorff": 3.3590255158927924,
+    "recoveredToTruthP95": 1.9845265770471743,
+    "truthToRecoveredP95": 1.9258063233617113
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.008848,
+    "iou": 0.991194,
+    "missingRatio": 0.004083,
+    "extraRatio": 0.004765,
+    "boundaryP95": 0.3558,
+    "edges": 5,
+    "strokes": 1,
+    "controlPoints": 29,
+    "totalLength": 403.42,
+    "widthCv": 0.0445,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 5,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 1.28934,
+    "turning_per_width": 0.09821,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.01177,
+    "measured_length": 389.14,
+    "coverage": 0.96459,
+    "branches": 4
+   }
+  },
+  {
+   "case": "14-x-union",
+   "num": 14,
+   "notes": "degree-4 node: crossing ambiguity",
+   "radius": 10.0,
+   "scale": 8.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/14-x-union__s8.json",
+   "extractSeconds": 0.74,
+   "seconds": 0.77,
+   "rawEdges": 5,
+   "autoEdges": 5,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.19500696408579765,
+    "centerlineP95": 1.9612849500545615,
+    "centerlineHausdorff": 3.44197126613612,
+    "recoveredToTruthP95": 2.030943592261189,
+    "truthToRecoveredP95": 1.9392964508667787
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.19500696408579765,
+    "centerlineP95": 1.9612849500545615,
+    "centerlineHausdorff": 3.44197126613612,
+    "recoveredToTruthP95": 2.030943592261189,
+    "truthToRecoveredP95": 1.9392964508667787
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.008271,
+    "iou": 0.991778,
+    "missingRatio": 0.002393,
+    "extraRatio": 0.005878,
+    "boundaryP95": 0.3232,
+    "edges": 5,
+    "strokes": 1,
+    "controlPoints": 23,
+    "totalLength": 403.34,
+    "widthCv": 0.04915,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 5,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 1.15045,
+    "turning_per_width": 0.09723,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.01195,
+    "measured_length": 388.966,
+    "coverage": 0.96436,
+    "branches": 4
+   }
+  },
+  {
+   "case": "14-x-union",
+   "num": 14,
+   "notes": "degree-4 node: crossing ambiguity",
+   "radius": 10.0,
+   "scale": 16.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/14-x-union__s16.json",
+   "extractSeconds": 3.45,
+   "seconds": 3.48,
+   "rawEdges": 5,
+   "autoEdges": 5,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.18139082672077128,
+    "centerlineP95": 1.93619173959255,
+    "centerlineHausdorff": 3.456188880577449,
+    "recoveredToTruthP95": 1.9453695817391246,
+    "truthToRecoveredP95": 1.9177281090747529
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.18139082672077128,
+    "centerlineP95": 1.93619173959255,
+    "centerlineHausdorff": 3.456188880577449,
+    "recoveredToTruthP95": 1.9453695817391246,
+    "truthToRecoveredP95": 1.9177281090747529
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.006313,
+    "iou": 0.993716,
+    "missingRatio": 0.001734,
+    "extraRatio": 0.00458,
+    "boundaryP95": 0.383,
+    "edges": 5,
+    "strokes": 1,
+    "controlPoints": 24,
+    "totalLength": 403.62,
+    "widthCv": 0.04913,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 5,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 1.21167,
+    "turning_per_width": 0.10062,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.01212,
+    "measured_length": 389.307,
+    "coverage": 0.96454,
+    "branches": 4
+   }
+  },
+  {
+   "case": "15-t-junction",
+   "num": 15,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 1.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/15-t-junction__s1.json",
+   "extractSeconds": 0.24,
+   "seconds": 0.3,
+   "rawEdges": 3,
+   "autoEdges": 3,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.25596445671887424,
+    "centerlineP95": 0.6672282860444564,
+    "centerlineHausdorff": 2.796306730118224,
+    "recoveredToTruthP95": 0.5534393888200443,
+    "truthToRecoveredP95": 0.9411211991945461
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.25596445671887424,
+    "centerlineP95": 0.6672282860444564,
+    "centerlineHausdorff": 2.796306730118224,
+    "recoveredToTruthP95": 0.5534393888200443,
+    "truthToRecoveredP95": 0.9411211991945461
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.041921,
+    "iou": 0.958874,
+    "missingRatio": 0.022592,
+    "extraRatio": 0.019328,
+    "boundaryP95": 1.5474,
+    "edges": 3,
+    "strokes": 1,
+    "controlPoints": 100,
+    "totalLength": 286.62,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 3,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 6.97798,
+    "turning_per_width": 0.84719,
+    "reversals_per_width": 2.93075,
+    "wiggle": 0.02318,
+    "measured_length": 286.616,
+    "coverage": 1.0,
+    "branches": 3
+   }
+  },
+  {
+   "case": "15-t-junction",
+   "num": 15,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 2.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/15-t-junction__s2.json",
+   "extractSeconds": 0.28,
+   "seconds": 0.44,
+   "rawEdges": 3,
+   "autoEdges": 3,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.16692002212540133,
+    "centerlineP95": 0.3977056026175935,
+    "centerlineHausdorff": 2.4353225607395332,
+    "recoveredToTruthP95": 0.34737975236964064,
+    "truthToRecoveredP95": 0.5846693203376451
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.16692002212540133,
+    "centerlineP95": 0.3977056026175935,
+    "centerlineHausdorff": 2.4353225607395332,
+    "recoveredToTruthP95": 0.34737975236964064,
+    "truthToRecoveredP95": 0.5846693203376451
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.018809,
+    "iou": 0.981363,
+    "missingRatio": 0.009546,
+    "extraRatio": 0.009264,
+    "boundaryP95": 0.7415,
+    "edges": 3,
+    "strokes": 1,
+    "controlPoints": 112,
+    "totalLength": 288.35,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 3,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 7.76828,
+    "turning_per_width": 0.41562,
+    "reversals_per_width": 1.80335,
+    "wiggle": 0.01296,
+    "measured_length": 288.352,
+    "coverage": 1.0,
+    "branches": 3
+   }
+  },
+  {
+   "case": "15-t-junction",
+   "num": 15,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 4.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/15-t-junction__s4.json",
+   "extractSeconds": 0.31,
+   "seconds": 0.35,
+   "rawEdges": 3,
+   "autoEdges": 3,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.14547148916453,
+    "centerlineP95": 0.39528470752104744,
+    "centerlineHausdorff": 2.3661010498321384,
+    "recoveredToTruthP95": 0.3365389462527807,
+    "truthToRecoveredP95": 0.4620975979138086
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.14547148916453,
+    "centerlineP95": 0.39528470752104744,
+    "centerlineHausdorff": 2.3661010498321384,
+    "recoveredToTruthP95": 0.3365389462527807,
+    "truthToRecoveredP95": 0.4620975979138086
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.015603,
+    "iou": 0.984559,
+    "missingRatio": 0.005102,
+    "extraRatio": 0.010501,
+    "boundaryP95": 0.4012,
+    "edges": 3,
+    "strokes": 1,
+    "controlPoints": 59,
+    "totalLength": 287.75,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 3,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 4.10071,
+    "turning_per_width": 0.22387,
+    "reversals_per_width": 0.90355,
+    "wiggle": 0.0092,
+    "measured_length": 287.755,
+    "coverage": 1.0,
+    "branches": 3
+   }
+  },
+  {
+   "case": "15-t-junction",
+   "num": 15,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 8.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/15-t-junction__s8.json",
+   "extractSeconds": 0.74,
+   "seconds": 0.77,
+   "rawEdges": 3,
+   "autoEdges": 3,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.14264697038381835,
+    "centerlineP95": 0.3743360258085415,
+    "centerlineHausdorff": 2.3401751902366765,
+    "recoveredToTruthP95": 0.29106722009669767,
+    "truthToRecoveredP95": 0.44413736155380096
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.14264697038381835,
+    "centerlineP95": 0.3743360258085415,
+    "centerlineHausdorff": 2.3401751902366765,
+    "recoveredToTruthP95": 0.29106722009669767,
+    "truthToRecoveredP95": 0.44413736155380096
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.051607,
+    "iou": 0.950797,
+    "missingRatio": 0.002749,
+    "extraRatio": 0.048857,
+    "boundaryP95": 1.312,
+    "edges": 3,
+    "strokes": 1,
+    "controlPoints": 13,
+    "totalLength": 287.7,
+    "widthCv": 0.0389,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 3,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.95102,
+    "turning_per_width": 0.05801,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.00636,
+    "measured_length": 287.705,
+    "coverage": 1.0,
+    "branches": 3
+   }
+  },
+  {
+   "case": "15-t-junction",
+   "num": 15,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 16.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/15-t-junction__s16.json",
+   "extractSeconds": 2.98,
+   "seconds": 3.02,
+   "rawEdges": 3,
+   "autoEdges": 3,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.1250304108320608,
+    "centerlineP95": 0.3172360471994035,
+    "centerlineHausdorff": 2.3499968817461814,
+    "recoveredToTruthP95": 0.2501487003809507,
+    "truthToRecoveredP95": 0.4201217687450194
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.1250304108320608,
+    "centerlineP95": 0.3172360471994035,
+    "centerlineHausdorff": 2.3499968817461814,
+    "recoveredToTruthP95": 0.2501487003809507,
+    "truthToRecoveredP95": 0.4201217687450194
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.0502,
+    "iou": 0.952149,
+    "missingRatio": 0.001107,
+    "extraRatio": 0.049093,
+    "boundaryP95": 1.2656,
+    "edges": 3,
+    "strokes": 1,
+    "controlPoints": 12,
+    "totalLength": 287.92,
+    "widthCv": 0.04561,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 3,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.86815,
+    "turning_per_width": 0.05282,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.00646,
+    "measured_length": 287.924,
+    "coverage": 1.0,
+    "branches": 3
+   }
+  },
+  {
+   "case": "16-y-junction",
+   "num": 16,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 1.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/16-y-junction__s1.json",
+   "extractSeconds": 0.23,
+   "seconds": 0.29,
+   "rawEdges": 3,
+   "autoEdges": 3,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.24265966883140508,
+    "centerlineP95": 0.5185286856164465,
+    "centerlineHausdorff": 1.5811388300841898,
+    "recoveredToTruthP95": 0.5161140406575793,
+    "truthToRecoveredP95": 0.5186312419458994
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.24265966883140508,
+    "centerlineP95": 0.5185286856164465,
+    "centerlineHausdorff": 1.5811388300841898,
+    "recoveredToTruthP95": 0.5161140406575793,
+    "truthToRecoveredP95": 0.5186312419458994
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.028153,
+    "iou": 0.972258,
+    "missingRatio": 0.013329,
+    "extraRatio": 0.014824,
+    "boundaryP95": 0.8684,
+    "edges": 3,
+    "strokes": 1,
+    "controlPoints": 86,
+    "totalLength": 310.68,
+    "widthCv": 0.00427,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 3,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 5.49721,
+    "turning_per_width": 0.6498,
+    "reversals_per_width": 2.93913,
+    "wiggle": 0.01869,
+    "measured_length": 310.681,
+    "coverage": 1.0,
+    "branches": 3
+   }
+  },
+  {
+   "case": "16-y-junction",
+   "num": 16,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 2.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/16-y-junction__s2.json",
+   "extractSeconds": 0.26,
+   "seconds": 0.31,
+   "rawEdges": 3,
+   "autoEdges": 3,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.1472564710972122,
+    "centerlineP95": 0.2791455062198049,
+    "centerlineHausdorff": 1.094935465305822,
+    "recoveredToTruthP95": 0.2791455062198049,
+    "truthToRecoveredP95": 0.28117903024595287
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.1472564710972122,
+    "centerlineP95": 0.2791455062198049,
+    "centerlineHausdorff": 1.094935465305822,
+    "recoveredToTruthP95": 0.2791455062198049,
+    "truthToRecoveredP95": 0.28117903024595287
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.013911,
+    "iou": 0.986157,
+    "missingRatio": 0.009012,
+    "extraRatio": 0.004898,
+    "boundaryP95": 0.5748,
+    "edges": 3,
+    "strokes": 1,
+    "controlPoints": 70,
+    "totalLength": 311.1,
+    "widthCv": 0.00423,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 3,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 4.47063,
+    "turning_per_width": 0.31019,
+    "reversals_per_width": 1.40528,
+    "wiggle": 0.00946,
+    "measured_length": 311.096,
+    "coverage": 1.0,
+    "branches": 3
+   }
+  },
+  {
+   "case": "16-y-junction",
+   "num": 16,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 4.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/16-y-junction__s4.json",
+   "extractSeconds": 0.33,
+   "seconds": 0.37,
+   "rawEdges": 3,
+   "autoEdges": 3,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.13627029845486152,
+    "centerlineP95": 0.1773782187703207,
+    "centerlineHausdorff": 1.1999442149301198,
+    "recoveredToTruthP95": 0.1773782187703207,
+    "truthToRecoveredP95": 0.17736563149018458
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.13627029845486152,
+    "centerlineP95": 0.1773782187703207,
+    "centerlineHausdorff": 1.1999442149301198,
+    "recoveredToTruthP95": 0.1773782187703207,
+    "truthToRecoveredP95": 0.17736563149018458
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.009032,
+    "iou": 0.991017,
+    "missingRatio": 0.003582,
+    "extraRatio": 0.00545,
+    "boundaryP95": 0.3932,
+    "edges": 3,
+    "strokes": 1,
+    "controlPoints": 24,
+    "totalLength": 309.93,
+    "widthCv": 0.003,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 3,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 1.55244,
+    "turning_per_width": 0.06094,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.00483,
+    "measured_length": 309.927,
+    "coverage": 1.0,
+    "branches": 3
+   }
+  },
+  {
+   "case": "16-y-junction",
+   "num": 16,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 8.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/16-y-junction__s8.json",
+   "extractSeconds": 0.84,
+   "seconds": 0.87,
+   "rawEdges": 3,
+   "autoEdges": 3,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.07840948623136793,
+    "centerlineP95": 0.24710100010020333,
+    "centerlineHausdorff": 1.12885185546229,
+    "recoveredToTruthP95": 0.24714481085934906,
+    "truthToRecoveredP95": 0.24598405397584439
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.07840948623136793,
+    "centerlineP95": 0.24710100010020333,
+    "centerlineHausdorff": 1.12885185546229,
+    "recoveredToTruthP95": 0.24714481085934906,
+    "truthToRecoveredP95": 0.24598405397584439
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.025629,
+    "iou": 0.974905,
+    "missingRatio": 0.004358,
+    "extraRatio": 0.021271,
+    "boundaryP95": 0.8795,
+    "edges": 3,
+    "strokes": 1,
+    "controlPoints": 10,
+    "totalLength": 309.97,
+    "widthCv": 0.03141,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 3,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.66129,
+    "turning_per_width": 0.02479,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.00362,
+    "measured_length": 309.97,
+    "coverage": 1.0,
+    "branches": 3
+   }
+  },
+  {
+   "case": "16-y-junction",
+   "num": 16,
+   "notes": "",
+   "radius": 10.0,
+   "scale": 16.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/16-y-junction__s16.json",
+   "extractSeconds": 3.76,
+   "seconds": 3.79,
+   "rawEdges": 3,
+   "autoEdges": 3,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.03724997431019772,
+    "centerlineP95": 0.2096418142994029,
+    "centerlineHausdorff": 1.222600642754763,
+    "recoveredToTruthP95": 0.2096418142994032,
+    "truthToRecoveredP95": 0.2093838022619762
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.03724997431019772,
+    "centerlineP95": 0.2096418142994029,
+    "centerlineHausdorff": 1.222600642754763,
+    "recoveredToTruthP95": 0.2096418142994032,
+    "truthToRecoveredP95": 0.2093838022619762
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.024113,
+    "iou": 0.976408,
+    "missingRatio": 0.00201,
+    "extraRatio": 0.022104,
+    "boundaryP95": 0.8945,
+    "edges": 3,
+    "strokes": 1,
+    "controlPoints": 10,
+    "totalLength": 310.24,
+    "widthCv": 0.03082,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 3,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.66147,
+    "turning_per_width": 0.02692,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.00361,
+    "measured_length": 310.236,
+    "coverage": 1.0,
+    "branches": 3
+   }
+  },
+  {
+   "case": "17-near-parallel",
+   "num": 17,
+   "notes": "2.0-unit gap; low raster scale will fuse them",
+   "radius": 10.0,
+   "scale": 1.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/17-near-parallel__s1.json",
+   "extractSeconds": 0.31,
+   "seconds": 0.35,
+   "rawEdges": 2,
+   "autoEdges": 2,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.2562907028623161,
+    "centerlineP95": 0.5008980503824598,
+    "centerlineHausdorff": 1.5811388300841898,
+    "recoveredToTruthP95": 0.5000141328773153,
+    "truthToRecoveredP95": 0.5014548964632054
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.2562907028623161,
+    "centerlineP95": 0.5008980503824598,
+    "centerlineHausdorff": 1.5811388300841898,
+    "recoveredToTruthP95": 0.5000141328773153,
+    "truthToRecoveredP95": 0.5014548964632054
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.033824,
+    "iou": 0.966673,
+    "missingRatio": 0.018907,
+    "extraRatio": 0.014917,
+    "boundaryP95": 1.5213,
+    "edges": 2,
+    "strokes": 2,
+    "controlPoints": 150,
+    "totalLength": 399.75,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 2,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 7.50473,
+    "turning_per_width": 0.66601,
+    "reversals_per_width": 3.00189,
+    "wiggle": 0.02002,
+    "measured_length": 399.748,
+    "coverage": 1.0,
+    "branches": 2
+   }
+  },
+  {
+   "case": "17-near-parallel",
+   "num": 17,
+   "notes": "2.0-unit gap; low raster scale will fuse them",
+   "radius": 10.0,
+   "scale": 2.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/17-near-parallel__s2.json",
+   "extractSeconds": 0.33,
+   "seconds": 0.4,
+   "rawEdges": 2,
+   "autoEdges": 2,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.16834527722473497,
+    "centerlineP95": 0.2892167158808532,
+    "centerlineHausdorff": 0.7905694150420949,
+    "recoveredToTruthP95": 0.28960381305728655,
+    "truthToRecoveredP95": 0.2881270233546008
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.16834527722473497,
+    "centerlineP95": 0.2892167158808532,
+    "centerlineHausdorff": 0.7905694150420949,
+    "recoveredToTruthP95": 0.28960381305728655,
+    "truthToRecoveredP95": 0.2881270233546008
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.014808,
+    "iou": 0.985302,
+    "missingRatio": 0.007296,
+    "extraRatio": 0.007512,
+    "boundaryP95": 0.4524,
+    "edges": 2,
+    "strokes": 2,
+    "controlPoints": 146,
+    "totalLength": 401.13,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 2,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 7.27944,
+    "turning_per_width": 0.38056,
+    "reversals_per_width": 2.09408,
+    "wiggle": 0.01035,
+    "measured_length": 401.13,
+    "coverage": 1.0,
+    "branches": 2
+   }
+  },
+  {
+   "case": "17-near-parallel",
+   "num": 17,
+   "notes": "2.0-unit gap; low raster scale will fuse them",
+   "radius": 10.0,
+   "scale": 4.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/17-near-parallel__s4.json",
+   "extractSeconds": 0.37,
+   "seconds": 0.42,
+   "rawEdges": 2,
+   "autoEdges": 2,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.09207836139937561,
+    "centerlineP95": 0.1499482520638915,
+    "centerlineHausdorff": 0.1767766952966369,
+    "recoveredToTruthP95": 0.1499482520638915,
+    "truthToRecoveredP95": 0.1499482520638915
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.09207836139937561,
+    "centerlineP95": 0.1499482520638915,
+    "centerlineHausdorff": 0.1767766952966369,
+    "recoveredToTruthP95": 0.1499482520638915,
+    "truthToRecoveredP95": 0.1499482520638915
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.006958,
+    "iou": 0.993064,
+    "missingRatio": 0.003792,
+    "extraRatio": 0.003166,
+    "boundaryP95": 0.1951,
+    "edges": 2,
+    "strokes": 2,
+    "controlPoints": 84,
+    "totalLength": 400.14,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 2,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 4.19849,
+    "turning_per_width": 0.20482,
+    "reversals_per_width": 0.19993,
+    "wiggle": 0.0057,
+    "measured_length": 400.144,
+    "coverage": 1.0,
+    "branches": 2
+   }
+  },
+  {
+   "case": "17-near-parallel",
+   "num": 17,
+   "notes": "2.0-unit gap; low raster scale will fuse them",
+   "radius": 10.0,
+   "scale": 8.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/17-near-parallel__s8.json",
+   "extractSeconds": 0.56,
+   "seconds": 0.59,
+   "rawEdges": 2,
+   "autoEdges": 2,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.1976049807699022,
+    "centerlineP95": 0.25218284124343104,
+    "centerlineHausdorff": 0.25830663542238447,
+    "recoveredToTruthP95": 0.2519703978857801,
+    "truthToRecoveredP95": 0.2522009406677966
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.1976049807699022,
+    "centerlineP95": 0.25218284124343104,
+    "centerlineHausdorff": 0.25830663542238447,
+    "recoveredToTruthP95": 0.2519703978857801,
+    "truthToRecoveredP95": 0.2522009406677966
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.007556,
+    "iou": 0.992452,
+    "missingRatio": 0.006437,
+    "extraRatio": 0.00112,
+    "boundaryP95": 0.2223,
+    "edges": 2,
+    "strokes": 2,
+    "controlPoints": 4,
+    "totalLength": 399.5,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 2,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.19949,
+    "turning_per_width": 0.0,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.0,
+    "measured_length": 399.5,
+    "coverage": 1.0,
+    "branches": 2
+   }
+  },
+  {
+   "case": "17-near-parallel",
+   "num": 17,
+   "notes": "2.0-unit gap; low raster scale will fuse them",
+   "radius": 10.0,
+   "scale": 16.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/17-near-parallel__s16.json",
+   "extractSeconds": 1.65,
+   "seconds": 1.68,
+   "rawEdges": 2,
+   "autoEdges": 2,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.14364635918150215,
+    "centerlineP95": 0.2415872403792579,
+    "centerlineHausdorff": 0.25253648408396273,
+    "recoveredToTruthP95": 0.2415872403792579,
+    "truthToRecoveredP95": 0.24164196880936734
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.14364635918150215,
+    "centerlineP95": 0.2415872403792579,
+    "centerlineHausdorff": 0.25253648408396273,
+    "recoveredToTruthP95": 0.2415872403792579,
+    "truthToRecoveredP95": 0.24164196880936734
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.003599,
+    "iou": 0.996403,
+    "missingRatio": 0.003273,
+    "extraRatio": 0.000325,
+    "boundaryP95": 0.0713,
+    "edges": 2,
+    "strokes": 2,
+    "controlPoints": 4,
+    "totalLength": 399.88,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 2,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.19958,
+    "turning_per_width": 0.0,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.0,
+    "measured_length": 399.876,
+    "coverage": 1.0,
+    "branches": 2
+   }
+  },
+  {
+   "case": "18-self-overlap",
+   "num": 18,
+   "notes": "path doubles back over itself",
+   "radius": 10.0,
+   "scale": 1.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/18-self-overlap__s1.json",
+   "extractSeconds": 0.25,
+   "seconds": 0.44,
+   "rawEdges": 2,
+   "autoEdges": 2,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.3283548292639994,
+    "centerlineP95": 1.2254962720623002,
+    "centerlineHausdorff": 3.0438693176940084,
+    "recoveredToTruthP95": 1.2448168448935075,
+    "truthToRecoveredP95": 1.2145659014955246
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.3283548292639994,
+    "centerlineP95": 1.2254962720623002,
+    "centerlineHausdorff": 3.0438693176940084,
+    "recoveredToTruthP95": 1.2448168448935075,
+    "truthToRecoveredP95": 1.2145659014955246
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.036966,
+    "iou": 0.963715,
+    "missingRatio": 0.018203,
+    "extraRatio": 0.018763,
+    "boundaryP95": 0.8157,
+    "edges": 2,
+    "strokes": 1,
+    "controlPoints": 66,
+    "totalLength": 270.25,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 2,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 4.88438,
+    "turning_per_width": 0.66173,
+    "reversals_per_width": 1.11009,
+    "wiggle": 0.02483,
+    "measured_length": 270.249,
+    "coverage": 1.0,
+    "branches": 2
+   }
+  },
+  {
+   "case": "18-self-overlap",
+   "num": 18,
+   "notes": "path doubles back over itself",
+   "radius": 10.0,
+   "scale": 2.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/18-self-overlap__s2.json",
+   "extractSeconds": 0.23,
+   "seconds": 0.51,
+   "rawEdges": 2,
+   "autoEdges": 2,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.17872581580887828,
+    "centerlineP95": 0.9319271724959795,
+    "centerlineHausdorff": 2.6908481396290287,
+    "recoveredToTruthP95": 0.9514847162860252,
+    "truthToRecoveredP95": 0.886521473916699
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.17872581580887828,
+    "centerlineP95": 0.9319271724959795,
+    "centerlineHausdorff": 2.6908481396290287,
+    "recoveredToTruthP95": 0.9514847162860252,
+    "truthToRecoveredP95": 0.886521473916699
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.016838,
+    "iou": 0.983278,
+    "missingRatio": 0.009852,
+    "extraRatio": 0.006987,
+    "boundaryP95": 0.7025,
+    "edges": 2,
+    "strokes": 1,
+    "controlPoints": 58,
+    "totalLength": 269.95,
+    "widthCv": 0.00117,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 2,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 4.28435,
+    "turning_per_width": 0.48848,
+    "reversals_per_width": 0.14791,
+    "wiggle": 0.02318,
+    "measured_length": 269.946,
+    "coverage": 1.0,
+    "branches": 2
+   }
+  },
+  {
+   "case": "18-self-overlap",
+   "num": 18,
+   "notes": "path doubles back over itself",
+   "radius": 10.0,
+   "scale": 4.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/18-self-overlap__s4.json",
+   "extractSeconds": 0.28,
+   "seconds": 0.55,
+   "rawEdges": 2,
+   "autoEdges": 2,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.2396823277369745,
+    "centerlineP95": 1.0770887711287933,
+    "centerlineHausdorff": 2.715924881465991,
+    "recoveredToTruthP95": 1.0961425986703843,
+    "truthToRecoveredP95": 0.9973615709548606
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.2396823277369745,
+    "centerlineP95": 1.0770887711287933,
+    "centerlineHausdorff": 2.715924881465991,
+    "recoveredToTruthP95": 1.0961425986703843,
+    "truthToRecoveredP95": 0.9973615709548606
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.009319,
+    "iou": 0.990727,
+    "missingRatio": 0.004349,
+    "extraRatio": 0.00497,
+    "boundaryP95": 0.3734,
+    "edges": 2,
+    "strokes": 1,
+    "controlPoints": 49,
+    "totalLength": 270.6,
+    "widthCv": 0.01175,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 2,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 3.63104,
+    "turning_per_width": 0.43151,
+    "reversals_per_width": 0.07378,
+    "wiggle": 0.02221,
+    "measured_length": 270.599,
+    "coverage": 1.0,
+    "branches": 2
+   }
+  },
+  {
+   "case": "18-self-overlap",
+   "num": 18,
+   "notes": "path doubles back over itself",
+   "radius": 10.0,
+   "scale": 8.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/18-self-overlap__s8.json",
+   "extractSeconds": 0.47,
+   "seconds": 0.65,
+   "rawEdges": 2,
+   "autoEdges": 2,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.21887905398995183,
+    "centerlineP95": 1.4392506645342107,
+    "centerlineHausdorff": 9.954702406400697,
+    "recoveredToTruthP95": 1.90345593920116,
+    "truthToRecoveredP95": 0.9737051446597325
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.21887905398995183,
+    "centerlineP95": 1.4392506645342107,
+    "centerlineHausdorff": 9.954702406400697,
+    "recoveredToTruthP95": 1.90345593920116,
+    "truthToRecoveredP95": 0.9737051446597325
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.018119,
+    "iou": 0.98213,
+    "missingRatio": 0.004222,
+    "extraRatio": 0.013896,
+    "boundaryP95": 0.731,
+    "edges": 2,
+    "strokes": 1,
+    "controlPoints": 50,
+    "totalLength": 280.56,
+    "widthCv": 0.00195,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 2,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 3.56123,
+    "turning_per_width": 0.46682,
+    "reversals_per_width": 0.07156,
+    "wiggle": 0.0262,
+    "measured_length": 280.563,
+    "coverage": 1.0,
+    "branches": 2
+   }
+  },
+  {
+   "case": "18-self-overlap",
+   "num": 18,
+   "notes": "path doubles back over itself",
+   "radius": 10.0,
+   "scale": 16.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/18-self-overlap__s16.json",
+   "extractSeconds": 1.7,
+   "seconds": 1.89,
+   "rawEdges": 2,
+   "autoEdges": 2,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.2101160007255013,
+    "centerlineP95": 1.0346931243403792,
+    "centerlineHausdorff": 2.633898788043793,
+    "recoveredToTruthP95": 1.0758044554365895,
+    "truthToRecoveredP95": 0.9282865126674614
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.2101160007255013,
+    "centerlineP95": 1.0346931243403792,
+    "centerlineHausdorff": 2.633898788043793,
+    "recoveredToTruthP95": 1.0758044554365895,
+    "truthToRecoveredP95": 0.9282865126674614
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.009038,
+    "iou": 0.991015,
+    "missingRatio": 0.003133,
+    "extraRatio": 0.005904,
+    "boundaryP95": 0.5534,
+    "edges": 2,
+    "strokes": 1,
+    "controlPoints": 48,
+    "totalLength": 270.63,
+    "widthCv": 0.00167,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 2,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 3.54815,
+    "turning_per_width": 0.42807,
+    "reversals_per_width": 0.07388,
+    "wiggle": 0.02211,
+    "measured_length": 270.626,
+    "coverage": 1.0,
+    "branches": 2
+   }
+  },
+  {
+   "case": "19-variable-width",
+   "num": 19,
+   "notes": "radius 6 -> 16; tests width recovery",
+   "radius": 11.0,
+   "scale": 1.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/19-variable-width__s1.json",
+   "extractSeconds": 0.22,
+   "seconds": 0.26,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.37820074323419034,
+    "centerlineP95": 0.5470082491094538,
+    "centerlineHausdorff": 1.5811388300841898,
+    "recoveredToTruthP95": 0.5469707727319784,
+    "truthToRecoveredP95": 0.5470451135718385
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.37820074323419034,
+    "centerlineP95": 0.5470082491094538,
+    "centerlineHausdorff": 1.5811388300841898,
+    "recoveredToTruthP95": 0.5469707727319784,
+    "truthToRecoveredP95": 0.5470451135718385
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.042035,
+    "iou": 0.958764,
+    "missingRatio": 0.022671,
+    "extraRatio": 0.019364,
+    "boundaryP95": 1.47,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 66,
+    "totalLength": 199.51,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 7.27783,
+    "turning_per_width": 0.62584,
+    "reversals_per_width": 2.42594,
+    "wiggle": 0.02231,
+    "measured_length": 199.51,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "19-variable-width",
+   "num": 19,
+   "notes": "radius 6 -> 16; tests width recovery",
+   "radius": 11.0,
+   "scale": 2.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/19-variable-width__s2.json",
+   "extractSeconds": 0.22,
+   "seconds": 0.25,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.24668123449027746,
+    "centerlineP95": 0.3379546756112982,
+    "centerlineHausdorff": 1.2747548783981961,
+    "recoveredToTruthP95": 0.3372742960448193,
+    "truthToRecoveredP95": 0.3388746379275676
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.24668123449027746,
+    "centerlineP95": 0.3379546756112982,
+    "centerlineHausdorff": 1.2747548783981961,
+    "recoveredToTruthP95": 0.3372742960448193,
+    "truthToRecoveredP95": 0.3388746379275676
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.025622,
+    "iou": 0.974648,
+    "missingRatio": 0.014954,
+    "extraRatio": 0.010668,
+    "boundaryP95": 1.0605,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 54,
+    "totalLength": 198.96,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 6.24234,
+    "turning_per_width": 0.29715,
+    "reversals_per_width": 1.15599,
+    "wiggle": 0.00726,
+    "measured_length": 198.964,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "19-variable-width",
+   "num": 19,
+   "notes": "radius 6 -> 16; tests width recovery",
+   "radius": 11.0,
+   "scale": 4.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/19-variable-width__s4.json",
+   "extractSeconds": 0.27,
+   "seconds": 0.29,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.13201464090778137,
+    "centerlineP95": 0.17414251239879577,
+    "centerlineHausdorff": 0.6373774391990981,
+    "recoveredToTruthP95": 0.17411465482917793,
+    "truthToRecoveredP95": 0.1742821797734916
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.13201464090778137,
+    "centerlineP95": 0.17414251239879577,
+    "centerlineHausdorff": 0.6373774391990981,
+    "recoveredToTruthP95": 0.17411465482917793,
+    "truthToRecoveredP95": 0.1742821797734916
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.023025,
+    "iou": 0.977179,
+    "missingRatio": 0.014118,
+    "extraRatio": 0.008907,
+    "boundaryP95": 0.8645,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 40,
+    "totalLength": 199.4,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 4.26486,
+    "turning_per_width": 0.15289,
+    "reversals_per_width": 0.10662,
+    "wiggle": 0.00488,
+    "measured_length": 199.397,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "19-variable-width",
+   "num": 19,
+   "notes": "radius 6 -> 16; tests width recovery",
+   "radius": 11.0,
+   "scale": 8.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/19-variable-width__s8.json",
+   "extractSeconds": 0.4,
+   "seconds": 0.42,
+   "rawEdges": 3,
+   "autoEdges": 3,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.08768124086712852,
+    "centerlineP95": 4.776200313381873,
+    "centerlineHausdorff": 15.997583817564458,
+    "recoveredToTruthP95": 10.106942527191245,
+    "truthToRecoveredP95": 0.08768124086713856
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.08768124086712852,
+    "centerlineP95": 4.776200313381873,
+    "centerlineHausdorff": 15.997583817564458,
+    "recoveredToTruthP95": 10.106942527191245,
+    "truthToRecoveredP95": 0.08768124086713856
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.286811,
+    "iou": 0.755373,
+    "missingRatio": 0.114369,
+    "extraRatio": 0.172442,
+    "boundaryP95": 7.2248,
+    "edges": 3,
+    "strokes": 1,
+    "controlPoints": 6,
+    "totalLength": 231.91,
+    "widthCv": 0.09539,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 3,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.2187,
+    "turning_per_width": 0.0,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.0,
+    "measured_length": 200.0,
+    "coverage": 0.86241,
+    "branches": 1
+   }
+  },
+  {
+   "case": "19-variable-width",
+   "num": 19,
+   "notes": "radius 6 -> 16; tests width recovery",
+   "radius": 11.0,
+   "scale": 16.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/19-variable-width__s16.json",
+   "extractSeconds": 1.19,
+   "seconds": 1.2,
+   "rawEdges": 1,
+   "autoEdges": 1,
+   "lam": 0.0,
+   "rawTruth": {
+    "centerlineMedian": 0.17456620201645592,
+    "centerlineP95": 0.24482444217122962,
+    "centerlineHausdorff": 0.2526586752479997,
+    "recoveredToTruthP95": 0.24460460837143358,
+    "truthToRecoveredP95": 0.24485139084021182
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.17456620201645592,
+    "centerlineP95": 0.24482444217122962,
+    "centerlineHausdorff": 0.2526586752479997,
+    "recoveredToTruthP95": 0.24460460837143358,
+    "truthToRecoveredP95": 0.24485139084021182
+   },
+   "autoRecon": {
+    "lam": 0.0,
+    "error": 0.276316,
+    "iou": 0.75509,
+    "missingRatio": 0.148082,
+    "extraRatio": 0.128234,
+    "boundaryP95": 5.059,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 2,
+    "totalLength": 199.81,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 0.0,
+     "removed": 0,
+     "removedLength": 0.0,
+     "passes": 0,
+     "keptEdges": 1,
+     "merges": 0
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.21987,
+    "turning_per_width": 0.0,
+    "reversals_per_width": 0.0,
+    "wiggle": 0.0,
+    "measured_length": 199.812,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "20-noisy-boundary",
+   "num": 20,
+   "notes": "vectorizer-like boundary jitter; spawns spurious branches",
+   "radius": 10.0,
+   "scale": 1.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/20-noisy-boundary__s1.json",
+   "extractSeconds": 0.28,
+   "seconds": 0.4,
+   "rawEdges": 20,
+   "autoEdges": 1,
+   "lam": 1.5,
+   "rawTruth": {
+    "centerlineMedian": 0.8883284687452022,
+    "centerlineP95": 8.129036454821053,
+    "centerlineHausdorff": 11.512049904339362,
+    "recoveredToTruthP95": 9.02238127959284,
+    "truthToRecoveredP95": 1.4723369757038547
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.9002291029345589,
+    "centerlineP95": 1.4972051852219523,
+    "centerlineHausdorff": 1.8845835488222427,
+    "recoveredToTruthP95": 1.5134065127920069,
+    "truthToRecoveredP95": 1.4754579494419926
+   },
+   "autoRecon": {
+    "lam": 1.5,
+    "error": 0.055913,
+    "iou": 0.945918,
+    "missingRatio": 0.022061,
+    "extraRatio": 0.033852,
+    "boundaryP95": 1.7859,
+    "edges": 1,
+    "strokes": 1,
+    "controlPoints": 33,
+    "totalLength": 199.58,
+    "widthCv": 0.0,
+    "prune": {
+     "lam": 1.5,
+     "removed": 16,
+     "removedLength": 118.859,
+     "passes": 2,
+     "keptEdges": 1,
+     "merges": 3
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 3.30696,
+    "turning_per_width": 0.35852,
+    "reversals_per_width": 1.40295,
+    "wiggle": 0.01574,
+    "measured_length": 199.579,
+    "coverage": 1.0,
+    "branches": 1
+   }
+  },
+  {
+   "case": "20-noisy-boundary",
+   "num": 20,
+   "notes": "vectorizer-like boundary jitter; spawns spurious branches",
+   "radius": 10.0,
+   "scale": 2.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/20-noisy-boundary__s2.json",
+   "extractSeconds": 0.27,
+   "seconds": 0.46,
+   "rawEdges": 23,
+   "autoEdges": 4,
+   "lam": 2.0,
+   "rawTruth": {
+    "centerlineMedian": 0.6697063614018051,
+    "centerlineP95": 9.112716105567882,
+    "centerlineHausdorff": 11.165025436603354,
+    "recoveredToTruthP95": 9.619054688103192,
+    "truthToRecoveredP95": 0.9869048751792283
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.6527560545598843,
+    "centerlineP95": 6.74330457770748,
+    "centerlineHausdorff": 11.165025436603354,
+    "recoveredToTruthP95": 8.415160367182262,
+    "truthToRecoveredP95": 0.9855117758004884
+   },
+   "autoRecon": {
+    "lam": 2.0,
+    "error": 0.031343,
+    "iou": 0.969415,
+    "missingRatio": 0.006568,
+    "extraRatio": 0.024775,
+    "boundaryP95": 1.9013,
+    "edges": 4,
+    "strokes": 4,
+    "controlPoints": 63,
+    "totalLength": 250.57,
+    "widthCv": 0.28304,
+    "prune": {
+     "lam": 2.0,
+     "removed": 14,
+     "removedLength": 68.902,
+     "passes": 1,
+     "keptEdges": 4,
+     "merges": 5
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 3.86053,
+    "turning_per_width": 0.49706,
+    "reversals_per_width": 1.11348,
+    "wiggle": 0.05187,
+    "measured_length": 250.57,
+    "coverage": 1.0,
+    "branches": 4
+   }
+  },
+  {
+   "case": "20-noisy-boundary",
+   "num": 20,
+   "notes": "vectorizer-like boundary jitter; spawns spurious branches",
+   "radius": 10.0,
+   "scale": 4.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/20-noisy-boundary__s4.json",
+   "extractSeconds": 0.33,
+   "seconds": 0.51,
+   "rawEdges": 43,
+   "autoEdges": 4,
+   "lam": 3.0,
+   "rawTruth": {
+    "centerlineMedian": 0.7831874125236449,
+    "centerlineP95": 9.50340710229422,
+    "centerlineHausdorff": 11.493967678743486,
+    "recoveredToTruthP95": 9.884929432429042,
+    "truthToRecoveredP95": 1.0275746911344457
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.736730838092813,
+    "centerlineP95": 1.9974255624014132,
+    "centerlineHausdorff": 10.796841806750708,
+    "recoveredToTruthP95": 6.020738129239181,
+    "truthToRecoveredP95": 1.0269543614963046
+   },
+   "autoRecon": {
+    "lam": 3.0,
+    "error": 0.02339,
+    "iou": 0.976869,
+    "missingRatio": 0.012165,
+    "extraRatio": 0.011225,
+    "boundaryP95": 1.1999,
+    "edges": 4,
+    "strokes": 4,
+    "controlPoints": 39,
+    "totalLength": 224.19,
+    "widthCv": 0.24108,
+    "prune": {
+     "lam": 3.0,
+     "removed": 32,
+     "removedLength": 140.247,
+     "passes": 2,
+     "keptEdges": 4,
+     "merges": 7
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 2.36267,
+    "turning_per_width": 0.23366,
+    "reversals_per_width": 0.23214,
+    "wiggle": 0.01919,
+    "measured_length": 224.195,
+    "coverage": 1.0,
+    "branches": 4
+   }
+  },
+  {
+   "case": "20-noisy-boundary",
+   "num": 20,
+   "notes": "vectorizer-like boundary jitter; spawns spurious branches",
+   "radius": 10.0,
+   "scale": 8.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/20-noisy-boundary__s8.json",
+   "extractSeconds": 0.59,
+   "seconds": 0.89,
+   "rawEdges": 106,
+   "autoEdges": 21,
+   "lam": 3.0,
+   "rawTruth": {
+    "centerlineMedian": 0.8280460478360774,
+    "centerlineP95": 9.769670721165586,
+    "centerlineHausdorff": 11.554380814219341,
+    "recoveredToTruthP95": 10.046477790748359,
+    "truthToRecoveredP95": 0.9341508311931742
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.7289143314615134,
+    "centerlineP95": 7.728417405777465,
+    "centerlineHausdorff": 10.665726229376045,
+    "recoveredToTruthP95": 8.86254520898185,
+    "truthToRecoveredP95": 0.9167396610063558
+   },
+   "autoRecon": {
+    "lam": 3.0,
+    "error": 0.029672,
+    "iou": 0.970921,
+    "missingRatio": 0.009264,
+    "extraRatio": 0.020408,
+    "boundaryP95": 2.0294,
+    "edges": 21,
+    "strokes": 5,
+    "controlPoints": 76,
+    "totalLength": 285.71,
+    "widthCv": 0.41174,
+    "prune": {
+     "lam": 3.0,
+     "removed": 66,
+     "removedLength": 129.642,
+     "passes": 2,
+     "keptEdges": 21,
+     "merges": 19
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 0.94195,
+    "turning_per_width": 0.35963,
+    "reversals_per_width": 0.11541,
+    "wiggle": 0.02994,
+    "measured_length": 262.36,
+    "coverage": 0.91827,
+    "branches": 8
+   }
+  },
+  {
+   "case": "20-noisy-boundary",
+   "num": 20,
+   "notes": "vectorizer-like boundary jitter; spawns spurious branches",
+   "radius": 10.0,
+   "scale": 16.0,
+   "status": "ok",
+   "graph": "debug/pruning-scoring/scalesweep/graphs/20-noisy-boundary__s16.json",
+   "extractSeconds": 1.2,
+   "seconds": 1.77,
+   "rawEdges": 201,
+   "autoEdges": 59,
+   "lam": 10.0,
+   "rawTruth": {
+    "centerlineMedian": 0.926601799821541,
+    "centerlineP95": 9.804177280903765,
+    "centerlineHausdorff": 11.7030666066634,
+    "recoveredToTruthP95": 10.006249039045107,
+    "truthToRecoveredP95": 0.9511483944812623
+   },
+   "autoTruth": {
+    "centerlineMedian": 0.7775360751035763,
+    "centerlineP95": 7.721181990374135,
+    "centerlineHausdorff": 10.20702287643171,
+    "recoveredToTruthP95": 8.490229691259929,
+    "truthToRecoveredP95": 0.9538228206565648
+   },
+   "autoRecon": {
+    "lam": 10.0,
+    "error": 0.032941,
+    "iou": 0.967732,
+    "missingRatio": 0.012088,
+    "extraRatio": 0.020853,
+    "boundaryP95": 2.6758,
+    "edges": 59,
+    "strokes": 17,
+    "controlPoints": 195,
+    "totalLength": 292.29,
+    "widthCv": 0.37228,
+    "prune": {
+     "lam": 10.0,
+     "removed": 103,
+     "removedLength": 197.519,
+     "passes": 3,
+     "keptEdges": 59,
+     "merges": 39
+    }
+   },
+   "smoothness": {
+    "verts_per_width": 1.11557,
+    "turning_per_width": 0.36471,
+    "reversals_per_width": 0.12168,
+    "wiggle": 0.02316,
+    "measured_length": 243.525,
+    "coverage": 0.83316,
+    "branches": 7
+   }
+  }
+ ]
+}

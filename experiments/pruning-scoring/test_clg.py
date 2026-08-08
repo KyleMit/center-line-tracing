@@ -185,6 +185,73 @@ def test_boundary_distance_symmetry() -> None:
     check("symmetric", abs(med - med2) < 1e-6, f"{med:.4f} vs {med2:.4f}")
 
 
+def test_boundary_index_matches_brute_force() -> None:
+    print("the indexed boundary distance equals the unindexed one")
+    import numpy as np
+    import shapely
+
+    # A deliberately awkward pair: a many-armed star against a fat capsule, so
+    # nearest segments are genuinely scattered rather than all on one ring.
+    arms = [(math.cos(t) * (60 if i % 2 else 100) + 200,
+             math.sin(t) * (60 if i % 2 else 100) + 200)
+            for i, t in enumerate(np.linspace(0, 2 * math.pi, 41)[:-1])]
+    star = shapely.geometry.Polygon(arms)
+    blob = LineString([(120, 200), (280, 200)]).buffer(50)
+
+    for a, b in ((star, blob), (blob, star)):
+        pts = metrics._boundary_points(a, 2.0)
+        brute = shapely.distance(shapely.points(pts), b.boundary)
+        fast = metrics.nearest_boundary_distance(pts, b, 2.0)
+        check(f"{len(pts)} samples agree to 1e-9",
+              float(np.max(np.abs(brute - fast))) < 1e-9,
+              f"max delta {float(np.max(np.abs(brute - fast))):.3e}")
+        check("every sample got a nearest segment", bool(np.isfinite(fast).all()))
+
+
+def test_centerline_error_needs_both_directions() -> None:
+    print("centerline error separates invented geometry from missed geometry")
+    truth = [[[0.0, 0.0], [100.0, 0.0]]]
+
+    exact = CenterlineGraph(view_box=[0, 0, 120, 40])
+    exact.nodes["a"] = Node(id="a", x=0.0, y=0.0, radius=10.0)
+    exact.nodes["b"] = Node(id="b", x=100.0, y=0.0, radius=10.0)
+    exact.edges["e1"] = Edge(id="e1", frm="a", to="b",
+                             points=[(0.0, 0.0), (100.0, 0.0)],
+                             length=100.0, median_radius=10.0)
+    m = metrics.centerline_error(exact, truth)
+    check("an exact centerline scores 0", m["centerlineMedian"] < 1e-9,
+          f"{m['centerlineMedian']:.6f}")
+
+    # a spur the source never had: invented, not missed
+    spurred = exact.copy()
+    spurred.nodes["c"] = Node(id="c", x=50.0, y=20.0, radius=10.0)
+    spurred.edges["spur"] = Edge(id="spur", frm="b", to="c",
+                                 points=[(50.0, 0.0), (50.0, 20.0)],
+                                 length=20.0, median_radius=10.0)
+    # Both directions have a floor at ~half the densification step, because the
+    # two point sets are sampled independently and need not land on each other.
+    # Anything below that is sampling noise, not geometry.
+    floor = 0.5
+    ms = metrics.centerline_error(spurred, truth)
+    check("a spurious branch shows up as invented geometry",
+          ms["recoveredToTruthP95"] > 5.0, f"{ms['recoveredToTruthP95']:.3f}")
+    check("...and not as missed geometry",
+          ms["truthToRecoveredP95"] < floor, f"{ms['truthToRecoveredP95']:.3f}")
+
+    # half the stroke deleted: missed, not invented — the over-pruning failure
+    half = CenterlineGraph(view_box=[0, 0, 120, 40])
+    half.nodes["a"] = Node(id="a", x=0.0, y=0.0, radius=10.0)
+    half.nodes["b"] = Node(id="b", x=50.0, y=0.0, radius=10.0)
+    half.edges["e1"] = Edge(id="e1", frm="a", to="b",
+                            points=[(0.0, 0.0), (50.0, 0.0)],
+                            length=50.0, median_radius=10.0)
+    mh = metrics.centerline_error(half, truth)
+    check("a deleted half shows up as missed geometry",
+          mh["truthToRecoveredP95"] > 40.0, f"{mh['truthToRecoveredP95']:.3f}")
+    check("...and not as invented geometry",
+          mh["recoveredToTruthP95"] < floor, f"{mh['recoveredToTruthP95']:.3f}")
+
+
 def main() -> int:
     for fn in (
         test_merge_preserves_geometry,
@@ -193,6 +260,8 @@ def main() -> int:
         test_pruning_is_scale_free,
         test_schema_round_trip,
         test_boundary_distance_symmetry,
+        test_boundary_index_matches_brute_force,
+        test_centerline_error_needs_both_directions,
         test_fill_rule,
         test_vector_matches_raster,
     ):
